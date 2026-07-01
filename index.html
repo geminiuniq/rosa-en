@@ -439,11 +439,34 @@ const SAMPLE_NEXT={
   vocab:[{w:"extend",pos:"v.",en:"to offer or give (formally)",zh:"给予；延伸",ex:"We extend our apologies.",use:"extend apologies / an invitation"}]
 };
 
+/* ---------- DATABASE LAYER (write-through cache) ----------
+   When served by the local Node backend (server.js), all data is synced to
+   SQLite. When opened as a plain file, it silently falls back to localStorage. */
+const STUDENT='default';
+const DB={
+  on:false,
+  async init(){ try{const r=await fetch('/api/health',{cache:'no-store'}); this.on=!!(r&&r.ok);}catch(e){this.on=false;} return this.on; },
+  async pull(){
+    if(!this.on) return;
+    try{
+      const st=await (await fetch('/api/state?student='+STUDENT)).json();
+      if(st&&st.current){ state.current=st.current; state.unlocked=st.unlocked||st.current; if(st.startDate) state.startDate=st.startDate; }
+      const d=await (await fetch('/api/days')).json();
+      if(d&&typeof d==='object'){ for(const k in d) days[k]=d[k]; }
+      const nb=await (await fetch('/api/notebook?student='+STUDENT)).json();
+      if(Array.isArray(nb)) notebook=nb;
+    }catch(e){ console.warn('DB pull failed',e); }
+  },
+  post(p,body){ if(!this.on) return; fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).catch(()=>{}); }
+};
+function persistState(){ LS.set('state',state); DB.post('state',{student:STUDENT,current:state.current,unlocked:state.unlocked,startDate:state.startDate}); }
+function persistDay(n){ LS.set('days',days); if(days[n]) DB.post('day',{day:+n,content:days[n]}); }
+function persistNotebook(){ LS.set('notebook',notebook); DB.post('notebook',{student:STUDENT,items:notebook}); }
+function logAttempt(day,q,chosenVal,correct,kind){ DB.post('attempt',{student:STUDENT,day:day,qid:q.id,topic:q.topic||'',chosen:(chosenVal==null?-1:chosenVal),correct:correct?1:0,kind:kind||'mcq'}); }
+
 /* ---------- STATE ---------- */
 let state=LS.get('state',{current:1,unlocked:1,startDate:null});
-if(!state.startDate){state.startDate=todayStr();LS.set('state',state);}
 let days=LS.get('days',{1:DAY1});
-if(!days[1]) {days[1]=DAY1; LS.set('days',days);}
 let notebook=LS.get('notebook',[]); // [{id,stem,options,answer,expl,topic,correctStreak,mastered,dayAdded}]
 
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
@@ -568,16 +591,16 @@ function gradeMCQ(){
     document.getElementById('expl-mcq-'+q.id).classList.add('show');
     const opts=wrap.querySelectorAll('.opt');
     opts[q.answer].classList.add('correct');
-    if(chosen){
-      const val=+chosen.value;
-      if(val===q.answer){correct++;}
-      else{opts[val].classList.add('wrong'); addToNotebook(q);}
-    } else { addToNotebook(q); }
+    const val=chosen?+chosen.value:null;
+    const isRight=(val===q.answer);
+    if(isRight){correct++;}
+    else{ if(val!=null) opts[val].classList.add('wrong'); addToNotebook(q); }
+    logAttempt(state.current,q,val,isRight,'mcq');
   });
   const sb=document.getElementById('mcqScore');
   sb.classList.add('show');
   sb.innerHTML='得分：'+correct+' / '+total+'　'+(correct===total?'🏆 满分！':'❗ 错题已加入错题本，后续会复现考察。');
-  LS.set('notebook',notebook); updateNbBadge(); renderNotebook();
+  persistNotebook(); updateNbBadge(); renderNotebook();
 }
 function addToNotebook(q){
   if(notebook.find(n=>n.id===q.id)) return;
@@ -593,11 +616,13 @@ function gradeReview(){
     const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct');
     if(chosen){
       const val=+chosen.value;
-      if(val===q.answer){q.correctStreak=(q.correctStreak||0)+1; if(q.correctStreak>=2) q.mastered=true;}
+      const isRight=(val===q.answer);
+      if(isRight){q.correctStreak=(q.correctStreak||0)+1; if(q.correctStreak>=2) q.mastered=true;}
       else{opts[val].classList.add('wrong'); q.correctStreak=0;}
+      logAttempt(state.current,q,val,isRight,'review');
     }
   });
-  LS.set('notebook',notebook); updateNbBadge(); renderNotebook();
+  persistNotebook(); updateNbBadge(); renderNotebook();
   setTimeout(renderReview,1200);
 }
 
@@ -612,9 +637,9 @@ document.getElementById('tabs').addEventListener('click',e=>{
 });
 
 /* ---------- NAV ---------- */
-document.getElementById('prevDay').onclick=()=>{if(state.current>1){state.current--;LS.set('state',state);render();}};
+document.getElementById('prevDay').onclick=()=>{if(state.current>1){state.current--;persistState();render();}};
 document.getElementById('gradeMcq').onclick=gradeMCQ;
-document.getElementById('clearMastered').onclick=()=>{notebook=notebook.filter(n=>!n.mastered);LS.set('notebook',notebook);renderNotebook();updateNbBadge();};
+document.getElementById('clearMastered').onclick=()=>{notebook=notebook.filter(n=>!n.mastered);persistNotebook();renderNotebook();updateNbBadge();};
 
 /* ---------- GENERATE NEXT DAY ---------- */
 const modal=document.getElementById('genModal');
@@ -622,7 +647,7 @@ document.getElementById('genNext').onclick=()=>{
   const next=state.current+1;
   if(next>100){alert('🎉 已经是第100天，冲刺完成！祝你考出 A1！');return;}
   // If next day already exists, just go there
-  if(days[next]){state.current=next;LS.set('state',state);render();window.scrollTo({top:0,behavior:'smooth'});return;}
+  if(days[next]){state.current=next;persistState();render();window.scrollTo({top:0,behavior:'smooth'});return;}
   buildPrompt(next);
   document.getElementById('modalDay').textContent='第 '+next+' 天';
   document.getElementById('jsonIn').value='';
@@ -679,8 +704,8 @@ function doImport(raw){
   const need=['day','vocab','mcqs'];
   for(const k of need){ if(!(k in obj)){err.textContent='❌ 缺少必要字段：'+k;err.style.display='block';return;} }
   const dnum=+obj.day||(state.current+1);
-  days[dnum]=obj; LS.set('days',days);
-  state.current=dnum; state.unlocked=Math.max(state.unlocked,dnum); LS.set('state',state);
+  days[dnum]=obj; persistDay(dnum);
+  state.current=dnum; state.unlocked=Math.max(state.unlocked,dnum); persistState();
   ok.textContent='✅ 第 '+dnum+' 天导入成功！正在打开…'; ok.style.display='block';
   setTimeout(()=>{modal.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});},700);
 }
@@ -690,7 +715,19 @@ function escapeHTML(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
 function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
 
 /* ---------- BOOT ---------- */
-render();
+(async function boot(){
+  await DB.init();
+  await DB.pull();                      // hydrate from SQLite if backend is up
+  if(!days[1]) days[1]=DAY1;            // ensure Day 1 seed exists
+  if(!state.startDate) state.startDate=todayStr();
+  persistDay(1);                        // make sure server has the seed
+  persistState();
+  LS.set('notebook',notebook);          // keep local cache in sync with DB
+  const hint=document.getElementById('genHint');
+  if(DB.on){ hint.innerHTML='🗄️ 已连接本地数据库 <b>SQLite</b>（db/rosa.db）· 每天内容与学习记录自动保存。'; }
+  else { hint.innerHTML='💾 当前为离线文件模式（数据存浏览器本地）。运行 <code>node server.js</code> 可启用数据库存储。'; }
+  render();
+})();
 </script>
 </body>
 </html>
