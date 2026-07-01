@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O-Level 英文 · 100天冲A计划</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222c; --line:#2a2f3a;
+    --ink:#e8ebf0; --ink2:#9aa3b2; --ink3:#6b7280;
+    --brand:#4f8cff; --brand2:#7aa8ff; --good:#33c98b; --bad:#ff5d6c; --warn:#ffb020;
+    --gold:#ffd479;
+    --radius:14px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#0d0f14,#0f1115 40%);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:15px}
+  a{color:var(--brand2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:940px;margin:0 auto;padding:20px 18px 120px}
+
+  /* Header */
+  header.hero{position:relative;background:radial-gradient(1200px 300px at 20% -30%,rgba(79,140,255,.28),transparent),var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);overflow:hidden}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .brand{font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--ink2)}
+  .brand b{color:var(--brand2)}
+  .daybadge{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+  .daybadge .d{font-size:52px;font-weight:900;line-height:1;background:linear-gradient(180deg,#fff,#8fb4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .daybadge .of{font-size:15px;color:var(--ink2)}
+  .theme{margin-top:8px;font-size:17px;font-weight:700}
+  .theme .en{color:var(--ink2);font-weight:500;font-size:14px}
+  .phasepill{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(79,140,255,.14);color:var(--brand2);border:1px solid rgba(79,140,255,.3);margin-top:10px}
+  .countdown{text-align:right}
+  .countdown .n{font-size:34px;font-weight:900;color:var(--gold)}
+  .countdown .l{font-size:12px;color:var(--ink2)}
+  .progress{margin-top:16px;height:8px;background:#0c0e13;border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+  .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--good));width:0}
+
+  /* Tabs */
+  nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px;position:sticky;top:0;z-index:20;
+    background:linear-gradient(180deg,#0f1115,rgba(15,17,21,.85));padding:8px 0;backdrop-filter:blur(6px)}
+  .tab{cursor:pointer;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);font-weight:600;font-size:14px;user-select:none}
+  .tab .em{margin-right:6px}
+  .tab:hover{color:var(--ink)}
+  .tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .tab .badge{display:inline-block;min-width:18px;text-align:center;font-size:11px;background:var(--bad);color:#fff;border-radius:99px;padding:0 5px;margin-left:6px}
+
+  section.panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);animation:fade .25s ease}
+  section.panel.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  h2.sec{font-size:20px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  h2.sec .zh{}
+  .sub{color:var(--ink2);font-size:13px;margin:0 0 18px}
+  h3{font-size:16px;margin:22px 0 8px;color:#dbe4f5}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  .kpt{border-left:3px solid var(--brand)}
+  .kpt .t{font-weight:700;margin-bottom:4px}
+  .kpt .en{color:var(--ink2);font-size:13px}
+  .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:#232838;color:var(--ink2);margin-right:6px}
+  .tag.new{background:rgba(51,201,139,.16);color:#6fe0b0}
+  .tag.rev{background:rgba(255,176,32,.16);color:var(--warn)}
+  ul.clean{margin:8px 0;padding-left:20px}
+  ul.clean li{margin:5px 0}
+
+  /* Materials */
+  .mat{display:flex;gap:14px;align-items:flex-start}
+  .mat .ic{font-size:22px;flex:0 0 auto;margin-top:2px}
+  .mat .body{flex:1}
+  .mat .ttl{font-weight:700}
+  .mat .src{font-size:12px;color:var(--ink3)}
+  .mat .why{font-size:13px;color:var(--ink2);margin-top:4px}
+  .mat a.go{font-size:13px;font-weight:700;white-space:nowrap}
+
+  /* MCQ */
+  .q{margin:14px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+  .q .stem{font-weight:600;margin-bottom:10px}
+  .q .stem .no{color:var(--brand2);font-weight:800;margin-right:8px}
+  .opt{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:9px;margin:6px 0;cursor:pointer;transition:.15s}
+  .opt:hover{border-color:var(--brand)}
+  .opt input{margin-right:9px}
+  .opt.correct{border-color:var(--good);background:rgba(51,201,139,.1)}
+  .opt.wrong{border-color:var(--bad);background:rgba(255,93,108,.1)}
+  .expl{margin-top:10px;padding:10px 12px;border-radius:9px;background:#12151d;border:1px dashed var(--line);font-size:13.5px;color:var(--ink2);display:none}
+  .expl.show{display:block}
+  .expl b{color:var(--good)}
+
+  .btn{cursor:pointer;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:14px;font-family:inherit}
+  .btn.primary{background:var(--brand);color:#fff}
+  .btn.primary:hover{background:#3f7bef}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--brand)}
+  .btn.gold{background:linear-gradient(90deg,#ffcf6b,#ff9f45);color:#3a2600}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .scorebox{margin-top:14px;padding:12px 16px;border-radius:10px;background:#12151d;border:1px solid var(--line);font-weight:700;display:none}
+  .scorebox.show{display:block}
+
+  /* Reading + writing */
+  .passage{white-space:pre-wrap;background:#12151d;border:1px solid var(--line);border-radius:10px;padding:16px 18px;font-size:14.5px;line-height:1.8;max-height:none}
+  textarea.ans{width:100%;min-height:70px;background:#0c0e13;border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font-family:inherit;font-size:14px;resize:vertical}
+  .model{display:none;margin-top:8px;padding:12px 14px;border-radius:9px;background:rgba(51,201,139,.08);border:1px solid rgba(51,201,139,.3);font-size:14px}
+  .model.show{display:block}
+  .model .mk{font-size:12px;color:var(--warn);font-weight:700;margin-bottom:4px}
+  .rubric{display:grid;grid-template-columns:1fr;gap:8px;margin:10px 0}
+  .rubric .r{display:flex;gap:10px;align-items:flex-start;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+  .rubric .r .pts{flex:0 0 auto;font-weight:800;color:var(--gold)}
+  .wc{font-size:12px;color:var(--ink2);text-align:right;margin-top:4px}
+
+  /* Vocab */
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px}
+  .vcard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative}
+  .vcard .w{font-size:19px;font-weight:800}
+  .vcard .pos{font-style:italic;color:var(--brand2);font-size:13px;margin-left:6px}
+  .vcard .en{font-size:13px;color:var(--ink2);margin-top:4px}
+  .vcard .zh{font-size:14px;margin-top:2px}
+  .vcard .ex{font-size:13px;margin-top:8px;color:#cdd6e6;border-left:2px solid var(--brand);padding-left:9px}
+  .vcard .use{font-size:12px;margin-top:7px;color:var(--warn)}
+  .vcard .no{position:absolute;top:12px;right:14px;color:var(--ink3);font-size:12px;font-weight:700}
+
+  /* Notebook */
+  .empty{color:var(--ink2);text-align:center;padding:40px 10px}
+  .nb-item{border-left:3px solid var(--warn)}
+  .nb-meta{font-size:12px;color:var(--ink3);margin-top:8px}
+  .mastered{border-left-color:var(--good)!important;opacity:.7}
+
+  /* Footer gen bar */
+  .genbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,rgba(15,17,21,0),#0b0d11 30%);padding:14px 18px 18px}
+  .genbar .inner{max-width:940px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:var(--shadow)}
+  .genbar .hint{font-size:13px;color:var(--ink2)}
+
+  /* Modal */
+  .modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)}
+  .modal.show{display:flex}
+  .modal .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:720px;width:100%;max-height:88vh;overflow:auto;padding:22px 24px;box-shadow:var(--shadow)}
+  .modal h3{margin-top:0}
+  .step{font-size:12px;font-weight:800;color:var(--brand2);letter-spacing:.5px}
+  .codearea{width:100%;min-height:150px;background:#0c0e13;border:1px solid var(--line);border-radius:10px;color:#cdd6e6;padding:12px;font-family:var(--mono);font-size:12.5px;resize:vertical;white-space:pre-wrap}
+  .x{float:right;cursor:pointer;color:var(--ink2);font-size:22px;line-height:1}
+  .ok{color:var(--good);font-size:13px;margin-top:6px;display:none}
+  .err{color:var(--bad);font-size:13px;margin-top:6px;display:none}
+  .divider{height:1px;background:var(--line);margin:18px 0}
+  small.muted{color:var(--ink3)}
+  .kicker{font-size:12px;color:var(--ink3);margin-top:24px;text-align:center}
+  @media(max-width:560px){.daybadge .d{font-size:42px}.wrap{padding:14px 12px 130px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="brand">ROSA · <b>O-Level English</b> 100天冲A计划 <span style="color:var(--ink3)">/ Sprint to A1</span></div>
+        <div class="daybadge"><span class="d" id="dayNum">1</span><span class="of">/ 100 天</span></div>
+        <div class="theme" id="theme">主题加载中…</div>
+        <span class="phasepill" id="phase">阶段</span>
+      </div>
+      <div class="countdown">
+        <div class="n" id="cdNum">100</div>
+        <div class="l">距考试倒数（天）<br><small class="muted" id="cdNote">按今日=Day1估算</small></div>
+      </div>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <div class="tab active" data-tab="overview"><span class="em">📌</span>今日概览</div>
+    <div class="tab" data-tab="materials"><span class="em">📰</span>参考材料</div>
+    <div class="tab" data-tab="practice"><span class="em">✍️</span>考题练习</div>
+    <div class="tab" data-tab="vocab"><span class="em">🔤</span>单词 30</div>
+    <div class="tab" data-tab="notebook"><span class="em">📕</span>错题本<span class="badge" id="nbBadge" style="display:none">0</span></div>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="panel show" id="p-overview">
+    <h2 class="sec"><span class="zh">📌 今日知识点</span></h2>
+    <p class="sub" id="ov-sub">Knowledge points to master today</p>
+    <div id="ov-goals"></div>
+    <div id="ov-kpts"></div>
+  </section>
+
+  <!-- MATERIALS -->
+  <section class="panel" id="p-materials">
+    <h2 class="sec"><span class="zh">📰 参考材料</span></h2>
+    <p class="sub">真实可点链接：新闻 · 深度文章 · 阅读 · 名著选段。建议先读，再做练习。</p>
+    <div id="mat-list"></div>
+    <p class="kicker">💡 阅读时用今天的单词/知识点做「主动阅读」：圈出生词、复述段落大意、注意好句型。</p>
+  </section>
+
+  <!-- PRACTICE -->
+  <section class="panel" id="p-practice">
+    <h2 class="sec"><span class="zh">✍️ 考题练习</span></h2>
+    <p class="sub">客观题即时批改 · 阅读题给参考答案 · 写作题给范文与评分表。做错的客观题自动进入错题本。</p>
+
+    <h3>① 错题复习 <small class="muted">Spaced review — 直到答对2次才「毕业」</small></h3>
+    <div id="pr-review"></div>
+
+    <h3>② 客观题 MCQ <small class="muted">语法 · 词汇 · 编辑改错</small></h3>
+    <div id="pr-mcq"></div>
+    <div class="btnrow"><button class="btn primary" id="gradeMcq">提交批改 Submit &amp; Grade</button></div>
+    <div class="scorebox" id="mcqScore"></div>
+
+    <h3>③ 阅读理解 Comprehension</h3>
+    <div id="pr-reading"></div>
+
+    <h3>④ 写作 Writing</h3>
+    <div id="pr-writing"></div>
+  </section>
+
+  <!-- VOCAB -->
+  <section class="panel" id="p-vocab">
+    <h2 class="sec"><span class="zh">🔤 今日单词</span></h2>
+    <p class="sub">S4 优秀生高频词 · 30 个 / 天 · 含中英释义、经典例句、重要用法。<span class="tag new">new 新词</span><span class="tag rev">review 复习</span></p>
+    <div class="vgrid" id="voc-grid"></div>
+  </section>
+
+  <!-- NOTEBOOK -->
+  <section class="panel" id="p-notebook">
+    <h2 class="sec"><span class="zh">📕 错题本</span></h2>
+    <p class="sub">所有做错的客观题都在这里，会在后续每天的「错题复习」中重复考察，答对2次即标记为已掌握。</p>
+    <div class="btnrow"><button class="btn ghost" id="clearMastered">清除已掌握</button></div>
+    <div id="nb-list"></div>
+  </section>
+
+  <p class="kicker">数据保存在此浏览器本地（localStorage）。换设备或清缓存会丢失。 · Built for the A1/A2 goal 🎯</p>
+</div>
+
+<!-- GENERATE NEXT DAY BAR -->
+<div class="genbar">
+  <div class="inner">
+    <div class="hint" id="genHint">✅ 完成今天的练习和单词后，点击右侧生成下一天。</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn ghost" id="prevDay">← 上一天</button>
+      <button class="btn gold" id="genNext">生成下一天 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: generate next day -->
+<div class="modal" id="genModal">
+  <div class="box">
+    <span class="x" id="closeModal">×</span>
+    <h3>🚀 生成 <span id="modalDay">第 2 天</span> 的学习内容</h3>
+    <p class="sub" style="margin-bottom:14px">采用「实时调用 Claude」模式，保证内容最新鲜、并复现你错题本里的薄弱题型。三步完成：</p>
+
+    <div class="step">STEP 1 · 复制这段提示词，发给 Claude</div>
+    <textarea class="codearea" id="promptOut" readonly style="min-height:180px"></textarea>
+    <div class="btnrow"><button class="btn primary" id="copyPrompt">📋 复制提示词</button></div>
+
+    <div class="divider"></div>
+
+    <div class="step">STEP 2 · 把 Claude 返回的 JSON 粘贴到这里</div>
+    <textarea class="codearea" id="jsonIn" placeholder='在此粘贴以 { 开头的 JSON …'></textarea>
+    <div class="ok" id="importOk"></div>
+    <div class="err" id="importErr"></div>
+
+    <div class="divider"></div>
+    <div class="step">STEP 3 · 解锁</div>
+    <div class="btnrow">
+      <button class="btn gold" id="importBtn">导入并解锁下一天 ✓</button>
+      <button class="btn ghost" id="loadSampleBtn" title="载入一个内置示例演示效果">载入示例(演示)</button>
+    </div>
+    <p class="kicker" style="text-align:left">提示：也可以直接在当前 Claude 对话里发这段提示词。JSON 结构固定，粘错会有红色提示。</p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ROSA O-Level English · 100-Day Sprint Engine
+   ============================================================ */
+const LS = {
+  get:(k,d)=>{try{return JSON.parse(localStorage.getItem('rosa_'+k))??d}catch(e){return d}},
+  set:(k,v)=>localStorage.setItem('rosa_'+k,JSON.stringify(v))
+};
+
+/* ---------- 100-DAY CURRICULUM MAP ---------- */
+const PHASES=[
+  {r:[1,25],  name:"阶段一 · 基础巩固",   en:"Foundations"},
+  {r:[26,50], name:"阶段二 · 技能构建",   en:"Skill Building"},
+  {r:[51,75], name:"阶段三 · 强化提升",   en:"Intensification"},
+  {r:[76,100],name:"阶段四 · 冲刺模考",   en:"Final Sprint"}
+];
+const THEMES=[
+  ["时态与主谓一致","Tenses & Agreement"],["情景写作：正式书信","Situational: Formal Letters"],
+  ["非叙事阅读技巧","Non-narrative Comprehension"],["连贯写作：记叙文","Narrative Writing"],
+  ["词汇搭配与短语动词","Collocations & Phrasal Verbs"],["视觉文本分析","Visual Text"],
+  ["摘要写作技巧","Summary Skills"],["议论文论点构建","Argumentative Essays"],
+  ["情景写作：电邮与报告","Situational: Emails & Reports"],["推断与语气题","Inference & Tone"],
+  ["标点与句子结构","Punctuation & Syntax"],["描写文与感官语言","Descriptive Writing"],
+  ["编辑改错综合","Editing (Error Correction)"],["口语：朗读与互动","Oral: Reading & Interaction"],
+  ["近义词辨析","Vocabulary Precision"]
+];
+function focus(day){
+  const ph=PHASES.find(p=>day>=p.r[0]&&day<=p.r[1])||PHASES[3];
+  const t=THEMES[(day-1)%THEMES.length];
+  return {day,phase:ph,themeZh:t[0],themeEn:t[1]};
+}
+
+/* ---------- DAY 1 SEED CONTENT (hand-authored) ---------- */
+const DAY1={
+  day:1,
+  themeZh:"时态与主谓一致 · 自我表达",
+  themeEn:"Foundations: Tenses, Agreement & Self-Expression",
+  goals:[
+    "掌握一般现在时/过去时/现在完成时/过去完成时的核心用法与区别",
+    "牢固掌握主谓一致（尤其 neither…nor / either…or / each / everyone）",
+    "识别并修正 O-Level 编辑题最常见的 8 类错误"
+  ],
+  kpts:[
+    {t:"主谓一致 Subject–Verb Agreement",en:"The verb must agree with the subject in number.",
+     body:"① 就近原则：neither the teacher <b>nor the students were</b> aware（动词与最近的主语一致）。② each / every / everyone / nobody 视为<b>单数</b>：Everyone <b>is</b> ready。③ 集合名词（team, government）在英式英语中可单可复，看作整体用单数：The team <b>is</b> winning。"},
+    {t:"四大时态对比 Four Key Tenses",en:"When to use each tense.",
+     body:"• 一般现在时：习惯/事实 She <b>walks</b> to school. • 一般过去时：已结束的过去动作 We <b>visited</b> Malacca last year. • 现在完成时：过去发生、与现在有联系 I <b>have finished</b> my homework（强调结果）. • 过去完成时：过去的过去 By the time we arrived, the film <b>had</b> already <b>started</b>."},
+    {t:"编辑题高频错误 Top Editing Errors",en:"What examiners test in the editing section.",
+     body:"介词搭配（interested <b>in</b>）、可数/不可数（<b>much</b> information）、冠词缺失、时态前后不一致、比较级（more easier ✗）、主谓一致、代词一致、词性混用（an <b>advice</b> ✗ → a piece of advice）。"}
+  ],
+  materials:[
+    {ic:"📰",ttl:"CNA — Commentary（新加坡时评）",src:"channelnewsasia.com",url:"https://www.channelnewsasia.com/commentary",
+     why:"本地时评，语言地道、话题贴近议论文素材。选一篇读，摘出3个好句型。",type:"news"},
+    {ic:"🗞️",ttl:"The Straits Times — Singapore",src:"straitstimes.com",url:"https://www.straitstimes.com/singapore",
+     why:"新加坡主流报纸，练非叙事阅读与摘要。注意标题如何用最少的词概括信息。",type:"news"},
+    {ic:"🎧",ttl:"BBC Learning English",src:"bbc.co.uk/learningenglish",url:"https://www.bbc.co.uk/learningenglish",
+     why:"语法与听力权威资源。今日建议：搜 'tenses' 复习时态短视频。",type:"study"},
+    {ic:"📗",ttl:"British Council — B1/B2 Reading",src:"learnenglish.britishcouncil.org",url:"https://learnenglish.britishcouncil.org/skills/reading",
+     why:"分级阅读带题目和答案，是练理解题的最佳免费资源。做1篇 B2 阅读。",type:"study"},
+    {ic:"🧠",ttl:"Aeon — Essays（深度长文）",src:"aeon.co",url:"https://aeon.co/essays",
+     why:"高质量思辨长文，积累议论文观点与高级词汇。挑一篇感兴趣的读前3段。",type:"deep"},
+    {ic:"📚",ttl:"名著选段：《Pride and Prejudice》开篇",src:"Project Gutenberg",url:"https://www.gutenberg.org/files/1342/1342-h/1342-h.htm",
+     why:"读第一章。感受 Jane Austen 的句式与反讽。抄下你最喜欢的一句并翻译。",type:"classic"}
+  ],
+  mcqs:[
+    {id:"d1q1",stem:"Neither the teacher nor the students ____ aware of the schedule change.",
+     options:["was","were","is","has been"],answer:1,
+     expl:"neither…nor 遵循<b>就近原则</b>，动词与最近的主语 students（复数）一致，故用 were。",topic:"主谓一致"},
+    {id:"d1q2",stem:"By the time we arrived at the cinema, the film ____.",
+     options:["already started","has already started","had already started","was already starting"],answer:2,
+     expl:"「过去的过去」用<b>过去完成时</b> had + p.p.：先开场（过去完成），后到达（一般过去）。",topic:"时态"},
+    {id:"d1q3",stem:"The charity worked tirelessly to ____ the suffering of the flood victims.",
+     options:["exacerbate","alleviate","jeopardise","hinder"],answer:1,
+     expl:"alleviate=减轻痛苦，符合语境。exacerbate=加剧，jeopardise=危及，hinder=阻碍，均相反或不合。",topic:"词汇"},
+    {id:"d1q4",stem:"She has been deeply interested ____ astronomy since she was a child.",
+     options:["on","for","in","at"],answer:2,
+     expl:"固定搭配 be interested <b>in</b> sth。编辑题高频介词考点。",topic:"介词搭配"},
+    {id:"d1q5",stem:"His sheer ____ to finish the marathon inspired everyone at the stadium.",
+     options:["persevere","perseverance","persevering","persevered"],answer:1,
+     expl:"空格前有形容词 sheer、后接不定式，需<b>名词</b>作主语核心：perseverance（毅力）。",topic:"词性"},
+    {id:"d1q6",stem:"The scientist gave a clear, ____ explanation that every student could follow easily.",
+     options:["ambiguous","obsolete","coherent","frugal"],answer:2,
+     expl:"coherent=条理清晰、连贯，与 clear、could follow 呼应。ambiguous=含糊（相反）。",topic:"词汇"}
+  ],
+  reading:{
+    title:"Why Cities Need Green Spaces（非叙事阅读）",
+    passage:`Singapore is often called a "City in a Garden", and this reputation is no accident. Decades ago, the nation's founders recognised that a dense, rapidly growing city could easily become a grey maze of concrete. To prevent this, they made greenery a national priority, planting millions of trees and weaving parks into the urban landscape.
+
+Green spaces do far more than beautify a city. Research has shown that access to parks lowers stress, encourages exercise, and even improves concentration. A short walk beneath shady trees can calm a restless mind, while community gardens give neighbours a reason to meet and cooperate. In this way, greenery quietly strengthens the bonds that hold a society together.
+
+There are environmental benefits too. Trees absorb carbon dioxide, filter dust from the air, and provide shade that cools the streets below. In a tropical country where temperatures are rising, this natural air-conditioning is invaluable. Wetlands and nature reserves, meanwhile, shelter wildlife that would otherwise vanish from a built-up island.
+
+Yet maintaining green spaces is not without challenges. Land is scarce and expensive, and every park competes with demands for housing, offices and roads. Planners must therefore be creative, growing gardens on rooftops and vertical walls where ground space is limited. The effort is worthwhile: a city that makes room for nature is, in the end, making room for the well-being of its people.`,
+    questions:[
+      {q:"In your own words, explain why Singapore's founders made greenery a national priority. [2]",
+       model:"They feared that a densely populated, fast-growing city would otherwise turn into an unattractive mass of concrete with no nature. （'grey maze of concrete' 要用自己的话改写，如 an ugly, crowded city full of buildings.）",mk:"2分：1分=担心城市变差，1分=用自己的话改写concrete/greyness"},
+      {q:"Identify two social benefits of green spaces mentioned in paragraph 2. [2]",
+       model:"(i) A walk among trees lowers stress / calms the mind; (ii) community gardens bring neighbours together and encourage cooperation.（也接受：鼓励运动 / 改善注意力）",mk:"每点1分，须来自第2段"},
+      {q:"Explain what the writer means by describing trees as 'natural air-conditioning' (paragraph 3). [2]",
+       model:"Like an air-conditioner, trees cool the surroundings — they give shade and lower the temperature — but they do this naturally, without machines or electricity.",mk:"1分=cooling效果，1分=natural/无需机器的对比"},
+      {q:"What challenge do planners face, and how do they respond to it? [2]",
+       model:"Challenge: land is scarce and expensive, so parks compete with housing, offices and roads. Response: they build gardens creatively on rooftops and vertical walls where there is no ground space.",mk:"1分challenge，1分response"},
+      {q:"Vocabulary in context: The word 'invaluable' (paragraph 3) most nearly means…  (A) worthless  (B) extremely valuable  (C) reasonably priced  (D) unnecessary",
+       model:"(B) extremely valuable。invaluable = 极其宝贵的（in- 在此非否定，而是「无法估价」）。",mk:"1分"}
+    ]
+  },
+  writing:{
+    type:"连贯写作 · 记叙文 / Continuous Writing (Narrative / Personal Recount)",
+    prompt:'"Write about a time when your perseverance was tested. Describe what happened and what you learned." （约 350–500 词）',
+    rubric:[
+      {pts:"内容 Content /10",txt:"情节完整、有起承转合；有具体细节（时间、地点、感受）；结尾有反思/收获。"},
+      {pts:"语言 Language /20",txt:"时态一致（记叙文以过去时为主）；句式多样（复合句、分词短语）；用上今日高频词（如 perseverance, arduous, meticulous）。"},
+      {pts:"结构 Organisation /10",txt:"分段清晰：开头设置情境→冲突/困难→挣扎→转折→结尾感悟；使用连接词。"}
+    ],
+    model:`When I first held the violin, I imagined I would be playing beautiful melodies within weeks. Reality, however, had other plans. The strings screeched under my clumsy fingers, and my music teacher's patient smile did little to hide the truth: I was terrible.
+
+For the first two months, every practice session felt arduous. My fingertips grew sore, and I secretly envied classmates who seemed to master pieces effortlessly. One evening, after failing to play a simple scale for the hundredth time, I flung the bow onto my bed and declared that I would quit.
+
+My mother said nothing. Instead, she placed an old photograph on my desk — a picture of me at five, grinning as I banged on a toy piano. "You were never afraid of sounding bad then," she said quietly. "You just wanted to play."
+
+Those words lingered. The next day, I returned to my violin, but this time I stopped chasing perfection. I practised in small, meticulous steps: one bar at a time, slowly, until my fingers remembered the way. Weeks turned into months. The screeching softened into something that, if not beautiful, was at least recognisable as music.
+
+When I finally performed at the school concert, my hands trembled, yet the notes came out clear and steady. The applause was modest, but to me it sounded like thunder. I had not become a great violinist — but I had discovered something more lasting: that perseverance is not about never wanting to give up, but about choosing, again and again, not to.`
+  },
+  vocab:[
+    {w:"alleviate",pos:"v.",en:"to make pain or a problem less severe",zh:"减轻，缓解",ex:"Government subsidies helped alleviate the financial burden on poor families.",use:"alleviate + pain/problem/poverty；近义 relieve, ease"},
+    {w:"ambiguous",pos:"adj.",en:"having more than one possible meaning; unclear",zh:"模棱两可的，含糊的",ex:"His ambiguous reply left us unsure of his real intentions.",use:"反义 unambiguous / clear；ambiguous statement"},
+    {w:"arduous",pos:"adj.",en:"difficult and needing a lot of effort",zh:"艰巨的，费力的",ex:"Climbing the mountain was an arduous but rewarding journey.",use:"arduous task / journey / climb"},
+    {w:"benevolent",pos:"adj.",en:"kind, generous and caring for others",zh:"仁慈的，慈善的",ex:"The benevolent donor funded scholarships for needy students.",use:"反义 malevolent；benevolent leader"},
+    {w:"candid",pos:"adj.",en:"honest and straightforward",zh:"坦率的，直言的",ex:"She gave a candid account of her mistakes during the interview.",use:"be candid with sb / about sth"},
+    {w:"coherent",pos:"adj.",en:"logical, clear and well-organised",zh:"连贯的，条理清晰的",ex:"A coherent essay guides the reader smoothly from one idea to the next.",use:"反义 incoherent；coherent argument"},
+    {w:"compelling",pos:"adj.",en:"so convincing or interesting that it holds attention",zh:"令人信服的；引人入胜的",ex:"The lawyer presented compelling evidence that convinced the jury.",use:"compelling reason / argument / story"},
+    {w:"conscientious",pos:"adj.",en:"careful, thorough and taking work seriously",zh:"认真负责的，尽责的",ex:"A conscientious student checks her work before submitting it.",use:"注意拼写；conscientious worker"},
+    {w:"deteriorate",pos:"v.",en:"to become progressively worse",zh:"恶化，变坏",ex:"His health began to deteriorate after years of overwork.",use:"反义 improve；conditions deteriorate"},
+    {w:"diligent",pos:"adj.",en:"hard-working and careful",zh:"勤勉的，用功的",ex:"Diligent revision over many weeks paid off on exam day.",use:"副词 diligently；diligent student"},
+    {w:"eloquent",pos:"adj.",en:"fluent, persuasive and expressive in speech/writing",zh:"雄辩的，有感染力的",ex:"Her eloquent speech moved the entire audience to tears.",use:"eloquent speaker / appeal"},
+    {w:"empathy",pos:"n.",en:"the ability to understand and share another's feelings",zh:"同理心，共情",ex:"Good nurses show empathy towards their patients' suffering.",use:"empathy for / towards；动词 empathise"},
+    {w:"endeavour",pos:"v./n.",en:"to try hard; a serious effort",zh:"努力，尽力",ex:"Scientists endeavour to find a cure for the disease.",use:"endeavour to do sth；英式拼写 -our"},
+    {w:"enhance",pos:"v.",en:"to improve the quality or value of",zh:"提高，增强",ex:"Regular reading greatly enhances a student's vocabulary.",use:"enhance skills / quality / reputation"},
+    {w:"exacerbate",pos:"v.",en:"to make a bad situation worse",zh:"使恶化，加剧",ex:"Ignoring the problem will only exacerbate the conflict.",use:"近义 aggravate, worsen"},
+    {w:"formidable",pos:"adj.",en:"inspiring respect or fear through power/difficulty",zh:"令人敬畏的；艰巨的",ex:"The team faced a formidable opponent in the final.",use:"formidable challenge / opponent"},
+    {w:"frugal",pos:"adj.",en:"careful and economical with money or resources",zh:"节俭的",ex:"Living a frugal lifestyle helped them save for a house.",use:"反义 extravagant；frugal with money"},
+    {w:"gregarious",pos:"adj.",en:"sociable and fond of company",zh:"爱交际的，合群的",ex:"Her gregarious nature made her popular at school.",use:"反义 solitary"},
+    {w:"hinder",pos:"v.",en:"to make something difficult; to obstruct",zh:"阻碍，妨碍",ex:"Heavy rain hindered the rescue operation.",use:"反义 facilitate；hinder progress"},
+    {w:"impartial",pos:"adj.",en:"treating all sides fairly; unbiased",zh:"公正的，不偏不倚的",ex:"A judge must remain impartial at all times.",use:"反义 biased；impartial observer"},
+    {w:"inevitable",pos:"adj.",en:"certain to happen and impossible to avoid",zh:"不可避免的，必然的",ex:"With so little preparation, failure seemed inevitable.",use:"名词 inevitability；it is inevitable that…"},
+    {w:"ingenious",pos:"adj.",en:"cleverly original and inventive",zh:"巧妙的，独创的",ex:"She found an ingenious solution to the storage problem.",use:"别混 ingenuous(天真的)；ingenious design"},
+    {w:"jeopardise",pos:"v.",en:"to put at risk of harm or loss",zh:"危及，使陷入危险",ex:"Cheating could jeopardise your entire academic future.",use:"英式 -ise；jeopardise safety / career"},
+    {w:"lucrative",pos:"adj.",en:"producing a lot of money; profitable",zh:"有利可图的，赚钱的",ex:"Software engineering can be a lucrative career.",use:"lucrative business / deal"},
+    {w:"meticulous",pos:"adj.",en:"showing great attention to detail; very careful",zh:"一丝不苟的，细致的",ex:"The surgeon was meticulous in every step of the operation.",use:"meticulous about detail；副词 meticulously"},
+    {w:"mitigate",pos:"v.",en:"to make something less serious or harmful",zh:"缓解，减轻",ex:"Planting trees can help mitigate the effects of climate change.",use:"近义 alleviate；mitigate risk / damage"},
+    {w:"nostalgia",pos:"n.",en:"a sentimental longing for the past",zh:"怀旧，乡愁",ex:"Old photographs filled her with nostalgia for her childhood.",use:"形容词 nostalgic；nostalgia for"},
+    {w:"obsolete",pos:"adj.",en:"no longer used because out of date",zh:"过时的，废弃的",ex:"Smartphones have made many older gadgets obsolete.",use:"近义 outdated；become obsolete"},
+    {w:"perseverance",pos:"n.",en:"continued effort despite difficulty",zh:"毅力，坚持不懈",ex:"Through sheer perseverance, he mastered the violin.",use:"动词 persevere；perseverance pays off"},
+    {w:"plausible",pos:"adj.",en:"seeming reasonable or probable",zh:"貌似合理的，可信的",ex:"Her excuse sounded plausible, so we believed her.",use:"反义 implausible；plausible explanation"}
+  ]
+};
+
+/* A tiny sample "Day 2" used only for the 载入示例 demo button */
+const SAMPLE_NEXT={
+  day:2,themeZh:"情景写作：正式书信 · 演示",themeEn:"Situational: Formal Letters (demo)",
+  goals:["掌握正式书信的格式与语气","区分正式/非正式用语"],
+  kpts:[{t:"正式书信结构",en:"Format of a formal letter",body:"称呼 Dear Sir/Madam → 开门见山说明目的 → 主体分段 → 礼貌结尾 Yours faithfully。"}],
+  materials:[{ic:"📗",ttl:"British Council — Writing",src:"britishcouncil.org",url:"https://learnenglish.britishcouncil.org/skills/writing",why:"看正式书信范例。",type:"study"}],
+  mcqs:[{id:"d2q1",stem:"We are writing to ____ our sincere apologies for the delay.",options:["extend","exceed","expand","expend"],answer:0,expl:"extend apologies=致歉，固定搭配。",topic:"词汇搭配"}],
+  reading:{title:"演示阅读",passage:"This is a demo passage to show how imported days render.",questions:[{q:"What is this passage? [1]",model:"A demo passage.",mk:"1分"}]},
+  writing:{type:"情景写作",prompt:"Write a letter to your principal suggesting an improvement to the school.",rubric:[{pts:"内容 /10",txt:"清晰的建议与理由"}],model:"(示例范文占位)"},
+  vocab:[{w:"extend",pos:"v.",en:"to offer or give (formally)",zh:"给予；延伸",ex:"We extend our apologies.",use:"extend apologies / an invitation"}]
+};
+
+/* ---------- STATE ---------- */
+let state=LS.get('state',{current:1,unlocked:1,startDate:null});
+if(!state.startDate){state.startDate=todayStr();LS.set('state',state);}
+let days=LS.get('days',{1:DAY1});
+if(!days[1]) {days[1]=DAY1; LS.set('days',days);}
+let notebook=LS.get('notebook',[]); // [{id,stem,options,answer,expl,topic,correctStreak,mastered,dayAdded}]
+
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+
+/* ---------- RENDER ---------- */
+function currentData(){return days[state.current]||DAY1;}
+
+function render(){
+  const d=currentData();
+  const f=focus(state.current);
+  document.getElementById('dayNum').textContent=state.current;
+  document.getElementById('theme').innerHTML=(d.themeZh||f.themeZh)+' <span class="en">/ '+(d.themeEn||f.themeEn)+'</span>';
+  document.getElementById('phase').textContent=f.phase.name+' · '+f.phase.en;
+  document.getElementById('cdNum').textContent=Math.max(0,101-state.current);
+  document.getElementById('prog').style.width=(state.current/100*100)+'%';
+  document.getElementById('prevDay').disabled=state.current<=1;
+
+  renderOverview(d); renderMaterials(d); renderMCQ(d); renderReview();
+  renderReading(d); renderWriting(d); renderVocab(d); renderNotebook();
+  updateNbBadge();
+  // gen button label
+  document.getElementById('genNext').textContent = (state.current<state.unlocked)?'下一天 →':'生成下一天 →';
+}
+
+function renderOverview(d){
+  const g=document.getElementById('ov-goals');
+  g.innerHTML='<div class="card kpt"><div class="t">🎯 今日目标 Today\'s Goals</div><ul class="clean">'+
+    (d.goals||[]).map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  document.getElementById('ov-kpts').innerHTML=(d.kpts||[]).map(k=>
+    '<div class="card kpt"><div class="t">'+k.t+'</div><div class="en">'+(k.en||'')+'</div><div style="margin-top:8px">'+k.body+'</div></div>'
+  ).join('');
+}
+function renderMaterials(d){
+  document.getElementById('mat-list').innerHTML=(d.materials||[]).map(m=>
+    '<div class="card"><div class="mat"><div class="ic">'+(m.ic||'🔗')+'</div><div class="body">'+
+    '<div class="ttl">'+m.ttl+'</div><div class="src">'+m.src+'</div>'+
+    '<div class="why">'+(m.why||'')+'</div></div>'+
+    '<a class="go" href="'+m.url+'" target="_blank" rel="noopener">打开 ↗</a></div></div>'
+  ).join('');
+}
+function renderMCQ(d){
+  document.getElementById('pr-mcq').innerHTML=(d.mcqs||[]).map((q,i)=>mcqHTML(q,i,'mcq')).join('');
+}
+function mcqHTML(q,i,ns){
+  return '<div class="q" id="'+ns+'-'+q.id+'" data-ans="'+q.answer+'"><div class="stem"><span class="no">Q'+(i+1)+'</span>'+q.stem+'</div>'+
+    q.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+    '<div class="expl" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>';
+}
+function renderReview(){
+  const due=notebook.filter(n=>!n.mastered).slice(0,4);
+  const box=document.getElementById('pr-review');
+  if(due.length===0){box.innerHTML='<div class="card" style="color:var(--ink2)">🎉 暂无错题需要复习。做错的题会自动出现在这里。</div>';return;}
+  box.innerHTML=due.map((q,i)=>'<div class="q nb-item" id="rev-'+q.id+'" data-ans="'+q.answer+'"><div class="stem"><span class="no">复习</span>'+q.stem+
+    ' <span class="tag rev">已答对 '+(q.correctStreak||0)+'/2</span></div>'+
+    q.options.map((o,j)=>'<label class="opt"><input type="radio" name="rev-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+    '<div class="expl" id="expl-rev-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>').join('')+
+    '<div class="btnrow"><button class="btn primary" id="gradeReview">批改复习题</button></div>';
+  const b=document.getElementById('gradeReview'); if(b) b.onclick=gradeReview;
+}
+function renderReading(d){
+  const r=d.reading; if(!r){document.getElementById('pr-reading').innerHTML='';return;}
+  document.getElementById('pr-reading').innerHTML=
+    '<div class="card"><div class="ttl" style="font-weight:700;margin-bottom:8px">'+r.title+'</div>'+
+    '<div class="passage">'+escapeHTML(r.passage)+'</div>'+
+    r.questions.map((q,i)=>'<div style="margin-top:14px"><div style="font-weight:600"><span class="no" style="color:var(--brand2)">Q'+(i+1)+'</span> '+q.q+'</div>'+
+      '<textarea class="ans" placeholder="用英文作答…"></textarea>'+
+      '<div class="model" id="rmodel-'+i+'"><div class="mk">参考答案 · '+(q.mk||'')+'</div>'+q.model+'</div></div>').join('')+
+    '<div class="btnrow"><button class="btn primary" id="showReading">查看参考答案 &amp; 评分点</button></div></div>';
+  const b=document.getElementById('showReading'); if(b) b.onclick=()=>document.querySelectorAll('#pr-reading .model').forEach(m=>m.classList.add('show'));
+}
+function renderWriting(d){
+  const w=d.writing; if(!w){document.getElementById('pr-writing').innerHTML='';return;}
+  document.getElementById('pr-writing').innerHTML=
+    '<div class="card"><span class="tag">'+(w.type||'Writing')+'</span>'+
+    '<div style="font-weight:700;margin:8px 0">'+w.prompt+'</div>'+
+    '<div class="rubric">'+(w.rubric||[]).map(r=>'<div class="r"><div class="pts">'+r.pts+'</div><div>'+r.txt+'</div></div>').join('')+'</div>'+
+    '<textarea class="ans" id="myEssay" style="min-height:180px" placeholder="在此写作，右下角自动统计词数…"></textarea>'+
+    '<div class="wc" id="wc">0 词</div>'+
+    '<div class="btnrow"><button class="btn primary" id="showModel">查看范文 Model Answer</button>'+
+    '<button class="btn ghost" id="selfCheck">自评清单 Checklist</button></div>'+
+    '<div class="model" id="essayModel"><div class="mk">范文 · 供学习句型与结构，勿照抄</div>'+nl2br(w.model||'')+'</div>'+
+    '<div class="model" id="checkList"><div class="mk">自评清单</div>'+
+      '□ 时态是否前后一致？<br>□ 是否有 3+ 处高级词/句型？<br>□ 分段是否清晰、有连接词？<br>□ 结尾是否点题/有反思？<br>□ 有无低级语法错误（主谓、冠词、介词）？</div></div>';
+  const es=document.getElementById('myEssay'), wc=document.getElementById('wc');
+  if(es){es.oninput=()=>{const n=(es.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' 词';};}
+  const sm=document.getElementById('showModel'); if(sm) sm.onclick=()=>document.getElementById('essayModel').classList.add('show');
+  const sc=document.getElementById('selfCheck'); if(sc) sc.onclick=()=>document.getElementById('checkList').classList.toggle('show');
+}
+function renderVocab(d){
+  document.getElementById('voc-grid').innerHTML=(d.vocab||[]).map((v,i)=>
+    '<div class="vcard"><span class="no">'+(i+1).toString().padStart(2,'0')+'</span>'+
+    '<div><span class="w">'+v.w+'</span><span class="pos">'+(v.pos||'')+'</span> '+(v.tag==='review'?'<span class="tag rev">复习</span>':'<span class="tag new">new</span>')+'</div>'+
+    '<div class="en">'+(v.en||'')+'</div><div class="zh">'+(v.zh||'')+'</div>'+
+    (v.ex?'<div class="ex">"'+v.ex+'"</div>':'')+
+    (v.use?'<div class="use">▸ '+v.use+'</div>':'')+'</div>'
+  ).join('');
+}
+function renderNotebook(){
+  const box=document.getElementById('nb-list');
+  if(notebook.length===0){box.innerHTML='<div class="empty">还没有错题。做错的客观题会自动收录到这里 📕</div>';return;}
+  box.innerHTML=notebook.map(n=>
+    '<div class="card nb-item '+(n.mastered?'mastered':'')+'"><div class="stem" style="font-weight:600">'+n.stem+'</div>'+
+    '<div style="margin-top:6px;color:var(--good)"><b>正确答案 '+String.fromCharCode(65+n.answer)+'.</b> '+n.options[n.answer]+'</div>'+
+    '<div class="expl show" style="margin-top:8px">'+n.expl+'</div>'+
+    '<div class="nb-meta">主题：'+(n.topic||'—')+' · 第'+n.dayAdded+'天收录 · '+
+    (n.mastered?'✅ 已掌握':'进度 '+(n.correctStreak||0)+'/2')+'</div></div>'
+  ).join('');
+}
+function updateNbBadge(){
+  const n=notebook.filter(x=>!x.mastered).length;
+  const b=document.getElementById('nbBadge');
+  if(n>0){b.style.display='inline-block';b.textContent=n;}else{b.style.display='none';}
+}
+
+/* ---------- GRADING ---------- */
+function gradeMCQ(){
+  const d=currentData(); let correct=0,total=(d.mcqs||[]).length;
+  (d.mcqs||[]).forEach(q=>{
+    const chosen=document.querySelector('input[name="mcq-'+q.id+'"]:checked');
+    const wrap=document.getElementById('mcq-'+q.id);
+    wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+    document.getElementById('expl-mcq-'+q.id).classList.add('show');
+    const opts=wrap.querySelectorAll('.opt');
+    opts[q.answer].classList.add('correct');
+    if(chosen){
+      const val=+chosen.value;
+      if(val===q.answer){correct++;}
+      else{opts[val].classList.add('wrong'); addToNotebook(q);}
+    } else { addToNotebook(q); }
+  });
+  const sb=document.getElementById('mcqScore');
+  sb.classList.add('show');
+  sb.innerHTML='得分：'+correct+' / '+total+'　'+(correct===total?'🏆 满分！':'❗ 错题已加入错题本，后续会复现考察。');
+  LS.set('notebook',notebook); updateNbBadge(); renderNotebook();
+}
+function addToNotebook(q){
+  if(notebook.find(n=>n.id===q.id)) return;
+  notebook.push({id:q.id,stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current});
+}
+function gradeReview(){
+  const due=notebook.filter(n=>!n.mastered).slice(0,4);
+  due.forEach(q=>{
+    const chosen=document.querySelector('input[name="rev-'+q.id+'"]:checked');
+    const wrap=document.getElementById('rev-'+q.id); if(!wrap) return;
+    wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong'));
+    document.getElementById('expl-rev-'+q.id).classList.add('show');
+    const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct');
+    if(chosen){
+      const val=+chosen.value;
+      if(val===q.answer){q.correctStreak=(q.correctStreak||0)+1; if(q.correctStreak>=2) q.mastered=true;}
+      else{opts[val].classList.add('wrong'); q.correctStreak=0;}
+    }
+  });
+  LS.set('notebook',notebook); updateNbBadge(); renderNotebook();
+  setTimeout(renderReview,1200);
+}
+
+/* ---------- TABS ---------- */
+document.getElementById('tabs').addEventListener('click',e=>{
+  const t=e.target.closest('.tab'); if(!t) return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));
+  t.classList.add('active');
+  document.getElementById('p-'+t.dataset.tab).classList.add('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ---------- NAV ---------- */
+document.getElementById('prevDay').onclick=()=>{if(state.current>1){state.current--;LS.set('state',state);render();}};
+document.getElementById('gradeMcq').onclick=gradeMCQ;
+document.getElementById('clearMastered').onclick=()=>{notebook=notebook.filter(n=>!n.mastered);LS.set('notebook',notebook);renderNotebook();updateNbBadge();};
+
+/* ---------- GENERATE NEXT DAY ---------- */
+const modal=document.getElementById('genModal');
+document.getElementById('genNext').onclick=()=>{
+  const next=state.current+1;
+  if(next>100){alert('🎉 已经是第100天，冲刺完成！祝你考出 A1！');return;}
+  // If next day already exists, just go there
+  if(days[next]){state.current=next;LS.set('state',state);render();window.scrollTo({top:0,behavior:'smooth'});return;}
+  buildPrompt(next);
+  document.getElementById('modalDay').textContent='第 '+next+' 天';
+  document.getElementById('jsonIn').value='';
+  document.getElementById('importOk').style.display='none';
+  document.getElementById('importErr').style.display='none';
+  modal.classList.add('show');
+};
+document.getElementById('closeModal').onclick=()=>modal.classList.remove('show');
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
+
+function buildPrompt(next){
+  const f=focus(next);
+  const weak=notebook.filter(n=>!n.mastered).map(n=>n.topic).filter((v,i,a)=>a.indexOf(v)===i);
+  const weakStr=weak.length?weak.join('、'):'（暂无，可自由出题）';
+  const p=
+`你是我的新加坡 O-Level 英文冲刺私教。请为「第 ${next} 天 / 共100天」生成学习内容。
+今日阶段：${f.phase.name}（${f.phase.en}）；今日主题重点：${f.themeZh} / ${f.themeEn}。
+必须复现考察我错题本里的薄弱题型（至少1题同类）：${weakStr}
+目标：帮助拿到今年 O-Level 英文 A1/A2。界面中英双语。
+
+⚠️ 只输出一个合法 JSON 对象（不要任何解释文字、不要markdown代码块围栏），字段严格如下：
+{
+ "day": ${next},
+ "themeZh":"中文主题", "themeEn":"English theme",
+ "goals":["今日目标1","目标2","目标3"],
+ "kpts":[{"t":"知识点标题","en":"English gloss","body":"讲解，可含<b>加粗</b>与例子"} ...3条],
+ "materials":[{"ic":"📰","ttl":"资源名","src":"域名","url":"真实可访问URL","why":"为何读/怎么用","type":"news|deep|classic|study"} ...5-6条，必须真实链接如 channelnewsasia.com / straitstimes.com / bbc.co.uk/learningenglish / learnenglish.britishcouncil.org / aeon.co / gutenberg.org / nationalgeographic.com],
+ "mcqs":[{"id":"d${next}q1","stem":"题干（可含___）","options":["A项","B项","C项","D项"],"answer":0,"expl":"解析（含<b>正确项</b>）","topic":"考点如时态/主谓一致/介词搭配/词汇"} ...6题，至少1题针对我的薄弱点],
+ "reading":{"title":"阅读标题","passage":"200-300词原创非叙事或叙事短文","questions":[{"q":"问题 [x分]","model":"参考答案","mk":"评分点说明"} ...5题，含1题vocab-in-context]},
+ "writing":{"type":"体裁","prompt":"写作题目与要求","rubric":[{"pts":"内容/10","txt":"要点"},{"pts":"语言/20","txt":"要点"},{"pts":"结构/10","txt":"要点"}],"model":"350-450词范文，用\\n分段"},
+ "vocab":[{"w":"word","pos":"v./n./adj.","en":"English definition","zh":"中文释义","ex":"经典例句","use":"重要用法/搭配/近反义","tag":"new"} ...30个S4高频词，可含若干"tag":"review"复习词]
+}
+注意：answer 用选项下标(0-3)；JSON 内所有引号用英文双引号；不要输出 JSON 以外任何内容。`;
+  document.getElementById('promptOut').value=p;
+}
+document.getElementById('copyPrompt').onclick=()=>{
+  const ta=document.getElementById('promptOut'); ta.select();
+  navigator.clipboard.writeText(ta.value).then(()=>{
+    const b=document.getElementById('copyPrompt'); const old=b.textContent; b.textContent='✅ 已复制'; setTimeout(()=>b.textContent=old,1500);
+  }).catch(()=>{document.execCommand('copy');});
+};
+document.getElementById('importBtn').onclick=()=>doImport(document.getElementById('jsonIn').value);
+document.getElementById('loadSampleBtn').onclick=()=>{
+  document.getElementById('jsonIn').value=JSON.stringify(SAMPLE_NEXT,null,2);
+};
+function doImport(raw){
+  const ok=document.getElementById('importOk'), err=document.getElementById('importErr');
+  ok.style.display='none'; err.style.display='none';
+  let obj;
+  try{
+    let s=raw.trim().replace(/^```(json)?/i,'').replace(/```$/,'').trim();
+    obj=JSON.parse(s);
+  }catch(e){err.textContent='❌ JSON 解析失败：'+e.message+'。请确认粘贴的是以 { 开头、} 结尾的完整对象。';err.style.display='block';return;}
+  const need=['day','vocab','mcqs'];
+  for(const k of need){ if(!(k in obj)){err.textContent='❌ 缺少必要字段：'+k;err.style.display='block';return;} }
+  const dnum=+obj.day||(state.current+1);
+  days[dnum]=obj; LS.set('days',days);
+  state.current=dnum; state.unlocked=Math.max(state.unlocked,dnum); LS.set('state',state);
+  ok.textContent='✅ 第 '+dnum+' 天导入成功！正在打开…'; ok.style.display='block';
+  setTimeout(()=>{modal.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});},700);
+}
+
+/* ---------- UTIL ---------- */
+function escapeHTML(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
+
+/* ---------- BOOT ---------- */
+render();
+</script>
+</body>
+</html>
