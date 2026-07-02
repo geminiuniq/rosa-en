@@ -167,6 +167,18 @@
   .bar .bt{flex:1;height:12px;background:#0c0e13;border:1px solid var(--line);border-radius:99px;overflow:hidden}
   .bar .bt > i{display:block;height:100%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--good))}
   .bar .bv{flex:0 0 auto;font-size:12px;color:var(--ink2);min-width:70px;text-align:right}
+  /* Exam bar / timer */
+  .exambar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:6px 0 14px}
+  .clock{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--ink2);min-width:74px}
+  .examhint{font-size:12.5px;color:var(--ink2);flex:1 1 200px}
+  .examctl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .mini-sel{background:#0c0e13;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:7px 9px;font-family:inherit;font-size:13px}
+  body.exam-on #p-practice .model{display:none!important}
+  body.exam-on #p-practice .btn.gold{display:none}
+  body.exam-on .exambar{border-color:var(--bad);box-shadow:0 0 0 2px rgba(255,93,108,.25)}
+  /* Visual text poster */
+  .poster{text-align:center;background:#0c0e13;border:1px solid var(--line);border-radius:12px;padding:16px}
+  .poster svg{width:360px;max-width:100%;height:auto;display:inline-block}
   @media(max-width:560px){.daybadge .d{font-size:42px}.wrap{padding:14px 12px 130px}.bar .bl{flex-basis:90px}}
 </style>
 </head>
@@ -203,6 +215,7 @@
   <section class="panel show" id="p-overview">
     <h2 class="sec"><span class="zh">📌 今日知识点</span></h2>
     <p class="sub" id="ov-sub">Knowledge points to master today</p>
+    <div id="diagBanner"></div>
     <div id="ov-goals"></div>
     <div id="ov-kpts"></div>
   </section>
@@ -218,7 +231,22 @@
   <!-- PRACTICE -->
   <section class="panel" id="p-practice">
     <h2 class="sec"><span class="zh">✍️ 笔试练习</span> <span class="sub" style="margin:0">Paper 1 写作 · Paper 2 理解</span></h2>
-    <p class="sub">对齐真实考卷题型：改错 · 客观题 · 阅读 · 摘要 · 情景写作 · 连贯写作。客观题即时批改并入错题本；写作可一键请 Claude 按 O-Level 评分标准批改。</p>
+    <p class="sub">对齐真实考卷题型：改错 · 客观题 · 视觉文本 · 阅读 · 摘要 · 情景写作 · 连贯写作。客观题即时批改并入错题本；写作可一键请 Claude 按 O-Level 评分标准批改。</p>
+
+    <div class="exambar" id="exambar">
+      <span class="clock" id="clock">00:00</span>
+      <span class="examhint" id="examhint">⏱️ 限时模考：开始后隐藏所有答案/范文，模拟真实考试；时间到自动解锁。</span>
+      <span class="examctl">
+        <select id="examPreset" class="mini-sel">
+          <option value="110">Paper 1 · 1h50</option>
+          <option value="110">Paper 2 · 1h50</option>
+          <option value="50">Paper 3 听力 · 50min</option>
+          <option value="10">快速 · 10min</option>
+        </select>
+        <button class="btn primary mini" id="examStart">开始模考</button>
+        <button class="btn ghost mini" id="examStop" style="display:none">结束并看答案</button>
+      </span>
+    </div>
 
     <h3>① 错题复习 <small class="muted">Spaced review — 直到答对2次才「毕业」</small></h3>
     <div id="pr-review"></div>
@@ -231,16 +259,19 @@
     <div class="btnrow"><button class="btn primary" id="gradeMcq">提交批改 Submit &amp; Grade</button></div>
     <div class="scorebox" id="mcqScore"></div>
 
-    <h3>④ 阅读理解 Comprehension <small class="muted">Paper 2 · 用自己的话 / 推断 / 词义</small></h3>
+    <h3>④ 视觉文本 Visual Text <small class="muted">Paper 2 Section A · 广告/海报分析（5分）</small></h3>
+    <div id="pr-visual"></div>
+
+    <h3>⑤ 阅读理解 Comprehension <small class="muted">Paper 2 · 用自己的话 / 推断 / 词义</small></h3>
     <div id="pr-reading"></div>
 
-    <h3>⑤ 摘要写作 Summary <small class="muted">Paper 2 · 抓要点 + 改写 + 词数限制（15分）</small></h3>
+    <h3>⑥ 摘要写作 Summary <small class="muted">Paper 2 · 抓要点 + 改写 + 词数限制（15分）</small></h3>
     <div id="pr-summary"></div>
 
-    <h3>⑥ 情景写作 Situational <small class="muted">Paper 1 · 格式/对象/语气 + 三个要点（30分）</small></h3>
+    <h3>⑦ 情景写作 Situational <small class="muted">Paper 1 · 格式/对象/语气 + 三个要点（30分）</small></h3>
     <div id="pr-situational"></div>
 
-    <h3>⑦ 连贯写作 Continuous <small class="muted">Paper 1 · 记叙/描写/议论（30分）</small></h3>
+    <h3>⑧ 连贯写作 Continuous <small class="muted">Paper 1 · 记叙/描写/议论（30分）</small></h3>
     <div id="pr-writing"></div>
   </section>
 
@@ -260,6 +291,12 @@
   <section class="panel" id="p-vocab">
     <h2 class="sec"><span class="zh">🔤 今日单词</span></h2>
     <p class="sub">S4 优秀生高频词 · 30 个 / 天 · 含中英释义、经典例句、重要用法。<span class="tag new">new 新词</span><span class="tag rev">review 复习</span></p>
+    <div class="btnrow" style="margin-bottom:6px">
+      <button class="btn primary" id="startQuiz">🎯 开始主动回忆测验</button>
+      <button class="btn ghost" id="showCards">📇 只看卡片</button>
+      <span class="examhint" id="quizStat" style="align-self:center"></span>
+    </div>
+    <div id="voc-quiz" style="display:none"></div>
     <div class="vgrid" id="voc-grid"></div>
   </section>
 
@@ -318,6 +355,18 @@
       <button class="btn ghost" id="loadSampleBtn" title="载入一个内置示例演示效果">载入示例(演示)</button>
     </div>
     <p class="kicker" style="text-align:left">提示：也可以直接在当前 Claude 对话里发这段提示词。JSON 结构固定，粘错会有红色提示。</p>
+  </div>
+</div>
+
+<!-- MODAL: diagnostic assessment -->
+<div class="modal" id="diagModal">
+  <div class="box">
+    <span class="x" id="closeDiag">×</span>
+    <h3>🩺 入学诊断测评 <span class="sub" style="margin:0">12题 · 找出你的薄弱项</span></h3>
+    <p class="sub" id="diagIntro" style="margin-bottom:12px">覆盖时态、主谓一致、介词、词汇、词形、标点等核心考点。做完后系统会分析你的强弱项，并把薄弱点自动编入后续每天的练习中重点突破。</p>
+    <div id="diagBody"></div>
+    <div class="btnrow"><button class="btn gold" id="submitDiag">提交测评并生成薄弱项报告</button></div>
+    <div id="diagResult"></div>
   </div>
 </div>
 
@@ -437,6 +486,42 @@ Yet maintaining green spaces is not without challenges. Land is scarce and expen
        model:"Challenge: land is scarce and expensive, so parks compete with housing, offices and roads. Response: they build gardens creatively on rooftops and vertical walls where there is no ground space.",mk:"1分challenge，1分response"},
       {q:"Vocabulary in context: The word 'invaluable' (paragraph 3) most nearly means…  (A) worthless  (B) extremely valuable  (C) reasonably priced  (D) unnecessary",
        model:"(B) extremely valuable。invaluable = 极其宝贵的（in- 在此非否定，而是「无法估价」）。",mk:"1分"}
+    ]
+  },
+  visual:{
+    title:"Visual Text · 社区阅读运动海报",
+    svg:`<svg viewBox="0 0 380 500" width="360" height="474" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reading campaign poster">
+      <defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1c5c4a"/><stop offset="1" stop-color="#0f3d31"/></linearGradient></defs>
+      <rect width="380" height="500" rx="14" fill="url(#pg)"/>
+      <rect x="0" y="0" width="380" height="70" rx="14" fill="#ffcf6b"/>
+      <text x="190" y="46" font-family="Georgia,serif" font-size="30" font-weight="800" fill="#0f3d31" text-anchor="middle">READ · GROW · LEAD</text>
+      <text x="190" y="105" font-family="Arial" font-size="15" fill="#ffffff" text-anchor="middle">Join the Sengkang Community Reading Movement</text>
+      <!-- book with plant -->
+      <g transform="translate(190,205)">
+        <rect x="-55" y="20" width="110" height="16" rx="3" fill="#c9d6cf"/>
+        <path d="M-55 20 L0 8 L55 20 L0 32 Z" fill="#eef3f0"/>
+        <path d="M0 8 C -6 -30 -34 -34 -40 -60 C -12 -54 -4 -30 0 -12 C 4 -30 12 -54 40 -60 C 34 -34 6 -30 0 8 Z" fill="#5fd39a"/>
+        <line x1="0" y1="8" x2="0" y2="-12" stroke="#2f7d5b" stroke-width="3"/>
+      </g>
+      <text x="190" y="300" font-family="Arial" font-size="14" fill="#eaf5ef" text-anchor="middle">📖 Free books · 🗣️ Book clubs · 🏆 Reading rewards</text>
+      <rect x="70" y="330" width="240" height="52" rx="26" fill="#ffcf6b"/>
+      <text x="190" y="363" font-family="Arial" font-size="19" font-weight="800" fill="#0f3d31" text-anchor="middle">Sign up today — it's FREE!</text>
+      <text x="190" y="410" font-family="Arial" font-size="12.5" fill="#bfe0d2" text-anchor="middle">Every Saturday · 10am–12pm · Sengkang Library</text>
+      <text x="190" y="430" font-family="Arial" font-size="12.5" fill="#bfe0d2" text-anchor="middle">All ages welcome · Bring a friend!</text>
+      <text x="190" y="470" font-family="Georgia,serif" font-size="14" font-style="italic" fill="#ffcf6b" text-anchor="middle">"A nation that reads is a nation that leads."</text>
+    </svg>`,
+    questions:[
+      {q:"Who is the intended target audience of this poster? Support your answer with one piece of evidence. [2]",
+       model:"目标读者是 Sengkang 社区的居民/家庭(各年龄层)。依据:标题点名 'Community Reading Movement' 且小字写 'All ages welcome · Bring a friend'，说明面向整个社区而非特定人群。",mk:"1分对象 + 1分文字依据"},
+      {q:"Explain how the image of a plant growing out of a book helps to convey the poster's message. [2]",
+       model:"书本长出植物是一种视觉隐喻:书=养分/土壤，植物=成长。它暗示阅读能让人(尤其孩子)成长、进步，呼应标题 READ·GROW·LEAD，比文字更直观有力。",mk:"1分识别隐喻 + 1分说明与主旨的联系"},
+      {q:"Why is the word 'FREE' printed in capital letters? [1]",
+       model:"用大写突出/强调 'FREE'，抓住读者注意，消除'要花钱'的顾虑，从而鼓励人们报名参加。",mk:"1分:强调以吸引/打消顾虑"},
+      {q:"In your opinion, is the slogan \"A nation that reads is a nation that leads.\" effective? Explain. [2]",
+       model:"有效。它用押韵(reads/leads)朗朗上口易记，并把'阅读'与'国家领先'挂钩，赋予个人阅读更宏大的意义，具号召力。(只要有立场+合理理由即可)",mk:"1分立场 + 1分理由(押韵/意义提升等)"},
+      {q:"Vocabulary: In this poster, the word 'Movement' most nearly means… (A) physical exercise (B) an organised effort by many people (C) a change of location (D) a part of a machine",
+       model:"(B) an organised effort by many people —— 此处 movement 指'(社会)运动/集体行动'。",mk:"1分"}
     ]
   },
   writing:{
@@ -612,8 +697,8 @@ function render(){
   document.getElementById('prog').style.width=(state.current/100*100)+'%';
   document.getElementById('prevDay').disabled=state.current<=1;
 
-  renderOverview(d); renderMaterials(d); renderEditing(d); renderMCQ(d); renderReview();
-  renderReading(d); renderSummary(d); renderSituational(d); renderWriting(d);
+  renderOverview(d); renderDiagBanner(); renderMaterials(d); renderEditing(d); renderMCQ(d); renderReview();
+  renderVisual(d); renderReading(d); renderSummary(d); renderSituational(d); renderWriting(d);
   renderOral(d); renderVocab(d); renderNotebook();
   updateNbBadge();
   // gen button label
@@ -665,6 +750,19 @@ function renderReading(d){
       '<div class="model" id="rmodel-'+i+'"><div class="mk">参考答案 · '+(q.mk||'')+'</div>'+q.model+'</div></div>').join('')+
     '<div class="btnrow"><button class="btn primary" id="showReading">查看参考答案 &amp; 评分点</button></div></div>';
   const b=document.getElementById('showReading'); if(b) b.onclick=()=>document.querySelectorAll('#pr-reading .model').forEach(m=>m.classList.add('show'));
+}
+
+/* ---- VISUAL TEXT (Paper 2 Section A) ---- */
+function renderVisual(d){
+  const v=d.visual; const box=document.getElementById('pr-visual');
+  if(!v){box.innerHTML='<div class="card" style="color:var(--ink2)">今日无视觉文本题。</div>';return;}
+  box.innerHTML='<div class="card"><div class="ttl" style="font-weight:700;margin-bottom:10px">'+(v.title||'Visual Text')+'</div>'+
+    '<div class="poster">'+(v.svg||'')+'</div>'+
+    (v.questions||[]).map((q,i)=>'<div style="margin-top:14px"><div style="font-weight:600"><span class="no" style="color:var(--brand2)">Q'+(i+1)+'</span> '+q.q+'</div>'+
+      '<textarea class="ans" placeholder="用英文作答…"></textarea>'+
+      '<div class="model" id="vmodel-'+i+'"><div class="mk">参考答案 · '+(q.mk||'')+'</div>'+q.model+'</div></div>').join('')+
+    '<div class="btnrow"><button class="btn primary" id="showVisual">查看参考答案 &amp; 评分点</button></div></div>';
+  const b=document.getElementById('showVisual'); if(b) b.onclick=()=>document.querySelectorAll('#pr-visual .model').forEach(m=>m.classList.add('show'));
 }
 function renderWriting(d){
   const w=d.writing; if(!w){document.getElementById('pr-writing').innerHTML='';return;}
@@ -778,6 +876,80 @@ function renderVocab(d){
     (v.ex?'<div class="ex">"'+v.ex+'"</div>':'')+
     (v.use?'<div class="use">▸ '+v.use+'</div>':'')+'</div>'
   ).join('');
+  // wire quiz controls
+  const sq=document.getElementById('startQuiz'), sc=document.getElementById('showCards');
+  if(sq) sq.onclick=()=>startVocabQuiz(d);
+  if(sc) sc.onclick=()=>{document.getElementById('voc-quiz').style.display='none';document.getElementById('voc-grid').style.display='';document.getElementById('quizStat').textContent='';};
+}
+
+/* ---- VOCAB ACTIVE-RECALL QUIZ ---- */
+let quizState=null;
+function vocabMissed(){ return LS.get('vocabMissed',[]); }
+function startVocabQuiz(d){
+  // today's 30 words + up to 8 previously-missed words for spaced review
+  const today=(d.vocab||[]).map(v=>({w:v.w,zh:v.zh,en:v.en}));
+  const missedWords=vocabMissed();
+  const pool=today.slice();
+  // include a few missed (that aren't already today)
+  missedWords.forEach(m=>{ if(!pool.find(p=>p.w.toLowerCase()===m.w.toLowerCase())) pool.push(Object.assign({rev:true},m)); });
+  // shuffle deterministically-ish (rotate by day)
+  const arr=pool.slice(); for(let i=0;i<(state.current%7);i++) arr.push(arr.shift());
+  quizState={list:arr,idx:0,correct:0,wrong:[]};
+  document.getElementById('voc-grid').style.display='none';
+  document.getElementById('voc-quiz').style.display='';
+  renderQuizCard();
+}
+function renderQuizCard(){
+  const box=document.getElementById('voc-quiz'); const q=quizState;
+  if(q.idx>=q.list.length){ finishVocabQuiz(); return; }
+  const it=q.list[q.idx];
+  document.getElementById('quizStat').textContent='进度 '+(q.idx+1)+'/'+q.list.length+' · 已对 '+q.correct;
+  box.innerHTML='<div class="card"><div style="color:var(--ink2);font-size:13px;margin-bottom:6px">看释义，拼出英文单词（主动回忆）'+(it.rev?' <span class="tag rev">复习词</span>':'')+'</div>'+
+    '<div style="font-size:18px;font-weight:700;margin-bottom:2px">'+(it.zh||'')+'</div>'+
+    '<div class="en" style="margin-bottom:10px">'+(it.en||'')+'</div>'+
+    '<input class="edin" id="qin" style="width:220px" placeholder="type the word…" autocomplete="off" autocapitalize="off">'+
+    '<span class="edmark" id="qmark"></span>'+
+    '<div class="expl" id="qexp"></div>'+
+    '<div class="btnrow"><button class="btn primary mini" id="qsubmit">提交</button>'+
+    '<button class="btn ghost mini" id="qskip">不会，看答案</button></div></div>';
+  const inp=document.getElementById('qin'); inp.focus();
+  inp.onkeydown=e=>{if(e.key==='Enter')checkQuiz();};
+  document.getElementById('qsubmit').onclick=checkQuiz;
+  document.getElementById('qskip').onclick=()=>checkQuiz(true);
+}
+function checkQuiz(skip){
+  const q=quizState, it=q.list[q.idx];
+  const val=(document.getElementById('qin').value||'').trim().toLowerCase();
+  const ok=!skip && val===it.w.toLowerCase();
+  const mark=document.getElementById('qmark'), exp=document.getElementById('qexp');
+  exp.classList.add('show');
+  if(ok){ q.correct++; mark.textContent='✓'; mark.className='edmark good'; exp.innerHTML='<b>'+it.w+'</b> ✓ 正确！';
+    // remove from missed if present
+    const mw=vocabMissed().filter(m=>m.w.toLowerCase()!==it.w.toLowerCase()); LS.set('vocabMissed',mw);
+  } else {
+    mark.textContent='✗'; mark.className='edmark bad'; exp.innerHTML='正确答案：<b>'+it.w+'</b>'+(it.en?' — '+it.en:'');
+    q.wrong.push(it);
+    const mw=vocabMissed(); if(!mw.find(m=>m.w.toLowerCase()===it.w.toLowerCase())){ mw.push({w:it.w,zh:it.zh,en:it.en}); LS.set('vocabMissed',mw); }
+  }
+  DB.post('attempt',{student:STUDENT,day:state.current,qid:'vocab-'+it.w,topic:'词汇拼写',chosen:ok?1:0,correct:ok?1:0,kind:'vocab'});
+  document.getElementById('qsubmit').textContent='下一个 →';
+  document.getElementById('qsubmit').onclick=()=>{q.idx++;renderQuizCard();};
+  document.getElementById('qin').disabled=true;
+  document.getElementById('quizStat').textContent='进度 '+(q.idx+1)+'/'+q.list.length+' · 已对 '+q.correct;
+}
+function finishVocabQuiz(){
+  const q=quizState, box=document.getElementById('voc-quiz');
+  const pct=Math.round(q.correct/q.list.length*100);
+  box.innerHTML='<div class="card"><div style="font-size:20px;font-weight:800;margin-bottom:6px">测验完成 🎉</div>'+
+    '<div style="font-size:16px">得分：'+q.correct+' / '+q.list.length+'（'+pct+'%）</div>'+
+    (q.wrong.length?'<div style="margin-top:10px"><b>需再记的词（已加入复习队列，明天再考）：</b><div style="margin-top:6px">'+
+      q.wrong.map(w=>'<span class="tag rev" style="margin:3px;display:inline-block">'+w.w+' · '+w.zh+'</span>').join('')+'</div></div>':'<div style="margin-top:10px;color:var(--good)">全部答对，太棒了！</div>')+
+    '<div class="btnrow"><button class="btn primary mini" id="qagain">再测一次</button>'+
+    (q.wrong.length?'<button class="btn gold mini" id="qretryWrong">只测错词</button>':'')+
+    '<button class="btn ghost mini" id="qcards">返回卡片</button></div></div>';
+  document.getElementById('qagain').onclick=()=>startVocabQuiz(currentData());
+  const rw=document.getElementById('qretryWrong'); if(rw) rw.onclick=()=>{quizState={list:q.wrong.slice(),idx:0,correct:0,wrong:[]};renderQuizCard();};
+  document.getElementById('qcards').onclick=()=>{document.getElementById('voc-quiz').style.display='none';document.getElementById('voc-grid').style.display='';document.getElementById('quizStat').textContent='';};
 }
 function renderNotebook(){
   const box=document.getElementById('nb-list');
@@ -949,6 +1121,7 @@ function buildPrompt(next){
  "materials":[{"ic":"📰","ttl":"资源名","src":"域名","url":"真实可访问URL","why":"为何读/怎么用","type":"news|deep|classic|study"} ...5-6条，必须真实链接如 channelnewsasia.com / straitstimes.com / bbc.co.uk/learningenglish / learnenglish.britishcouncil.org / aeon.co / gutenberg.org / nationalgeographic.com],
  "mcqs":[{"id":"d${next}q1","stem":"题干（可含___）","options":["A项","B项","C项","D项"],"answer":0,"expl":"解析（含<b>正确项</b>）","topic":"考点如时态/主谓一致/介词搭配/词汇"} ...6题，至少1题针对我的薄弱点],
  "editing":{"intro":"说明","lines":[{"text":"含一处错误的英文句子","wrong":"错词","fix":"正确词","why":"中文原因"} ...8行，模拟 Paper1 改错，涵盖时态/主谓/介词/可数性/词性]},
+ "visual":{"title":"标题","svg":"一段自绘的SVG海报/广告代码(<svg viewBox=\\"0 0 380 500\\" width=\\"360\\" height=\\"474\\">…，含标题/标语/图形/CTA，勿引用外部图片)","questions":[{"q":"问题 [x分]","model":"参考答案","mk":"评分点"} ...5题，考对象/图文如何传意/用词效果/1题vocab-in-context]},
  "reading":{"title":"阅读标题","passage":"200-300词原创非叙事或叙事短文","questions":[{"q":"问题 [x分]","model":"参考答案","mk":"评分点说明"} ...5题，含1题vocab-in-context与1题inference]},
  "summary":{"task":"摘要任务说明（基于上面reading或另给短文），限80词","points":["应涵盖要点1","要点2" ...6-8个],"model":"参考摘要(标注词数)","limit":80},
  "situational":{"scenario":"情景背景","prompt":"写作任务(email/letter/report/speech)","bullets":["要点1","要点2","要点3"],"format":["格式/语气清单..."],"rubric":[{"pts":"任务完成/15","txt":"要点"},{"pts":"语言/15","txt":"要点"}],"model":"范文，用\\n分段"},
@@ -986,6 +1159,101 @@ function doImport(raw){
   setTimeout(()=>{modal.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});},700);
 }
 
+/* ---------- DIAGNOSTIC ASSESSMENT (Day-1 placement test) ---------- */
+const DIAGNOSTIC=[
+  {id:"dg1",topic:"时态",stem:"By the time the guests arrived, my mother ____ the cake.",options:["bakes","has baked","had baked","is baking"],answer:2},
+  {id:"dg2",topic:"主谓一致",stem:"Each of the students ____ expected to bring a calculator.",options:["are","is","were","have"],answer:1},
+  {id:"dg3",topic:"介词搭配",stem:"The report is based ____ data collected over ten years.",options:["in","on","at","of"],answer:1},
+  {id:"dg4",topic:"词汇",stem:"The witness gave a ____ account of the accident, leaving out no detail.",options:["vague","meticulous","careless","brief"],answer:1},
+  {id:"dg5",topic:"词形",stem:"His ____ to master the piano impressed his teacher.",options:["determine","determined","determination","determinedly"],answer:2},
+  {id:"dg6",topic:"冠词",stem:"She is ____ honest person who always tells the truth.",options:["a","an","the","(no article)"],answer:1},
+  {id:"dg7",topic:"连词/逻辑",stem:"____ it was raining heavily, the match continued.",options:["Because","Although","So","Unless"],answer:1},
+  {id:"dg8",topic:"比较级",stem:"This year's results are far ____ than last year's.",options:["good","better","best","more good"],answer:1},
+  {id:"dg9",topic:"可数性",stem:"We didn't have ____ information to make a decision.",options:["many","a few","much","several"],answer:2},
+  {id:"dg10",topic:"词汇",stem:"Cutting down forests will ____ the effects of climate change.",options:["alleviate","exacerbate","ignore","celebrate"],answer:1},
+  {id:"dg11",topic:"标点",stem:"Which sentence is punctuated correctly?",options:["Its a lovely day, isnt it?","It's a lovely day, isn't it?","Its' a lovely day, is'nt it?","It's a lovely day isn't it?"],answer:1},
+  {id:"dg12",topic:"语态",stem:"The new library ____ next year.",options:["will build","will be built","is building","builds"],answer:1}
+];
+function diagDone(){ return LS.get('diagDone',false); }
+function renderDiagBanner(){
+  const b=document.getElementById('diagBanner'); if(!b) return;
+  if(diagDone()){
+    const prof=LS.get('diagProfile',null);
+    b.innerHTML='<div class="card" style="border-left:3px solid var(--good)"><b>🩺 诊断已完成。</b> '+
+      (prof?('薄弱项：'+(prof.weak.length?prof.weak.join('、'):'无明显薄弱，保持！')+'　（得分 '+prof.score+'/'+prof.total+'）'):'')+
+      ' <button class="btn ghost mini" id="redoDiag" style="margin-left:8px">重测</button></div>';
+    const rd=document.getElementById('redoDiag'); if(rd) rd.onclick=openDiag;
+    return;
+  }
+  b.innerHTML='<div class="card" style="border-left:3px solid var(--warn)"><b>🩺 建议先做「入学诊断测评」</b><div style="color:var(--ink2);font-size:13.5px;margin:4px 0 8px">12 道题，约 8 分钟，找出你的薄弱知识点。之后每天的练习会据此重点复现你的弱项。</div>'+
+    '<button class="btn gold mini" id="openDiag">开始诊断测评 →</button></div>';
+  const od=document.getElementById('openDiag'); if(od) od.onclick=openDiag;
+}
+const diagModal=document.getElementById('diagModal');
+function openDiag(){
+  document.getElementById('diagBody').innerHTML=DIAGNOSTIC.map((q,i)=>
+    '<div class="q" data-dg="'+i+'"><div class="stem"><span class="no">'+(i+1)+'</span>'+q.stem+'</div>'+
+    q.options.map((o,j)=>'<label class="opt"><input type="radio" name="dg-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+'</div>').join('');
+  document.getElementById('diagResult').innerHTML='';
+  document.getElementById('submitDiag').style.display='';
+  diagModal.classList.add('show');
+}
+document.getElementById('closeDiag').onclick=()=>diagModal.classList.remove('show');
+diagModal.addEventListener('click',e=>{if(e.target===diagModal)diagModal.classList.remove('show');});
+document.getElementById('submitDiag').onclick=()=>{
+  let score=0; const wrongTopics={};
+  DIAGNOSTIC.forEach(q=>{
+    const c=document.querySelector('input[name="dg-'+q.id+'"]:checked');
+    const val=c?+c.value:null; const ok=(val===q.answer);
+    if(ok) score++; else { wrongTopics[q.topic]=(wrongTopics[q.topic]||0)+1;
+      // add missed diagnostic items to the notebook so they resurface
+      if(!notebook.find(n=>n.id===q.id)) notebook.push({id:q.id,stem:q.stem,options:q.options,answer:q.answer,
+        expl:'诊断测评错题 · 考点：'+q.topic,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current});
+    }
+    DB.post('attempt',{student:STUDENT,day:state.current,qid:q.id,topic:q.topic,chosen:(val==null?-1:val),correct:ok?1:0,kind:'diagnostic'});
+  });
+  const weak=Object.keys(wrongTopics).sort((a,b)=>wrongTopics[b]-wrongTopics[a]);
+  const profile={score:score,total:DIAGNOSTIC.length,weak:weak};
+  LS.set('diagDone',true); LS.set('diagProfile',profile);
+  persistNotebook(); updateNbBadge(); renderNotebook();
+  const band = score>=11?'A1':score>=9?'A2':score>=7?'B3':score>=5?'B4':'C5及以下';
+  document.getElementById('submitDiag').style.display='none';
+  document.getElementById('diagResult').innerHTML=
+    '<div class="card" style="margin-top:12px;border-left:3px solid var(--brand)"><div style="font-size:18px;font-weight:800">你的诊断结果</div>'+
+    '<div style="margin:6px 0">得分 <b>'+score+'/'+DIAGNOSTIC.length+'</b> · 起点约当 <b>'+band+'</b> 档</div>'+
+    '<div><b>需要重点突破：</b>'+(weak.length?weak.map(w=>'<span class="tag rev" style="display:inline-block;margin:3px">'+w+'</span>').join(''):'<span style="color:var(--good)">无明显薄弱，基础扎实！</span>')+'</div>'+
+    '<div style="color:var(--ink2);font-size:13px;margin-top:8px">这些薄弱点已加入错题本，并会在后续每天的练习与「生成下一天」中重点复现，直到你掌握。</div>'+
+    '<div class="btnrow"><button class="btn primary mini" id="diagOkBtn">好的，开始学习</button></div></div>';
+  document.getElementById('diagOkBtn').onclick=()=>{diagModal.classList.remove('show');renderDiagBanner();};
+};
+
+/* ---------- EXAM MODE (timed mock) ---------- */
+let examTimer=null, examLeft=0;
+function fmt(s){const m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+function setExamMode(on){
+  document.body.classList.toggle('exam-on',on);
+  document.getElementById('examStart').style.display=on?'none':'';
+  document.getElementById('examStop').style.display=on?'':'none';
+  document.getElementById('examPreset').disabled=on;
+}
+function startExam(){
+  const mins=+document.getElementById('examPreset').value||10;
+  examLeft=mins*60; setExamMode(true); updateClock();
+  examTimer=setInterval(()=>{ examLeft--; updateClock(); if(examLeft<=0) stopExam(true); },1000);
+}
+function updateClock(){ const c=document.getElementById('clock'); c.textContent=fmt(Math.max(0,examLeft));
+  c.style.color = examLeft<=60?'var(--bad)':examLeft<=300?'var(--warn)':'var(--good)'; }
+function stopExam(auto){
+  if(examTimer){clearInterval(examTimer);examTimer=null;}
+  setExamMode(false);
+  document.getElementById('clock').textContent=auto?'时间到':'已结束';
+  document.getElementById('examhint').textContent=auto?'⏰ 时间到！答案已解锁，请对照批改。':'已结束，答案已解锁。';
+  // reveal all model answers
+  document.querySelectorAll('#p-practice .model').forEach(m=>m.classList.add('show'));
+}
+document.getElementById('examStart').onclick=startExam;
+document.getElementById('examStop').onclick=()=>stopExam(false);
+
 /* ---------- UTIL ---------- */
 function escapeHTML(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
@@ -994,7 +1262,7 @@ function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
 (async function boot(){
   await DB.init();
   await DB.pull();                      // hydrate from SQLite if backend is up
-  if(!days[1]) days[1]=DAY1;            // ensure Day 1 seed exists
+  days[1]=DAY1;                         // Day 1 is authored in code — always authoritative (survives app updates)
   if(!state.startDate) state.startDate=todayStr();
   persistDay(1);                        // make sure server has the seed
   persistState();
