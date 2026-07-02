@@ -146,7 +146,28 @@
   .divider{height:1px;background:var(--line);margin:18px 0}
   small.muted{color:var(--ink3)}
   .kicker{font-size:12px;color:var(--ink3);margin-top:24px;text-align:center}
-  @media(max-width:560px){.daybadge .d{font-size:42px}.wrap{padding:14px 12px 130px}}
+  /* Editing */
+  .edline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .edline .ln{flex:0 0 auto;width:22px;height:22px;border-radius:6px;background:#232838;color:var(--ink2);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .edline .txt{flex:1 1 300px;font-size:14px}
+  .edin{flex:0 0 auto;width:150px;background:#0c0e13;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:7px 10px;font-family:inherit;font-size:14px}
+  .edmark{flex:0 0 auto;width:18px;font-weight:800}
+  .edmark.good{color:var(--good)} .edmark.bad{color:var(--bad)}
+  .edline .expl{flex-basis:100%}
+  .btn.mini{padding:5px 10px;font-size:12px}
+  code{background:#0c0e13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:var(--mono);font-size:12px;color:var(--brand2)}
+  /* Dashboard */
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:8px 0 6px}
+  .statcard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .statcard .sv{font-size:26px;font-weight:900;color:var(--brand2)}
+  .statcard .sl{font-size:12px;color:var(--ink2);margin-top:2px}
+  .bars{margin:8px 0}
+  .bar{display:flex;align-items:center;gap:10px;margin:8px 0}
+  .bar .bl{flex:0 0 130px;font-size:13px}
+  .bar .bt{flex:1;height:12px;background:#0c0e13;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+  .bar .bt > i{display:block;height:100%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--good))}
+  .bar .bv{flex:0 0 auto;font-size:12px;color:var(--ink2);min-width:70px;text-align:right}
+  @media(max-width:560px){.daybadge .d{font-size:42px}.wrap{padding:14px 12px 130px}.bar .bl{flex-basis:90px}}
 </style>
 </head>
 <body>
@@ -171,9 +192,11 @@
   <nav class="tabs" id="tabs">
     <div class="tab active" data-tab="overview"><span class="em">📌</span>今日概览</div>
     <div class="tab" data-tab="materials"><span class="em">📰</span>参考材料</div>
-    <div class="tab" data-tab="practice"><span class="em">✍️</span>考题练习</div>
+    <div class="tab" data-tab="practice"><span class="em">✍️</span>笔试练习</div>
+    <div class="tab" data-tab="oral"><span class="em">🎤</span>听力口语</div>
     <div class="tab" data-tab="vocab"><span class="em">🔤</span>单词 30</div>
     <div class="tab" data-tab="notebook"><span class="em">📕</span>错题本<span class="badge" id="nbBadge" style="display:none">0</span></div>
+    <div class="tab" data-tab="dash"><span class="em">📊</span>学情</div>
   </nav>
 
   <!-- OVERVIEW -->
@@ -194,22 +217,43 @@
 
   <!-- PRACTICE -->
   <section class="panel" id="p-practice">
-    <h2 class="sec"><span class="zh">✍️ 考题练习</span></h2>
-    <p class="sub">客观题即时批改 · 阅读题给参考答案 · 写作题给范文与评分表。做错的客观题自动进入错题本。</p>
+    <h2 class="sec"><span class="zh">✍️ 笔试练习</span> <span class="sub" style="margin:0">Paper 1 写作 · Paper 2 理解</span></h2>
+    <p class="sub">对齐真实考卷题型：改错 · 客观题 · 阅读 · 摘要 · 情景写作 · 连贯写作。客观题即时批改并入错题本；写作可一键请 Claude 按 O-Level 评分标准批改。</p>
 
     <h3>① 错题复习 <small class="muted">Spaced review — 直到答对2次才「毕业」</small></h3>
     <div id="pr-review"></div>
 
-    <h3>② 客观题 MCQ <small class="muted">语法 · 词汇 · 编辑改错</small></h3>
+    <h3>② 编辑改错 Editing <small class="muted">Paper 1 · 每行找出并改正一处错误（10分题型）</small></h3>
+    <div id="pr-editing"></div>
+
+    <h3>③ 客观题 MCQ <small class="muted">语法 · 词汇 · 介词搭配</small></h3>
     <div id="pr-mcq"></div>
     <div class="btnrow"><button class="btn primary" id="gradeMcq">提交批改 Submit &amp; Grade</button></div>
     <div class="scorebox" id="mcqScore"></div>
 
-    <h3>③ 阅读理解 Comprehension</h3>
+    <h3>④ 阅读理解 Comprehension <small class="muted">Paper 2 · 用自己的话 / 推断 / 词义</small></h3>
     <div id="pr-reading"></div>
 
-    <h3>④ 写作 Writing</h3>
+    <h3>⑤ 摘要写作 Summary <small class="muted">Paper 2 · 抓要点 + 改写 + 词数限制（15分）</small></h3>
+    <div id="pr-summary"></div>
+
+    <h3>⑥ 情景写作 Situational <small class="muted">Paper 1 · 格式/对象/语气 + 三个要点（30分）</small></h3>
+    <div id="pr-situational"></div>
+
+    <h3>⑦ 连贯写作 Continuous <small class="muted">Paper 1 · 记叙/描写/议论（30分）</small></h3>
     <div id="pr-writing"></div>
+  </section>
+
+  <!-- ORAL & LISTENING -->
+  <section class="panel" id="p-oral">
+    <h2 class="sec"><span class="zh">🎤 听力口语</span> <span class="sub" style="margin:0">Paper 3 听力 · Paper 4 口语（合计60分）</span></h2>
+    <p class="sub">口语占总分约22%，却最易被忽视。每天练：朗读（发音/重音/语调）+ 口语互动（看图/视频后应答）+ 听力资源。</p>
+    <h3>① 朗读 Reading Aloud</h3>
+    <div id="or-read"></div>
+    <h3>② 口语互动 Spoken Interaction</h3>
+    <div id="or-spoken"></div>
+    <h3>③ 听力资源 Listening</h3>
+    <div id="or-listen"></div>
   </section>
 
   <!-- VOCAB -->
@@ -227,7 +271,15 @@
     <div id="nb-list"></div>
   </section>
 
-  <p class="kicker">数据保存在此浏览器本地（localStorage）。换设备或清缓存会丢失。 · Built for the A1/A2 goal 🎯</p>
+  <!-- DASHBOARD -->
+  <section class="panel" id="p-dash">
+    <h2 class="sec"><span class="zh">📊 学情看板</span> <span class="sub" style="margin:0">Learning Analytics</span></h2>
+    <p class="sub">基于你的答题记录（存于 SQLite 数据库）自动分析：正确率、最薄弱的知识点、错题掌握进度。用它决定今天该重点补哪里。</p>
+    <div id="dash-body"><div class="empty">启动数据库模式（node server.js）并做几道题后，这里会显示你的学情分析。</div></div>
+    <div class="btnrow"><button class="btn ghost" id="refreshDash">刷新数据</button></div>
+  </section>
+
+  <p class="kicker">数据保存在本机 SQLite 数据库（db/rosa.db）；离线文件模式下存浏览器本地。 · Built for the A1/A2 goal 🎯</p>
 </div>
 
 <!-- GENERATE NEXT DAY BAR -->
@@ -266,6 +318,18 @@
       <button class="btn ghost" id="loadSampleBtn" title="载入一个内置示例演示效果">载入示例(演示)</button>
     </div>
     <p class="kicker" style="text-align:left">提示：也可以直接在当前 Claude 对话里发这段提示词。JSON 结构固定，粘错会有红色提示。</p>
+  </div>
+</div>
+
+<!-- MODAL: mark my writing -->
+<div class="modal" id="markModal">
+  <div class="box">
+    <span class="x" id="closeMark">×</span>
+    <h3>🖊️ 请 Claude 批改 <span id="markKind"></span></h3>
+    <p class="sub" style="margin-bottom:12px">复制下面的提示词发给 Claude，它会按 O-Level 评分标准打分、指出错误并给出提升版。</p>
+    <textarea class="codearea" id="markOut" readonly style="min-height:260px"></textarea>
+    <div class="btnrow"><button class="btn primary" id="copyMark">📋 复制批改提示词</button></div>
+    <p class="kicker" style="text-align:left">批改结果直接在 Claude 对话里看即可，无需粘回。</p>
   </div>
 </div>
 
@@ -393,6 +457,70 @@ Those words lingered. The next day, I returned to my violin, but this time I sto
 
 When I finally performed at the school concert, my hands trembled, yet the notes came out clear and steady. The applause was modest, but to me it sounded like thunder. I had not become a great violinist — but I had discovered something more lasting: that perseverance is not about never wanting to give up, but about choosing, again and again, not to.`
   },
+  editing:{
+    intro:"下面每一行有<b>一处</b>错误（语法/时态/主谓一致/介词/可数性/词性）。在方框中填入<b>改正后的词</b>。",
+    lines:[
+      {text:"Yesterday my sister and me went to the new science museum.",wrong:"me",fix:"I",why:"主语用主格 I（and 后仍是主语）。"},
+      {text:"We has always wanted to see the dinosaur exhibition.",wrong:"has",fix:"had",why:"we 用 have；此处过去背景用 had always wanted。"},
+      {text:"The entrance tickets was cheaper than we expected.",wrong:"was",fix:"were",why:"主语 tickets 复数，用 were。"},
+      {text:"Inside, there were many useful informations about fossils.",wrong:"informations",fix:"information",why:"information 不可数，无复数。"},
+      {text:"A guide explained how dinosaurs lived million of years ago.",wrong:"million",fix:"millions",why:"millions of（泛指数百万）。"},
+      {text:"My little sister was very fascinate by the giant skeletons.",wrong:"fascinate",fix:"fascinated",why:"人做感受用过去分词 fascinated。"},
+      {text:"We spent the whole afternoon to walk around the halls.",wrong:"to walk",fix:"walking",why:"spend time doing sth。"},
+      {text:"By the time we left, we have learnt a lot about prehistoric life.",wrong:"have",fix:"had",why:"by the time + 过去，主句用过去完成 had learnt。"}
+    ]
+  },
+  summary:{
+    task:"根据上面第④题的短文《Why Cities Need Green Spaces》，用<b>不超过80个词</b>概括：绿地带来的好处，以及维护绿地面临的挑战与应对方法。",
+    points:["降低压力/鼓励运动/改善注意力","社区花园增进邻里往来","吸收二氧化碳、过滤灰尘","树荫降温（天然空调）","为野生动物提供庇护","土地稀缺且昂贵，与住房等竞争","在屋顶和垂直墙面造园应对"],
+    model:"Green spaces reduce stress, encourage exercise and improve focus, while community gardens bring neighbours together. Environmentally, trees absorb carbon dioxide, filter dust, cool the streets and shelter wildlife. However, maintaining them is hard because land is scarce and costly, competing with housing and roads. Planners respond creatively by growing gardens on rooftops and vertical walls where ground space is limited. (61 words)",
+    limit:80
+  },
+  situational:{
+    scenario:"你的学校准备推行「全校阅读计划」。校长 Mr Tan 邀请学生提建议。",
+    prompt:"Write an <b>email</b> to your principal, Mr Tan, suggesting how the school can encourage students to read more.",
+    bullets:["why reading is important for students","two activities the school could organise","how students can be motivated to take part"],
+    format:["收信人称呼：Dear Mr Tan,","开门见山说明写信目的","正式、礼貌的语气（不用缩写 don't/can't）","分段覆盖三个要点","结尾：Yours sincerely, + 姓名"],
+    rubric:[
+      {pts:"任务完成 /15",txt:"三个要点全部覆盖且展开；目的、对象(校长)、语境(建议)恰当。"},
+      {pts:"语言 /15",txt:"正式语气一致；句式多样、用词准确；语法与标点少错。"}
+    ],
+    model:`Dear Mr Tan,
+
+I am writing to suggest how our school might encourage students to develop a stronger reading habit as part of the new reading programme.
+
+Firstly, reading is invaluable for students. It widens our vocabulary, sharpens our thinking and exposes us to ideas and cultures beyond the classroom — all of which strengthen both our writing and our confidence in English.
+
+To build interest, the school could organise two activities. A weekly "Drop Everything and Read" session, where the whole school reads quietly for twenty minutes, would make reading a shared routine. In addition, a monthly book-sharing club would let students recommend titles to one another, turning reading into a social experience rather than a solitary chore.
+
+Finally, students would be far more motivated if their efforts were recognised. A simple reading-passport, stamped for every book completed and rewarded with small prizes or certificates at assembly, would give a real sense of achievement and healthy competition.
+
+I believe these measures would help our school foster a genuine love of reading. Thank you for considering my suggestions.
+
+Yours sincerely,
+Rachel Tan`
+  },
+  oral:{
+    readAloud:{
+      passage:"Every morning, the old hawker arrived before sunrise to set up his stall. He arranged each bowl with care, stirred the steaming broth, and greeted his regular customers by name. To many, he was more than a cook — he was a familiar face in a changing neighbourhood, a reminder that small kindnesses, served daily, can hold a community together.",
+      tips:["注意意群停顿：在逗号/句号处自然换气，不要一字一顿。","重音落在实词上：<b>old</b> hawker, <b>steaming</b> broth, <b>familiar</b> face。","语调：陈述句句末下降；破折号处稍作停顿再继续。","清晰发音结尾辅音：arrive<b>d</b>, stirre<b>d</b>, serve<b>d</b>。"]
+    },
+    spoken:{
+      stimulus:"图片/视频情境：一群学生在社区做义工——清理海滩、捡拾塑料垃圾。",
+      questions:[
+        {q:"Would you like to take part in an activity like this? Why or why not?",
+         model:"Yes, I would gladly take part. Firstly, cleaning up the beach directly protects marine life from plastic pollution. More importantly, working alongside others gives me a real sense of contribution to my community. Although it can be tiring under the sun, the satisfaction of seeing a cleaner shoreline makes the effort worthwhile.",
+         tip:"用 PEEL 展开：Point→观点，Explain→理由，Example→例子，Link→回扣。给出2个理由并让步一次。"},
+        {q:"Some people say young people today do not care about the environment. Do you agree?",
+         model:"I have to disagree. In fact, many young people are leading environmental efforts, from recycling drives to climate campaigns online. It is true that not everyone is equally involved, but I believe awareness among my generation has never been higher. Rather than not caring, most of us simply need more opportunities to act.",
+         tip:"表明立场→反驳→让步→重申。避免只答一句，至少三到四句。"}
+      ]
+    },
+    listening:[
+      {ic:"🎧",ttl:"BBC Learning English — 6 Minute English",src:"bbc.co.uk/learningenglish",url:"https://www.bbc.co.uk/learningenglish/features/6-minute-english",why:"每期6分钟真实语速对话，练边听边记要点。听1期，写下3个关键信息。"},
+      {ic:"📝",ttl:"British Council — Listening (B1/B2)",src:"learnenglish.britishcouncil.org",url:"https://learnenglish.britishcouncil.org/skills/listening",why:"分级听力，带练习题与答案，贴近 Paper 3 note-taking 题型。"}
+    ]
+  },
   vocab:[
     {w:"alleviate",pos:"v.",en:"to make pain or a problem less severe",zh:"减轻，缓解",ex:"Government subsidies helped alleviate the financial burden on poor families.",use:"alleviate + pain/problem/poverty；近义 relieve, ease"},
     {w:"ambiguous",pos:"adj.",en:"having more than one possible meaning; unclear",zh:"模棱两可的，含糊的",ex:"His ambiguous reply left us unsure of his real intentions.",use:"反义 unambiguous / clear；ambiguous statement"},
@@ -484,8 +612,9 @@ function render(){
   document.getElementById('prog').style.width=(state.current/100*100)+'%';
   document.getElementById('prevDay').disabled=state.current<=1;
 
-  renderOverview(d); renderMaterials(d); renderMCQ(d); renderReview();
-  renderReading(d); renderWriting(d); renderVocab(d); renderNotebook();
+  renderOverview(d); renderMaterials(d); renderEditing(d); renderMCQ(d); renderReview();
+  renderReading(d); renderSummary(d); renderSituational(d); renderWriting(d);
+  renderOral(d); renderVocab(d); renderNotebook();
   updateNbBadge();
   // gen button label
   document.getElementById('genNext').textContent = (state.current<state.unlocked)?'下一天 →':'生成下一天 →';
@@ -545,15 +674,101 @@ function renderWriting(d){
     '<div class="rubric">'+(w.rubric||[]).map(r=>'<div class="r"><div class="pts">'+r.pts+'</div><div>'+r.txt+'</div></div>').join('')+'</div>'+
     '<textarea class="ans" id="myEssay" style="min-height:180px" placeholder="在此写作，右下角自动统计词数…"></textarea>'+
     '<div class="wc" id="wc">0 词</div>'+
-    '<div class="btnrow"><button class="btn primary" id="showModel">查看范文 Model Answer</button>'+
+    '<div class="btnrow"><button class="btn gold" id="markEssay">🖊️ 请Claude批改</button>'+
+    '<button class="btn primary" id="showModel">查看范文 Model Answer</button>'+
     '<button class="btn ghost" id="selfCheck">自评清单 Checklist</button></div>'+
     '<div class="model" id="essayModel"><div class="mk">范文 · 供学习句型与结构，勿照抄</div>'+nl2br(w.model||'')+'</div>'+
     '<div class="model" id="checkList"><div class="mk">自评清单</div>'+
       '□ 时态是否前后一致？<br>□ 是否有 3+ 处高级词/句型？<br>□ 分段是否清晰、有连接词？<br>□ 结尾是否点题/有反思？<br>□ 有无低级语法错误（主谓、冠词、介词）？</div></div>';
   const es=document.getElementById('myEssay'), wc=document.getElementById('wc');
-  if(es){es.oninput=()=>{const n=(es.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' 词';};}
+  if(es){es.oninput=()=>{const n=(es.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' 词';
+    DB.post('essay',{student:STUDENT,day:state.current,text:es.value,words:n});};}
   const sm=document.getElementById('showModel'); if(sm) sm.onclick=()=>document.getElementById('essayModel').classList.add('show');
   const sc=document.getElementById('selfCheck'); if(sc) sc.onclick=()=>document.getElementById('checkList').classList.toggle('show');
+  const mk=document.getElementById('markEssay'); if(mk) mk.onclick=()=>openMark('连贯写作 Continuous Writing',w.prompt,es?es.value:'',60);
+}
+
+/* ---- EDITING (Paper 1 error correction) ---- */
+function renderEditing(d){
+  const e=d.editing; const box=document.getElementById('pr-editing');
+  if(!e){box.innerHTML='<div class="card" style="color:var(--ink2)">今日无改错练习。</div>';return;}
+  box.innerHTML='<div class="card"><div style="margin-bottom:10px">'+(e.intro||'')+'</div>'+
+    e.lines.map((ln,i)=>'<div class="edline"><span class="ln">'+(i+1)+'</span><span class="txt">'+escapeHTML(ln.text)+'</span>'+
+      '<input class="edin" id="ed-'+i+'" placeholder="改正后的词" autocomplete="off">'+
+      '<span class="edmark" id="edm-'+i+'"></span>'+
+      '<div class="expl" id="edx-'+i+'"><b>'+escapeHTML(ln.wrong)+' → '+escapeHTML(ln.fix)+'</b> · '+ln.why+'</div></div>').join('')+
+    '<div class="btnrow"><button class="btn primary" id="gradeEdit">提交批改</button></div>'+
+    '<div class="scorebox" id="editScore"></div></div>';
+  document.getElementById('gradeEdit').onclick=()=>gradeEditing(e);
+}
+function gradeEditing(e){
+  let ok=0;
+  e.lines.forEach((ln,i)=>{
+    const v=(document.getElementById('ed-'+i).value||'').trim().toLowerCase().replace(/[.,]$/,'');
+    const m=document.getElementById('edm-'+i), x=document.getElementById('edx-'+i);
+    x.classList.add('show');
+    if(v===ln.fix.toLowerCase()){ok++;m.textContent='✓';m.className='edmark good';}
+    else{m.textContent='✗';m.className='edmark bad';}
+  });
+  const sb=document.getElementById('editScore'); sb.classList.add('show');
+  sb.textContent='得分：'+ok+' / '+e.lines.length+(ok===e.lines.length?'　🏆 全对！':'　❗ 看解析，注意同类错误。');
+  DB.post('attempt',{student:STUDENT,day:state.current,qid:'edit-d'+state.current,topic:'编辑改错',chosen:ok,correct:(ok===e.lines.length)?1:0,kind:'editing'});
+}
+
+/* ---- SUMMARY (Paper 2) ---- */
+function renderSummary(d){
+  const s=d.summary; const box=document.getElementById('pr-summary');
+  if(!s){box.innerHTML='';return;}
+  box.innerHTML='<div class="card"><div style="font-weight:600;margin-bottom:8px">'+s.task+'</div>'+
+    '<textarea class="ans" id="mySummary" style="min-height:110px" placeholder="写下你的摘要…（注意词数上限 '+(s.limit||80)+'）"></textarea>'+
+    '<div class="wc" id="sumwc">0 / '+(s.limit||80)+' 词</div>'+
+    '<div class="btnrow"><button class="btn gold" id="markSum">🖊️ 请Claude批改</button>'+
+    '<button class="btn primary" id="showSumPts">查看要点 &amp; 范文</button></div>'+
+    '<div class="model" id="sumModel"><div class="mk">应涵盖的要点（point-based marking）</div><ul class="clean">'+
+      s.points.map(p=>'<li>'+p+'</li>').join('')+'</ul><div class="mk" style="margin-top:8px">参考范文</div>'+s.model+'</div></div>';
+  const ta=document.getElementById('mySummary'), wc=document.getElementById('sumwc');
+  ta.oninput=()=>{const n=(ta.value.trim().match(/\S+/g)||[]).length;wc.textContent=n+' / '+(s.limit||80)+' 词';wc.style.color=(n>(s.limit||80))?'var(--bad)':'var(--ink2)';};
+  document.getElementById('showSumPts').onclick=()=>document.getElementById('sumModel').classList.add('show');
+  document.getElementById('markSum').onclick=()=>openMark('摘要 Summary（要点+改写，限'+(s.limit||80)+'词）',s.task.replace(/<[^>]+>/g,''),ta.value,15);
+}
+
+/* ---- SITUATIONAL WRITING (Paper 1) ---- */
+function renderSituational(d){
+  const s=d.situational; const box=document.getElementById('pr-situational');
+  if(!s){box.innerHTML='';return;}
+  box.innerHTML='<div class="card">'+(s.scenario?'<div style="color:var(--ink2);margin-bottom:6px">'+s.scenario+'</div>':'')+
+    '<div style="font-weight:700;margin:4px 0">'+s.prompt+'</div>'+
+    '<div style="margin:6px 0"><b>必须包含：</b><ul class="clean">'+s.bullets.map(b=>'<li>'+b+'</li>').join('')+'</ul></div>'+
+    (s.format?'<div class="card" style="background:#12151d"><b>格式/语气清单：</b><ul class="clean">'+s.format.map(f=>'<li>'+f+'</li>').join('')+'</ul></div>':'')+
+    '<div class="rubric">'+(s.rubric||[]).map(r=>'<div class="r"><div class="pts">'+r.pts+'</div><div>'+r.txt+'</div></div>').join('')+'</div>'+
+    '<textarea class="ans" id="mySit" style="min-height:150px" placeholder="在此作答…"></textarea><div class="wc" id="sitwc">0 词</div>'+
+    '<div class="btnrow"><button class="btn gold" id="markSit">🖊️ 请Claude批改</button>'+
+    '<button class="btn primary" id="showSit">查看范文</button></div>'+
+    '<div class="model" id="sitModel"><div class="mk">参考范文</div>'+nl2br(s.model||'')+'</div></div>';
+  const ta=document.getElementById('mySit'), wc=document.getElementById('sitwc');
+  ta.oninput=()=>{wc.textContent=(ta.value.trim().match(/\S+/g)||[]).length+' 词';};
+  document.getElementById('showSit').onclick=()=>document.getElementById('sitModel').classList.add('show');
+  const task=s.prompt.replace(/<[^>]+>/g,'')+' 要点: '+s.bullets.join('; ');
+  document.getElementById('markSit').onclick=()=>openMark('情景写作 Situational Writing',task,ta.value,30);
+}
+
+/* ---- ORAL & LISTENING (Paper 3/4) ---- */
+function renderOral(d){
+  const o=d.oral;
+  if(!o){document.getElementById('or-read').innerHTML='<div class="card" style="color:var(--ink2)">今日无听说练习。</div>';document.getElementById('or-spoken').innerHTML='';document.getElementById('or-listen').innerHTML='';return;}
+  const ra=o.readAloud||{};
+  document.getElementById('or-read').innerHTML='<div class="card"><div class="passage">'+escapeHTML(ra.passage||'')+'</div>'+
+    '<div style="margin-top:10px"><b>朗读要点：</b><ul class="clean">'+(ra.tips||[]).map(t=>'<li>'+t+'</li>').join('')+'</ul></div>'+
+    '<div style="color:var(--ink2);font-size:13px">▸ 建议：手机录下自己的朗读，回放对照要点自评。</div></div>';
+  const sp=o.spoken||{};
+  document.getElementById('or-spoken').innerHTML='<div class="card">'+(sp.stimulus?'<div style="color:var(--ink2);margin-bottom:8px">🖼️ '+sp.stimulus+'</div>':'')+
+    (sp.questions||[]).map((q,i)=>'<div style="margin-top:10px"><div style="font-weight:600"><span class="no" style="color:var(--brand2)">Q'+(i+1)+'</span> '+q.q+'</div>'+
+      '<div style="font-size:12px;color:var(--warn);margin:4px 0">💡 '+(q.tip||'')+'</div>'+
+      '<div class="btnrow"><button class="btn ghost mini" data-sp="'+i+'">查看范例应答</button></div>'+
+      '<div class="model" id="sp-'+i+'"><div class="mk">Model spoken response</div>'+q.model+'</div></div>').join('')+'</div>';
+  document.querySelectorAll('#or-spoken [data-sp]').forEach(b=>b.onclick=()=>document.getElementById('sp-'+b.dataset.sp).classList.add('show'));
+  document.getElementById('or-listen').innerHTML=(o.listening||[]).map(m=>
+    '<div class="card"><div class="mat"><div class="ic">'+(m.ic||'🎧')+'</div><div class="body"><div class="ttl">'+m.ttl+'</div><div class="src">'+m.src+'</div><div class="why">'+m.why+'</div></div><a class="go" href="'+m.url+'" target="_blank" rel="noopener">打开 ↗</a></div></div>').join('');
 }
 function renderVocab(d){
   document.getElementById('voc-grid').innerHTML=(d.vocab||[]).map((v,i)=>
@@ -633,8 +848,65 @@ document.getElementById('tabs').addEventListener('click',e=>{
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));
   t.classList.add('active');
   document.getElementById('p-'+t.dataset.tab).classList.add('show');
+  if(t.dataset.tab==='dash') renderDashboard();
   window.scrollTo({top:0,behavior:'smooth'});
 });
+
+/* ---------- MARKING (ask Claude to grade my writing) ---------- */
+const markModal=document.getElementById('markModal');
+function openMark(kind,task,answer,marks){
+  document.getElementById('markKind').textContent='· '+kind;
+  const txt=(answer||'').trim();
+  const prompt=
+`你是新加坡 O-Level 英文考官。请按 O-Level（1184）评分标准批改我下面的${kind}作答，满分约 ${marks} 分。
+
+【题目/任务】
+${task}
+
+【我的作答】
+${txt||'(我还没写，请先给我这道题的高分写作策略与结构提纲)'}
+
+请按以下格式给出批改：
+1. 评分：给出分数(x/${marks})与对应等第(A1/A2/B3…)，并说明达到更高一档还差什么。
+2. 任务完成：是否覆盖全部要点/目的/对象/语气是否恰当。
+3. 逐条纠错：列出语法/拼写/搭配/时态错误（原句 → 改正 → 原因），最多10条。
+4. 亮点：指出2处用得好的词汇或句型。
+5. 提升版：给出一个改写后的高分版本（保留我的原意）。
+6. 一句话行动建议：我下次要特别注意的1件事。
+中文点评，英文示范。`;
+  document.getElementById('markOut').value=prompt;
+  markModal.classList.add('show');
+}
+document.getElementById('closeMark').onclick=()=>markModal.classList.remove('show');
+markModal.addEventListener('click',e=>{if(e.target===markModal)markModal.classList.remove('show');});
+document.getElementById('copyMark').onclick=()=>{
+  const ta=document.getElementById('markOut'); ta.select();
+  navigator.clipboard.writeText(ta.value).then(()=>{const b=document.getElementById('copyMark');const o=b.textContent;b.textContent='✅ 已复制';setTimeout(()=>b.textContent=o,1500);}).catch(()=>document.execCommand('copy'));
+};
+
+/* ---------- DASHBOARD ---------- */
+async function renderDashboard(){
+  const box=document.getElementById('dash-body');
+  if(!DB.on){box.innerHTML='<div class="empty">当前为离线文件模式。运行 <code>node server.js</code> 并从 http://localhost:4600 打开即可启用学情分析。</div>';return;}
+  try{
+    const s=await (await fetch('/api/stats?student='+STUDENT)).json();
+    const topicRows=(s.weakTopics||[]).map(t=>{
+      const rate=t.n?Math.round(t.c/t.n*100):0;
+      return '<div class="bar"><span class="bl">'+t.topic+'</span><span class="bt"><i style="width:'+rate+'%"></i></span><span class="bv">'+rate+'% ('+t.c+'/'+t.n+')</span></div>';
+    }).join('')||'<div style="color:var(--ink2)">暂无按知识点的数据，先去做题。</div>';
+    box.innerHTML=
+      '<div class="statgrid">'+
+       stat('总答题数',s.attempts)+stat('总正确率',s.accuracy+'%')+
+       stat('错题·未掌握',(s.notebook.total-s.notebook.mastered))+stat('已生成天数',s.daysGenerated+' / 100')+
+      '</div>'+
+      '<h3>最薄弱知识点（正确率由低到高）</h3><div class="bars">'+topicRows+'</div>'+
+      '<h3>错题掌握进度</h3><div class="bar"><span class="bl">已掌握</span><span class="bt"><i style="width:'+
+        (s.notebook.total?Math.round(s.notebook.mastered/s.notebook.total*100):0)+'%"></i></span><span class="bv">'+s.notebook.mastered+' / '+s.notebook.total+'</span></div>'+
+      '<p class="kicker" style="text-align:left">💡 建议：优先攻克正确率最低的知识点；生成下一天时会自动把这些薄弱点编入新题复现。</p>';
+  }catch(e){box.innerHTML='<div class="empty">读取学情失败：'+e.message+'</div>';}
+}
+function stat(l,v){return '<div class="statcard"><div class="sv">'+v+'</div><div class="sl">'+l+'</div></div>';}
+document.getElementById('refreshDash').onclick=renderDashboard;
 
 /* ---------- NAV ---------- */
 document.getElementById('prevDay').onclick=()=>{if(state.current>1){state.current--;persistState();render();}};
@@ -676,8 +948,12 @@ function buildPrompt(next){
  "kpts":[{"t":"知识点标题","en":"English gloss","body":"讲解，可含<b>加粗</b>与例子"} ...3条],
  "materials":[{"ic":"📰","ttl":"资源名","src":"域名","url":"真实可访问URL","why":"为何读/怎么用","type":"news|deep|classic|study"} ...5-6条，必须真实链接如 channelnewsasia.com / straitstimes.com / bbc.co.uk/learningenglish / learnenglish.britishcouncil.org / aeon.co / gutenberg.org / nationalgeographic.com],
  "mcqs":[{"id":"d${next}q1","stem":"题干（可含___）","options":["A项","B项","C项","D项"],"answer":0,"expl":"解析（含<b>正确项</b>）","topic":"考点如时态/主谓一致/介词搭配/词汇"} ...6题，至少1题针对我的薄弱点],
- "reading":{"title":"阅读标题","passage":"200-300词原创非叙事或叙事短文","questions":[{"q":"问题 [x分]","model":"参考答案","mk":"评分点说明"} ...5题，含1题vocab-in-context]},
- "writing":{"type":"体裁","prompt":"写作题目与要求","rubric":[{"pts":"内容/10","txt":"要点"},{"pts":"语言/20","txt":"要点"},{"pts":"结构/10","txt":"要点"}],"model":"350-450词范文，用\\n分段"},
+ "editing":{"intro":"说明","lines":[{"text":"含一处错误的英文句子","wrong":"错词","fix":"正确词","why":"中文原因"} ...8行，模拟 Paper1 改错，涵盖时态/主谓/介词/可数性/词性]},
+ "reading":{"title":"阅读标题","passage":"200-300词原创非叙事或叙事短文","questions":[{"q":"问题 [x分]","model":"参考答案","mk":"评分点说明"} ...5题，含1题vocab-in-context与1题inference]},
+ "summary":{"task":"摘要任务说明（基于上面reading或另给短文），限80词","points":["应涵盖要点1","要点2" ...6-8个],"model":"参考摘要(标注词数)","limit":80},
+ "situational":{"scenario":"情景背景","prompt":"写作任务(email/letter/report/speech)","bullets":["要点1","要点2","要点3"],"format":["格式/语气清单..."],"rubric":[{"pts":"任务完成/15","txt":"要点"},{"pts":"语言/15","txt":"要点"}],"model":"范文，用\\n分段"},
+ "writing":{"type":"体裁(记叙/描写/议论)","prompt":"写作题目与要求","rubric":[{"pts":"内容/10","txt":"要点"},{"pts":"语言/20","txt":"要点"},{"pts":"结构/10","txt":"要点"}],"model":"350-450词范文，用\\n分段"},
+ "oral":{"readAloud":{"passage":"约60词朗读短文","tips":["朗读要点(发音/重音/停顿)..."]},"spoken":{"stimulus":"看图/视频情境描述","questions":[{"q":"口语问题","model":"范例应答(4-5句,PEEL)","tip":"作答提示"} ...2题]},"listening":[{"ic":"🎧","ttl":"资源名","src":"域名","url":"真实URL如 bbc.co.uk/learningenglish","why":"怎么用"} ...1-2条]},
  "vocab":[{"w":"word","pos":"v./n./adj.","en":"English definition","zh":"中文释义","ex":"经典例句","use":"重要用法/搭配/近反义","tag":"new"} ...30个S4高频词，可含若干"tag":"review"复习词]
 }
 注意：answer 用选项下标(0-3)；JSON 内所有引号用英文双引号；不要输出 JSON 以外任何内容。`;
