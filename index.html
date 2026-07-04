@@ -323,9 +323,10 @@
 <div class="genbar">
   <div class="inner">
     <div class="hint" id="genHint">✅ 完成今天的练习和单词后，点击右侧生成下一天。</div>
-    <div style="display:flex;gap:10px">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <button class="btn ghost" id="prevDay">← 上一天</button>
       <button class="btn gold" id="genNext">生成下一天 →</button>
+      <button class="btn ghost mini" id="genClaude" title="改用 Claude 生成更鲜活、不重复的内容（需复制粘贴）">✨ 用Claude生成</button>
     </div>
   </div>
 </div>
@@ -668,6 +669,291 @@ const SAMPLE_NEXT={
   writing:{type:"情景写作",prompt:"Write a letter to your principal suggesting an improvement to the school.",rubric:[{pts:"内容 /10",txt:"清晰的建议与理由"}],model:"(示例范文占位)"},
   vocab:[{w:"extend",pos:"v.",en:"to offer or give (formally)",zh:"给予；延伸",ex:"We extend our apologies.",use:"extend apologies / an invitation"}]
 };
+
+/* ================= CONTENT BANKS (for offline auto-generation) ================= */
+const VOCAB_EXTRA=[
+  {w:"abundant",pos:"adj.",en:"existing in large quantities; plentiful",zh:"丰富的，充裕的",ex:"Singapore enjoys abundant sunshine throughout the year.",use:"abundant supply/resources；反 scarce"},
+  {w:"adverse",pos:"adj.",en:"harmful; unfavourable",zh:"不利的，有害的",ex:"Smoking has adverse effects on health.",use:"adverse effect/weather/conditions"},
+  {w:"advocate",pos:"v./n.",en:"to publicly support; a supporter",zh:"提倡；倡导者",ex:"She advocates a plant-based diet.",use:"advocate (doing) sth；an advocate for/of"},
+  {w:"conscious",pos:"adj.",en:"aware of something; awake",zh:"意识到的；有意识的",ex:"He was conscious of his own mistakes.",use:"be conscious of；反 unconscious"},
+  {w:"controversial",pos:"adj.",en:"causing strong disagreement",zh:"有争议的",ex:"The new policy proved highly controversial.",use:"controversial issue/decision"},
+  {w:"detrimental",pos:"adj.",en:"causing harm or damage",zh:"有害的",ex:"Excessive screen time is detrimental to sleep.",use:"detrimental to sth；近 harmful"},
+  {w:"diminish",pos:"v.",en:"to become or make less",zh:"减少，削弱",ex:"His enthusiasm never diminished.",use:"近 decrease；diminish returns"},
+  {w:"exemplary",pos:"adj.",en:"serving as a desirable model; very good",zh:"模范的，典范的",ex:"Her conduct throughout was exemplary.",use:"exemplary behaviour/student"},
+  {w:"foster",pos:"v.",en:"to encourage the development of",zh:"培养，促进",ex:"Reading fosters imagination and empathy.",use:"foster creativity/growth"},
+  {w:"imperative",pos:"adj./n.",en:"of vital importance; a crucial thing",zh:"至关重要的",ex:"It is imperative that we act now.",use:"it is imperative that + (should) do"},
+  {w:"innovative",pos:"adj.",en:"featuring new methods or ideas",zh:"创新的",ex:"They came up with an innovative solution.",use:"innovative design/approach；n innovation"},
+  {w:"notorious",pos:"adj.",en:"famous for something bad",zh:"臭名昭著的",ex:"The junction is notorious for accidents.",use:"notorious for sth；近 infamous"},
+  {w:"optimistic",pos:"adj.",en:"hopeful about the future",zh:"乐观的",ex:"She stayed optimistic despite the setback.",use:"optimistic about；反 pessimistic"},
+  {w:"pragmatic",pos:"adj.",en:"dealing with things practically",zh:"务实的",ex:"We need a pragmatic approach to the problem.",use:"pragmatic solution/approach"},
+  {w:"reluctant",pos:"adj.",en:"unwilling and hesitant",zh:"不情愿的",ex:"He was reluctant to admit his error.",use:"reluctant to do；adv reluctantly"},
+  {w:"significant",pos:"adj.",en:"important; large enough to matter",zh:"重要的，显著的",ex:"There was a significant improvement in her grades.",use:"significant increase/impact；n significance"},
+  {w:"superficial",pos:"adj.",en:"shallow; only on the surface",zh:"肤浅的，表面的",ex:"He has only a superficial understanding of it.",use:"反 profound；superficial knowledge"},
+  {w:"vulnerable",pos:"adj.",en:"easily harmed or hurt",zh:"易受伤害的",ex:"Children are vulnerable to online scams.",use:"vulnerable to sth；the vulnerable"},
+  {w:"adept",pos:"adj.",en:"very skilled",zh:"熟练的，擅长的",ex:"She is adept at solving tricky puzzles.",use:"adept at (doing) sth"},
+  {w:"cordial",pos:"adj.",en:"warm and friendly",zh:"热情友好的",ex:"They gave us a cordial welcome.",use:"cordial relations/greeting"},
+  {w:"deliberate",pos:"adj./v.",en:"intentional; to think carefully",zh:"故意的；仔细考虑",ex:"It was a deliberate attempt to mislead us.",use:"deliberate decision；adv deliberately(故意地)"},
+  {w:"discreet",pos:"adj.",en:"careful to avoid causing offence or attention",zh:"谨慎的，慎重的",ex:"Please be discreet about this matter.",use:"别混 discrete(离散的)"},
+  {w:"elaborate",pos:"adj./v.",en:"detailed; to explain in more detail",zh:"详尽的；详细阐述",ex:"Could you elaborate on your proposal?",use:"elaborate on sth；an elaborate plan"},
+  {w:"futile",pos:"adj.",en:"pointless; producing no result",zh:"徒劳的",ex:"Their efforts to save the tree proved futile.",use:"futile attempt；n futility"},
+  {w:"inherent",pos:"adj.",en:"existing as a natural, permanent part",zh:"固有的，内在的",ex:"There are inherent risks in extreme sports.",use:"inherent in sth"},
+  {w:"lament",pos:"v./n.",en:"to express sorrow or regret",zh:"哀叹，惋惜",ex:"He lamented the loss of the old kampong.",use:"lament (over) sth"},
+  {w:"mundane",pos:"adj.",en:"dull; ordinary and everyday",zh:"平凡的，单调的",ex:"She longed to escape her mundane routine.",use:"近 ordinary/dull"},
+  {w:"obstinate",pos:"adj.",en:"stubbornly refusing to change",zh:"固执的",ex:"His obstinate refusal frustrated everyone.",use:"近 stubborn"},
+  {w:"paramount",pos:"adj.",en:"more important than anything else",zh:"至高无上的，最重要的",ex:"In any operation, safety is paramount.",use:"of paramount importance"},
+  {w:"reciprocate",pos:"v.",en:"to respond to an action with a similar one",zh:"回报，互惠",ex:"She reciprocated his kindness with a gift.",use:"reciprocate sth；adj reciprocal"},
+  {w:"sceptical",pos:"adj.",en:"having doubts; not easily convinced",zh:"怀疑的",ex:"Scientists remained sceptical of the claim.",use:"sceptical about/of；n scepticism"},
+  {w:"trivial",pos:"adj.",en:"of little value or importance",zh:"琐碎的，微不足道的",ex:"Do not waste time on trivial matters.",use:"trivial detail；反 crucial"},
+  {w:"unprecedented",pos:"adj.",en:"never done or known before",zh:"史无前例的",ex:"The heatwave was unprecedented in scale.",use:"unprecedented level/growth"},
+  {w:"zealous",pos:"adj.",en:"showing great energy or enthusiasm",zh:"热情的，狂热的",ex:"He was a zealous supporter of the cause.",use:"n zeal；近 fervent"},
+  {w:"accumulate",pos:"v.",en:"to gather or build up over time",zh:"积累",ex:"Dust had accumulated on the shelves.",use:"accumulate wealth/experience"},
+  {w:"bewilder",pos:"v.",en:"to confuse greatly",zh:"使迷惑",ex:"The instructions bewildered the new students.",use:"adj bewildering/bewildered"},
+  {w:"condemn",pos:"v.",en:"to express strong disapproval of",zh:"谴责",ex:"World leaders condemned the attack.",use:"condemn sb for sth"},
+  {w:"dilemma",pos:"n.",en:"a difficult choice between options",zh:"进退两难的困境",ex:"She faced a dilemma over which offer to accept.",use:"face/be in a dilemma"},
+  {w:"eradicate",pos:"v.",en:"to get rid of completely",zh:"根除，消灭",ex:"The programme aims to eradicate malaria.",use:"eradicate poverty/disease"},
+  {w:"facilitate",pos:"v.",en:"to make an action or process easier",zh:"促进，使便利",ex:"Good lighting facilitates learning.",use:"facilitate communication/growth"},
+  {w:"harmonious",pos:"adj.",en:"free from conflict; well matched",zh:"和谐的",ex:"They enjoy a harmonious relationship.",use:"harmonious society；n harmony"},
+  {w:"indispensable",pos:"adj.",en:"absolutely necessary",zh:"不可或缺的",ex:"The internet has become indispensable to students.",use:"indispensable to/for"},
+  {w:"legitimate",pos:"adj.",en:"lawful; reasonable and acceptable",zh:"合法的；合理的",ex:"They raised a legitimate concern.",use:"legitimate reason/business"},
+  {w:"monotonous",pos:"adj.",en:"dull and repetitive",zh:"单调乏味的",ex:"The lecturer spoke in a monotonous voice.",use:"n monotony"},
+  {w:"negligible",pos:"adj.",en:"so small as to be unimportant",zh:"微不足道的",ex:"The difference in price was negligible.",use:"negligible amount/effect"},
+  {w:"persuasive",pos:"adj.",en:"good at convincing others",zh:"有说服力的",ex:"She made a persuasive case for change.",use:"persuasive argument；v persuade"},
+  {w:"reinforce",pos:"v.",en:"to strengthen",zh:"加强，强化",ex:"Practice reinforces what you learn.",use:"reinforce a point/structure"},
+  {w:"subtle",pos:"adj.",en:"delicate; not obvious",zh:"微妙的，不易察觉的",ex:"There was a subtle change in his tone.",use:"subtle difference/hint"},
+  {w:"thrive",pos:"v.",en:"to grow or develop well; flourish",zh:"茁壮成长，繁荣",ex:"The business thrived after the move.",use:"thrive on sth"},
+  {w:"undermine",pos:"v.",en:"to weaken gradually",zh:"逐渐削弱，损害",ex:"Constant criticism undermined her confidence.",use:"undermine authority/trust"},
+  {w:"vigilant",pos:"adj.",en:"carefully watchful for danger",zh:"警惕的",ex:"Passengers were urged to stay vigilant.",use:"vigilant against sth；n vigilance"},
+  {w:"wholesome",pos:"adj.",en:"good for health or well-being",zh:"有益健康的",ex:"They serve wholesome, home-cooked food.",use:"wholesome food/entertainment"},
+  {w:"adamant",pos:"adj.",en:"refusing to change one's mind",zh:"坚决的，固执己见的",ex:"She was adamant that she was right.",use:"adamant about/that"},
+  {w:"brevity",pos:"n.",en:"shortness; conciseness",zh:"简洁；短暂",ex:"For the sake of brevity, I will list only three.",use:"brevity of speech"},
+  {w:"compassion",pos:"n.",en:"sympathetic concern for others",zh:"同情，怜悯",ex:"She treated the poor with great compassion.",use:"compassion for；adj compassionate"},
+  {w:"conducive",pos:"adj.",en:"making a particular outcome likely",zh:"有助于…的",ex:"A quiet room is conducive to study.",use:"conducive to sth"},
+  {w:"exquisite",pos:"adj.",en:"extremely beautiful and delicate",zh:"精致的，优美的",ex:"The museum displayed exquisite jade carvings.",use:"exquisite detail/taste"},
+  {w:"inquisitive",pos:"adj.",en:"eager to learn; curious",zh:"好奇的，爱探究的",ex:"Inquisitive children ask endless questions.",use:"近 curious"},
+  {w:"resilient",pos:"adj.",en:"able to recover quickly from difficulty",zh:"有韧性的，能复原的",ex:"Children are often remarkably resilient.",use:"resilient to sth；n resilience"},
+  {w:"scrutinise",pos:"v.",en:"to examine closely and critically",zh:"仔细检查，审视",ex:"The examiners scrutinised every answer.",use:"英式 -ise；n scrutiny"}
+];
+function vocabPool(){return DAY1.vocab.concat(VOCAB_EXTRA);} // 90 words
+
+const MCQ_BANK=[
+  {stem:"Neither of the two plans ____ acceptable to the panel.",options:["are","is","were","have been"],answer:1,expl:"neither of + 复数名词，动词用<b>单数</b> is。",topic:"主谓一致"},
+  {stem:"Each of the students ____ required to submit a report.",options:["are","were","is","have"],answer:2,expl:"each of + 复数，谓语用<b>单数</b> is。",topic:"主谓一致"},
+  {stem:"By the time we arrived, the train ____.",options:["already left","has already left","had already left","was leaving"],answer:2,expl:"过去的过去用<b>过去完成时</b> had left。",topic:"时态"},
+  {stem:"She ____ in this city since 2019.",options:["lives","lived","has lived","is living"],answer:2,expl:"since + 时间点用<b>现在完成时</b>。",topic:"时态"},
+  {stem:"I am writing to apply ____ the advertised position.",options:["to","for","on","with"],answer:1,expl:"apply <b>for</b> a position。",topic:"介词搭配"},
+  {stem:"He has been interested ____ astronomy since childhood.",options:["on","in","for","at"],answer:1,expl:"be interested <b>in</b> sth。",topic:"介词搭配"},
+  {stem:"The report is based ____ ten years of data.",options:["in","on","of","at"],answer:1,expl:"based <b>on</b> sth。",topic:"介词搭配"},
+  {stem:"Too much screen time can be ____ to your health.",options:["beneficial","detrimental","essential","cordial"],answer:1,expl:"detrimental to = 有害。",topic:"词汇"},
+  {stem:"The charity worked hard to ____ the suffering of victims.",options:["exacerbate","alleviate","jeopardise","hinder"],answer:1,expl:"alleviate = 减轻痛苦。",topic:"词汇"},
+  {stem:"Her ____ to finish the race inspired us all.",options:["persevere","perseverance","persevering","persevered"],answer:1,expl:"需<b>名词</b> perseverance 作主语核心。",topic:"词性"},
+  {stem:"It is ____ that all members attend the meeting.",options:["imperative","imperatively","imperativeness","imperator"],answer:0,expl:"表语用<b>形容词</b> imperative。",topic:"词性"},
+  {stem:"She is ____ honest person whom everyone trusts.",options:["a","an","the","(no article)"],answer:1,expl:"honest 首音为元音 /ɒ/，用 <b>an</b>。",topic:"冠词"},
+  {stem:"The new stadium ____ next year.",options:["will build","will be built","is building","builds"],answer:1,expl:"物做主语用<b>被动</b> will be built。",topic:"语态"},
+  {stem:"This year's results are far ____ than last year's.",options:["good","better","best","more good"],answer:1,expl:"比较级 <b>better</b> + than。",topic:"比较级"},
+  {stem:"____ it was raining heavily, the match went on.",options:["Because","Although","So","Unless"],answer:1,expl:"让步用 <b>Although</b>。",topic:"连词"},
+  {stem:"We didn't have ____ information to decide.",options:["many","a few","much","several"],answer:2,expl:"information 不可数，用 <b>much</b>。",topic:"可数性"},
+  {stem:"Cutting down forests will ____ climate change.",options:["alleviate","exacerbate","celebrate","tolerate"],answer:1,expl:"exacerbate = 加剧，符合语境。",topic:"词汇"},
+  {stem:"Which sentence is correctly punctuated?",options:["Its a nice day, isnt it?","It's a nice day, isn't it?","Its' a nice day, is'nt it?","It's a nice day isn't it?"],answer:1,expl:"缩写 It's / isn't 用撇号，反意疑问句前加逗号。",topic:"标点"},
+  {stem:"If I ____ more time, I would have finished.",options:["have","had had","had","have had"],answer:1,expl:"与过去相反的虚拟：if + <b>had had</b>, would have done。",topic:"时态"},
+  {stem:"The team ____ working hard to meet the deadline.",options:["is","are","be","been"],answer:0,expl:"集合名词作整体，英式亦常用单数 is。",topic:"主谓一致"}
+];
+
+const EDIT_BANK=DAY1.editing.lines.concat([
+  {text:"I am writing to apply for the position which was advertise last week.",wrong:"advertise",fix:"advertised",why:"被动语态用过去分词 was advertised。"},
+  {text:"I have been a member of the club since three years.",wrong:"since",fix:"for",why:"for + 一段时间。"},
+  {text:"As you can see from my resume, I has relevant experience.",wrong:"has",fix:"have",why:"主语 I 用 have。"},
+  {text:"I would be grateful if you could considers my request.",wrong:"considers",fix:"consider",why:"could 后接动词原形。"},
+  {text:"I am confident that I would be an asset for your company.",wrong:"for",fix:"to",why:"an asset to sb/sth。"},
+  {text:"Please find attach my certificates and testimonials.",wrong:"attach",fix:"attached",why:"过去分词作定语 find attached。"},
+  {text:"I look forward to hear from you very soon.",wrong:"hear",fix:"hearing",why:"look forward to + 动名词。"},
+  {text:"Thank you for your time, I hope to meeting you soon.",wrong:"meeting",fix:"meet",why:"hope to + 动词原形。"}
+]);
+
+const READ2={
+  title:"Why Boredom Is Good for You（非叙事阅读）",
+  passage:"We tend to treat boredom as an enemy. The moment a queue forms or a lesson slows, our hands reach instinctively for a phone, eager to fill the empty seconds. Yet a growing number of researchers argue that boredom is not a problem to be solved but a state worth protecting.\n\nBoredom, they suggest, is the mind's way of signalling that it is under-stimulated and ready for something new. When we resist the urge to reach for a screen, our thoughts begin to wander freely. It is often in these idle moments — waiting for a bus, staring out of a window — that unexpected ideas surface and problems quietly untangle themselves.\n\nConstant digital stimulation, by contrast, leaves no room for this mental wandering. Every gap is instantly filled, and the mind never gets the chance to rest, reflect or imagine. Some psychologists warn that a generation raised on endless scrolling may struggle to tolerate stillness at all.\n\nThe answer is not to abolish technology, but to make peace with the occasional empty moment. The next time boredom strikes, we might do well to sit with it a little longer.",
+  questions:[
+    {q:"In your own words, explain how most people react when they begin to feel bored. [2]",model:"他们几乎本能地立刻拿出手机，想用它填满空闲时间。（需改写 reach instinctively / fill the empty seconds）",mk:"1分拿手机 + 1分'填满空闲'改写"},
+    {q:"According to paragraph 2, what happens in our minds when we resist a screen? [2]",model:"思绪自由游走，意想不到的点子浮现，问题不知不觉理清。",mk:"任两点各1分"},
+    {q:"Explain what the writer means by 'leaves no room' for mental wandering. [2]",model:"每段空隙都被立刻填满，大脑没有空间/机会去休息、反思或想象。",mk:"1分释义+1分后果"},
+    {q:"What does the writer suggest we do next time we feel bored? [1]",model:"不要马上找手机，多忍受一会儿无聊，看看放空的大脑会想到什么。",mk:"1分"},
+    {q:"Vocabulary: 'idle' (paragraph 2) most nearly means… (A) lazy and useless (B) not being used or occupied (C) broken (D) noisy",model:"(B) not being used or occupied。",mk:"1分"}
+  ]
+};
+const SUM2={
+  task:"根据短文《Why Boredom Is Good for You》，用<b>不超过80词</b>概括：无聊为何有益，以及持续数字刺激带来什么问题。",
+  points:["无聊是大脑需要新刺激的信号","抵制看手机时思绪自由游走","空闲时会浮现点子/理清问题","持续刺激让大脑无暇休息反思想象","每个空隙被立刻填满","长期滑手机者难以忍受静止","应与偶尔的空白和平共处"],
+  model:"Boredom signals that the mind is under-stimulated and ready for something new. When we resist reaching for a screen, our thoughts wander and fresh ideas or solutions often surface. Constant digital stimulation, however, fills every gap, leaving no room to rest, reflect or imagine, so endless scrollers may struggle to tolerate stillness. We should make peace with occasional emptiness. (58 words)",
+  limit:80
+};
+const READING_BANK=[DAY1.reading,READ2];
+const SUMMARY_BANK=[DAY1.summary,SUM2];
+
+const VIS2={
+  title:"Visual Text · 网络健康海报 Cyber Wellness",
+  svg:"<svg viewBox='0 0 380 500' width='360' height='474' xmlns='http://www.w3.org/2000/svg' role='img' aria-label='Cyber wellness poster'><rect width='380' height='500' rx='14' fill='#12294a'/><rect x='0' y='0' width='380' height='66' rx='14' fill='#5fd39a'/><text x='190' y='43' font-family='Arial' font-size='26' font-weight='800' fill='#0c1b30' text-anchor='middle'>UNPLUG. RECHARGE.</text><text x='190' y='100' font-family='Arial' font-size='15' fill='#dceafe' text-anchor='middle'>Take back control of your screen time</text><circle cx='190' cy='210' r='62' fill='none' stroke='#ffcf6b' stroke-width='6'/><rect x='168' y='176' width='44' height='70' rx='7' fill='#ffcf6b'/><circle cx='190' cy='236' r='5' fill='#12294a'/><text x='190' y='300' font-family='Arial' font-size='13.5' fill='#dceafe' text-anchor='middle'>Sleep better - Focus more - Feel happier</text><rect x='64' y='330' width='252' height='50' rx='25' fill='#ffcf6b'/><text x='190' y='362' font-family='Arial' font-size='17' font-weight='800' fill='#12294a' text-anchor='middle'>Try a 1-hour screen break TODAY</text><text x='190' y='408' font-family='Arial' font-size='12' fill='#9fc0e8' text-anchor='middle'>A campaign by the Student Wellness Committee</text><text x='190' y='428' font-family='Arial' font-size='12' fill='#9fc0e8' text-anchor='middle'>Pledge online - #UnplugSG</text><text x='190' y='468' font-family='Georgia,serif' font-size='14' font-style='italic' fill='#5fd39a' text-anchor='middle'>The best moments happen offline.</text></svg>",
+  questions:[
+    {q:"Who created this poster and who is its target audience? [2]",model:"由 Student Wellness Committee 制作；目标读者是学生/青少年（依据 #UnplugSG、screen break、关注睡眠与专注）。",mk:"1分制作方+1分对象依据"},
+    {q:"Explain how the image (a phone framed by an open circle) helps convey the message. [2]",model:"手机被金色圆环'框住/挣脱'，象征打破对手机的依赖、重获掌控，呼应 UNPLUG 与 take back control。",mk:"1分象征+1分联系"},
+    {q:"Why is 'TODAY' printed in capital letters? [1]",model:"强调'今天就行动'，制造紧迫感，促使立即尝试。",mk:"1分"},
+    {q:"Is the tagline 'The best moments happen offline.' effective? Explain. [2]",model:"有效：简短、对比鲜明，把放下手机与美好时刻正面挂钩，令人向往而非说教。(立场+理由)",mk:"1分立场+1分理由"},
+    {q:"Vocabulary: 'Unplug' most nearly means… (A) repair a device (B) stop using electronic devices to relax (C) buy a new phone (D) charge a battery",model:"(B)。",mk:"1分"}
+  ]
+};
+const VISUAL_BANK=[DAY1.visual,VIS2];
+
+const SITU2={
+  scenario:"你所在社区缺少供青少年活动的空间，你决定写信给报社编辑反映。",
+  prompt:"Write a <b>letter to the editor</b> of a local newspaper about the need for more spaces for young people in your neighbourhood.",
+  bullets:["describe the problem young people face in your area","explain why such spaces are important","suggest one thing the authorities could do"],
+  format:["称呼：Dear Editor,","开门见山说明写信目的","正式、礼貌语气，不用缩写","分段覆盖三个要点","结尾：Yours faithfully, + 姓名"],
+  rubric:[{pts:"任务完成 /15",txt:"三个要点全部覆盖并展开；目的/对象/语气恰当。"},{pts:"语言 /15",txt:"正式语气一致；句式多样、用词准确；语法标点少错。"}],
+  model:"Dear Editor,\n\nI am writing to highlight a growing problem in my neighbourhood: young people have almost nowhere to gather safely after school.\n\nAt present, teenagers often loiter at void decks or crowded fast-food outlets simply because there is no dedicated space for them. This is far from ideal. Well-designed youth spaces matter: they give young people a healthy outlet for energy, a place to study together, and a sense of belonging that keeps them away from less desirable influences.\n\nI would therefore urge the town council to convert one of our under-used community rooms into a proper youth corner, equipped with tables, books and perhaps a few sports facilities. Even a modest space, open in the evenings, would make a real difference.\n\nI hope the authorities will give this suggestion serious consideration.\n\nYours faithfully,\nRachel Tan"
+};
+const SITUATIONAL_BANK=[DAY1.situational,SITU2];
+
+const WRITE2={
+  type:"连贯写作 · 议论文 / Continuous Writing (Argumentative)",
+  prompt:"'Young people today spend too much time on their screens.' Do you agree? （约 350–500 词）",
+  rubric:[
+    {pts:"内容 Content /10",txt:"清晰立场；至少3个有力论点，每点有解释与例子；处理反方观点。"},
+    {pts:"语言 Language /20",txt:"句式多样、连接词得当；用上高级词（detrimental, moderation, vulnerable）；语法准确。"},
+    {pts:"结构 Organisation /10",txt:"开头表明立场→分论点分段(PEEL)→让步反驳→结尾重申。"}
+  ],
+  model:"It is hard to deny that screens dominate young lives today. Yet whether we spend 'too much' time on them is not simply a matter of hours; it is a matter of how those hours are used.\n\nThose who worry are not without reason. Endless scrolling can be genuinely detrimental: it fragments our attention, disturbs our sleep and, at its worst, leaves us anxiously comparing ourselves to polished strangers online. A teenager who games until midnight and struggles to focus the next day is clearly paying a price.\n\nHowever, to condemn screens outright is to ignore how much of modern learning and connection now happens through them. The same phone that distracts can also teach a language, revise a topic or keep a lonely student in touch with friends. A tool is not harmful in itself; its value depends on how wisely it is used.\n\nThe real problem, then, is not screens but the absence of moderation. What young people need is not a ban but the self-discipline to switch off — to protect time for sleep, exercise and face-to-face company.\n\nSo do we spend too much time on screens? Often, yes. But the solution lies less in fearing technology than in mastering it. Used with balance, a screen is a window to the world; used without it, a wall that shuts the world out.",
+};
+const WRITING_BANK=[DAY1.writing,WRITE2];
+
+const ORAL2={
+  readAloud:{
+    passage:"The library had always been her favourite place. Between its quiet shelves, she could travel to distant lands, meet unforgettable characters and forget, for a while, the noise of the world outside. To her, reading was not an escape from life, but a way of understanding it more deeply.",
+    tips:["意群停顿：在逗号处换气，句子读得连贯。","重音落在实词：<b>favourite</b> place, <b>distant</b> lands, <b>unforgettable</b> characters。","语调：陈述句句末下降；破折号/逗号稍停。","清晰读出结尾辅音：shelve<b>s</b>, lan<b>ds</b>, characte<b>rs</b>。"]
+  },
+  spoken:{
+    stimulus:"图片情境：一名学生深夜仍在床上盯着手机屏幕。",
+    questions:[
+      {q:"Do you think young people spend too much time on their phones? Why?",model:"Yes, I think many of us do. Firstly, phones are designed to be addictive, so it is easy to lose track of time scrolling. More seriously, late-night use harms our sleep and concentration. That said, phones are also useful for learning and staying connected, so the real issue is balance rather than the phone itself.",tip:"PEEL 展开：给2个理由 + 让步一次，4-5句。"},
+      {q:"What could schools do to help students use technology more responsibly?",model:"Schools could teach digital wellness as part of the curriculum, so students understand the effects of screen time. They might also encourage phone-free periods during lessons and promote activities like sports or clubs that draw students away from their screens. Ultimately, guidance works better than outright bans.",tip:"提出2个具体做法 + 一句评价。"}
+    ]
+  },
+  listening:[
+    {ic:"🎧",ttl:"BBC Learning English — 6 Minute English（选最新一期）",src:"bbc.co.uk/learningenglish",url:"https://www.bbc.co.uk/learningenglish/features/6-minute-english",why:"先只听记3个要点(练 note-taking)，再看文字稿对照、抄5个新词。"},
+    {ic:"📝",ttl:"British Council — Listening (B1/B2)",src:"learnenglish.britishcouncil.org",url:"https://learnenglish.britishcouncil.org/skills/listening",why:"分级听力，带练习题与答案，贴近 Paper 3 note-taking。"}
+  ]
+};
+const ORAL_BANK=[DAY1.oral,ORAL2];
+
+// Knowledge-point + goal sets (rotate; teach real O-Level skills)
+const KPTS_BANK=[
+  {goals:["巩固四大时态与主谓一致","掌握就近原则与 each/every 用法","识别编辑题高频错误"],
+   kpts:[
+    {t:"主谓一致 Subject–Verb Agreement",en:"Verb agrees with the subject in number.",body:"就近原则：neither…nor 与最近主语一致；each/every/everyone 视为<b>单数</b>；集合名词(team)可作整体用单数。"},
+    {t:"四大时态 Four Key Tenses",en:"Choose the right tense.",body:"现在时(习惯/事实)、过去时(已结束)、现在完成(过去发生与现在有关)、过去完成(过去的过去)。"},
+    {t:"for / since",en:"duration vs point in time",body:"for + 一段时间；since + 时间点；常与现在完成时连用。"}
+   ]},
+  {goals:["掌握正式书信格式与结尾","区分正式/非正式语气","练习礼貌请求句式"],
+   kpts:[
+    {t:"书信格式 Letter Format",en:"Greeting to sign-off.",body:"Dear Sir or Madam → Yours faithfully；Dear Mr Tan → Yours sincerely。开头 I am writing to…"},
+    {t:"语气 Register",en:"Keep it formal.",body:"不用缩写(do not)、不用俚语；多用 I would be grateful if you could…"},
+    {t:"介词搭配 Collocations",en:"apply for, asset to…",body:"apply <b>for</b> a job；an asset <b>to</b>；look forward <b>to</b> + 动名词。"}
+   ]},
+  {goals:["掌握'用自己的话'改写技巧","学会从上下文推断词义","识别作者语气/态度"],
+   kpts:[
+    {t:"用自己的话 Own Words",en:"Paraphrase, don't copy.",body:"抓住关键词换同义表达，改变句式；忌整句照抄原文。"},
+    {t:"上下文猜词 Vocabulary in Context",en:"Use clues around the word.",body:"看前后句的例子、对比、因果，推断词义；注意 in-/un- 等前缀陷阱。"},
+    {t:"推断与语气 Inference & Tone",en:"Read between the lines.",body:"从措辞(用词的褒贬)判断作者态度：赞成/批评/担忧/讽刺。"}
+   ]},
+  {goals:["掌握摘要点句(point-picking)","练习改写与压缩","严守词数限制"],
+   kpts:[
+    {t:"抓要点 Point-picking",en:"Find the marks.",body:"逐段划出符合题目要求的要点；一个要点通常=1分。"},
+    {t:"改写压缩 Paraphrase & Condense",en:"Shorten in your words.",body:"合并同类、删除例子与重复；用短语替换长句。"},
+    {t:"词数控制 Word Limit",en:"Stay under the cap.",body:"通常80词内；结尾标注词数；超限会失分。"}
+   ]},
+  {goals:["搭建议论文结构(立场→PEEL→让步)","积累高级连接词","学会处理反方观点"],
+   kpts:[
+    {t:"议论文结构 Argument Structure",en:"Thesis to conclusion.",body:"开头亮明立场→每段一个论点(PEEL: Point-Explain-Example-Link)→让步反驳→结尾重申。"},
+    {t:"连接词 Linkers",en:"Signposting.",body:"Furthermore, However, Admittedly, Consequently — 让逻辑清晰。"},
+    {t:"让步反驳 Concession",en:"Handle the other side.",body:"Admittedly…, yet… 先承认对方合理处，再有力反驳，显成熟。"}
+   ]}
+];
+
+// Reference-material pools (real, verified article URLs)
+const CNA_POOL=[
+  {ttl:"CNA Commentary: We have to stop calling some jobs 'low skilled'",url:"https://www.channelnewsasia.com/commentary/job-skills-demand-ai-era-future-proof-5937496",why:"【劳动/AI】找 thesis 与3个支撑，摘让步句式。"},
+  {ttl:"CNA Commentary: Rethink Singapore's Foreign Sports Talent scheme?",url:"https://www.channelnewsasia.com/commentary/singapore-rethink-foreign-sports-talent-scheme-team-singapore-6155756",why:"【国家认同】判断作者语气(tone)。"},
+  {ttl:"CNA Commentary: Mental health discourse must move past diagnosing everyday struggles",url:"https://www.channelnewsasia.com/commentary/mental-health-disorder-adhd-autism-symptom-diagnose-5786656",why:"【心理健康】用自己的话复述核心担忧。"},
+  {ttl:"CNA Commentary: Are our Singaporean youths ready for the working world?",url:"https://www.channelnewsasia.com/commentary/singapore-youths-students-undergrads-working-world-first-job-4234376",why:"【青少年/职场】记录建议青年具备的能力。"},
+  {ttl:"CNA Commentary: Mental health education — what more can we do for our youth?",url:"https://www.channelnewsasia.com/commentary/youth-mental-health-education-moe-school-cce-wellness-3604726",why:"【教育】概括作者两条建议。"},
+  {ttl:"CNA Commentary: The debate over World Cup chants and what makes a fan",url:"https://www.channelnewsasia.com/commentary/2026-fifa-world-cup-us-chants-fans-6186776",why:"【文化/体育】摘2个生动动词。"}
+];
+const ST_POOL=[
+  {ttl:"ST Opinion: Singapore crosses the super-aged threshold in 2026 — can its health system cope?",url:"https://www.straitstimes.com/opinion/singapore-crosses-the-super-aged-threshold-in-2026-can-its-health-system-cope",why:"【老龄化】列'问题/对策'点句，练摘要。"},
+  {ttl:"ST Opinion: Make it easier to book void deck spaces and rebuild social capital",url:"https://www.straitstimes.com/opinion/budget-2026-should-make-it-easier-to-book-void-deck-spaces-and-rebuild-social-capital",why:"【社区/社会资本】找3个高级搭配。"},
+  {ttl:"ST Opinion: From Smart Nation to AI Nation — the hard part starts now",url:"https://www.straitstimes.com/opinion/budget-2026-singapore-wants-to-leap-from-smart-nation-to-ai-nation-the-hard-part-starts-now",why:"【科技/AI】整理利弊各两点。"},
+  {ttl:"ST Opinion: The secret reason bosses want everyone back in the office",url:"https://www.straitstimes.com/opinion/the-secret-reason-bosses-want-everyone-back-in-the-office-every-day-of-the-week",why:"【职场】整理支持/反对各两点。"},
+  {ttl:"ST Opinion: Robot nation — China's bid to beat its demographic decline",url:"https://www.straitstimes.com/opinion/robot-nation-chinas-bid-to-beat-its-demographic-decline",why:"【科技/人口】科技如何应对老龄化。"},
+  {ttl:"ST Opinion: The AI doomsday report that shook Wall Street — and why its critics have a point",url:"https://www.straitstimes.com/opinion/the-ai-doomsday-report-that-shook-wall-street-and-why-its-critics-have-a-point",why:"【AI】学'先让步再反驳'的技巧。"}
+];
+const BC_POOL=[
+  {ttl:"British Council B2 Reading: The sharing economy",url:"https://learnenglish.britishcouncil.org/skills/reading/b2-reading/sharing-economy",why:"带题+答案，限时10分钟自测。"},
+  {ttl:"British Council B2 Reading: Work–life balance",url:"https://learnenglish.britishcouncil.org/skills/reading/b2-reading/work-life-balance",why:"分级阅读，做完两组题自批。"}
+];
+const AEON_POOL=[
+  {ttl:"Aeon Essay: Tech-vexed — how digital life threatens our capacity for awe",url:"https://aeon.co/essays/tech-vexed-how-digital-life-threatens-our-capacity-for-awe",why:"精读前4段，摘5词+2复杂句。"},
+  {ttl:"Aeon Essay: What we think is a decline in literacy is a design problem",url:"https://aeon.co/essays/what-we-think-is-a-decline-in-literacy-is-a-design-problem",why:"关乎'如何读得更好'，摘金句。"}
+];
+const BBC_ONE={ic:"🎧",ttl:"BBC Learning English — 6 Minute English（选最新一期）",src:"bbc.co.uk/learningenglish",url:"https://www.bbc.co.uk/learningenglish/features/6-minute-english",why:"听记3个要点，再看文字稿抄5词。",type:"study"};
+
+/* ---------- THE OFFLINE DAY GENERATOR ---------- */
+function pickRot(arr,i){const L=arr.length;return arr[((i%L)+L)%L];}
+function weakTopicList(){
+  const t=notebook.filter(n=>!n.mastered).map(n=>n.topic);
+  const p=LS.get('diagProfile',null); if(p&&p.weak) t.push(...p.weak);
+  return [...new Set(t)].filter(Boolean);
+}
+function genMCQs(n){
+  const weak=weakTopicList(); const chosen=[]; const used=new Set();
+  MCQ_BANK.forEach((q,i)=>{ if(weak.includes(q.topic)&&chosen.length<2){chosen.push(q);used.add(i);} });
+  let i=(n*3)%MCQ_BANK.length, guard=0;
+  while(chosen.length<6 && guard++<300){ if(!used.has(i)){chosen.push(MCQ_BANK[i]);used.add(i);} i=(i+1)%MCQ_BANK.length; }
+  return chosen.slice(0,6).map((q,k)=>({id:'d'+n+'q'+(k+1),stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic}));
+}
+function genEditing(n){
+  const start=(n*3)%EDIT_BANK.length, lines=[];
+  for(let k=0;k<8;k++) lines.push(pickRot(EDIT_BANK,start+k));
+  return {intro:"下面每一行有<b>一处</b>错误（时态/主谓一致/介词/可数性/词性）。在方框中填入改正后的词。",lines:lines};
+}
+function genVocab(n){
+  const pool=vocabPool(), per=30, start=((n-1)*20)%pool.length, out=[];
+  for(let k=0;k<per;k++) out.push(Object.assign({},pickRot(pool,start+k),{tag:k<20?'new':'review'}));
+  return out;
+}
+function genMaterials(n){
+  return [pickRot(CNA_POOL,n*3),pickRot(CNA_POOL,n*3+1),pickRot(CNA_POOL,n*3+2),
+          pickRot(ST_POOL,n*3),pickRot(ST_POOL,n*3+1),pickRot(ST_POOL,n*3+2)]
+    .map(m=>({ic:"📰",ttl:m.ttl,src:(m.ttl.indexOf('CNA')===0?'channelnewsasia.com · 时评':'straitstimes.com · 评论'),url:m.url,why:m.why,type:"news"}))
+    .concat([BBC_ONE,
+      Object.assign({ic:"📗",src:"learnenglish.britishcouncil.org",type:"study"},pickRot(BC_POOL,n)),
+      Object.assign({ic:"🧠",src:"aeon.co · 深度长文",type:"deep"},pickRot(AEON_POOL,n))]);
+}
+function generateDayLocally(n){
+  const f=focus(n), kp=pickRot(KPTS_BANK,n-1), ri=(n)%READING_BANK.length;
+  return {
+    day:n, themeZh:f.themeZh, themeEn:f.themeEn,
+    goals:kp.goals, kpts:kp.kpts,
+    materials:genMaterials(n),
+    mcqs:genMCQs(n),
+    editing:genEditing(n),
+    visual:pickRot(VISUAL_BANK,n),
+    reading:READING_BANK[ri],
+    summary:SUMMARY_BANK[ri],
+    situational:pickRot(SITUATIONAL_BANK,n),
+    writing:pickRot(WRITING_BANK,n),
+    oral:pickRot(ORAL_BANK,n),
+    vocab:genVocab(n),
+    _auto:true
+  };
+}
 
 /* ---------- DATABASE LAYER (write-through cache) ----------
    When served by the local Node backend (server.js), all data is synced to
@@ -1104,18 +1390,26 @@ document.getElementById('clearMastered').onclick=()=>{notebook=notebook.filter(n
 
 /* ---------- GENERATE NEXT DAY ---------- */
 const modal=document.getElementById('genModal');
+// Primary: one-click OFFLINE auto-generation — the day appears immediately.
 document.getElementById('genNext').onclick=()=>{
   const next=state.current+1;
   if(next>100){alert('🎉 已经是第100天，冲刺完成！祝你考出 A1！');return;}
-  // If next day already exists, just go there
-  if(days[next]){state.current=next;persistState();render();window.scrollTo({top:0,behavior:'smooth'});return;}
+  if(!days[next]){ days[next]=generateDayLocally(next); persistDay(next); }
+  state.current=next; state.unlocked=Math.max(state.unlocked,next); persistState();
+  render(); window.scrollTo({top:0,behavior:'smooth'});
+};
+// Optional: open the "ask Claude for fresh content" flow (manual copy-paste).
+function openClaudeGen(){
+  const next=state.current+1;
+  if(next>100){alert('🎉 已经是第100天！');return;}
   buildPrompt(next);
   document.getElementById('modalDay').textContent='第 '+next+' 天';
   document.getElementById('jsonIn').value='';
   document.getElementById('importOk').style.display='none';
   document.getElementById('importErr').style.display='none';
   modal.classList.add('show');
-};
+}
+const gc=document.getElementById('genClaude'); if(gc) gc.onclick=openClaudeGen;
 document.getElementById('closeModal').onclick=()=>modal.classList.remove('show');
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
 
