@@ -1873,9 +1873,13 @@ function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
 (async function boot(){
   await DB.init();
   await DB.pull();                      // hydrate from SQLite if backend is up
-  days[1]=DAY1;                         // Day 1 is authored in code — always authoritative (survives app updates)
+  // FREEZE already-generated days across app updates: never overwrite an existing
+  // day's questions. Seed Day 1 only if it's missing; if it exists, only ADD sections
+  // introduced by newer versions (non-destructive) — existing questions & all records
+  // (notebook / attempts / diagnostic / essays / progress) are left untouched.
+  if(!days[1]){ days[1]=DAY1; persistDay(1); }
+  else { let added=false; for(const k in DAY1){ if(!(k in days[1])){ days[1][k]=DAY1[k]; added=true; } } if(added) persistDay(1); }
   if(!state.startDate) state.startDate=todayStr();
-  persistDay(1);                        // make sure server has the seed
   persistState();
   LS.set('notebook',notebook);          // keep local cache in sync with DB
   const hint=document.getElementById('genHint');
