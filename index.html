@@ -904,6 +904,300 @@ const AEON_POOL=[
 ];
 const BBC_ONE={ic:"🎧",ttl:"BBC Learning English — 6 Minute English（选最新一期）",src:"bbc.co.uk/learningenglish",url:"https://www.bbc.co.uk/learningenglish/features/6-minute-english",why:"听记3个要点，再看文字稿抄5词。",type:"study"};
 
+/* ================= BANK EXPANSION (前两周不重样) ================= */
+VOCAB_EXTRA.push(
+  {w:"abolish",pos:"v.",en:"to officially end a law or system",zh:"废除",ex:"The country abolished the tax in 2020.",use:"abolish a law/system"},
+  {w:"acute",pos:"adj.",en:"severe; very perceptive",zh:"严重的；敏锐的",ex:"There is an acute shortage of clean water.",use:"acute pain/awareness"},
+  {w:"adhere",pos:"v.",en:"to stick to; to follow closely",zh:"坚持；黏附",ex:"All staff must adhere to the safety rules.",use:"adhere to sth"},
+  {w:"affluent",pos:"adj.",en:"having plenty of money; wealthy",zh:"富裕的",ex:"They live in an affluent neighbourhood.",use:"近 wealthy；反 impoverished"},
+  {w:"aggravate",pos:"v.",en:"to make worse; to annoy",zh:"加剧；激怒",ex:"Stress can aggravate an illness.",use:"近 worsen"},
+  {w:"alienate",pos:"v.",en:"to make someone feel isolated",zh:"使疏远",ex:"His rudeness alienated his closest friends.",use:"alienate sb"},
+  {w:"ambivalent",pos:"adj.",en:"having mixed feelings",zh:"矛盾的",ex:"She felt ambivalent about moving abroad.",use:"ambivalent about sth"},
+  {w:"arbitrary",pos:"adj.",en:"based on chance rather than reason",zh:"武断的，任意的",ex:"The decision seemed completely arbitrary.",use:"反 reasoned"},
+  {w:"articulate",pos:"adj./v.",en:"expressing clearly; to express",zh:"表达清晰的；清楚表达",ex:"She is an articulate and confident speaker.",use:"articulate one's views"},
+  {w:"ascertain",pos:"v.",en:"to find out for certain",zh:"查明，弄清",ex:"Police tried to ascertain the facts.",use:"ascertain the truth"},
+  {w:"aspire",pos:"v.",en:"to have a strong desire to achieve",zh:"渴望，立志",ex:"She aspires to become a surgeon.",use:"aspire to sth/to do"},
+  {w:"assert",pos:"v.",en:"to state firmly; to insist on",zh:"断言，坚持",ex:"He asserted his innocence throughout.",use:"assert oneself"},
+  {w:"augment",pos:"v.",en:"to increase; to add to",zh:"增加，扩大",ex:"He took a second job to augment his income.",use:"近 increase"},
+  {w:"authentic",pos:"adj.",en:"genuine; real",zh:"真实的，正宗的",ex:"The restaurant serves authentic Thai cuisine.",use:"反 fake；n authenticity"},
+  {w:"belittle",pos:"v.",en:"to make someone seem unimportant",zh:"贬低",ex:"Do not belittle her achievements.",use:"近 disparage"},
+  {w:"benign",pos:"adj.",en:"gentle and kind; not harmful",zh:"温和的；良性的",ex:"He gave a benign smile.",use:"反 malignant"},
+  {w:"coincide",pos:"v.",en:"to happen at the same time; to agree",zh:"同时发生；一致",ex:"Our holidays happened to coincide.",use:"coincide with"},
+  {w:"commend",pos:"v.",en:"to praise formally",zh:"表扬，称赞",ex:"She was commended for her bravery.",use:"commend sb for sth"},
+  {w:"comprehensive",pos:"adj.",en:"complete; covering everything",zh:"全面的",ex:"They carried out a comprehensive review.",use:"comprehensive plan/report"},
+  {w:"concise",pos:"adj.",en:"short and clear",zh:"简洁的",ex:"Please keep your answer concise.",use:"近 succinct"},
+  {w:"condone",pos:"v.",en:"to accept or allow wrong behaviour",zh:"宽恕，纵容",ex:"The school will not condone cheating.",use:"condone behaviour"},
+  {w:"conform",pos:"v.",en:"to behave as others expect",zh:"遵从，顺应",ex:"New members must conform to the rules.",use:"conform to/with"},
+  {w:"consensus",pos:"n.",en:"general agreement",zh:"共识",ex:"The committee finally reached a consensus.",use:"consensus on sth"},
+  {w:"conspicuous",pos:"adj.",en:"clearly visible; noticeable",zh:"显眼的，引人注目的",ex:"He felt conspicuous in his bright jacket.",use:"反 inconspicuous"},
+  {w:"contemplate",pos:"v.",en:"to think about carefully",zh:"沉思，考虑",ex:"She contemplated her next move in silence.",use:"contemplate doing sth"},
+  {w:"contemporary",pos:"adj./n.",en:"of the present time; a person of the same age",zh:"当代的；同代人",ex:"The gallery features contemporary art.",use:"contemporary society"},
+  {w:"conventional",pos:"adj.",en:"traditional and ordinary",zh:"传统的，常规的",ex:"They rejected conventional teaching methods.",use:"反 unconventional"},
+  {w:"cultivate",pos:"v.",en:"to develop or grow",zh:"培养；耕种",ex:"Good reading habits are worth cultivating.",use:"cultivate skills/habits"},
+  {w:"deficient",pos:"adj.",en:"lacking something needed",zh:"缺乏的，不足的",ex:"A diet deficient in iron causes fatigue.",use:"deficient in sth"},
+  {w:"deplete",pos:"v.",en:"to use up; to reduce greatly",zh:"耗尽，枯竭",ex:"Overfishing has depleted fish stocks.",use:"近 exhaust"},
+  {w:"deter",pos:"v.",en:"to discourage from doing",zh:"威慑，阻止",ex:"Heavy fines deter would-be offenders.",use:"deter sb from doing"},
+  {w:"deviate",pos:"v.",en:"to move away from a course or norm",zh:"偏离",ex:"He never deviates from his morning routine.",use:"deviate from"},
+  {w:"disperse",pos:"v.",en:"to scatter in different directions",zh:"驱散，散开",ex:"The crowd dispersed once the rain began.",use:"disperse a crowd"},
+  {w:"distort",pos:"v.",en:"to twist the true meaning or shape",zh:"扭曲，歪曲",ex:"The article distorted her original argument.",use:"distorted image/facts"},
+  {w:"diverse",pos:"adj.",en:"very different; varied",zh:"多样的",ex:"Singapore is a diverse, multicultural society.",use:"n diversity"},
+  {w:"dwindle",pos:"v.",en:"to become gradually less",zh:"逐渐减少",ex:"Their savings slowly dwindled away.",use:"近 diminish"},
+  {w:"elicit",pos:"v.",en:"to draw out a response or information",zh:"引出，探出",ex:"The teacher's question elicited no reply.",use:"elicit a response"},
+  {w:"elude",pos:"v.",en:"to escape; to be hard to grasp",zh:"躲避；使费解",ex:"The solution continued to elude her.",use:"elude capture"},
+  {w:"endorse",pos:"v.",en:"to publicly support or approve",zh:"支持，赞同；代言",ex:"Several celebrities endorsed the campaign.",use:"endorse a product/candidate"},
+  {w:"ephemeral",pos:"adj.",en:"lasting a very short time",zh:"短暂的",ex:"Online fame is often ephemeral.",use:"近 fleeting"},
+  {w:"erode",pos:"v.",en:"to wear away gradually",zh:"侵蚀，逐渐损害",ex:"Repeated scandals eroded public trust.",use:"erode trust/confidence"},
+  {w:"evoke",pos:"v.",en:"to bring a feeling or memory to mind",zh:"唤起，引起",ex:"The old song evoked happy memories.",use:"evoke emotion"},
+  {w:"exemplify",pos:"v.",en:"to be a typical example of",zh:"例证，是…的典型",ex:"Her career exemplifies hard work and grit.",use:"exemplify sth"},
+  {w:"exert",pos:"v.",en:"to apply force or influence",zh:"施加，运用",ex:"Parents exert a strong influence on children.",use:"exert pressure；exert oneself"},
+  {w:"exploit",pos:"v./n.",en:"to use fully; to treat unfairly",zh:"利用；剥削",ex:"Solar panels exploit the energy of the sun.",use:"exploit resources/workers"},
+  {w:"feasible",pos:"adj.",en:"able to be done; possible",zh:"可行的",ex:"Is it feasible to finish by Friday?",use:"近 viable"},
+  {w:"fluctuate",pos:"v.",en:"to rise and fall irregularly",zh:"波动",ex:"Petrol prices fluctuate from week to week.",use:"n fluctuation"},
+  {w:"formulate",pos:"v.",en:"to create or express in a precise way",zh:"制定；明确表达",ex:"The team formulated a new strategy.",use:"formulate a plan/policy"},
+  {w:"hamper",pos:"v.",en:"to make progress difficult",zh:"妨碍，阻碍",ex:"Thick fog hampered the rescue effort.",use:"近 hinder"},
+  {w:"hypocrisy",pos:"n.",en:"pretending to have virtues one lacks",zh:"虚伪",ex:"Voters were angered by the politician's hypocrisy.",use:"adj hypocritical"},
+  {w:"illuminate",pos:"v.",en:"to make clear; to light up",zh:"阐明；照亮",ex:"The lecture illuminated a difficult topic.",use:"illuminate an idea"},
+  {w:"imminent",pos:"adj.",en:"about to happen very soon",zh:"迫近的",ex:"Dark clouds warned of an imminent storm.",use:"近 impending"},
+  {w:"incentive",pos:"n.",en:"something that encourages action",zh:"激励，动机",ex:"Bonuses give staff an incentive to work harder.",use:"incentive to do"},
+  {w:"indifferent",pos:"adj.",en:"having no interest or concern",zh:"漠不关心的",ex:"He seemed indifferent to their suffering.",use:"indifferent to sth；n indifference"},
+  {w:"integrity",pos:"n.",en:"honesty and strong moral principles",zh:"正直；完整",ex:"She is a leader of great integrity.",use:"moral integrity"},
+  {w:"intricate",pos:"adj.",en:"very detailed and complicated",zh:"错综复杂的，精细的",ex:"The watch has an intricate mechanism.",use:"近 complex"},
+  {w:"intrinsic",pos:"adj.",en:"belonging naturally; essential",zh:"内在的，固有的",ex:"Reading has an intrinsic value beyond exams.",use:"intrinsic to sth"},
+  {w:"nurture",pos:"v.",en:"to care for and encourage growth",zh:"培育，养育",ex:"Good teachers nurture curiosity in students.",use:"nurture talent/a child"},
+  {w:"profound",pos:"adj.",en:"very great; deeply felt",zh:"深刻的，深远的",ex:"The war had a profound impact on society.",use:"profound change/effect"}
+);
+
+MCQ_BANK.push(
+  {stem:"She asked me where ____ during the holidays.",options:["do I live","I live","did I live","I lived"],answer:3,expl:"间接引语中语序为陈述句且时态后移：I lived。",topic:"时态"},
+  {stem:"If it ____ tomorrow, we will cancel the picnic.",options:["rains","will rain","rained","would rain"],answer:0,expl:"真实条件句：if + 一般现在时, will + 动原。",topic:"时态"},
+  {stem:"The meeting was ____ because of the storm.",options:["called off","called on","called for","called up"],answer:0,expl:"call off = 取消。",topic:"短语动词"},
+  {stem:"Her kind words had a positive ____ on the whole class.",options:["affect","effect","effort","affair"],answer:1,expl:"effect 是名词'影响'；affect 是动词。",topic:"易混词"},
+  {stem:"He is not capable ____ handling such pressure.",options:["of","to","for","in"],answer:0,expl:"be capable <b>of</b> doing。",topic:"介词搭配"},
+  {stem:"The number of applicants ____ rising every year.",options:["are","is","were","have"],answer:1,expl:"the number of… 作主语视为<b>单数</b>：is。",topic:"主谓一致"},
+  {stem:"Look! The children ____ in the garden right now.",options:["play","plays","are playing","played"],answer:2,expl:"此刻正在发生用<b>现在进行时</b>。",topic:"时态"},
+  {stem:"The scientist made a remarkable ____ about the virus.",options:["discover","discovery","discovered","discovering"],answer:1,expl:"a + 形容词后需<b>名词</b> discovery。",topic:"词性"},
+  {stem:"The book ____ I borrowed from you was fascinating.",options:["who","which","whose","where"],answer:1,expl:"先行词为物、从句缺宾语，用 which/that。",topic:"定语从句"},
+  {stem:"That was by far ____ film I have ever seen.",options:["good","better","the best","best"],answer:2,expl:"范围内'最'用<b>最高级</b> the best。",topic:"比较级"},
+  {stem:"Her ____ manner quickly put the nervous patients at ease.",options:["hostile","cordial","arrogant","indifferent"],answer:1,expl:"cordial = 亲切友好，符合语境。",topic:"词汇"},
+  {stem:"You have handed in your project, ____?",options:["have you","haven't you","did you","don't you"],answer:1,expl:"前肯定后否定的反意疑问：haven't you。",topic:"反意疑问"},
+  {stem:"The library opens ____ 9 a.m. on weekdays.",options:["in","on","at","by"],answer:2,expl:"具体时刻用 <b>at</b>。",topic:"介词搭配"},
+  {stem:"Reading widely can greatly ____ your vocabulary.",options:["enhance","reduce","hinder","distort"],answer:0,expl:"enhance = 提升，符合语境。",topic:"词汇"},
+  {stem:"There were ____ people at the talk than we had expected.",options:["fewer","less","little","much"],answer:0,expl:"可数名词 people 用 <b>fewer</b>。",topic:"可数性"},
+  {stem:"By next June, the new terminal ____ completed.",options:["will be","will have been","is","has been"],answer:1,expl:"将来某时之前完成用<b>将来完成时+被动</b> will have been。",topic:"时态"},
+  {stem:"I could not help ____ when I heard the sad news.",options:["cry","to cry","crying","cried"],answer:2,expl:"can't help doing = 忍不住做。",topic:"非谓语"},
+  {stem:"Honesty and ____ are qualities every employer values.",options:["integrate","integrity","integral","integrated"],answer:1,expl:"需<b>名词</b> integrity（正直）。",topic:"词性"}
+);
+
+EDIT_BANK.push(
+  {text:"The news about the floods were very worrying to everyone.",wrong:"were",fix:"was",why:"news 不可数，视为单数用 was。"},
+  {text:"Each of the boys have his own locker at school.",wrong:"have",fix:"has",why:"each of + 复数，谓语用单数 has。"},
+  {text:"I have lived in this town since ten years.",wrong:"since",fix:"for",why:"for + 一段时间。"},
+  {text:"She is very interested on learning French.",wrong:"on",fix:"in",why:"be interested in sth。"},
+  {text:"My younger brother don't like spicy food.",wrong:"don't",fix:"doesn't",why:"第三人称单数用 doesn't。"},
+  {text:"There is many good reasons to exercise daily.",wrong:"is",fix:"are",why:"主语 reasons 复数，用 are。"},
+  {text:"The children was playing happily in the park.",wrong:"was",fix:"were",why:"children 复数，用 were。"},
+  {text:"I look forward to see you again next week.",wrong:"see",fix:"seeing",why:"look forward to + 动名词。"},
+  {text:"She can speaks three languages very fluently.",wrong:"speaks",fix:"speak",why:"情态动词 can 后接动词原形。"},
+  {text:"He is much taller then his elder brother.",wrong:"then",fix:"than",why:"比较用 than（than≠then）。"},
+  {text:"We finally arrived to the airport an hour early.",wrong:"to",fix:"at",why:"arrive at a place。"},
+  {text:"Neither of the two answers are actually correct.",wrong:"are",fix:"is",why:"neither of… 用单数 is。"},
+  {text:"I really enjoy to read a good book before bed.",wrong:"to",fix:"reading",why:"enjoy + 动名词。"},
+  {text:"The advice you gave me were extremely useful.",wrong:"were",fix:"was",why:"advice 不可数，用 was。"},
+  {text:"He has been working at this company for 2019.",wrong:"for",fix:"since",why:"since + 时间点。"},
+  {text:"She did not went to school yesterday morning.",wrong:"went",fix:"go",why:"did + 动词原形 go。"}
+);
+
+KPTS_BANK.push(
+  {goals:["用五感写描写文，做到'展示而非告知'","恰当使用比喻/拟人等修辞","用精准的动词与形容词营造画面"],
+   kpts:[
+    {t:"感官细节 Sensory Detail",en:"Show, don't tell.",body:"不要写 'It was scary'，而用看/听/闻/触的具体细节让读者自己感到害怕。"},
+    {t:"修辞手法 Figurative Language",en:"Simile, metaphor, personification.",body:"比喻(like/as)、暗喻、拟人能让描写生动：The wind <b>whispered</b> through the trees。"},
+    {t:"精准用词 Strong Word Choice",en:"Vivid verbs and adjectives.",body:"用 sprinted 代替 ran fast；用 crimson 代替 red，画面更清晰。"}
+   ]},
+  {goals:["掌握常见搭配(collocations)","积累高频短语动词","避免中式直译"],
+   kpts:[
+    {t:"搭配 Collocations",en:"Words that go together.",body:"make a decision(非 do)、heavy rain(非 big rain)、strong coffee。搭配错=不地道。"},
+    {t:"短语动词 Phrasal Verbs",en:"verb + particle.",body:"call off(取消)、put up with(忍受)、look into(调查)、give up(放弃)。"},
+    {t:"惯用表达 Idiomatic Use",en:"Natural phrasing.",body:"in the long run、on the other hand、take sth for granted — 直接用可提升语感。"}
+   ]},
+  {goals:["正确使用逗号、分号、撇号","避免流水句(run-on)与句子片段","用从句制造句式多样性"],
+   kpts:[
+    {t:"标点 Punctuation",en:"Comma, semicolon, apostrophe.",body:"撇号表所有格/缩写：it's=it is，its=它的；并列独立句用分号或连词，不能只用逗号(逗号粘连)。"},
+    {t:"句子完整性 Sentence Boundaries",en:"Avoid run-ons & fragments.",body:"每句需有主谓且表达完整意思；两句用句号/连词分开。"},
+    {t:"句式多样 Sentence Variety",en:"Mix simple, compound, complex.",body:"用 which/when/although 引导从句，让长短句交替，行文更成熟。"}
+   ]},
+  {goals:["朗读做到清晰、流畅、有语调","口语互动能展开观点(PEEL)","准备时快速构思要点"],
+   kpts:[
+    {t:"朗读技巧 Reading Aloud",en:"Clarity, fluency, expression.",body:"意群停顿、实词重音、句末语调升降；读清结尾辅音。"},
+    {t:"口语展开 Developing Answers",en:"Don't answer in one line.",body:"用 PEEL：观点→理由→例子→回扣；给2个理由并适当让步。"},
+    {t:"应变句式 Useful Phrases",en:"Buy thinking time politely.",body:"'That's an interesting question…'、'On one hand… on the other…' 让表达更从容。"}
+   ]},
+  {goals:["合理分配各卷时间","写作前先列提纲","留时间检查低级错误"],
+   kpts:[
+    {t:"时间管理 Time Management",en:"Budget minutes per section.",body:"按分值分配时间；写作留5分钟检查，阅读先看题再读文。"},
+    {t:"审题与提纲 Plan Before Writing",en:"Plan first.",body:"圈出题目关键词与要求，列3-4个要点再动笔，避免离题。"},
+    {t:"检查清单 Proofreading",en:"Catch easy marks.",body:"检查时态一致、主谓、冠词、介词、拼写、标点——正是编辑题考点。"}
+   ]}
+);
+
+CNA_POOL.push(
+  {ttl:"CNA Commentary: Discontent is rising among Indonesia's youth",url:"https://www.channelnewsasia.com/commentary/indonesia-youth-protests-prabowo-subianto-voter-discontent-4972626",why:"【时事/公民】了解区域议题，练非叙事阅读与推断。"},
+  {ttl:"CNA Snap Insight: Indonesia's free meal programme hit by graft probe",url:"https://www.channelnewsasia.com/commentary/indonesia-prabowo-subianto-free-meal-6161271",why:"【时事/治理】任务：概括事件与作者观点。"}
+);
+ST_POOL.push(
+  {ttl:"ST Opinion: Silicon Valley will eat its AI competitors in 2026",url:"https://www.straitstimes.com/opinion/silicon-valley-will-eat-its-ai-competitors-in-2026",why:"【科技/商业】AI 竞争，积累科技类论据与术语。"},
+  {ttl:"ST Opinion: This Singapore Budget 2026 should look very different",url:"https://www.straitstimes.com/opinion/this-singapore-budget-2026-should-look-very-different",why:"【公民/经济】了解政策取舍，练'问题-建议'结构。"}
+);
+
+/* ---- more READING + paired SUMMARY ---- */
+const MORE_READ=[
+  {title:"The Rise of the Gig Economy（非叙事阅读）",
+   passage:`Not long ago, a 'job' meant one employer, a fixed salary and a desk to return to each morning. Today, a growing number of people earn their living quite differently — driving passengers, delivering meals or designing websites, one short task at a time. This is the so-called gig economy, and it is reshaping the way the world works.\n\nIts appeal is easy to understand. Workers enjoy the freedom to choose their own hours, to be their own boss and to fit work around family or study. For many, this flexibility is priceless.\n\nYet the same freedom comes at a price. Gig workers rarely receive paid leave, medical benefits or a guaranteed income. When they fall ill, they simply do not earn. Critics warn that behind the language of 'flexibility' lies a workforce with little security and few protections.\n\nThe challenge for society is to enjoy the convenience these workers provide while ensuring they are treated fairly. Flexibility need not mean vulnerability.`,
+   questions:[
+     {q:"In your own words, explain how work in the gig economy differs from a traditional job. [2]",model:"传统工作是固定雇主、固定薪水；而零工经济里，人们按一个个短任务(如送餐、跑腿)挣钱，没有固定归属。",mk:"1分对比 + 1分自己的话改写"},
+     {q:"Identify two attractions of gig work mentioned in paragraph 2. [2]",model:"(i) 可自由选择工作时间；(ii) 做自己的老板/让工作配合家庭或学业。",mk:"每点1分"},
+     {q:"Explain the price that comes with this freedom. [2]",model:"缺少带薪假、医疗福利与稳定收入；生病就没有进账，保障很少。",mk:"任两点各1分"},
+     {q:"What does the writer mean by 'Flexibility need not mean vulnerability'? [1]",model:"灵活工作不一定非得伴随缺乏保障——可以既灵活又受到公平保护。",mk:"1分"},
+     {q:"Vocabulary: 'priceless' (paragraph 2) most nearly means… (A) cheap (B) extremely valuable (C) without cost (D) overpriced",model:"(B) extremely valuable。",mk:"1分"}
+   ]},
+  {title:"Should Zoos Still Exist?（非叙事阅读）",
+   passage:`Few places delight a child like a zoo. To stand before a lion or a giraffe is to feel a wonder no textbook can match. Yet in recent years, an uncomfortable question has grown louder: is it right to keep wild animals in captivity at all?\n\nDefenders of zoos argue that modern institutions are a world away from the bare cages of the past. Good zoos, they say, protect endangered species, fund conservation in the wild and teach millions of visitors to value animals they might otherwise never see.\n\nOpponents are not convinced. No enclosure, however spacious, can replace the freedom of the wild. Animals bred for life behind glass, they argue, may lose the very instincts that make them what they are, all for the sake of human entertainment.\n\nPerhaps the fairest answer lies in between: to judge each zoo not by its gates but by how well it serves the creatures within.`,
+   questions:[
+     {q:"Why does the writer say a zoo can 'delight a child'? [1]",model:"因为亲眼看到狮子、长颈鹿等野生动物带来书本无法给予的惊奇。",mk:"1分"},
+     {q:"State two arguments made in favour of zoos. [2]",model:"(i) 保护濒危物种/资助野外保育；(ii) 教育数百万游客珍视动物。",mk:"每点1分"},
+     {q:"What is the main objection raised by opponents? [2]",model:"再宽敞的围栏也无法替代野外的自由；圈养可能使动物丧失本能，只为取悦人类。",mk:"1分自由 + 1分丧失本能"},
+     {q:"Explain the writer's suggested solution in your own words. [1]",model:"不看外表，而看每个动物园是否真正善待园中的动物，据此逐个评判。",mk:"1分"},
+     {q:"Vocabulary: 'captivity' most nearly means… (A) freedom (B) the state of being kept and not free (C) kindness (D) the wild",model:"(B)。",mk:"1分"}
+   ]},
+  {title:"The Vanishing Art of Handwriting（非叙事阅读）",
+   passage:`Once, a person's handwriting was as personal as a fingerprint. Today, screens have quietly taken over. Children learn to type before they can join their letters, and many adults confess they can barely remember the last time they wrote by hand.\n\nMuch of this change is welcome. Typing is faster, neater and easily corrected. Yet researchers caution that something is lost when the pen is set aside. Writing by hand, studies suggest, helps us remember information and understand ideas more deeply, because the slow, deliberate movement forces the mind to engage.\n\nThere is a personal loss too. A typed message, however kind, cannot carry the warmth of a hand-written note. Handwriting is not merely a skill but a trace of the person behind it.\n\nNo one expects keyboards to disappear. But it may be worth picking up a pen now and then — if only to remember what our own writing looks like.`,
+   questions:[
+     {q:"How has the role of handwriting changed, according to paragraph 1? [2]",model:"手写曾像指纹一样个人化，如今被屏幕取代——孩子先学打字，成年人也很少再手写。",mk:"1分今昔对比 + 1分改写"},
+     {q:"Why do researchers value writing by hand? [2]",model:"手写有助于记忆信息、更深理解想法，因为缓慢刻意的动作迫使大脑投入。",mk:"1分记忆 + 1分理解/原因"},
+     {q:"Explain the 'personal loss' mentioned in paragraph 3. [1]",model:"打字信息再友善也缺少手写便条的温度；手写承载着写字人的痕迹。",mk:"1分"},
+     {q:"What does the writer suggest we do? [1]",model:"偶尔拿起笔写一写，哪怕只为记起自己的字迹。",mk:"1分"},
+     {q:"Vocabulary: 'deliberate' (paragraph 2) most nearly means… (A) careless (B) slow and done on purpose (C) accidental (D) fast",model:"(B)。",mk:"1分"}
+   ]},
+  {title:"Our Oceans in Peril（非叙事阅读）",
+   passage:`The ocean covers more than two-thirds of our planet, yet we often treat it as if it were endless and indestructible. It is neither. Every year, millions of tonnes of plastic flow into the sea, where they choke turtles, entangle seabirds and break down into tiny fragments that enter the food chain — and, eventually, our own plates.\n\nOverfishing adds to the harm. When fish are caught faster than they can breed, entire populations collapse, taking the livelihoods of coastal communities with them. Rising temperatures, meanwhile, are bleaching the coral reefs that shelter a quarter of all marine life.\n\nThe picture is grim, but not hopeless. Bans on single-use plastics, protected marine areas and sustainable fishing have already begun to make a difference. The ocean is remarkably resilient; given the chance, it can recover. What it needs from us is that chance.`,
+   questions:[
+     {q:"Why does the writer say we treat the ocean 'as if it were endless'? [1]",model:"因为我们不断污染、过度捕捞，仿佛海洋取之不尽、坚不可摧。",mk:"1分"},
+     {q:"Explain two ways plastic harms marine life. [2]",model:"(i) 使海龟窒息、缠住海鸟；(ii) 碎成微塑料进入食物链，最终回到人类餐桌。",mk:"每点1分"},
+     {q:"What are the effects of overfishing described in paragraph 2? [2]",model:"鱼被捕捞的速度超过繁殖，整个鱼群崩溃，沿海社区也失去生计。",mk:"1分种群崩溃 + 1分生计"},
+     {q:"How does the writer keep the ending hopeful? [1]",model:"指出禁塑、海洋保护区、可持续捕捞已见成效，且海洋有很强的恢复力。",mk:"1分"},
+     {q:"Vocabulary: 'resilient' most nearly means… (A) fragile (B) able to recover (C) polluted (D) enormous",model:"(B)。",mk:"1分"}
+   ]},
+  {title:"The Underrated Power of Sleep（非叙事阅读）",
+   passage:`We tend to wear our tiredness like a badge of honour. Students boast of late-night study; adults skip sleep to squeeze more from the day. Yet science is increasingly clear: sleep is not wasted time, but some of the most productive hours we have.\n\nDuring sleep, the brain does its quiet housekeeping. It sorts through the day's experiences, storing what matters and clearing away what does not. This is why a good night's rest can turn a confusing lesson into a clear one by morning. Sleep also repairs the body, strengthens the immune system and steadies our moods.\n\nThe cost of ignoring it is high. Tired minds struggle to concentrate, remember and control their emotions — precisely the skills an exam demands. Sleeping well, it turns out, may be one of the smartest things a student can do.`,
+   questions:[
+     {q:"What attitude towards tiredness does the writer describe in paragraph 1? [1]",model:"人们把疲惫当作值得炫耀的'勋章'，以熬夜为荣。",mk:"1分"},
+     {q:"Describe two things the brain does during sleep. [2]",model:"(i) 整理白天经历，存下重要的、清除无用的；(ii) 修复身体/增强免疫/稳定情绪。",mk:"每点1分"},
+     {q:"Why is sleep especially important for students? [2]",model:"睡眠帮助专注、记忆与情绪控制——正是考试所需的能力；缺觉会削弱这些。",mk:"1分能力 + 1分与考试关联"},
+     {q:"Explain what the writer means by the brain's 'housekeeping'. [1]",model:"比喻大脑像打扫房间一样整理信息：保留有用的、清除无用的。",mk:"1分"},
+     {q:"Vocabulary: 'steadies' (paragraph 2) most nearly means… (A) upsets (B) makes more stable (C) speeds up (D) hides",model:"(B)。",mk:"1分"}
+   ]},
+  {title:"The Hidden Cost of Fast Fashion（非叙事阅读）",
+   passage:`A new top for the price of a coffee: fast fashion has made clothes cheaper and trendier than ever. Racks are refreshed weekly, and last month's styles are quietly forgotten. But the low price on the tag hides a far higher cost.\n\nProducing clothes so quickly and cheaply devours resources. A single cotton shirt can take thousands of litres of water to make, while dyeing pollutes rivers with chemicals. Worse still, most garments are worn only a handful of times before being thrown away, piling up in landfills where synthetic fibres may linger for centuries.\n\nThere is a human cost too. To keep prices low, many clothes are made by workers labouring long hours for little pay in unsafe conditions.\n\nThe solution is not to stop buying clothes, but to buy more thoughtfully — choosing quality over quantity, and wearing what we own for longer.`,
+   questions:[
+     {q:"What does the writer mean by 'the low price on the tag hides a far higher cost'? [2]",model:"标签上的便宜价格背后，隐藏着对环境与工人的巨大代价，远比标价高。",mk:"1分释义 + 1分'更高代价'指环境/人力"},
+     {q:"Give two environmental harms of fast fashion. [2]",model:"(i) 耗费大量水、染料污染河流；(ii) 衣物很快被丢弃，合成纤维在填埋场存留数百年。",mk:"每点1分"},
+     {q:"Describe the 'human cost' mentioned. [1]",model:"为压低价格，许多衣服由工人在不安全环境中长时间低薪劳作而成。",mk:"1分"},
+     {q:"What does the writer suggest we should do? [1]",model:"不必停止买衣，而应更明智地买：重质不重量，把已有的穿得更久。",mk:"1分"},
+     {q:"Vocabulary: 'linger' most nearly means… (A) disappear quickly (B) remain for a long time (C) burn (D) float",model:"(B)。",mk:"1分"}
+   ]}
+];
+const MORE_SUM=[
+  {task:"根据上面《The Rise of the Gig Economy》，用<b>不超过80词</b>概括零工经济的吸引力与代价。",points:["按短任务挣钱，方式灵活","可自选工时、做自己老板","让工作配合家庭或学业","缺少带薪假与医疗福利","收入无保障，生病无收入","看似灵活实则缺乏保障"],model:"The gig economy lets people earn task by task, offering great flexibility: workers choose their own hours, act as their own boss and fit work around family or study. However, this freedom is costly. Gig workers usually get no paid leave, medical benefits or guaranteed income, so illness means no earnings. Behind the promise of flexibility often lies a workforce with little security. (61 words)",limit:80},
+  {task:"根据上面《Should Zoos Still Exist?》，用<b>不超过80词</b>概括支持与反对动物园的理由。",points:["现代动物园远优于旧式牢笼","保护濒危物种、资助野外保育","教育游客珍视动物","围栏无法替代野外自由","圈养或使动物丧失本能","只为人类娱乐"],model:"Supporters argue that modern zoos, unlike the bare cages of the past, protect endangered species, fund wild conservation and teach millions to value animals. Opponents counter that no enclosure can replace the freedom of the wild; animals bred in captivity may lose their natural instincts, all merely for human entertainment. The fairest test, the writer suggests, is how well each zoo treats its animals. (62 words)",limit:80},
+  {task:"根据上面《The Vanishing Art of Handwriting》，用<b>不超过80词</b>概括手写的优点与被取代的代价。",points:["打字更快、更整洁、易修改","手写助记忆、加深理解","缓慢刻意迫使大脑投入","打字缺少手写便条的温度","手写承载写字人的痕迹","偶尔拿笔写一写"],model:"Typing has largely replaced handwriting because it is faster, neater and easily corrected. Yet researchers warn of a loss: writing by hand aids memory and deepens understanding, since its slow, deliberate movement engages the mind. There is a personal loss too, for a typed message lacks the warmth of a hand-written note. The writer suggests we occasionally pick up a pen. (60 words)",limit:80},
+  {task:"根据上面《Our Oceans in Peril》，用<b>不超过80词</b>概括海洋面临的威胁与恢复的希望。",points:["数百万吨塑料入海","塑料害死海洋生物并进入食物链","过度捕捞使鱼群崩溃、损及生计","升温漂白珊瑚礁","禁塑、保护区、可持续捕捞见成效","海洋有恢复力，需给它机会"],model:"Our oceans face grave threats: millions of tonnes of plastic kill marine life and enter the food chain, overfishing collapses fish populations and coastal livelihoods, and rising temperatures bleach vital coral reefs. Yet the outlook is not hopeless. Plastic bans, protected marine areas and sustainable fishing are already helping, and the resilient ocean can recover if we give it the chance. (60 words)",limit:80},
+  {task:"根据上面《The Underrated Power of Sleep》，用<b>不超过80词</b>概括睡眠的益处与缺觉的代价。",points:["睡眠是高效时间而非浪费","整理白天经历，存要清废","修复身体、增强免疫、稳定情绪","让困惑的课隔夜变清晰","缺觉损害专注、记忆、情绪","正是考试所需的能力"],model:"Far from wasted time, sleep is highly productive. As we sleep, the brain sorts through the day's experiences, keeping what matters and clearing the rest, while the body repairs itself, immunity strengthens and moods steady. This is why rest can make a confusing lesson clear by morning. Losing sleep, however, harms concentration, memory and emotional control — the very skills exams demand. (60 words)",limit:80},
+  {task:"根据上面《The Hidden Cost of Fast Fashion》，用<b>不超过80词</b>概括快时尚的环境与人力代价及应对。",points:["生产耗费大量水","染料污染河流","衣物只穿几次即丢","合成纤维在填埋场存留数百年","工人长时间低薪、环境不安全","应重质不重量、穿得更久"],model:"Fast fashion's cheap clothes carry a hidden cost. Making them devours resources — thousands of litres of water per shirt — while dyeing pollutes rivers, and garments worn only briefly pile up in landfills for centuries. There is a human cost too, as workers toil long hours for little pay in unsafe conditions. The answer is to buy thoughtfully, choosing quality and wearing clothes for longer. (63 words)",limit:80}
+];
+READING_BANK.push.apply(READING_BANK,MORE_READ);
+SUMMARY_BANK.push.apply(SUMMARY_BANK,MORE_SUM);
+
+/* ---- more VISUAL TEXT posters ---- */
+function poster(bg,band,head,sub,mid,cta,foot1,foot2,tag){
+  return "<svg viewBox='0 0 380 500' width='360' height='474' xmlns='http://www.w3.org/2000/svg'><rect width='380' height='500' rx='14' fill='"+bg+"'/><rect x='0' y='0' width='380' height='64' rx='14' fill='"+band+"'/><text x='190' y='42' font-family='Arial' font-size='25' font-weight='800' fill='#0c1b30' text-anchor='middle'>"+head+"</text><text x='190' y='98' font-family='Arial' font-size='15' fill='#ffffff' text-anchor='middle'>"+sub+"</text><circle cx='190' cy='200' r='58' fill='"+band+"' opacity='0.25'/><text x='190' y='210' font-family='Arial' font-size='46' text-anchor='middle'>"+mid+"</text><rect x='60' y='300' width='260' height='50' rx='25' fill='"+band+"'/><text x='190' y='332' font-family='Arial' font-size='17' font-weight='800' fill='#0c1b30' text-anchor='middle'>"+cta+"</text><text x='190' y='392' font-family='Arial' font-size='12.5' fill='#cfe3f5' text-anchor='middle'>"+foot1+"</text><text x='190' y='412' font-family='Arial' font-size='12.5' fill='#cfe3f5' text-anchor='middle'>"+foot2+"</text><text x='190' y='456' font-family='Georgia,serif' font-size='14' font-style='italic' fill='"+band+"' text-anchor='middle'>"+tag+"</text></svg>";
+}
+const VQ_GENERIC=[
+  {q:"Who is the target audience of this poster, and how do you know? [2]",model:"依据海报的口号、图示与落款判断对象（如学生/公众/居民），并引用具体文字/图形作依据。",mk:"1分对象 + 1分依据"},
+  {q:"Explain how the central image helps to convey the message. [2]",model:"说明图示（表情符号/图形）象征什么，如何与标题主旨呼应、比文字更直观。",mk:"1分象征 + 1分与主旨联系"},
+  {q:"Why is the call-to-action line placed on a bright coloured bar? [1]",model:"用醒目色块突出行动号召，抓住视线、促使读者立即行动。",mk:"1分"},
+  {q:"In your opinion, is the slogan effective? Explain. [2]",model:"给出立场并说明理由（简短好记/对比鲜明/赋予意义等）。",mk:"1分立场 + 1分理由"},
+  {q:"Vocabulary: identify one word on the poster used to persuade, and explain its effect. [1]",model:"如 FREE/TODAY/NOW 等，强调紧迫或吸引，促成行动。",mk:"1分"}
+];
+VISUAL_BANK.push(
+  {title:"Visual Text · 保持整洁海报 Keep It Clean",svg:poster('#1c4a3a','#5fd39a','A CLEANER SINGAPORE','Bin it. Don&#39;t drop it.','🗑️','Use the bins - keep our estate clean','Every piece of litter has a home','Litter-free starts with you','Small habit, big difference.'),questions:VQ_GENERIC},
+  {title:"Visual Text · 献血号召海报 Give Blood",svg:poster('#4a1c24','#ff8a99','GIVE BLOOD, SAVE LIVES','One donation can save three lives','🩸','Donate this Saturday','Bloodbank @ HSA - 10am to 5pm','You could be someone&#39;s hero','A small act, a lifetime of difference.'),questions:VQ_GENERIC},
+  {title:"Visual Text · 节水海报 Save Every Drop",svg:poster('#123a4a','#5fc7e0','SAVE EVERY DROP','Water is precious - use it wisely','💧','Turn off the tap','Fix leaks - shorter showers','Every drop counts','Waste not, want not.'),questions:VQ_GENERIC},
+  {title:"Visual Text · 回收海报 Reduce Reuse Recycle",svg:poster('#1c4a2a','#7ad48a','REDUCE. REUSE. RECYCLE.','Give your waste a second life','♻️','Recycle right today','Blue bins at every block','Sort it - don&#39;t waste it','The future is in our bins.'),questions:VQ_GENERIC},
+  {title:"Visual Text · 道路安全海报 Eyes Up",svg:poster('#3a2a12','#ffcf6b','EYES UP, PHONE DOWN','Distracted walking can cost a life','📵','Cross roads safely','Look left, right, left - then cross','Your message can wait','A second&#39;s glance, a lifetime&#39;s regret.'),questions:VQ_GENERIC},
+  {title:"Visual Text · 社团招新海报 Join a CCA",svg:poster('#241c4a','#a99cff','DISCOVER YOUR PASSION','School CCA Fair - find your fit','🎭','Sign up this week','Sports - Arts - Clubs - Uniformed Groups','Try something new this year','Grow beyond the classroom.'),questions:VQ_GENERIC}
+);
+
+/* ---- more SITUATIONAL writing ---- */
+SITUATIONAL_BANK.push(
+  {scenario:"你上月网购的耳机在两周内损坏，你要写投诉信要求退换。",prompt:"Write an <b>email of complaint</b> to an online store about a faulty pair of headphones and request a solution.",bullets:["state what you bought and the problem","explain how it has inconvenienced you","state clearly what you want the store to do"],format:["称呼：Dear Sir or Madam,","客气但坚定地说明问题","提供订单细节","明确诉求（退款/更换）","结尾 Yours faithfully, + 姓名"],rubric:[{pts:"任务完成 /15",txt:"三要点齐全；语气坚定而礼貌；诉求清楚。"},{pts:"语言 /15",txt:"正式语气一致；用词准确；语法标点少错。"}],model:"Dear Sir or Madam,\n\nI am writing to express my dissatisfaction with a pair of headphones (Order #A2291) that I purchased from your website on 3 June.\n\nRegrettably, the right earpiece stopped working within two weeks of normal use. As I rely on these headphones for online lessons, their failure has caused me considerable inconvenience, forcing me to borrow a spare from a classmate.\n\nAs the product is clearly still under warranty, I would be grateful if you could either replace the item or issue a full refund. I have attached a copy of my receipt for your reference.\n\nI look forward to your prompt reply.\n\nYours faithfully,\nRachel Tan"},
+  {scenario:"班级刚举办了一次义卖活动，班主任请你写一份报告。",prompt:"Write a <b>report</b> to your form teacher about a charity fun fair your class organised.",bullets:["what the event was and its purpose","how it went / what was achieved","one suggestion for improvement next time"],format:["标题：Report on the Class Charity Fun Fair","分小标题或分段：目的/过程/成果/建议","客观、正式的语气","结尾署名与日期"],rubric:[{pts:"任务完成 /15",txt:"目的、过程成果、建议齐全；报告体例清楚。"},{pts:"语言 /15",txt:"正式客观；句式多样；语法准确。"}],model:"Report on the Class Charity Fun Fair\n\nPurpose\nOn 12 May, Class 4E organised a charity fun fair to raise funds for a local children's home and to foster teamwork among classmates.\n\nWhat Happened\nThe class ran five stalls, including a bake sale and a games booth. Turnout was excellent, with many teachers and parents attending. Together we raised $860, exceeding our target of $600.\n\nEvaluation\nThe event was a clear success, though the long queues at the food stall caused some complaints.\n\nRecommendation\nNext time, we suggest setting up an additional payment counter to reduce waiting time.\n\nSubmitted by: Rachel Tan, 15 May"},
+  {scenario:"你要在全校集会上鼓励同学积极参加课外活动。",prompt:"Write a <b>speech</b> to persuade your schoolmates to join a co-curricular activity (CCA).",bullets:["why CCAs are worthwhile","address a common excuse (e.g. no time)","end with a strong call to action"],format:["以问候开场：Good morning, teachers and fellow students","用第二人称 you 拉近距离","口语化但得体，善用反问与排比","有力的结尾号召"],rubric:[{pts:"任务完成 /15",txt:"理由充分、回应顾虑、号召有力；对象/语境恰当。"},{pts:"语言 /15",txt:"演讲语气；修辞得当；语法准确。"}],model:"Good morning, teachers and fellow students,\n\nHow many of us go straight home after school, only to spend the evening scrolling on our phones? Today, I want to persuade you that there is a better way — joining a CCA.\n\nA CCA is far more than an extra activity. It is where we make lasting friendships, discover hidden talents and learn skills no examination can teach: leadership, discipline and teamwork.\n\nI know what some of you are thinking: 'I simply have no time.' But the truth is, the busiest students are often the most organised. A few hours a week will not ruin your grades; they may well improve your focus.\n\nSo do not let this year slip by. Walk up to a CCA booth this week, sign your name, and give it a try. You have nothing to lose — and a whole new experience to gain.\n\nThank you."},
+  {scenario:"你要写信给市镇理事会，反映组屋区的游乐设施年久失修。",prompt:"Write a <b>letter</b> to your Town Council about the poor condition of the playground in your estate.",bullets:["describe the problem clearly","explain why it matters to residents","request specific action"],format:["称呼：Dear Sir or Madam,","开门见山说明目的","具体描述、语气礼貌坚定","明确请求","结尾 Yours faithfully, + 姓名"],rubric:[{pts:"任务完成 /15",txt:"问题、影响、请求齐全；对象语气恰当。"},{pts:"语言 /15",txt:"正式语气；用词准确；少错。"}],model:"Dear Sir or Madam,\n\nI am writing on behalf of residents at Block 210 to draw your attention to the worsening condition of our neighbourhood playground.\n\nSeveral pieces of equipment have fallen into disrepair: the slide is cracked, and two of the swings have been broken for over a month. As many young children play here daily, these hazards pose a real risk of injury.\n\nA safe playground is important not only for our children's enjoyment but also for their health and for the sense of community it fosters. I would therefore be grateful if the Town Council could arrange for the equipment to be repaired, or replaced, at the earliest opportunity.\n\nThank you for your attention to this matter.\n\nYours faithfully,\nRachel Tan"},
+  {scenario:"你想申请书店的假期兼职。",prompt:"Write an <b>email of application</b> for a part-time holiday job at a local bookshop.",bullets:["state the job you are applying for and where you saw it","describe relevant qualities or experience","state your availability"],format:["称呼：Dear Mr/Ms …,","开门见山说明申请职位","突出优点与相关经历","说明可工作时间","结尾 Yours sincerely, + 姓名"],rubric:[{pts:"任务完成 /15",txt:"职位、优势、可工作时间齐全；正式得体。"},{pts:"语言 /15",txt:"正式语气；用词准确；语法标点少错。"}],model:"Dear Ms Lim,\n\nI am writing to apply for the part-time position of sales assistant advertised in your shop window last week.\n\nI am a Secondary Four student with a genuine love of books and a friendly, patient manner. Last year, I volunteered at my school's book fair, where I gained experience in serving customers and handling payments. I am reliable, punctual and eager to learn.\n\nI would be available to work on weekdays after 3 p.m. and throughout the June holidays. I have attached a copy of my resume for your reference.\n\nThank you for considering my application. I look forward to hearing from you.\n\nYours sincerely,\nRachel Tan"},
+  {scenario:"你要写电邮邀请好友来参加你的生日聚会。",prompt:"Write an <b>informal email</b> to a friend inviting them to your birthday celebration.",bullets:["invite them and give the details (when/where)","explain what you have planned","tell them what to bring or prepare"],format:["称呼：Hi/Dear [名字],","轻松친切的语气，可用缩写","把时间地点说清楚","热情结尾：See you soon! / Love, …"],rubric:[{pts:"任务完成 /15",txt:"邀请、细节、安排齐全；对象/语气(非正式)恰当。"},{pts:"语言 /15",txt:"语气自然亲切；句式通顺；少错。"}],model:"Hi Mei,\n\nGuess what — I'm finally turning sixteen, and I'd love for you to celebrate with me!\n\nI'm having a small party at my place on Saturday, 20 July, from 4 p.m. onwards. Nothing too fancy, just good food, music and a few close friends. I've planned some games, and my mum is making her famous curry, so come hungry!\n\nYou don't need to bring anything except yourself and a good mood — though if you want, you could bring that karaoke playlist you're always raving about.\n\nDo let me know if you can make it. It really wouldn't be the same without you!\n\nSee you soon,\nRachel"}
+);
+
+/* ---- more CONTINUOUS writing ---- */
+WRITING_BANK.push(
+  {type:"连贯写作 · 描写文 / Descriptive",prompt:"Describe a place that makes you feel completely at peace. （约 350–500 词）",rubric:[{pts:"内容 Content /10",txt:"聚焦一个地点；用五感细节；有氛围与情感。"},{pts:"语言 Language /20",txt:"生动的动词/形容词；比喻拟人；句式多样。"},{pts:"结构 Organisation /10",txt:"由远及近或按感官铺陈；首尾呼应。"}],model:"The old jetty at the end of my grandmother's village has always been my refuge. To reach it, I follow a narrow path where tall grass brushes my knees and the air grows thick with the salt of the sea.\n\nThe jetty itself is weathered and grey, its wooden planks warm beneath my bare feet. I like to sit at the very edge, legs dangling above the water, and simply watch. Before me, the sea stretches out like a sheet of hammered silver, rising and falling in a slow, patient rhythm. Small waves murmur against the stilts below, whispering secrets I never quite catch.\n\nHere, the noise of the world falls away. There are no ringing phones, no anxious deadlines — only the cry of a distant gull and the creak of the timber as it shifts in the breeze. The setting sun spills molten gold across the horizon, and for a while the whole sky seems to catch fire.\n\nAs the light softens into dusk, a deep calm settles over me. My worries, so heavy in the daylight, feel small and far away. In this quiet place, poised between land and sea, I feel utterly and completely at peace."},
+  {type:"连贯写作 · 议论文 / Argumentative",prompt:"'Examinations do more harm than good.' Do you agree? （约 350–500 词）",rubric:[{pts:"内容 Content /10",txt:"明确立场；有力论点+解释+例子；处理反方。"},{pts:"语言 Language /20",txt:"连接词得当；高级词汇；语法准确。"},{pts:"结构 Organisation /10",txt:"立场→分论点(PEEL)→让步反驳→结尾。"}],model:"Every year, students bury themselves in notes, dreading the examinations that seem to decide their future. It is little wonder that many claim exams do more harm than good. While I understand this frustration, I do not fully agree.\n\nAdmittedly, examinations have real drawbacks. The pressure they create can be immense, robbing young people of sleep and, at times, of their love of learning. A single poor performance may unfairly overshadow years of effort. For some, exams reward memorisation rather than genuine understanding.\n\nYet to condemn examinations outright is to overlook their purpose. They provide a fair, common standard by which the achievements of thousands of students can be measured objectively. Preparing for them, moreover, teaches skills that outlast any grade: discipline, time management and the ability to work under pressure — qualities every employer prizes.\n\nThe real problem, I would argue, is not examinations themselves but how we treat them. When a test becomes the sole measure of a person's worth, it does harm; when it is seen as one milestone among many, it does good.\n\nExaminations, then, are neither villain nor hero. Used wisely, they are a useful tool. It is the crushing weight we attach to them — not the tests themselves — that we would do well to reconsider."},
+  {type:"连贯写作 · 记叙文 / Narrative",prompt:"Write about a decision you made that you later regretted. （约 350–500 词）",rubric:[{pts:"内容 Content /10",txt:"情节完整、有冲突与转折；结尾有反思。"},{pts:"语言 Language /20",txt:"过去时为主；句式多样；情感真实。"},{pts:"结构 Organisation /10",txt:"设置情境→决定→后果→醒悟。"}],model:"The message glowed on my screen at midnight: 'Come on, everyone's going. Don't be boring.' My best friend was inviting me to sneak out to a party the night before our major examination. Every sensible part of me said no. I typed 'yes' anyway.\n\nThe party was loud and dazzling, and for a few hours I felt gloriously free. But as the clock crept past two, a knot of unease tightened in my stomach. I had not revised. I had not slept. I had traded my future for a single reckless night.\n\nThe next morning, I sat before the examination paper with a pounding head and a mind full of fog. Questions I had once known blurred together. My pen hovered uselessly over the page while the minutes drained away. When the results came, they were exactly as I feared.\n\nWorse than the grade, though, was the look on my mother's face — not anger, but quiet disappointment. That look stayed with me long after the marks were forgotten.\n\nI have never regretted a decision more. Yet from that painful night I learned something I could not have learned any other way: that a moment's pleasure is rarely worth a lasting regret, and that true friends never ask you to betray your own future."},
+  {type:"连贯写作 · 议论文 / Discursive",prompt:"Discuss the advantages and disadvantages of social media for young people. （约 350–500 词）",rubric:[{pts:"内容 Content /10",txt:"两面均衡；论点有解释与例子；有平衡结论。"},{pts:"语言 Language /20",txt:"连接词得当；高级词汇；准确。"},{pts:"结构 Organisation /10",txt:"利→弊→平衡结论，分段清晰。"}],model:"Few inventions have shaped the lives of young people as powerfully as social media. To some it is a marvel; to others, a menace. The truth, as ever, lies somewhere in between.\n\nThe advantages are undeniable. Social media allows us to stay connected with friends and family across the globe, sharing our lives at the tap of a screen. It gives a voice to the young, letting them raise awareness of causes they care about, from the environment to mental health. It can even be a classroom, offering free tutorials and communities of shared interest.\n\nYet these benefits carry a shadow. The endless stream of polished, filtered lives can leave young people anxious and dissatisfied, forever comparing themselves to others. Hours vanish in mindless scrolling, and behind the safety of a screen, cruelty can spread as quickly as kindness. For the vulnerable, this pressure can be genuinely harmful.\n\nSo is social media a blessing or a curse? Perhaps it is neither. Like any powerful tool, its value depends on how it is used. Approached with balance and awareness — knowing when to log off and whom to trust — it can enrich young lives rather than diminish them. The challenge for our generation is not to reject the screen, but to master it."},
+  {type:"连贯写作 · 个人经历 / Personal Recount",prompt:"Write about a time you witnessed an unexpected act of kindness. （约 350–500 词）",rubric:[{pts:"内容 Content /10",txt:"具体事件；细节生动；有感悟。"},{pts:"语言 Language /20",txt:"过去时；描写细腻；句式多样。"},{pts:"结构 Organisation /10",txt:"情境→事件→影响与反思。"}],model:"It was a grey, rain-soaked evening at the bus interchange, and everyone was in a hurry to get home. I stood in the queue, cold and impatient, watching puddles swell beneath the flickering lights.\n\nAhead of me shuffled an elderly man, thin and slightly stooped, clutching a worn plastic bag. When the bus arrived, he fumbled for his card and tapped it, only for the reader to beep in refusal. His card was empty. Behind him, the queue sighed; someone muttered impatiently. The old man's face crumpled with embarrassment, and he began, slowly, to step back off the bus.\n\nThen a schoolgirl, no older than fourteen, stepped forward without a word. She tapped her own card for him, gave him a small, shy smile, and helped him to a seat. It was over in seconds. The man's eyes glistened as he thanked her; she simply nodded and looked away, as though she had done nothing at all.\n\nThe whole bus seemed to soften after that. Strangers exchanged small smiles; the impatience melted away.\n\nI have never forgotten that girl. She taught me, in one quiet gesture, that kindness costs so little yet means so much — and that the smallest act, offered freely, can change the mood of an entire room."},
+  {type:"连贯写作 · 议论文 / Argumentative",prompt:"Should students be allowed to use mobile phones in school? Give your view. （约 350–500 词）",rubric:[{pts:"内容 Content /10",txt:"明确立场；论点+例子；处理反方。"},{pts:"语言 Language /20",txt:"连接词；高级词汇；准确。"},{pts:"结构 Organisation /10",txt:"立场→论点→让步→结尾。"}],model:"Walk into any school today and you will find a phone in almost every pocket. Whether students should be allowed to use them in school, however, remains fiercely debated. In my view, phones should be permitted — but only under sensible limits.\n\nThose who oppose phones have fair concerns. Phones are a powerful distraction; a buzzing notification can shatter a student's concentration in an instant. They can enable cheating, and at their worst, become tools for cyberbullying. A classroom of glowing screens is hardly a place of learning.\n\nAnd yet, to ban phones entirely is to ignore their genuine value. Used wisely, a phone is a library in the palm of the hand — a means to research, to translate a difficult word, or to revise with an educational app. In an emergency, it lets a worried parent reach their child at once. Banning phones does not teach responsibility; it merely postpones it.\n\nThe wisest path, therefore, is not prohibition but guidance. Phones could be silenced and stored during lessons, yet permitted during breaks or for specific classroom tasks. In this way, students enjoy the benefits of technology while learning the self-discipline to use it well.\n\nAfter all, the world beyond school will not confiscate their phones. Far better that they learn to master the device now, under a teacher's watchful eye."}
+);
+
+/* ---- more ORAL sets ---- */
+const OTIPS=["意群停顿：在逗号/句号处自然换气。","实词重音，虚词轻读。","陈述句句末语调下降；清晰读出结尾辅音。"];
+ORAL_BANK.push(
+  {readAloud:{passage:"Every weekend, the park comes alive. Joggers trace the winding paths, children chase bubbles across the grass, and elderly couples share quiet moments on shaded benches. In a busy city, this small patch of green offers everyone a welcome breath of fresh air.",tips:OTIPS},
+   spoken:{stimulus:"图片：一家人在公园野餐、放风筝。",questions:[
+     {q:"Do you enjoy spending time in parks or outdoors? Why?",model:"Yes, I really do. Being outdoors helps me relax and clears my mind after a long week of studying. I especially enjoy cycling with my family, as it keeps us active and gives us time together away from our screens.",tip:"给2个理由+一个例子(PEEL)。"},
+     {q:"Some say young people spend too little time outdoors. Do you agree?",model:"To some extent, yes. Many of us are glued to our phones and games indoors. That said, schools do organise outdoor activities, so it depends on the person. I believe we would all benefit from a little more fresh air and exercise.",tip:"表态+让步+重申。"}
+   ]},
+   listening:ORAL2.listening},
+  {readAloud:{passage:"Volunteering can change more than the lives of those we help; it changes us. Whether we are packing food for the needy or reading to lonely elders, each small act reminds us that we are part of something larger than ourselves.",tips:OTIPS},
+   spoken:{stimulus:"图片：学生在敬老院陪伴老人。",questions:[
+     {q:"Have you ever done any volunteer work? How did it feel?",model:"Yes, last year I helped distribute meals at a community centre. At first I felt shy, but seeing the residents' grateful smiles was deeply rewarding. It made me realise how much a small effort can brighten someone's day.",tip:"具体经历+感受。"},
+     {q:"Should schools make community service compulsory?",model:"I think they should encourage it strongly, though making it compulsory has risks — forced kindness feels hollow. Perhaps a balance is best: schools provide opportunities and gentle encouragement, so students discover the value of giving for themselves.",tip:"给出平衡立场。"}
+   ]},
+   listening:ORAL2.listening},
+  {readAloud:{passage:"Nothing captures the spirit of Singapore quite like a hawker centre. Amid the clatter of bowls and the sizzle of woks, people of every background gather to share a cheap, delicious meal. Here, food is more than fuel; it is a language everyone speaks.",tips:OTIPS},
+   spoken:{stimulus:"图片：热闹的熟食中心，各色美食。",questions:[
+     {q:"What is your favourite local dish, and why?",model:"My favourite is chicken rice. The tender chicken and fragrant rice are comforting, and it reminds me of family lunches on weekends. Best of all, it is affordable, so I can enjoy it almost anywhere.",tip:"具体+理由+个人联系。"},
+     {q:"Do you think traditional food culture is worth preserving?",model:"Absolutely. Our hawker food is part of our identity and brings communities together. If we lose it, we lose a piece of our heritage. That is why I am glad efforts are being made to support younger hawkers.",tip:"立场+理由+例子。"}
+   ]},
+   listening:ORAL2.listening},
+  {readAloud:{passage:"Sport teaches lessons no classroom can. On the field, we learn to win with grace and lose with dignity, to push past exhaustion, and to trust the teammates beside us. Long after the final whistle, these lessons stay with us.",tips:OTIPS},
+   spoken:{stimulus:"图片：学生在进行团队球类比赛。",questions:[
+     {q:"Do you think exercise is important for students? Why?",model:"Yes, very. Exercise keeps us healthy and relieves the stress of studying. After a good game of basketball, I always feel more focused. It also teaches teamwork, which is useful far beyond the sports field.",tip:"健康+心理+技能三方面。"},
+     {q:"How could schools encourage students to be more active?",model:"Schools could offer a wider variety of sports so everyone finds something they enjoy, and perhaps organise fun inter-class competitions. Making activity enjoyable, rather than a chore, is the surest way to get students moving.",tip:"给2个具体做法。"}
+   ]},
+   listening:ORAL2.listening},
+  {readAloud:{passage:"A library is a quiet kind of magic. Between its shelves wait a thousand journeys — to distant lands, other minds and far-off times. All it asks in return is a little curiosity and the patience to turn the page.",tips:OTIPS},
+   spoken:{stimulus:"图片：学生在图书馆安静阅读。",questions:[
+     {q:"Do you enjoy reading? What kind of books do you like?",model:"Yes, I love reading, especially mystery novels. I enjoy trying to solve the puzzle before the detective does. Reading also widens my vocabulary, which helps a great deal with my English.",tip:"体裁+理由+益处。"},
+     {q:"Some say young people read less today. Why might that be?",model:"I think it is because screens compete for our attention — videos and games offer instant entertainment, while reading asks for patience. Still, reading rewards us more deeply, so I believe it is a habit worth protecting.",tip:"给原因+个人看法。"}
+   ]},
+   listening:ORAL2.listening},
+  {readAloud:{passage:"Technology has transformed the way we live, learn and connect. With a single device, we can attend a lesson, meet a friend or explore the world. The challenge is no longer access to information, but using it wisely.",tips:OTIPS},
+   spoken:{stimulus:"图片：学生用平板电脑上网课。",questions:[
+     {q:"How has technology changed the way you learn?",model:"Technology has made learning far more convenient. I can watch tutorials, look up words instantly and revise with apps on my phone. However, it also tempts me to get distracted, so I have to be disciplined about how I use it.",tip:"利与弊都提。"},
+     {q:"Do you think technology brings people closer together or pushes them apart?",model:"It can do both. It keeps me in touch with relatives overseas, which is wonderful. Yet at the dinner table, everyone staring at their phones can feel isolating. Ultimately, it depends on whether we use it to connect or to withdraw.",tip:"两面+结论。"}
+   ]},
+   listening:ORAL2.listening}
+);
+
 /* ---------- THE OFFLINE DAY GENERATOR ---------- */
 function pickRot(arr,i){const L=arr.length;return arr[((i%L)+L)%L];}
 function weakTopicList(){
