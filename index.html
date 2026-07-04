@@ -322,7 +322,7 @@
 <!-- GENERATE NEXT DAY BAR -->
 <div class="genbar">
   <div class="inner">
-    <div class="hint" id="genHint">✅ 完成今天的练习和单词后，点击右侧生成下一天。</div>
+    <div class="hint"><span id="genHint">✅ 完成今天的练习和单词后，点击右侧生成下一天。</span> <span id="syncStatus" style="font-weight:700;margin-left:8px"></span></div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <button class="btn ghost" id="prevDay">← 上一天</button>
       <button class="btn gold" id="genNext">生成下一天 →</button>
@@ -1253,8 +1253,11 @@ function generateDayLocally(n){
    When served by the local Node backend (server.js), all data is synced to
    SQLite. When opened as a plain file, it silently falls back to localStorage. */
 const STUDENT='default';
+// A backend is expected only when served over http(s). Opened as a plain file
+// (file://) there is no server, so we stay in pure-localStorage mode and never queue.
+const SERVED = typeof location!=='undefined' && /^https?:/.test(location.protocol);
 const DB={
-  on:false,
+  on:false, flushing:false,
   async init(){ try{const r=await fetch('/api/health',{cache:'no-store'}); this.on=!!(r&&r.ok);}catch(e){this.on=false;} return this.on; },
   async pull(){
     if(!this.on) return;
@@ -1267,8 +1270,56 @@ const DB={
       if(Array.isArray(nb)) notebook=nb;
     }catch(e){ console.warn('DB pull failed',e); }
   },
-  post(p,body){ if(!this.on) return; fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).catch(()=>{}); }
+  _req(p,body){ return fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+      .then(r=>{ if(!r||!r.ok) throw new Error('HTTP '+(r&&r.status)); return r; }); },
+  // Every write goes through the local outbox first (so order is preserved and
+  // idempotent writes collapse to their latest value), then we try to flush it.
+  // If the server is up it drains immediately; if not, it stays safe on disk.
+  post(p,body){
+    if(!SERVED) return;                       // pure file mode — localStorage cache only
+    queueWrite(p,body);
+    this.flush();
+  },
+  // Retry the outbox oldest-first, stopping at the first failure so nothing is lost.
+  async flush(){
+    if(this.flushing || !SERVED) return;
+    let q=outbox(); if(!q.length){ updateSyncBadge(); return; }
+    this.flushing=true;
+    try{
+      while(q.length){
+        try{ await this._req(q[0].p,q[0].body); this.on=true; }
+        catch(e){ this.on=false; break; }     // server unreachable — keep the rest for next time
+        q.shift(); LS.set('outbox',q);         // persist progress after each success
+        updateSyncBadge();
+      }
+    } finally { this.flushing=false; updateSyncBadge(); }
+  }
 };
+function outbox(){ return LS.get('outbox',[]); }
+// Idempotent single-row writes (state/day/notebook/essay) collapse to their latest
+// value; append-only attempts are all kept.
+function collapseKey(p,body){
+  if(p==='state') return 'state';
+  if(p==='notebook') return 'notebook';
+  if(p==='day') return 'day:'+(body&&body.day);
+  if(p==='essay') return 'essay:'+(body&&body.day);
+  return null;
+}
+function queueWrite(p,body){
+  let q=outbox(); const k=collapseKey(p,body);
+  if(k) q=q.filter(it=>collapseKey(it.p,it.body)!==k);   // drop superseded copies
+  q.push({p,body});
+  if(q.length>800) q=q.slice(q.length-800);              // safety cap
+  LS.set('outbox',q); updateSyncBadge();
+}
+function updateSyncBadge(){
+  const el=document.getElementById('syncStatus'); if(!el) return;
+  const n=outbox().length;
+  if(!SERVED){ el.textContent=''; return; }
+  if(n>0){ el.textContent='⏳ '+n+' 条待同步'; el.style.color='var(--warn)'; el.title='网络/服务器暂不可用，已保存在本地，恢复后自动写入数据库'; }
+  else if(DB.on){ el.textContent='✓ 已同步'; el.style.color='var(--good)'; el.title='所有记录已写入数据库'; }
+  else { el.textContent=''; }
+}
 function persistState(){ LS.set('state',state); DB.post('state',{student:STUDENT,current:state.current,unlocked:state.unlocked,startDate:state.startDate}); }
 function persistDay(n){ LS.set('days',days); if(days[n]) DB.post('day',{day:+n,content:days[n]}); }
 function persistNotebook(){ LS.set('notebook',notebook); DB.post('notebook',{student:STUDENT,items:notebook}); }
@@ -1884,8 +1935,16 @@ function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
   LS.set('notebook',notebook);          // keep local cache in sync with DB
   const hint=document.getElementById('genHint');
   if(DB.on){ hint.innerHTML='🗄️ 已连接本地数据库 <b>SQLite</b>（db/rosa.db）· 每天内容与学习记录自动保存。'; }
+  else if(SERVED){ hint.innerHTML='⚠️ 暂时连不上数据库，你的作答会先存在本地，恢复后自动补写。'; }
   else { hint.innerHTML='💾 当前为离线文件模式（数据存浏览器本地）。运行 <code>node server.js</code> 可启用数据库存储。'; }
   render();
+  // Retry any writes stranded in a previous session, then keep retrying periodically
+  // and whenever the browser regains connectivity.
+  if(SERVED){
+    DB.flush(); updateSyncBadge();
+    setInterval(()=>DB.flush(), 15000);
+    window.addEventListener('online', ()=>DB.flush());
+  }
 })();
 </script>
 </body>
