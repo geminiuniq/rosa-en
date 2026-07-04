@@ -1162,11 +1162,17 @@ document.getElementById('loadSampleBtn').onclick=()=>{
 function doImport(raw){
   const ok=document.getElementById('importOk'), err=document.getElementById('importErr');
   ok.style.display='none'; err.style.display='none';
+  // friendly guard: nothing pasted yet
+  if(!raw || !raw.trim()){
+    err.innerHTML='👆 STEP 2 还是空的。请先完成前两步：<br>①点上面「📋 复制提示词」把它发给 Claude → ②把 Claude 返回的、以 { 开头的 JSON 粘到上面的框里 → 再点此按钮。<br><small>只想看看效果？点右边「载入示例(演示)」。</small>';
+    err.style.display='block';
+    document.getElementById('jsonIn').focus(); return;
+  }
   let obj;
   try{
     let s=raw.trim().replace(/^```(json)?/i,'').replace(/```$/,'').trim();
     obj=JSON.parse(s);
-  }catch(e){err.textContent='❌ JSON 解析失败：'+e.message+'。请确认粘贴的是以 { 开头、} 结尾的完整对象。';err.style.display='block';return;}
+  }catch(e){err.textContent='❌ JSON 解析失败：'+e.message+'。请确认粘贴的是以 { 开头、} 结尾的完整对象（不要多余文字）。';err.style.display='block';return;}
   const need=['day','vocab','mcqs'];
   for(const k of need){ if(!(k in obj)){err.textContent='❌ 缺少必要字段：'+k;err.style.display='block';return;} }
   const dnum=+obj.day||(state.current+1);
