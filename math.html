@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O-Level 数学 · 100天冲A计划</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --panel2:#1e222c; --line:#2a2f3a;
+    --ink:#e8ebf0; --ink2:#9aa3b2; --ink3:#6b7280;
+    --brand:#ff9f45; --brand2:#ffc27a; --good:#33c98b; --bad:#ff5d6c; --warn:#ffb020; --gold:#ffd479;
+    --radius:14px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#0d0f14,#0f1115 40%);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:15px}
+  a{color:var(--brand2);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:940px;margin:0 auto;padding:20px 18px 120px}
+  header.hero{position:relative;background:radial-gradient(1200px 300px at 20% -30%,rgba(255,159,69,.26),transparent),var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);overflow:hidden}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .brand{font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--ink2)} .brand b{color:var(--brand2)}
+  .daybadge{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+  .daybadge .d{font-size:52px;font-weight:900;line-height:1;background:linear-gradient(180deg,#fff,#ffc27a);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .daybadge .of{font-size:15px;color:var(--ink2)}
+  .theme{margin-top:8px;font-size:17px;font-weight:700} .theme .en{color:var(--ink2);font-weight:500;font-size:14px}
+  .phasepill{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,159,69,.14);color:var(--brand2);border:1px solid rgba(255,159,69,.3);margin-top:10px}
+  .countdown{text-align:right} .countdown .n{font-size:34px;font-weight:900;color:var(--gold)} .countdown .l{font-size:12px;color:var(--ink2)}
+  .progress{margin-top:16px;height:8px;background:#0c0e13;border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+  .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--good));width:0}
+  nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px;position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0f1115,rgba(15,17,21,.85));padding:8px 0;backdrop-filter:blur(6px)}
+  .tab{cursor:pointer;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);font-weight:600;font-size:14px;user-select:none}
+  .tab .em{margin-right:6px} .tab:hover{color:var(--ink)}
+  .tab.active{background:var(--brand);color:#241400;border-color:var(--brand)}
+  .tab .badge{display:inline-block;min-width:18px;text-align:center;font-size:11px;background:var(--bad);color:#fff;border-radius:99px;padding:0 5px;margin-left:6px}
+  section.panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);animation:fade .25s ease}
+  section.panel.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h2.sec{font-size:20px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .sub{color:var(--ink2);font-size:13px;margin:0 0 18px}
+  h3{font-size:16px;margin:22px 0 8px;color:#f0e2d2}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  .kpt{border-left:3px solid var(--brand)} .kpt .t{font-weight:700;margin-bottom:4px} .kpt .en{color:var(--ink2);font-size:13px}
+  .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:#232838;color:var(--ink2);margin-right:6px}
+  .tag.tech{background:rgba(255,159,69,.16);color:var(--brand2)} .tag.exam{background:rgba(122,168,255,.16);color:#9cc0ff}
+  ul.clean{margin:8px 0;padding-left:20px} ul.clean li{margin:5px 0}
+  .math{font-family:var(--mono);background:#12151d;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:#ffd8b0}
+  .work{white-space:pre-wrap;background:#12151d;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#e2e9f2;overflow-x:auto}
+  .q{margin:14px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+  .q .stem{font-weight:600;margin-bottom:10px} .q .stem .no{color:var(--brand2);font-weight:800;margin-right:8px}
+  .opt{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:9px;margin:6px 0;cursor:pointer;transition:.15s} .opt:hover{border-color:var(--brand)}
+  .opt input{margin-right:9px} .opt.correct{border-color:var(--good);background:rgba(51,201,139,.1)} .opt.wrong{border-color:var(--bad);background:rgba(255,93,108,.1)}
+  .expl{margin-top:10px;padding:10px 12px;border-radius:9px;background:#12151d;border:1px dashed var(--line);font-size:13.5px;color:var(--ink2);display:none} .expl.show{display:block} .expl b{color:var(--good)}
+  .btn{cursor:pointer;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:14px;font-family:inherit}
+  .btn.primary{background:var(--brand);color:#241400} .btn.primary:hover{background:#f08f35}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)} .btn.ghost:hover{border-color:var(--brand)}
+  .btn.gold{background:linear-gradient(90deg,#ffcf6b,#ff9f45);color:#3a2600} .btn.mini{padding:5px 10px;font-size:12px} .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .scorebox{margin-top:14px;padding:12px 16px;border-radius:10px;background:#12151d;border:1px solid var(--line);font-weight:700;display:none} .scorebox.show{display:block}
+  input.fin{width:220px;background:#0c0e13;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:8px 11px;font-family:var(--mono);font-size:14px}
+  .mark{margin-left:8px;font-weight:800} .mark.good{color:var(--good)} .mark.bad{color:var(--bad)}
+  textarea.ans{width:100%;min-height:80px;background:#0c0e13;border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font-family:var(--mono);font-size:13.5px;resize:vertical}
+  .model{display:none;margin-top:8px;padding:12px 14px;border-radius:9px;background:rgba(51,201,139,.08);border:1px solid rgba(51,201,139,.3);font-size:14px} .model.show{display:block}
+  .model .mk{font-size:12px;color:var(--warn);font-weight:700;margin-bottom:4px}
+  .empty{color:var(--ink2);text-align:center;padding:40px 10px}
+  .nb-item{border-left:3px solid var(--warn)} .nb-meta{font-size:12px;color:var(--ink3);margin-top:8px} .mastered{border-left-color:var(--good)!important;opacity:.7}
+  .genbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,rgba(15,17,21,0),#0b0d11 30%);padding:14px 18px 18px}
+  .genbar .inner{max-width:940px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:var(--shadow)}
+  .genbar .hint{font-size:13px;color:var(--ink2)}
+  .modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)} .modal.show{display:flex}
+  .modal .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:720px;width:100%;max-height:88vh;overflow:auto;padding:22px 24px;box-shadow:var(--shadow)}
+  .codearea{width:100%;min-height:150px;background:#0c0e13;border:1px solid var(--line);border-radius:10px;color:#cdd6e6;padding:12px;font-family:var(--mono);font-size:12.5px;resize:vertical;white-space:pre-wrap}
+  .x{float:right;cursor:pointer;color:var(--ink2);font-size:22px;line-height:1} .ok{color:var(--good);font-size:13px;margin-top:6px;display:none} .err{color:var(--bad);font-size:13px;margin-top:6px;display:none}
+  .divider{height:1px;background:var(--line);margin:18px 0} .step{font-size:12px;font-weight:800;color:var(--brand2);letter-spacing:.5px}
+  .exambar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:6px 0 14px}
+  .clock{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--ink2);min-width:74px}
+  .examhint{font-size:12.5px;color:var(--ink2);flex:1 1 200px} .mini-sel{background:#0c0e13;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:7px 9px;font-family:inherit;font-size:13px}
+  body.exam-on #p-practice .model{display:none!important} body.exam-on #p-practice .btn.gold{display:none}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:8px 0 6px}
+  .statcard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center} .statcard .sv{font-size:26px;font-weight:900;color:var(--brand2)} .statcard .sl{font-size:12px;color:var(--ink2);margin-top:2px}
+  .bar{display:flex;align-items:center;gap:10px;margin:8px 0} .bar .bl{flex:0 0 150px;font-size:13px} .bar .bt{flex:1;height:12px;background:#0c0e13;border:1px solid var(--line);border-radius:99px;overflow:hidden} .bar .bt>i{display:block;height:100%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--good))} .bar .bv{flex:0 0 auto;font-size:12px;color:var(--ink2);min-width:70px;text-align:right}
+  code{background:#0c0e13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:var(--mono);font-size:12px;color:var(--brand2)}
+  .kicker{font-size:12px;color:var(--ink3);margin-top:24px;text-align:center}
+  .mock-banner{background:linear-gradient(90deg,rgba(255,93,108,.14),rgba(255,176,32,.10));border:1px solid rgba(255,93,108,.3);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+  @media(max-width:560px){.daybadge .d{font-size:42px}.wrap{padding:14px 12px 130px}.bar .bl{flex-basis:110px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="brand"><a href="index.html" style="color:var(--ink2)">← 学科首页</a>　ROSA · <b>O-Level 数学</b> 100天冲A计划 <span style="color:var(--ink3)">/ E-Maths 4048</span></div>
+        <div class="daybadge"><span class="d" id="dayNum">1</span><span class="of">/ 100 天</span></div>
+        <div class="theme" id="theme">专题加载中…</div>
+        <span class="phasepill" id="phase">阶段</span>
+      </div>
+      <div class="countdown"><div class="n" id="cdNum">100</div><div class="l">距考试倒数（天）<br><small style="color:var(--ink3)">按今日=Day1估算</small></div></div>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <div class="tab active" data-tab="overview"><span class="em">📌</span>今日专题</div>
+    <div class="tab" data-tab="examples"><span class="em">📖</span>例题精讲</div>
+    <div class="tab" data-tab="practice"><span class="em">✍️</span>练习</div>
+    <div class="tab" data-tab="notebook"><span class="em">📕</span>错题本<span class="badge" id="nbBadge" style="display:none">0</span></div>
+    <div class="tab" data-tab="dash"><span class="em">📊</span>学情</div>
+  </nav>
+
+  <section class="panel show" id="p-overview">
+    <h2 class="sec"><span>📌 今日专题知识点</span></h2>
+    <p class="sub">Topical concepts · 解题技巧 · 出题思路与考试偏好</p>
+    <div id="mockBanner"></div>
+    <div id="ov-goals"></div>
+    <div id="ov-concepts"></div>
+  </section>
+
+  <section class="panel" id="p-examples">
+    <h2 class="sec"><span>📖 例题精讲</span></h2>
+    <p class="sub">带完整步骤的典型例题，先自己做，再点开解答对照方法。</p>
+    <div id="ex-list"></div>
+  </section>
+
+  <section class="panel" id="p-practice">
+    <h2 class="sec"><span>✍️ 练习与批改</span></h2>
+    <p class="sub">客观题即时批改并入错题本；结构题填最终答案自动判分，并可查看评分标准/标准解答，或请 Claude 逐步批改。</p>
+    <div class="exambar" id="exambar">
+      <span class="clock" id="clock">00:00</span>
+      <span class="examhint" id="examhint">⏱️ 限时模考：开始后隐藏所有解答/评分标准，时间到自动解锁。最后10天为综合模考。</span>
+      <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <select id="examPreset" class="mini-sel"><option value="120">Paper 1 · 2h</option><option value="150">Paper 2 · 2.5h</option><option value="15">快速 · 15min</option></select>
+        <button class="btn primary mini" id="examStart">开始模考</button>
+        <button class="btn ghost mini" id="examStop" style="display:none">结束并看解答</button>
+      </span>
+    </div>
+    <h3>① 错题复习 <small style="color:var(--ink3)">答对2次才「毕业」</small></h3>
+    <div id="pr-review"></div>
+    <h3>② 客观题 MCQ</h3>
+    <div id="pr-mcq"></div>
+    <div class="btnrow"><button class="btn primary" id="gradeMcq">提交批改 Submit &amp; Grade</button></div>
+    <div class="scorebox" id="mcqScore"></div>
+    <h3>③ 结构题 Structured Questions <small style="color:var(--ink3)">写出步骤，填最终答案</small></h3>
+    <div id="pr-structured"></div>
+  </section>
+
+  <section class="panel" id="p-notebook">
+    <h2 class="sec"><span>📕 错题本</span></h2>
+    <p class="sub">做错的客观题与结构题都在这里，会在后续「错题复习」中重复考察，答对2次即掌握。</p>
+    <div class="btnrow"><button class="btn ghost" id="clearMastered">清除已掌握</button></div>
+    <div id="nb-list"></div>
+  </section>
+
+  <section class="panel" id="p-dash">
+    <h2 class="sec"><span>📊 学情看板</span></h2>
+    <p class="sub">基于答题记录（存于 SQLite）分析正确率、最薄弱专题、错题掌握进度。</p>
+    <div id="dash-body"><div class="empty">启动 node server.js 并做几道题后显示学情分析。</div></div>
+    <div class="btnrow"><button class="btn ghost" id="refreshDash">刷新数据</button></div>
+  </section>
+
+  <p class="kicker">数据保存在本机 SQLite（db/rosa.db · subject=math）；离线文件模式下存浏览器本地。 · Built for the A1 goal 🎯</p>
+</div>
+
+<div class="genbar"><div class="inner">
+  <div class="hint"><span id="genHint">✅ 完成今天的例题与练习后，点击右侧生成下一天。</span> <span id="syncStatus" style="font-weight:700;margin-left:8px"></span></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <button class="btn ghost" id="prevDay">← 上一天</button>
+    <button class="btn gold" id="genNext">生成下一天 →</button>
+    <button class="btn ghost mini" id="genClaude" title="改用 Claude 生成更鲜活、不重复的一天（需复制粘贴）">✨ 用Claude生成</button>
+  </div>
+</div></div>
+
+<div class="modal" id="genModal"><div class="box">
+  <span class="x" id="closeModal">×</span>
+  <h3>🚀 生成 <span id="modalDay">第 2 天</span> 的数学内容</h3>
+  <p class="sub" style="margin-bottom:14px">默认「生成下一天」已离线自动出题。想要更鲜活、不重复的内容，可复制提示词发给 Claude，再把返回 JSON 粘回。</p>
+  <div class="step">STEP 1 · 复制提示词发给 Claude</div>
+  <textarea class="codearea" id="promptOut" readonly style="min-height:170px"></textarea>
+  <div class="btnrow"><button class="btn primary" id="copyPrompt">📋 复制提示词</button></div>
+  <div class="divider"></div>
+  <div class="step">STEP 2 · 粘贴 Claude 返回的 JSON</div>
+  <textarea class="codearea" id="jsonIn" placeholder='在此粘贴以 { 开头的 JSON …'></textarea>
+  <div class="ok" id="importOk"></div><div class="err" id="importErr"></div>
+  <div class="divider"></div>
+  <div class="step">STEP 3 · 解锁</div>
+  <div class="btnrow"><button class="btn gold" id="importBtn">导入并解锁下一天 ✓</button></div>
+</div></div>
+
+<div class="modal" id="markModal"><div class="box">
+  <span class="x" id="closeMark">×</span>
+  <h3>🖊️ 请 Claude 批改 <span id="markKind"></span></h3>
+  <p class="sub" style="margin-bottom:12px">复制提示词发给 Claude，它会按 O-Level 数学评分标准给 M/A 分、指出错误步骤并给出正确解法。</p>
+  <textarea class="codearea" id="markOut" readonly style="min-height:240px"></textarea>
+  <div class="btnrow"><button class="btn primary" id="copyMark">📋 复制批改提示词</button></div>
+</div></div>
+
+<script>
+/* ===================== ROSA O-Level MATH · engine ===================== */
+const LS={ get:(k,d)=>{try{return JSON.parse(localStorage.getItem('rmath_'+k))??d}catch(e){return d}}, set:(k,v)=>localStorage.setItem('rmath_'+k,JSON.stringify(v)) };
+const STUDENT='math', SUBJECT='math';
+
+/* ---------- curriculum ---------- */
+const PHASES=[
+  {r:[1,30],name:"阶段一 · 代数基础",en:"Algebra Foundations"},
+  {r:[31,60],name:"阶段二 · 几何与三角",en:"Geometry & Trigonometry"},
+  {r:[61,90],name:"阶段三 · 函数·统计·概率",en:"Functions, Stats & Probability"},
+  {r:[91,100],name:"阶段四 · 综合模考",en:"Final Mock Exams"}
+];
+function focus(day){ const ph=PHASES.find(p=>day>=p.r[0]&&day<=p.r[1])||PHASES[3]; return {day,phase:ph}; }
+
+/* ---------- TOPIC BANK (each = one topical day) ---------- */
+const TOPICS=[
+  {topicZh:"代数式的展开与因式分解",topicEn:"Algebra: Expansion & Factorisation",
+   goals:["熟练展开(a±b)²、(a+b)(a−b)等乘法公式","掌握提公因式、十字相乘、分组分解四种因式分解法","识别考试中'先因式分解再化简'的信号"],
+   concepts:[
+    {t:"乘法公式 Special Products",en:"Memorise the identities.",tech:"(a+b)²=a²+2ab+b²；(a−b)²=a²−2ab+b²；(a+b)(a−b)=a²−b²。",exam:"考官常把 a、b 换成含系数的式子（如 (2x−3)²），务必对每一项都平方并带上系数。"},
+    {t:"因式分解四法 Factorisation",en:"Four methods.",tech:"① 提公因式 ② 平方差 a²−b² ③ 十字相乘 ax²+bx+c ④ 分组分解(4项)。先看有无公因式，再判断项数。",exam:"'Factorise completely' 意味着要分解到底——常见陷阱是分解一次后还能再提公因式。"},
+    {t:"化简的顺序 Simplify Strategy",en:"Factor first, then cancel.",tech:"代数分式化简：分子分母各自因式分解 → 约去公因式。切勿在未因式分解时直接约项。",exam:"高频题：化简 (x²−9)/(x²+4x+3)，先分解为 (x−3)(x+3)/[(x+1)(x+3)] 再约。"}
+   ],
+   examples:[
+    {q:"Expand and simplify: (2x − 3)² − (x − 1)(x + 4).",
+     solution:"(2x−3)² = 4x² − 12x + 9\n(x−1)(x+4) = x² + 3x − 4\n原式 = 4x² − 12x + 9 − (x² + 3x − 4)\n     = 4x² − 12x + 9 − x² − 3x + 4\n     = 3x² − 15x + 13",
+     note:"技巧：减去一个括号时，括号内每一项都要变号——这里 −(x²+3x−4) 的 +4 变成 +4。"},
+    {q:"Factorise completely: 3x² − 12.",
+     solution:"3x² − 12 = 3(x² − 4)      ← 先提公因式 3\n        = 3(x − 2)(x + 2)   ← 再用平方差",
+     note:"出题思路：这类题在考'完全分解'意识——只写 3(x²−4) 会丢分。"}
+   ],
+   mcqs:[
+    {stem:"Expand (3x − 2)².",options:["9x² − 4","9x² − 12x + 4","9x² − 6x + 4","3x² − 12x + 4"],answer:1,expl:"(3x−2)²=9x²−2·3x·2+4=9x²−12x+4。",topic:"代数展开"},
+    {stem:"Factorise x² − 5x − 14.",options:["(x−7)(x+2)","(x+7)(x−2)","(x−7)(x−2)","(x+7)(x+2)"],answer:0,expl:"两数积=−14、和=−5 → −7与+2。",topic:"因式分解"},
+    {stem:"Factorise completely 2x² − 8.",options:["2(x²−4)","(2x−4)(x+2)","2(x−2)(x+2)","(x−2)(2x+4)"],answer:2,expl:"提2再平方差：2(x−2)(x+2)。'completely'需分解到底。",topic:"因式分解"},
+    {stem:"Simplify (x²−9)/(x+3).",options:["x−3","x+3","x²−3","(x−3)(x+3)"],answer:0,expl:"分子=(x−3)(x+3)，约去(x+3)得 x−3。",topic:"代数化简"}
+   ],
+   structured:[
+    {q:"(a) Expand and simplify (x + 5)(x − 2) − x(x − 1).  [3]",marks:3,ans:"6x-10",
+     scheme:["M1 正确展开 (x+5)(x−2)=x²+3x−10","M1 正确展开 x(x−1)=x²−x 并变号相减","A1 最终 6x − 10"],
+     model:"(x+5)(x−2) = x² + 3x − 10\nx(x−1) = x² − x\n原式 = x² + 3x − 10 − (x² − x)\n     = x² + 3x − 10 − x² + x\n     = 6x − 10",topic:"代数展开"},
+    {q:"Factorise completely 6xy − 9x + 4y − 6.  [3]",marks:3,ans:"(2y-3)(3x+2)",
+     scheme:["M1 分组：3x(2y−3) + 2(2y−3)","M1 提取公因式 (2y−3)","A1 (2y−3)(3x+2)"],
+     model:"6xy − 9x + 4y − 6\n= 3x(2y − 3) + 2(2y − 3)   ← 分组分解，两组各提公因式\n= (2y − 3)(3x + 2)",topic:"因式分解"}
+   ]},
+  {topicZh:"一次方程与不等式",topicEn:"Linear Equations & Inequalities",
+   goals:["熟练解含分数、括号的一次方程","掌握不等式解法及'乘除负数变号'规则","会在数轴上表示并读写整数解"],
+   concepts:[
+    {t:"解一次方程 Solving Linear Eqns",en:"Do the same to both sides.",tech:"去括号→去分母(乘各项)→移项(变号)→合并→系数化1。每一步对等式两边同做。",exam:"含分数时最易错：乘公分母要乘'每一项'，包括不含分母的项。"},
+    {t:"不等式变号 Inequality Sign",en:"Flip when × or ÷ by a negative.",tech:"两边同乘/除以负数时，不等号方向反转：−2x>6 → x<−3。",exam:"这是最高频扣分点，考官专门设计需要除以负数的题。"},
+    {t:"整数解 Integer Solutions",en:"List within range.",tech:"'largest integer' / 'smallest integer x satisfying…'——解出范围后取端点最近的整数。",exam:"注意 < 与 ≤ 的区别决定端点能否取到。"}
+   ],
+   examples:[
+    {q:"Solve (2x − 1)/3 − (x − 2)/4 = 1.",
+     solution:"×12：4(2x−1) − 3(x−2) = 12\n8x − 4 − 3x + 6 = 12\n5x + 2 = 12\n5x = 10\nx = 2",
+     note:"技巧：公分母12乘每一项，右边的1也要×12=12。"},
+    {q:"Solve the inequality 3 − 2x ≥ 9, and state the largest integer value of x.",
+     solution:"3 − 2x ≥ 9\n−2x ≥ 6\nx ≤ −3        ← 除以 −2，不等号反向\n最大整数 x = −3",
+     note:"出题思路：先考不等式解法，再叠加'整数解'读数——两步都给分。"}
+   ],
+   mcqs:[
+    {stem:"Solve 5(x − 2) = 3x + 4.",options:["x=7","x=3","x=−3","x=1"],answer:0,expl:"5x−10=3x+4 → 2x=14 → x=7。",topic:"一次方程"},
+    {stem:"Solve −3x > 12.",options:["x>−4","x<−4","x>4","x<4"],answer:1,expl:"除以−3变号：x<−4。",topic:"不等式"},
+    {stem:"The smallest integer x for which 2x + 1 > 6 is:",options:["2","3","4","5"],answer:1,expl:"2x>5→x>2.5→最小整数3。",topic:"不等式"},
+    {stem:"Solve x/2 + 1 = 4.",options:["x=6","x=8","x=10","x=3"],answer:0,expl:"x/2=3→x=6。",topic:"一次方程"}
+   ],
+   structured:[
+    {q:"Solve the equation (3x + 1)/2 − (x − 4)/5 = 4.  [3]",marks:3,ans:"3",
+     scheme:["M1 乘10去分母：5(3x+1) − 2(x−4) = 40","M1 展开化简：13x + 13 = 40","A1 x = ... 需检验"],
+     model:"×10：5(3x+1) − 2(x−4) = 40\n15x + 5 − 2x + 8 = 40\n13x + 13 = 40\n13x = 27\nx = 27/13"},
+    {q:"Solve the inequality 4 − x/3 ≤ 2 and represent the solution on a number line, stating the smallest possible value of x.  [3]",marks:3,ans:"6",
+     scheme:["M1 −x/3 ≤ −2","M1 x ≥ 6 (乘−3变号)","A1 smallest value 6 + 数轴实心点"],
+     model:"4 − x/3 ≤ 2\n−x/3 ≤ −2\nx/3 ≥ 2       ← 乘−1变号\nx ≥ 6\n最小值 x = 6（数轴上 6 处实心圆点，向右）",topic:"不等式"}
+   ]},
+  {topicZh:"联立方程",topicEn:"Simultaneous Equations",
+   goals:["熟练用代入法与消元法解二元一次方程组","会解一次+二次的联立(代入法)","能把应用题转化为方程组"],
+   concepts:[
+    {t:"消元法 Elimination",en:"Match coefficients, add/subtract.",tech:"使某一未知数系数相等(乘倍数)→同号相减、异号相加消去→回代。",exam:"考官偏好系数不整齐、需要各乘一个数的题，检验'乘了每一项'。"},
+    {t:"代入法 Substitution",en:"For linear + non-linear.",tech:"一次方程解出一个未知数→代入另一式。一次+二次联立必用代入法，得到一元二次。",exam:"高频：直线与曲线交点 → 联立得二次方程，判别式判断交点个数。"},
+    {t:"应用题建模 Word Problems",en:"Define variables clearly.",tech:"设两个未知数、按题意列两个方程；答完写清单位与实际意义。",exam:"务必'let x be…'定义变量，否则失方法分。"}
+   ],
+   examples:[
+    {q:"Solve: 3x + 2y = 16 and 5x − 2y = 8.",
+     solution:"两式相加(y系数异号)：8x = 24 → x = 3\n代入 3(3)+2y=16 → 2y=7 → y=3.5",
+     note:"技巧：+2y 与 −2y 相加即消去 y，最省事。"},
+    {q:"Solve: y = x + 1 and x² + y² = 25.",
+     solution:"代入：x² + (x+1)² = 25\nx² + x² + 2x + 1 = 25\n2x² + 2x − 24 = 0\nx² + x − 12 = 0\n(x+4)(x−3)=0 → x=−4 or 3\nx=−4→y=−3;  x=3→y=4",
+     note:"出题思路：直线交圆，两组解=两个交点坐标。"}
+   ],
+   mcqs:[
+    {stem:"If x + y = 7 and x − y = 1, then x =",options:["3","4","5","6"],answer:1,expl:"相加2x=8→x=4。",topic:"联立方程"},
+    {stem:"Solving 2x+y=5, x=2 gives y =",options:["1","0","−1","3"],answer:0,expl:"y=5−4=1。",topic:"联立方程"},
+    {stem:"The pair y=2x, x+y=9 gives x =",options:["2","3","4.5","6"],answer:1,expl:"x+2x=9→x=3。",topic:"联立方程"},
+    {stem:"Two numbers sum to 20 and differ by 4. The larger is:",options:["8","10","12","16"],answer:2,expl:"x+y=20,x−y=4→x=12。",topic:"联立方程"}
+   ],
+   structured:[
+    {q:"Solve the simultaneous equations  2x + 3y = 12,  4x − y = 10.  [3]",marks:3,ans:"x=3,y=2",
+     scheme:["M1 消元(如第二式×3加第一式，或代入)","M1 求得一个未知数","A1 x=3, y=2 (both)"],
+     model:"由 4x − y = 10 → y = 4x − 10\n代入：2x + 3(4x − 10) = 12\n2x + 12x − 30 = 12\n14x = 42 → x = 3\ny = 4(3) − 10 = 2\n∴ x = 3, y = 2"},
+    {q:"The line y = x + 2 meets the curve y = x² at points A and B. Find the coordinates of A and B.  [4]",marks:4,ans:"(-1,1),(2,4)",
+     scheme:["M1 联立 x² = x + 2","M1 x² − x − 2 = 0","M1 (x−2)(x+1)=0 → x=2,−1","A1 (2,4) 与 (−1,1)"],
+     model:"x² = x + 2\nx² − x − 2 = 0\n(x − 2)(x + 1) = 0 → x = 2 or x = −1\nx=2 → y=4;  x=−1 → y=1\n∴ A(−1, 1), B(2, 4)",topic:"联立方程"}
+   ]},
+  {topicZh:"二次方程与函数",topicEn:"Quadratic Equations & Functions",
+   goals:["会用因式分解、公式法、配方法解二次方程","理解判别式与根的关系","掌握抛物线顶点、对称轴、最值"],
+   concepts:[
+    {t:"求根公式 Quadratic Formula",en:"x = [−b ± √(b²−4ac)] / 2a",tech:"不能因式分解时用公式；'give answer to 2 d.p.'提示用公式。",exam:"务必带括号算 b²−4ac，负号与平方易错；两个答案都要写。"},
+    {t:"判别式 Discriminant",en:"Δ = b² − 4ac.",tech:"Δ>0两实根；Δ=0一个(重)根/相切；Δ<0无实根。",exam:"'has two distinct roots' → Δ>0；'tangent/equal roots' → Δ=0，常反过来求参数。"},
+    {t:"配方与最值 Completing the Square",en:"y=a(x−h)²+k.",tech:"配方得顶点(h,k)：a>0时k为最小值，a<0时为最大值；对称轴 x=h。",exam:"高频：求 y=x²−6x+11 的最小值 → (x−3)²+2 → 最小值2，当x=3。"}
+   ],
+   examples:[
+    {q:"Solve x² − 4x − 3 = 0, giving answers to 2 decimal places.",
+     solution:"a=1,b=−4,c=−3\nb²−4ac = 16 − 4(1)(−3) = 16 + 12 = 28\nx = [4 ± √28]/2 = [4 ± 5.2915]/2\nx = 4.65  or  x = −0.65",
+     note:"技巧：√28≈5.29；'2 d.p.'强烈提示用公式而非因式分解。"},
+    {q:"Express y = x² − 6x + 11 in the form (x − h)² + k, and state the minimum value.",
+     solution:"x² − 6x + 11 = (x − 3)² − 9 + 11 = (x − 3)² + 2\n最小值 = 2，当 x = 3 时取得",
+     note:"出题思路：配方一题两考——顶点式 + 最值/对称轴。"}
+   ],
+   mcqs:[
+    {stem:"The roots of x² − 7x + 12 = 0 are:",options:["3 and 4","−3 and −4","2 and 6","1 and 12"],answer:0,expl:"(x−3)(x−4)=0。",topic:"二次方程"},
+    {stem:"For x² + kx + 9 = 0 to have equal roots, k =",options:["±3","±6","±9","6 only"],answer:1,expl:"Δ=k²−36=0→k=±6。",topic:"判别式"},
+    {stem:"The minimum value of y=(x−2)²+5 is:",options:["2","5","−5","7"],answer:1,expl:"完全平方≥0，最小值5(当x=2)。",topic:"二次函数"},
+    {stem:"The line of symmetry of y=x²−8x+3 is:",options:["x=8","x=4","x=−4","x=3"],answer:1,expl:"x=−b/2a=8/2=4。",topic:"二次函数"}
+   ],
+   structured:[
+    {q:"Solve 2x² + 3x − 4 = 0, giving each answer correct to 2 decimal places.  [3]",marks:3,ans:"0.85,-2.35",
+     scheme:["M1 代入公式，b²−4ac=9+32=41","M1 x=(−3±√41)/4","A1 0.85 and −2.35 (2dp)"],
+     model:"a=2, b=3, c=−4\nb²−4ac = 9 + 32 = 41\nx = (−3 ± √41)/4 = (−3 ± 6.403)/4\nx = 0.85  or  x = −2.35 (2 d.p.)"},
+    {q:"(i) Express x² + 4x − 1 in the form (x + a)² + b.  [2]  (ii) Hence state the minimum value.  [1]",marks:3,ans:"-5",
+     scheme:["M1 (x+2)²","A1 (x+2)² − 5","B1 minimum −5"],
+     model:"(i) x² + 4x − 1 = (x + 2)² − 4 − 1 = (x + 2)² − 5\n(ii) 最小值 = −5（当 x = −2 时）",topic:"二次函数"}
+   ]},
+  {topicZh:"指数律与标准式",topicEn:"Indices & Standard Form",
+   goals:["熟练运用指数运算律","理解负指数、零指数、分数指数","会用标准式(a×10ⁿ)表示大小数并计算"],
+   concepts:[
+    {t:"指数律 Laws of Indices",en:"Combine powers.",tech:"aᵐ·aⁿ=aᵐ⁺ⁿ；aᵐ/aⁿ=aᵐ⁻ⁿ；(aᵐ)ⁿ=aᵐⁿ；a⁰=1；a⁻ⁿ=1/aⁿ；a^(1/n)=ⁿ√a。",exam:"混合题需逐律拆解；负/分数指数是高频考点。"},
+    {t:"分数指数 Fractional Indices",en:"a^(m/n)=(ⁿ√a)ᵐ.",tech:"如 8^(2/3)=(³√8)²=2²=4。先开根号再乘方，数字更小好算。",exam:"考官爱考 27^(−2/3) 这类：先处理负号取倒数，再分数指数。"},
+    {t:"标准式 Standard Form",en:"a×10ⁿ, 1≤a<10.",tech:"大数n为正、小数n为负；乘除时系数相乘除、10的指数相加减。",exam:"注意最终 a 必须在 1~10 之间，需要调整指数。"}
+   ],
+   examples:[
+    {q:"Simplify (2x³y⁻²)³ / (4x²y).",
+     solution:"分子 = 8x⁹y⁻⁶\n= 8x⁹y⁻⁶ / (4x²y)\n= 2 x⁹⁻² y⁻⁶⁻¹\n= 2x⁷y⁻⁷  =  2x⁷/y⁷",
+     note:"技巧：先把括号的幂分配到每个因子，再用除法律减指数。"},
+    {q:"Evaluate 27^(−2/3).",
+     solution:"27^(−2/3) = 1 / 27^(2/3) = 1 / (³√27)² = 1 / 3² = 1/9",
+     note:"出题思路：负指数取倒数 + 分数指数开方，两步都是给分点。"}
+   ],
+   mcqs:[
+    {stem:"Simplify a⁵ × a⁻²·",options:["a³","a⁷","a⁻¹⁰","a²·⁵"],answer:0,expl:"指数相加5+(−2)=3。",topic:"指数律"},
+    {stem:"Evaluate 16^(3/4).",options:["8","12","64","4"],answer:0,expl:"(⁴√16)³=2³=8。",topic:"分数指数"},
+    {stem:"Evaluate 5⁰ + 2⁻¹.",options:["1","1.5","2.5","0.5"],answer:1,expl:"1+0.5=1.5。",topic:"指数律"},
+    {stem:"0.00042 in standard form is:",options:["4.2×10⁻⁴","4.2×10⁴","42×10⁻⁵","0.42×10⁻³"],answer:0,expl:"小数→负指数，a=4.2。",topic:"标准式"}
+   ],
+   structured:[
+    {q:"Simplify (3x²y)³ × (2xy⁻²), giving your answer with positive indices.  [3]",marks:3,ans:"54x^7/y",
+     scheme:["M1 (3x²y)³=27x⁶y³","M1 ×2xy⁻² → 54x⁷y¹","A1 54x⁷/y"],
+     model:"(3x²y)³ = 27x⁶y³\n× 2xy⁻² :  27·2 · x⁶⁺¹ · y³⁺(−2)\n= 54x⁷y¹\n= 54x⁷/y"},
+    {q:"Given that 2ⁿ = 32, and 3ᵐ = 1/27, find the value of n and of m.  [3]",marks:3,ans:"n=5,m=-3",
+     scheme:["B1 n=5 (2⁵=32)","M1 1/27 = 3⁻³","A1 m=−3"],
+     model:"2ⁿ = 32 = 2⁵ → n = 5\n3ᵐ = 1/27 = 1/3³ = 3⁻³ → m = −3",topic:"指数律"}
+   ]},
+  {topicZh:"百分比、比与变化率",topicEn:"Percentage, Ratio & Rate",
+   goals:["熟练百分比增减、反向百分比(原价)","掌握比例分配与按比例放缩","会算复利/单利与增长率"],
+   concepts:[
+    {t:"反向百分比 Reverse Percentage",en:"Find the original.",tech:"售价是原价的(100±x)%：原价=售价÷(1±x/100)。切勿直接在售价上加减同一百分比。",exam:"'after a 20% discount the price is $... find original'——必用反向百分比，是经典陷阱。"},
+    {t:"比例分配 Ratio Sharing",en:"Divide in a : b : c.",tech:"总份数=a+b+c；每份=总量÷总份数；各得=份数×每份。",exam:"常与'其中一人比另一人多$x'结合，用'一份的值'求总量。"},
+    {t:"复利 Compound Interest",en:"A = P(1 + r/100)ⁿ.",tech:"P本金、r年利率%、n年数；复利用幂，单利用 P·r·n/100。",exam:"注意题目问'利息'还是'本利和'——利息=A−P。"}
+   ],
+   examples:[
+    {q:"After a discount of 15%, a jacket costs $102. Find its original price.",
+     solution:"售价 = 原价 × 85%\n原价 = 102 ÷ 0.85 = $120",
+     note:"技巧：85%对应0.85，用除法回推原价，勿用 102×1.15。"},
+    {q:"$960 is shared between A and B in the ratio 5 : 7. How much does B receive?",
+     solution:"总份数 = 5 + 7 = 12\n一份 = 960 ÷ 12 = 80\nB = 7 × 80 = $560",
+     note:"出题思路：先求'一份的值'，是比例题的通用钥匙。"}
+   ],
+   mcqs:[
+    {stem:"Increase 80 by 25%.",options:["100","105","95","20"],answer:0,expl:"80×1.25=100。",topic:"百分比"},
+    {stem:"A price rises from $40 to $50. The percentage increase is:",options:["10%","20%","25%","30%"],answer:2,expl:"10/40=25%。",topic:"百分比"},
+    {stem:"$150 shared in ratio 2:3. The smaller share is:",options:["$50","$60","$90","$30"],answer:1,expl:"一份30，2份=60。",topic:"比例"},
+    {stem:"After 10% off, an item costs $63. Original price:",options:["$70","$69.3","$73","$56.7"],answer:0,expl:"63÷0.9=70。",topic:"反向百分比"}
+   ],
+   structured:[
+    {q:"A shop increases the price of a phone by 12% to $784. (i) Find the original price. [2] (ii) In a sale, the new price is then reduced by 12%. Is the sale price the same as the original? Show working. [2]",marks:4,ans:"700;no,689.92",
+     scheme:["M1 784÷1.12","A1 原价 $700","M1 784×0.88=689.92","A1 不相同(略低于700)"],
+     model:"(i) 原价 = 784 ÷ 1.12 = $700\n(ii) 打12%折：784 × 0.88 = $689.92\n不同——先涨后同幅降不会回到原价（因基数不同），比原价 $700 低了 $10.08。"},
+    {q:"$P is invested at 4% per annum compound interest. After 3 years it amounts to $1124.86. Find P, correct to the nearest dollar.  [3]",marks:3,ans:"1000",
+     scheme:["M1 P(1.04)³ = 1124.86","M1 P = 1124.86 / 1.04³","A1 P ≈ $1000"],
+     model:"A = P(1 + 4/100)³\n1124.86 = P × 1.04³ = P × 1.124864\nP = 1124.86 / 1.124864 ≈ $1000",topic:"百分比"}
+   ]},
+  {topicZh:"三角比与方位角",topicEn:"Trigonometry & Bearings",
+   goals:["熟练直角三角形 SOH-CAH-TOA","掌握正弦定理、余弦定理适用情形","会用方位角(三位数、从北顺时针)解题"],
+   concepts:[
+    {t:"SOH-CAH-TOA",en:"Right-angled ratios.",tech:"sin=对/斜, cos=邻/斜, tan=对/邻。求角用 sin⁻¹/cos⁻¹/tan⁻¹。",exam:"先标出已知边相对目标角的位置(对/邻/斜)，再选比。"},
+    {t:"正弦/余弦定理 Sine & Cosine Rule",en:"Non-right triangles.",tech:"余弦定理(SAS求边或SSS求角)：a²=b²+c²−2bc·cosA；正弦定理(已知角与对边)：a/sinA=b/sinB。",exam:"判定：有直角用SOH-CAH-TOA；否则看条件选正弦或余弦定理。"},
+    {t:"方位角 Bearings",en:"3 figures, clockwise from North.",tech:"总是三位数(如045°)，从正北顺时针量。返程方位=去程±180°。",exam:"常与余弦/正弦定理结合，画图标北向线是关键第一步。"}
+   ],
+   examples:[
+    {q:"In right-angled △ABC, angle B = 90°, AB = 5 cm, BC = 12 cm. Find angle A.",
+     solution:"tan A = 对/邻 = BC/AB = 12/5 = 2.4\nA = tan⁻¹(2.4) = 67.4° (1 d.p.)",
+     note:"技巧：相对角A，BC是对边、AB是邻边 → 用 tan。"},
+    {q:"Town B is 8 km from A on a bearing of 060°. Find how far B is East of A.",
+     solution:"East distance = 8 sin 60° = 8 × 0.866 = 6.93 km",
+     note:"出题思路：方位角转成直角三角形——东向分量用 sinθ(θ从北量)。"}
+   ],
+   mcqs:[
+    {stem:"In a right triangle, opposite=3, hypotenuse=5. sinθ =",options:["0.6","0.8","0.75","1.67"],answer:0,expl:"sin=对/斜=3/5=0.6。",topic:"三角比"},
+    {stem:"cos 60° =",options:["0.5","0.866","1","0"],answer:0,expl:"cos60°=0.5。",topic:"三角比"},
+    {stem:"The bearing of North-East is:",options:["045°","090°","135°","315°"],answer:0,expl:"东北=045°。",topic:"方位角"},
+    {stem:"To find a side using two sides and the included angle, use:",options:["Sine rule","Cosine rule","Pythagoras","tan"],answer:1,expl:"SAS用余弦定理。",topic:"三角定理"}
+   ],
+   structured:[
+    {q:"In △PQR, PQ = 7 cm, QR = 9 cm and angle PQR = 68°. Find PR.  [3]",marks:3,ans:"9.06",
+     scheme:["M1 余弦定理 PR²=7²+9²−2·7·9·cos68°","M1 =130−126cos68° =130−47.2","A1 PR≈9.06 cm"],
+     model:"余弦定理：\nPR² = 7² + 9² − 2(7)(9)cos68°\n    = 49 + 81 − 126 × 0.3746\n    = 130 − 47.2 = 82.8\nPR = √82.8 ≈ 9.10 cm"},
+    {q:"A ship sails 10 km from A to B on a bearing of 050°, then 6 km from B to C on a bearing of 140°. (i) Explain why angle ABC = 90°. [1] (ii) Find AC. [2]",marks:3,ans:"11.66",
+     scheme:["B1 140−50=90°(内错/方位差)","M1 AC²=10²+6²","A1 AC=√136≈11.7 km"],
+     model:"(i) 方位从050°转到140°，转过 140°−50° = 90°，故 ∠ABC = 90°。\n(ii) 直角三角形：AC² = 10² + 6² = 136\nAC = √136 ≈ 11.7 km",topic:"方位角"}
+   ]},
+  {topicZh:"周长、面积与体积",topicEn:"Mensuration",
+   goals:["熟记圆、扇形、常见立体的公式","掌握扇形弧长/面积与圆心角关系","会算圆柱/圆锥/球的体积与表面积"],
+   concepts:[
+    {t:"圆与扇形 Circle & Sector",en:"Arc & sector.",tech:"圆周长2πr、面积πr²；扇形弧长=(θ/360)·2πr，面积=(θ/360)·πr²。",exam:"θ用度；'perimeter of sector'=弧长+2条半径，别漏半径。"},
+    {t:"立体体积 Volumes",en:"Prism, cylinder, cone, sphere.",tech:"柱体=底面积×高；圆锥=⅓πr²h；球=4/3πr³；球面积=4πr²。",exam:"复合体'先拆分后相加/相减'；注意圆锥的⅓和球的系数。"},
+    {t:"单位换算 Units",en:"Careful with cm/m.",tech:"面积换算 1 m²=10⁴ cm²，体积 1 m³=10⁶ cm³；答案保留题目要求的有效数字。",exam:"π用计算器值，除非题目指定 π=3.14 或 22/7。"}
+   ],
+   examples:[
+    {q:"A sector has radius 10 cm and angle 72°. Find its area (π = 3.142).",
+     solution:"面积 = (72/360) × π × 10²\n     = 0.2 × 3.142 × 100\n     = 62.84 cm²",
+     note:"技巧：72/360=0.2，先约分再乘更快。"},
+    {q:"Find the volume of a cone with radius 6 cm and height 14 cm. (π=22/7)",
+     solution:"V = ⅓ π r² h = ⅓ × 22/7 × 6² × 14\n  = ⅓ × 22/7 × 36 × 14\n  = ⅓ × 22 × 36 × 2 = 528 cm³",
+     note:"出题思路：给 π=22/7 时数字能约成整数，暗示用约分。"}
+   ],
+   mcqs:[
+    {stem:"Area of a circle radius 7 cm (π=22/7):",options:["154 cm²","44 cm²","49 cm²","22 cm²"],answer:0,expl:"22/7×49=154。",topic:"圆面积"},
+    {stem:"Volume of a cylinder r=5, h=10 (π≈3.14):",options:["785","157","314","1570"],answer:0,expl:"πr²h=3.14×25×10=785。",topic:"体积"},
+    {stem:"Arc length of a semicircle radius 4 (π≈3.14):",options:["12.56","25.12","6.28","50.24"],answer:0,expl:"半圆弧=πr=3.14×4=12.56。",topic:"扇形"},
+    {stem:"1 m³ equals:",options:["100 cm³","10 000 cm³","1 000 000 cm³","1000 cm³"],answer:2,expl:"(100)³=10⁶。",topic:"单位换算"}
+   ],
+   structured:[
+    {q:"A solid cylinder has radius 3 cm and height 8 cm. Find (i) its volume [2] (ii) its total surface area [2]. Give answers to 3 s.f. (use π).",marks:4,ans:"226;207",
+     scheme:["M1 V=π·3²·8","A1 226 cm³","M1 SA=2πr²+2πrh=2π·9+2π·24","A1 207 cm²"],
+     model:"(i) V = πr²h = π × 9 × 8 = 72π ≈ 226 cm³\n(ii) SA = 2πr² + 2πrh = 2π(9) + 2π(3)(8)\n   = 18π + 48π = 66π ≈ 207 cm²"},
+    {q:"A cone of radius 5 cm and height 12 cm is melted and recast into a sphere. Find the radius of the sphere, to 3 s.f.  [4]",marks:4,ans:"3.98",
+     scheme:["M1 V_cone=⅓π·25·12=100π","M1 4/3πR³=100π","M1 R³=75","A1 R≈3.98 cm"],
+     model:"锥体积 = ⅓π(5²)(12) = 100π cm³\n球体积相等：4/3 πR³ = 100π\nR³ = 100 × 3/4 = 75\nR = ³√75 ≈ 3.98 cm",topic:"体积"}
+   ]}
+];
+
+/* ---------- MOCK papers (days 91-100) ---------- */
+const MOCK_BANK=[
+  {title:"综合模考 Paper A · 代数与方程",note:"限时建议 60 分钟。做完点开各题解答与评分标准逐题批改，错题记入错题本。",
+   mcqs:[
+    {stem:"Factorise 2x² − 7x + 3.",options:["(2x−1)(x−3)","(2x−3)(x−1)","(2x+1)(x−3)","(x−1)(x−3)"],answer:0,expl:"十字相乘：(2x−1)(x−3)。",topic:"因式分解"},
+    {stem:"Solve x² = 5x.",options:["x=5","x=0 or 5","x=0","x=±5"],answer:1,expl:"x²−5x=0→x(x−5)=0。别两边除x丢根。",topic:"二次方程"},
+    {stem:"Evaluate 9^(−1/2).",options:["1/3","3","−3","1/9"],answer:0,expl:"1/√9=1/3。",topic:"分数指数"},
+    {stem:"Solve −2x + 5 < 1.",options:["x>2","x<2","x>−2","x<−2"],answer:0,expl:"−2x<−4→x>2。",topic:"不等式"}
+   ],
+   structured:[
+    {q:"Solve the simultaneous equations 3x − 2y = 4 and x + y = 3.  [3]",marks:3,ans:"x=2,y=1",
+     scheme:["M1 消元/代入","M1 求一未知数","A1 x=2, y=1"],
+     model:"x + y = 3 → x = 3 − y\n3(3 − y) − 2y = 4 → 9 − 5y = 4 → y = 1\nx = 2\n∴ x = 2, y = 1"},
+    {q:"Solve 3x² − 5x − 1 = 0, giving answers to 2 d.p.  [3]",marks:3,ans:"1.85,-0.18",
+     scheme:["M1 b²−4ac=25+12=37","M1 x=(5±√37)/6","A1 1.85 and −0.18"],
+     model:"b²−4ac = 25 + 12 = 37\nx = (5 ± √37)/6 = (5 ± 6.083)/6\nx = 1.85 or −0.18 (2 d.p.)"}
+   ]},
+  {title:"综合模考 Paper B · 几何·三角·度量",note:"限时建议 60 分钟。含三角与度量综合，注意画图与单位。",
+   mcqs:[
+    {stem:"tan θ = 1, θ acute. θ =",options:["30°","45°","60°","90°"],answer:1,expl:"tan45°=1。",topic:"三角比"},
+    {stem:"A sector angle 90°, radius 8. Its area (π≈3.14):",options:["50.24","25.12","201","16"],answer:0,expl:"¼·π·64=50.24。",topic:"扇形"},
+    {stem:"Back bearing of 070° is:",options:["250°","110°","290°","160°"],answer:0,expl:"070+180=250°。",topic:"方位角"},
+    {stem:"Volume of sphere r=3 (π≈3.14):",options:["113","113.04","36","452"],answer:1,expl:"4/3π·27=113.04。",topic:"体积"}
+   ],
+   structured:[
+    {q:"In △ABC, AB = 6, AC = 8, angle BAC = 55°. Find BC.  [3]",marks:3,ans:"6.86",
+     scheme:["M1 余弦定理 BC²=36+64−96cos55°","M1 =100−55.06","A1 BC≈6.71"],
+     model:"BC² = 6² + 8² − 2(6)(8)cos55°\n   = 100 − 96 × 0.5736 = 100 − 55.06 = 44.94\nBC = √44.94 ≈ 6.70 cm"},
+    {q:"A cylindrical tank radius 20 cm is filled with water to height 35 cm. Find the volume of water in litres. (π≈3.142, 1 L=1000 cm³)  [3]",marks:3,ans:"43.99",
+     scheme:["M1 V=π·20²·35","M1 =43988 cm³","A1 ≈44.0 litres"],
+     model:"V = πr²h = 3.142 × 400 × 35 = 43 988 cm³\n= 43 988 / 1000 ≈ 44.0 litres"}
+   ]}
+];
+
+/* ---------- DAY 1 seed = first topic, fully authored ---------- */
+function dayFromTopic(n,t){
+  return {day:n, topicZh:t.topicZh, topicEn:t.topicEn, goals:t.goals, concepts:t.concepts,
+    examples:t.examples,
+    mcqs:t.mcqs.map((q,i)=>({id:'m'+n+'q'+(i+1),stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic})),
+    structured:t.structured.map((q,i)=>Object.assign({id:'m'+n+'s'+(i+1)},q)), mock:null};
+}
+const DAY1=dayFromTopic(1,TOPICS[0]);
+
+/* ---------- OFFLINE GENERATOR ---------- */
+function pickRot(a,i){const L=a.length;return a[((i%L)+L)%L];}
+function generateDayLocally(n){
+  const f=focus(n);
+  if(n>=91){ const mk=pickRot(MOCK_BANK,n); return {day:n,topicZh:mk.title,topicEn:"Mock Exam",
+    goals:["按考试节奏限时完成整套题","做完逐题对照评分标准自我批改","把错题记入错题本，针对性复盘"],
+    concepts:[{t:"模考策略",en:"Exam technique",tech:"先易后难、控制每题时间；写清步骤争取方法分(M marks)。",exam:"最后10天重在查漏补缺与手感，模考后务必订正。"}],
+    examples:[], mcqs:mk.mcqs.map((q,i)=>({id:'m'+n+'q'+(i+1),stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic})),
+    structured:mk.structured.map((q,i)=>Object.assign({id:'m'+n+'s'+(i+1)},q)), mock:{title:mk.title,note:mk.note}};
+  }
+  return dayFromTopic(n,pickRot(TOPICS,n-1));
+}
+
+/* ---------- DATABASE LAYER + offline outbox ---------- */
+const SERVED = typeof location!=='undefined' && /^https?:/.test(location.protocol);
+const DB={
+  on:false, flushing:false,
+  async init(){ try{const r=await fetch('/api/health',{cache:'no-store'}); this.on=!!(r&&r.ok);}catch(e){this.on=false;} return this.on; },
+  async pull(){ if(!this.on) return;
+    try{
+      const st=await (await fetch('/api/state?student='+STUDENT)).json();
+      if(st&&st.current){ state.current=st.current; state.unlocked=st.unlocked||st.current; if(st.startDate) state.startDate=st.startDate; }
+      const d=await (await fetch('/api/days?subject='+SUBJECT)).json();
+      if(d&&typeof d==='object'){ for(const k in d) days[k]=d[k]; }
+      const nb=await (await fetch('/api/notebook?student='+STUDENT)).json();
+      if(Array.isArray(nb)) notebook=nb;
+    }catch(e){ console.warn('pull failed',e); } },
+  _req(p,body){ return fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>{ if(!r||!r.ok) throw new Error('HTTP '+(r&&r.status)); return r; }); },
+  post(p,body){ if(!SERVED) return; queueWrite(p,body); this.flush(); },
+  async flush(){ if(this.flushing||!SERVED) return; let q=outbox(); if(!q.length){updateSyncBadge();return;} this.flushing=true;
+    try{ while(q.length){ try{ await this._req(q[0].p,q[0].body); this.on=true; }catch(e){ this.on=false; break; } q.shift(); LS.set('outbox',q); updateSyncBadge(); } }
+    finally{ this.flushing=false; updateSyncBadge(); } }
+};
+function outbox(){ return LS.get('outbox',[]); }
+function collapseKey(p,body){ if(p==='state')return'state'; if(p==='notebook')return'notebook'; if(p==='day')return'day:'+(body&&body.day); return null; }
+function queueWrite(p,body){ let q=outbox(); const k=collapseKey(p,body); if(k) q=q.filter(it=>collapseKey(it.p,it.body)!==k); q.push({p,body}); if(q.length>800)q=q.slice(q.length-800); LS.set('outbox',q); updateSyncBadge(); }
+function updateSyncBadge(){ const el=document.getElementById('syncStatus'); if(!el)return; const n=outbox().length;
+  if(!SERVED){el.textContent='';return;}
+  if(n>0){el.textContent='⏳ '+n+' 条待同步';el.style.color='var(--warn)';el.title='暂连不上数据库，已存本地，恢复后自动补写';}
+  else if(DB.on){el.textContent='✓ 已同步';el.style.color='var(--good)';} else {el.textContent='';} }
+function persistState(){ LS.set('state',state); DB.post('state',{student:STUDENT,current:state.current,unlocked:state.unlocked,startDate:state.startDate}); }
+function persistDay(n){ LS.set('days',days); if(days[n]) DB.post('day',{subject:SUBJECT,day:+n,content:days[n]}); }
+function persistNotebook(){ LS.set('notebook',notebook); DB.post('notebook',{student:STUDENT,items:notebook}); }
+function logAttempt(day,id,topic,correct,kind){ DB.post('attempt',{student:STUDENT,day:day,qid:id,topic:topic||'',chosen:correct?1:0,correct:correct?1:0,kind:kind||'mcq'}); }
+
+/* ---------- STATE ---------- */
+let state=LS.get('state',{current:1,unlocked:1,startDate:null});
+let days=LS.get('days',{1:DAY1});
+let notebook=LS.get('notebook',[]);
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function currentData(){return days[state.current]||DAY1;}
+
+/* ---------- RENDER ---------- */
+function render(){
+  const d=currentData(), f=focus(state.current);
+  document.getElementById('dayNum').textContent=state.current;
+  document.getElementById('theme').innerHTML=(d.topicZh||'')+' <span class="en">/ '+(d.topicEn||'')+'</span>';
+  document.getElementById('phase').textContent=f.phase.name+' · '+f.phase.en;
+  document.getElementById('cdNum').textContent=Math.max(0,101-state.current);
+  document.getElementById('prog').style.width=(state.current)+'%';
+  document.getElementById('prevDay').disabled=state.current<=1;
+  renderOverview(d); renderExamples(d); renderMCQ(d); renderReview(); renderStructured(d); renderNotebook(); updateNbBadge();
+}
+function renderOverview(d){
+  document.getElementById('mockBanner').innerHTML = d.mock ? '<div class="mock-banner"><b>🧪 '+d.mock.title+'</b><div style="color:var(--ink2);font-size:13px;margin-top:4px">'+d.mock.note+'</div></div>' : '';
+  document.getElementById('ov-goals').innerHTML='<div class="card kpt"><div class="t">🎯 今日目标</div><ul class="clean">'+(d.goals||[]).map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  document.getElementById('ov-concepts').innerHTML=(d.concepts||[]).map(c=>
+    '<div class="card kpt"><div class="t">'+c.t+'</div><div class="en">'+(c.en||'')+'</div>'+
+    (c.tech?'<div style="margin-top:8px"><span class="tag tech">解题技巧</span>'+c.tech+'</div>':(c.body?'<div style="margin-top:8px">'+c.body+'</div>':''))+
+    (c.exam?'<div style="margin-top:6px"><span class="tag exam">出题思路</span>'+c.exam+'</div>':'')+'</div>').join('');
+}
+function renderExamples(d){
+  const box=document.getElementById('ex-list');
+  if(!d.examples||!d.examples.length){box.innerHTML='<div class="card" style="color:var(--ink2)">今日为模考日，练习见「练习」页。</div>';return;}
+  box.innerHTML=d.examples.map((e,i)=>
+    '<div class="card"><div class="stem" style="font-weight:700"><span style="color:var(--brand2)">例 '+(i+1)+'</span>　'+e.q+'</div>'+
+    '<div class="btnrow"><button class="btn primary mini" data-ex="'+i+'">显示解答与方法</button></div>'+
+    '<div class="model" id="exm-'+i+'"><div class="mk">标准解答</div><div class="work">'+escapeHTML(e.solution)+'</div>'+
+    (e.note?'<div style="margin-top:8px"><span class="tag tech">点拨</span>'+e.note+'</div>':'')+'</div></div>').join('');
+  box.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>document.getElementById('exm-'+b.dataset.ex).classList.add('show'));
+}
+function renderMCQ(d){ document.getElementById('pr-mcq').innerHTML=(d.mcqs||[]).map((q,i)=>mcqHTML(q,i,'mcq')).join(''); }
+function mcqHTML(q,i,ns){
+  return '<div class="q" id="'+ns+'-'+q.id+'"><div class="stem"><span class="no">Q'+(i+1)+'</span>'+q.stem+'</div>'+
+   q.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+   '<div class="expl" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>';
+}
+function renderStructured(d){
+  const box=document.getElementById('pr-structured');
+  box.innerHTML=(d.structured||[]).map((q,i)=>
+    '<div class="q" id="st-'+q.id+'"><div class="stem"><span class="no">结 '+(i+1)+'</span>'+q.q+'</div>'+
+    '<textarea class="ans" id="stw-'+q.id+'" placeholder="写出你的解题步骤(working)…"></textarea>'+
+    (q.ans!==undefined?'<div style="margin-top:8px">最终答案：<input class="fin" id="stf-'+q.id+'" placeholder="如 x=3,y=2 / 6x-10"><span class="mark" id="stm-'+q.id+'"></span></div>':'')+
+    '<div class="btnrow">'+(q.ans!==undefined?'<button class="btn primary mini" data-chk="'+q.id+'">自动判分</button>':'')+
+     '<button class="btn ghost mini" data-sch="'+q.id+'">查看评分标准与解答</button>'+
+     '<button class="btn gold mini" data-mk="'+q.id+'">🖊️ 请Claude批改</button></div>'+
+    '<div class="model" id="stmodel-'+q.id+'"><div class="mk">评分标准（满分 '+q.marks+'）</div><ul class="clean">'+
+      (q.scheme||[]).map(s=>'<li>'+s+'</li>').join('')+'</ul><div class="mk" style="margin-top:8px">标准解答</div><div class="work">'+escapeHTML(q.model||'')+'</div>'+
+      (q.ans!==undefined?'<div style="margin-top:6px">最终答案：<span class="math">'+q.ans+'</span></div>':'')+'</div></div>').join('');
+  box.querySelectorAll('[data-sch]').forEach(b=>b.onclick=()=>document.getElementById('stmodel-'+b.dataset.sch).classList.add('show'));
+  box.querySelectorAll('[data-chk]').forEach(b=>b.onclick=()=>checkStructured(d,b.dataset.chk));
+  box.querySelectorAll('[data-mk]').forEach(b=>b.onclick=()=>{const q=(d.structured||[]).find(x=>x.id===b.dataset.mk); const w=document.getElementById('stw-'+q.id); openMark('结构题 Structured',q.q,q.marks,w?w.value:'');});
+}
+function normAns(s){ return (s||'').toLowerCase().replace(/\s+/g,'').replace(/[，、]/g,',').replace(/cm2|cm²/g,'').replace(/cm3|cm³/g,'').replace(/[a-z]+=/g,m=>m).replace(/units?|litres?|l$/g,''); }
+function checkStructured(d,id){
+  const q=(d.structured||[]).find(x=>x.id===id); if(!q) return;
+  const val=document.getElementById('stf-'+id).value, mark=document.getElementById('stm-'+id);
+  const accepted=String(q.ans).split(';').map(normAns);
+  const got=normAns(val);
+  const ok = accepted.some(a=> a===got || a.split(',').every(p=>got.includes(p)) );
+  document.getElementById('stmodel-'+id).classList.add('show');
+  if(ok){ mark.textContent='✓ 正确'; mark.className='mark good'; }
+  else{ mark.textContent='✗ 待订正'; mark.className='mark bad';
+    if(!notebook.find(n=>n.id===q.id)) notebook.push({id:q.id,kind:'structured',stem:q.q,ans:q.ans,expl:'标准答案：'+q.ans,model:q.model,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current});
+    persistNotebook(); updateNbBadge(); renderNotebook();
+  }
+  logAttempt(state.current,q.id,q.topic,ok,'structured');
+}
+function renderReview(){
+  const due=notebook.filter(n=>!n.mastered).slice(0,4), box=document.getElementById('pr-review');
+  if(!due.length){box.innerHTML='<div class="card" style="color:var(--ink2)">🎉 暂无错题需要复习。</div>';return;}
+  box.innerHTML=due.map(q=> q.kind==='structured'
+    ? '<div class="q nb-item" id="rev-'+q.id+'"><div class="stem"><span class="no">复习</span>'+q.stem+' <span class="tag">已答对 '+(q.correctStreak||0)+'/2</span></div>'+
+      '最终答案：<input class="fin" id="revf-'+q.id+'" placeholder="填最终答案"><span class="mark" id="revm-'+q.id+'"></span>'+
+      '<div class="expl" id="expl-rev-'+q.id+'"><b>标准答案：'+q.ans+'</b><div class="work" style="margin-top:6px">'+escapeHTML(q.model||'')+'</div></div></div>'
+    : '<div class="q nb-item" id="rev-'+q.id+'"><div class="stem"><span class="no">复习</span>'+q.stem+' <span class="tag">已答对 '+(q.correctStreak||0)+'/2</span></div>'+
+      q.options.map((o,j)=>'<label class="opt"><input type="radio" name="rev-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+      '<div class="expl" id="expl-rev-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>'
+  ).join('')+'<div class="btnrow"><button class="btn primary" id="gradeReview">批改复习题</button></div>';
+  const b=document.getElementById('gradeReview'); if(b) b.onclick=gradeReview;
+}
+function renderNotebook(){
+  const box=document.getElementById('nb-list');
+  if(!notebook.length){box.innerHTML='<div class="empty">还没有错题。做错的题会自动收录到这里 📕</div>';return;}
+  box.innerHTML=notebook.map(n=> '<div class="card nb-item '+(n.mastered?'mastered':'')+'"><div class="stem" style="font-weight:600">'+n.stem+'</div>'+
+    (n.kind==='structured'
+      ? '<div style="margin-top:6px;color:var(--good)"><b>标准答案：'+n.ans+'</b></div><div class="expl show"><div class="work">'+escapeHTML(n.model||'')+'</div></div>'
+      : '<div style="margin-top:6px;color:var(--good)"><b>正确答案 '+String.fromCharCode(65+n.answer)+'.</b> '+n.options[n.answer]+'</div><div class="expl show" style="margin-top:8px">'+n.expl+'</div>')+
+    '<div class="nb-meta">专题：'+(n.topic||'—')+' · 第'+n.dayAdded+'天收录 · '+(n.mastered?'✅ 已掌握':'进度 '+(n.correctStreak||0)+'/2')+'</div></div>').join('');
+}
+function updateNbBadge(){ const n=notebook.filter(x=>!x.mastered).length, b=document.getElementById('nbBadge'); if(n>0){b.style.display='inline-block';b.textContent=n;}else{b.style.display='none';} }
+
+/* ---------- GRADING ---------- */
+function gradeMCQ(){
+  const d=currentData(); let correct=0,total=(d.mcqs||[]).length;
+  (d.mcqs||[]).forEach(q=>{ const chosen=document.querySelector('input[name="mcq-'+q.id+'"]:checked'); const wrap=document.getElementById('mcq-'+q.id);
+    wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-mcq-'+q.id).classList.add('show');
+    const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct'); const val=chosen?+chosen.value:null; const ok=(val===q.answer);
+    if(ok)correct++; else{ if(val!=null)opts[val].classList.add('wrong'); addToNotebook(q);} logAttempt(state.current,q.id,q.topic,ok,'mcq'); });
+  const sb=document.getElementById('mcqScore'); sb.classList.add('show'); sb.innerHTML='得分：'+correct+' / '+total+'　'+(correct===total?'🏆 满分！':'❗ 错题已加入错题本。');
+  persistNotebook(); updateNbBadge(); renderNotebook();
+}
+function addToNotebook(q){ if(notebook.find(n=>n.id===q.id))return; notebook.push({id:q.id,kind:'mcq',stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current}); }
+function gradeReview(){
+  const due=notebook.filter(n=>!n.mastered).slice(0,4);
+  due.forEach(q=>{ let ok=false;
+    if(q.kind==='structured'){ const f=document.getElementById('revf-'+q.id); if(!f)return; const accepted=String(q.ans).split(';').map(normAns); const got=normAns(f.value); ok=accepted.some(a=>a===got||a.split(',').every(p=>got.includes(p)));
+      const m=document.getElementById('revm-'+q.id); m.textContent=ok?'✓':'✗'; m.className='mark '+(ok?'good':'bad'); document.getElementById('expl-rev-'+q.id).classList.add('show'); }
+    else{ const chosen=document.querySelector('input[name="rev-'+q.id+'"]:checked'); const wrap=document.getElementById('rev-'+q.id); if(!wrap)return; wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-rev-'+q.id).classList.add('show'); const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct'); if(chosen){const v=+chosen.value; ok=(v===q.answer); if(!ok)opts[v].classList.add('wrong');} }
+    if(ok){ q.correctStreak=(q.correctStreak||0)+1; if(q.correctStreak>=2)q.mastered=true; } else { q.correctStreak=0; }
+    logAttempt(state.current,q.id,q.topic,ok,'review');
+  });
+  persistNotebook(); updateNbBadge(); renderNotebook(); setTimeout(renderReview,1200);
+}
+
+/* ---------- TABS / NAV ---------- */
+document.getElementById('tabs').addEventListener('click',e=>{ const t=e.target.closest('.tab'); if(!t)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));
+  t.classList.add('active'); document.getElementById('p-'+t.dataset.tab).classList.add('show'); if(t.dataset.tab==='dash')renderDashboard(); window.scrollTo({top:0,behavior:'smooth'}); });
+document.getElementById('prevDay').onclick=()=>{if(state.current>1){state.current--;persistState();render();}};
+document.getElementById('gradeMcq').onclick=gradeMCQ;
+document.getElementById('clearMastered').onclick=()=>{notebook=notebook.filter(n=>!n.mastered);persistNotebook();renderNotebook();updateNbBadge();};
+
+/* ---------- MARKING (Claude) ---------- */
+const markModal=document.getElementById('markModal');
+function openMark(kind,q,marks,working){
+  document.getElementById('markKind').textContent='· '+kind;
+  const prompt=`你是新加坡 O-Level 数学(E-Maths 4048)考官。请按 O-Level 评分标准批改我下面这道${kind}（满分 ${marks} 分）。
+
+【题目】
+${q.replace(/<[^>]+>/g,'')}
+
+【我的解答/步骤】
+${(working||'').trim()||'(我还没写，请给这道题的完整解法与评分标准)'}
+
+请给出：
+1. 评分：x/${marks}，并注明 M 分(方法/method)与 A 分(准确/accuracy)各得多少、为什么。
+2. 逐步检查：指出哪一步正确、哪一步出错（写出错在哪、应如何改）。
+3. 标准解答：给出规范的完整解题步骤。
+4. 一句话提醒：这类题最容易失分的地方。
+中文讲评，数学式用清晰写法。`;
+  document.getElementById('markOut').value=prompt; markModal.classList.add('show');
+}
+document.getElementById('closeMark').onclick=()=>markModal.classList.remove('show');
+markModal.addEventListener('click',e=>{if(e.target===markModal)markModal.classList.remove('show');});
+document.getElementById('copyMark').onclick=()=>{const ta=document.getElementById('markOut');ta.select();navigator.clipboard.writeText(ta.value).then(()=>{const b=document.getElementById('copyMark');const o=b.textContent;b.textContent='✅ 已复制';setTimeout(()=>b.textContent=o,1500);}).catch(()=>document.execCommand('copy'));};
+
+/* ---------- DASHBOARD ---------- */
+async function renderDashboard(){
+  const box=document.getElementById('dash-body');
+  if(!DB.on){box.innerHTML='<div class="empty">离线文件模式。运行 <code>node server.js</code> 并从 http://localhost:4600/math.html 打开即可启用学情分析。</div>';return;}
+  try{ const s=await (await fetch('/api/stats?student='+STUDENT+'&subject='+SUBJECT)).json();
+    const rows=(s.weakTopics||[]).map(t=>{const rate=t.n?Math.round(t.c/t.n*100):0;return '<div class="bar"><span class="bl">'+t.topic+'</span><span class="bt"><i style="width:'+rate+'%"></i></span><span class="bv">'+rate+'% ('+t.c+'/'+t.n+')</span></div>';}).join('')||'<div style="color:var(--ink2)">暂无数据。</div>';
+    box.innerHTML='<div class="statgrid">'+stat('总答题数',s.attempts)+stat('总正确率',s.accuracy+'%')+stat('错题·未掌握',(s.notebook.total-s.notebook.mastered))+stat('已生成天数',s.daysGenerated+' / 100')+'</div>'+
+      '<h3>最薄弱专题（正确率由低到高）</h3><div>'+rows+'</div>'+
+      '<h3>错题掌握进度</h3><div class="bar"><span class="bl">已掌握</span><span class="bt"><i style="width:'+(s.notebook.total?Math.round(s.notebook.mastered/s.notebook.total*100):0)+'%"></i></span><span class="bv">'+s.notebook.mastered+' / '+s.notebook.total+'</span></div>'+
+      '<p class="kicker" style="text-align:left">💡 优先攻克正确率最低的专题；错题会在每天「错题复习」中复现。</p>';
+  }catch(e){box.innerHTML='<div class="empty">读取失败：'+e.message+'</div>';}
+}
+function stat(l,v){return '<div class="statcard"><div class="sv">'+v+'</div><div class="sl">'+l+'</div></div>';}
+document.getElementById('refreshDash').onclick=renderDashboard;
+
+/* ---------- EXAM MODE ---------- */
+let examTimer=null,examLeft=0;
+function fmt(s){const m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+function setExamMode(on){document.body.classList.toggle('exam-on',on);document.getElementById('examStart').style.display=on?'none':'';document.getElementById('examStop').style.display=on?'':'none';document.getElementById('examPreset').disabled=on;}
+function startExam(){const mins=+document.getElementById('examPreset').value||15;examLeft=mins*60;setExamMode(true);updateClock();examTimer=setInterval(()=>{examLeft--;updateClock();if(examLeft<=0)stopExam(true);},1000);}
+function updateClock(){const c=document.getElementById('clock');c.textContent=fmt(Math.max(0,examLeft));c.style.color=examLeft<=60?'var(--bad)':examLeft<=300?'var(--warn)':'var(--good)';}
+function stopExam(auto){if(examTimer){clearInterval(examTimer);examTimer=null;}setExamMode(false);document.getElementById('clock').textContent=auto?'时间到':'已结束';document.getElementById('examhint').textContent=auto?'⏰ 时间到！解答已解锁，请对照批改。':'已结束，解答已解锁。';document.querySelectorAll('#p-practice .model').forEach(m=>m.classList.add('show'));}
+document.getElementById('examStart').onclick=startExam; document.getElementById('examStop').onclick=()=>stopExam(false);
+
+/* ---------- GENERATE NEXT DAY ---------- */
+const modal=document.getElementById('genModal');
+document.getElementById('genNext').onclick=()=>{ const next=state.current+1; if(next>100){alert('🎉 已经是第100天，冲刺完成！祝你考出 A1！');return;}
+  if(!days[next]){ days[next]=generateDayLocally(next); persistDay(next); } state.current=next; state.unlocked=Math.max(state.unlocked,next); persistState(); render(); window.scrollTo({top:0,behavior:'smooth'}); };
+function openClaudeGen(){ const next=state.current+1; if(next>100){alert('🎉 已经是第100天！');return;} buildPrompt(next); document.getElementById('modalDay').textContent='第 '+next+' 天'; document.getElementById('jsonIn').value=''; document.getElementById('importOk').style.display='none'; document.getElementById('importErr').style.display='none'; modal.classList.add('show'); }
+document.getElementById('genClaude').onclick=openClaudeGen;
+document.getElementById('closeModal').onclick=()=>modal.classList.remove('show');
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
+function buildPrompt(next){
+  const f=focus(next); const weak=[...new Set(notebook.filter(n=>!n.mastered).map(n=>n.topic))].filter(Boolean);
+  const isMock=next>=91;
+  document.getElementById('promptOut').value=
+`你是我的 O-Level 数学(E-Maths 4048)冲刺私教。为「第 ${next} 天 / 共100天」生成学习内容。
+阶段：${f.phase.name}。${isMock?'这是最后10天，请生成一套综合模考(混合多个专题)。':'请聚焦一个专题(topical)。'}
+复现我的薄弱专题：${weak.length?weak.join('、'):'（暂无，自由选题）'}
+目标：O-Level 数学 A1。中文讲解，数学式清晰书写。
+
+⚠️ 只输出一个合法 JSON（无多余文字、无代码块围栏），字段：
+{
+ "day":${next},"topicZh":"中文专题","topicEn":"English topic",
+ "goals":["目标1","目标2","目标3"],
+ "concepts":[{"t":"知识点标题","en":"gloss","tech":"解题技巧/方法","exam":"出题思路与考试偏好/易错点"} ...3条],
+ "examples":[{"q":"例题(可含数字与式子)","solution":"分步解答，用\\n换行","note":"点拨/技巧"} ...2条],
+ "mcqs":[{"id":"m${next}q1","stem":"题干","options":["A","B","C","D"],"answer":0,"expl":"解析","topic":"专题名"} ...4题],
+ "structured":[{"id":"m${next}s1","q":"结构题(标注[x]分)","marks":3,"ans":"最终答案(可用;分隔多解,如 x=3,y=2)","scheme":["M1 …","M1 …","A1 …"],"model":"标准解答，用\\n换行","topic":"专题名"} ...2题]${isMock?',\n "mock":{"title":"综合模考标题","note":"说明"}':''}
+}
+注意：answer 用选项下标(0-3)；所有引号用英文双引号。`;
+}
+document.getElementById('copyPrompt').onclick=()=>{const ta=document.getElementById('promptOut');ta.select();navigator.clipboard.writeText(ta.value).then(()=>{const b=document.getElementById('copyPrompt');const o=b.textContent;b.textContent='✅ 已复制';setTimeout(()=>b.textContent=o,1500);}).catch(()=>document.execCommand('copy'));};
+document.getElementById('importBtn').onclick=()=>{
+  const raw=document.getElementById('jsonIn').value, ok=document.getElementById('importOk'), err=document.getElementById('importErr'); ok.style.display='none';err.style.display='none';
+  if(!raw.trim()){err.innerHTML='👆 请先把提示词发给 Claude，再把返回的 JSON 粘贴到上面。';err.style.display='block';return;}
+  let obj; try{obj=JSON.parse(raw.trim().replace(/^```(json)?/i,'').replace(/```$/,'').trim());}catch(e){err.textContent='❌ JSON 解析失败：'+e.message;err.style.display='block';return;}
+  if(!('day'in obj)||!obj.mcqs){err.textContent='❌ 缺少必要字段(day/mcqs)。';err.style.display='block';return;}
+  const dn=+obj.day||state.current+1; days[dn]=obj; persistDay(dn); state.current=dn; state.unlocked=Math.max(state.unlocked,dn); persistState();
+  ok.textContent='✅ 第 '+dn+' 天导入成功！'; ok.style.display='block'; setTimeout(()=>{modal.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});},700);
+};
+
+/* ---------- UTIL ---------- */
+function escapeHTML(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ---------- BOOT ---------- */
+(async function boot(){
+  await DB.init(); await DB.pull();
+  if(!days[1]) days[1]=DAY1;               // seed if absent (after pull, days[1] is the frozen DB copy if any)
+  else { for(const k in DAY1){ if(!(k in days[1])) days[1][k]=DAY1[k]; } }  // non-destructively add new sections
+  persistDay(1);                            // ensure DB has day 1 (idempotent; never overwrites frozen questions)
+  if(!state.startDate) state.startDate=todayStr();
+  persistState(); LS.set('notebook',notebook);
+  const hint=document.getElementById('genHint');
+  if(DB.on) hint.innerHTML='🗄️ 已连接本地数据库 <b>SQLite</b>（subject=math）· 内容与记录自动保存。';
+  else if(SERVED) hint.innerHTML='⚠️ 暂时连不上数据库，作答会先存本地，恢复后自动补写。';
+  else hint.innerHTML='💾 离线文件模式（数据存浏览器本地）。运行 <code>node server.js</code> 启用数据库。';
+  render();
+  if(SERVED){ DB.flush(); updateSyncBadge(); setInterval(()=>DB.flush(),15000); window.addEventListener('online',()=>DB.flush()); }
+})();
+</script>
+</body>
+</html>

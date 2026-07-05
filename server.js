@@ -34,11 +34,13 @@ CREATE TABLE IF NOT EXISTS student (
 );
 
 CREATE TABLE IF NOT EXISTS day_content (
-  day        INTEGER PRIMARY KEY,
+  subject    TEXT NOT NULL DEFAULT 'english',
+  day        INTEGER NOT NULL,
   theme_zh   TEXT,
   theme_en   TEXT,
   content    TEXT NOT NULL,           -- full day JSON
-  created_at TEXT DEFAULT (datetime('now'))
+  created_at TEXT DEFAULT (datetime('now')),
+  PRIMARY KEY (subject, day)
 );
 
 CREATE TABLE IF NOT EXISTS notebook (
@@ -77,6 +79,23 @@ CREATE TABLE IF NOT EXISTS essay (
   PRIMARY KEY (student, day)
 );
 `);
+
+// migrate an older day_content table (no `subject` column) → tag existing rows as 'english'
+try {
+  const cols = db.prepare("PRAGMA table_info(day_content)").all();
+  if (cols.length && !cols.some(c => c.name === 'subject')) {
+    db.exec(`
+      ALTER TABLE day_content RENAME TO day_content_old;
+      CREATE TABLE day_content (
+        subject TEXT NOT NULL DEFAULT 'english', day INTEGER NOT NULL,
+        theme_zh TEXT, theme_en TEXT, content TEXT NOT NULL,
+        created_at TEXT DEFAULT (datetime('now')), PRIMARY KEY (subject, day));
+      INSERT INTO day_content(subject,day,theme_zh,theme_en,content,created_at)
+        SELECT 'english',day,theme_zh,theme_en,content,created_at FROM day_content_old;
+      DROP TABLE day_content_old;`);
+    console.log('  migrated day_content → subject-aware (existing rows = english)');
+  }
+} catch (e) { console.error('day_content migration skipped:', e.message); }
 
 // ensure a default student row exists
 db.prepare(`INSERT OR IGNORE INTO student(id,name,start_date) VALUES('default','Student',date('now'))`).run();
@@ -120,27 +139,30 @@ async function api(req, res, url) {
     return J(res, 200, { ok: true });
   }
 
-  // GET /api/days  -> { "1": {...}, "2": {...} }
+  // GET /api/days?subject=  -> { "1": {...}, "2": {...} }
   if (seg[0] === 'days' && req.method === 'GET') {
-    const rows = db.prepare(`SELECT day, content FROM day_content ORDER BY day`).all();
+    const subject = q.get('subject') || 'english';
+    const rows = db.prepare(`SELECT day, content FROM day_content WHERE subject=? ORDER BY day`).all(subject);
     const out = {}; for (const r of rows) { try { out[r.day] = JSON.parse(r.content); } catch {} }
     return J(res, 200, out);
   }
-  // GET /api/day/:n
+  // GET /api/day/:n?subject=
   if (seg[0] === 'day' && req.method === 'GET' && seg[1]) {
-    const r = db.prepare(`SELECT content FROM day_content WHERE day=?`).get(Number(seg[1]));
+    const subject = q.get('subject') || 'english';
+    const r = db.prepare(`SELECT content FROM day_content WHERE subject=? AND day=?`).get(subject, Number(seg[1]));
     return J(res, 200, r ? JSON.parse(r.content) : null);
   }
-  // POST /api/day  {day, content}
+  // POST /api/day  {subject, day, content}
   if (seg[0] === 'day' && req.method === 'POST') {
     const b = await readBody(req);
     const c = b.content || {}; const day = Number(b.day || c.day);
+    const subject = b.subject || c.subject || 'english';
     if (!day) return J(res, 400, { error: 'missing day' });
-    db.prepare(`INSERT INTO day_content(day,theme_zh,theme_en,content,created_at)
-                VALUES(?,?,?,?,datetime('now'))
-                ON CONFLICT(day) DO UPDATE SET theme_zh=excluded.theme_zh,
+    db.prepare(`INSERT INTO day_content(subject,day,theme_zh,theme_en,content,created_at)
+                VALUES(?,?,?,?,?,datetime('now'))
+                ON CONFLICT(subject,day) DO UPDATE SET theme_zh=excluded.theme_zh,
                   theme_en=excluded.theme_en, content=excluded.content`)
-      .run(day, c.themeZh || null, c.themeEn || null, JSON.stringify(c));
+      .run(subject, day, c.themeZh || c.topicZh || null, c.themeEn || c.topicEn || null, JSON.stringify(c));
     return J(res, 200, { ok: true, day });
   }
 
@@ -192,7 +214,7 @@ async function api(req, res, url) {
     const byTopic = db.prepare(`SELECT topic, COUNT(*) n, SUM(correct) c FROM attempt
         WHERE student=? AND topic<>'' GROUP BY topic ORDER BY (SUM(correct)*1.0/COUNT(*)) ASC`).all(student);
     const nb = db.prepare(`SELECT COUNT(*) total, SUM(mastered) mastered FROM notebook WHERE student=?`).get(student);
-    const daysDone = db.prepare(`SELECT COUNT(*) n FROM day_content`).get();
+    const daysDone = db.prepare(`SELECT COUNT(*) n FROM day_content WHERE subject=?`).get(q.get('subject') || 'english');
     return J(res, 200, {
       attempts: a.n || 0, correct: a.c || 0,
       accuracy: a.n ? Math.round((a.c || 0) / a.n * 100) : 0,
