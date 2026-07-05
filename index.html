@@ -6,72 +6,77 @@
 <title>ROSA · O-Level 冲A计划 · 学科首页</title>
 <style>
   :root{
-    --bg:#0f1115; --panel:#171a21; --panel2:#1e222c; --line:#2a2f3a;
-    --ink:#e8ebf0; --ink2:#9aa3b2; --ink3:#6b7280;
-    --brand:#4f8cff; --brand2:#7aa8ff; --good:#33c98b; --gold:#ffd479;
-    --shadow:0 10px 30px rgba(0,0,0,.35);
+    /* 护眼暖纸浅色主题 */
+    --bg:#f3ecdd; --panel:#fdf9f0; --panel2:#f4edde; --line:#e5dcc8;
+    --ink:#3b3427; --ink2:#6f6552; --ink3:#9c9179;
+    --en:#356a8e; --en2:#2c5f83; --math:#b4623a; --math2:#9f5330;
+    --good:#3d8a5f; --gold:#a8791f;
+    --shadow:0 1px 2px rgba(75,60,35,.05),0 6px 22px rgba(75,60,35,.07);
+    --serif:Georgia,"Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:radial-gradient(1200px 500px at 50% -10%,rgba(79,140,255,.20),transparent),linear-gradient(180deg,#0d0f14,#0f1115 40%);color:var(--ink);font-family:var(--sans);line-height:1.6;min-height:100vh}
+  body{margin:0;background:radial-gradient(1100px 480px at 50% -12%,rgba(53,106,142,.07),transparent),var(--bg);
+    color:var(--ink);font-family:var(--sans);line-height:1.72;min-height:100vh;font-size:16px}
   a{text-decoration:none;color:inherit}
-  .wrap{max-width:920px;margin:0 auto;padding:64px 20px 100px}
-  header{text-align:center;margin-bottom:44px}
-  .kicker{font-size:13px;letter-spacing:2px;color:var(--brand2);font-weight:700;text-transform:uppercase}
-  h1{font-size:40px;font-weight:900;margin:10px 0 6px;background:linear-gradient(180deg,#fff,#8fb4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{color:var(--ink2);font-size:16px;max-width:560px;margin:0 auto}
-  .goal{display:inline-block;margin-top:16px;font-size:13px;color:var(--gold);background:rgba(255,212,121,.1);border:1px solid rgba(255,212,121,.3);border-radius:999px;padding:6px 16px}
+  .wrap{max-width:900px;margin:0 auto;padding:64px 22px 100px}
+  header{margin-bottom:48px;max-width:640px}
+  .kicker{font-size:12.5px;letter-spacing:2px;color:var(--en2);font-weight:700;text-transform:uppercase}
+  h1{font-family:var(--serif);font-size:38px;font-weight:800;margin:12px 0 10px;color:var(--ink);letter-spacing:-.5px;line-height:1.15}
+  .sub{color:var(--ink2);font-size:16px;max-width:60ch}
+  .goal{display:inline-block;margin-top:18px;font-size:13px;color:var(--gold);background:color-mix(in oklab,var(--gold) 12%,var(--panel));border:1px solid color-mix(in oklab,var(--gold) 30%,var(--line));border-radius:999px;padding:6px 16px}
 
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:8px}
-  .card{position:relative;display:block;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:26px 24px;box-shadow:var(--shadow);transition:.18s;overflow:hidden}
-  .card.active:hover{transform:translateY(-4px);border-color:var(--brand)}
-  .card .ic{font-size:40px;line-height:1}
-  .card h2{font-size:23px;margin:14px 0 2px}
-  .card .en{color:var(--ink2);font-size:13px;font-weight:600;letter-spacing:.5px}
-  .card p{color:var(--ink2);font-size:13.5px;margin:12px 0 0;min-height:56px}
-  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
-  .tag{font-size:11px;padding:3px 9px;border-radius:6px;background:#232838;color:var(--ink2)}
-  .go{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-weight:800;color:var(--brand2)}
-  .accent{position:absolute;top:0;left:0;right:0;height:5px}
-  .en-accent{background:linear-gradient(90deg,#4f8cff,#7aa8ff)}
-  .math-accent{background:linear-gradient(90deg,#ff9f45,#ffcf6b)}
-  .soon{opacity:.55}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px;box-shadow:var(--shadow);transition:transform .18s ease,border-color .18s ease}
+  .card.active:hover{transform:translateY(-3px)}
+  .card.en.active:hover{border-color:var(--en)}
+  .card.ma.active:hover{border-color:var(--math)}
+  .card .ic{font-size:26px;line-height:1;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--panel2);border:1px solid var(--line)}
+  .card.en .ic{background:color-mix(in oklab,var(--en) 12%,var(--panel));border-color:color-mix(in oklab,var(--en) 26%,var(--line))}
+  .card.ma .ic{background:color-mix(in oklab,var(--math) 12%,var(--panel));border-color:color-mix(in oklab,var(--math) 26%,var(--line))}
+  .card h2{font-family:var(--serif);font-size:23px;font-weight:700;margin:16px 0 2px}
+  .card .en-l{color:var(--ink3);font-size:12.5px;font-weight:600;letter-spacing:.4px}
+  .card p{color:var(--ink2);font-size:14px;margin:12px 0 0}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .tag{font-size:11.5px;padding:3px 9px;border-radius:7px;background:var(--panel2);color:var(--ink2);border:1px solid var(--line)}
+  .go{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-weight:700;font-size:14px}
+  .card.en .go{color:var(--en2)} .card.ma .go{color:var(--math2)}
+  .soon{opacity:.62}
   .soon .go{color:var(--ink3)}
-  .badge{position:absolute;top:16px;right:16px;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px}
-  .badge.ready{background:rgba(51,201,139,.16);color:#6fe0b0;border:1px solid rgba(51,201,139,.3)}
-  .badge.wip{background:rgba(255,176,32,.14);color:#ffb020;border:1px solid rgba(255,176,32,.3)}
-  footer{text-align:center;color:var(--ink3);font-size:12.5px;margin-top:44px}
-  @media(max-width:560px){h1{font-size:30px}.wrap{padding:40px 16px 80px}}
+  .badge{position:absolute;top:18px;right:18px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
+  .badge.ready{background:color-mix(in oklab,var(--good) 14%,var(--panel));color:#2f6e4c;border:1px solid color-mix(in oklab,var(--good) 30%,var(--line))}
+  .badge.wip{background:color-mix(in oklab,var(--gold) 14%,var(--panel));color:#8a6317;border:1px solid color-mix(in oklab,var(--gold) 30%,var(--line))}
+  footer{color:var(--ink3);font-size:12.5px;margin-top:46px;max-width:60ch}
+  footer code{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:ui-monospace,Menlo,monospace;font-size:12px}
+  @media(max-width:560px){h1{font-size:30px}.wrap{padding:44px 18px 80px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <div class="kicker">ROSA · Sprint to A1</div>
-    <h1>O-Level 倒数100天冲A计划</h1>
+    <h1>O-Level 倒数 100 天 · 冲 A 计划</h1>
     <p class="sub">按学科分区的每日冲刺训练：知识点讲解 · 真题与模拟题 · 自动批改与评分标准 · 错题本 · 综合模考。目标——今年考出 A1。</p>
     <div class="goal">🎯 每个学科独立进度，数据自动保存</div>
   </header>
 
   <div class="grid">
-    <a class="card active" href="english.html">
-      <span class="accent en-accent"></span>
+    <a class="card en active" href="english.html">
       <span class="badge ready">可用</span>
       <div class="ic">🔤</div>
       <h2>英文 English</h2>
-      <div class="en">O-Level English 1184</div>
-      <p>四卷全覆盖：写作·理解·听力·口语。改错、摘要、情景/连贯写作、视觉文本、30词/天、听说，配真实新闻/名著链接与批改。</p>
+      <div class="en-l">O-Level English 1184</div>
+      <p>四卷全覆盖：写作 · 理解 · 听力 · 口语。改错、摘要、情景/连贯写作、视觉文本、30 词/天、听说，配真实新闻/名著链接与批改。</p>
       <div class="tags"><span class="tag">知识点</span><span class="tag">真题练习</span><span class="tag">批改评分</span><span class="tag">错题本</span><span class="tag">单词</span></div>
       <div class="go">进入英文分区 →</div>
     </a>
 
-    <a class="card active" href="math.html">
-      <span class="accent math-accent"></span>
+    <a class="card ma active" href="math.html">
       <span class="badge ready">可用</span>
       <div class="ic">📐</div>
       <h2>数学 Mathematics</h2>
-      <div class="en">O-Level E-Maths 4048</div>
-      <p>按专题(topical)讲核心知识点、解题技巧、出题思路与考试偏好；配真题与模拟题，自动批改打分、给标准答案与评分标准；错题本 + 最后10天综合模考。</p>
+      <div class="en-l">O-Level E-Maths 4048</div>
+      <p>按专题讲核心知识点、解题技巧、出题思路与考试偏好；配真题与模拟题，自动批改打分、给标准答案与评分标准；错题本 + 最后 10 天综合模考。</p>
       <div class="tags"><span class="tag">专题讲解</span><span class="tag">解题技巧</span><span class="tag">真题/模拟</span><span class="tag">评分标准</span><span class="tag">模考</span></div>
       <div class="go">进入数学分区 →</div>
     </a>
@@ -80,7 +85,7 @@
       <span class="badge wip">敬请期待</span>
       <div class="ic">🔬</div>
       <h2>科学 Science</h2>
-      <div class="en">Physics · Chemistry</div>
+      <div class="en-l">Physics · Chemistry</div>
       <p>物理与化学分区规划中，将采用与英文、数学一致的每日冲刺与批改体系。</p>
       <div class="go">即将推出</div>
     </div>
