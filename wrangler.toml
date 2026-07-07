@@ -1,0 +1,11 @@
+# Cloudflare Pages config for the DB-backed, gated deployment.
+# The static HTML lives at repo root; functions/ provides the /api and the gate.
+name = "rosa-olevel"
+pages_build_output_dir = "."
+compatibility_date = "2024-11-06"
+
+# D1 (cloud SQLite) binding. Fill database_id after `wrangler d1 create rosa`.
+[[d1_databases]]
+binding = "DB"
+database_name = "rosa"
+database_id = "PUT-YOUR-DATABASE-ID-HERE"
