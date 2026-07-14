@@ -3,3 +3,6 @@ db/*.db
 db/*.db-wal
 db/*.db-shm
 /tmp/
+.wrangler/
+node_modules/
+.dev.vars
