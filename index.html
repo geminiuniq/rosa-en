@@ -9,7 +9,7 @@
     /* 护眼暖纸浅色主题 */
     --bg:#f3ecdd; --panel:#fdf9f0; --panel2:#f4edde; --line:#e5dcc8;
     --ink:#3b3427; --ink2:#6f6552; --ink3:#9c9179;
-    --en:#356a8e; --en2:#2c5f83; --math:#b4623a; --math2:#9f5330;
+    --en:#356a8e; --en2:#2c5f83; --math:#b4623a; --math2:#9f5330; --phys:#6d5ba0; --phys2:#584a86;
     --good:#3d8a5f; --gold:#a8791f;
     --shadow:0 1px 2px rgba(75,60,35,.05),0 6px 22px rgba(75,60,35,.07);
     --serif:Georgia,"Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif;
@@ -34,13 +34,15 @@
   .card .ic{font-size:26px;line-height:1;width:52px;height:52px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--panel2);border:1px solid var(--line)}
   .card.en .ic{background:color-mix(in oklab,var(--en) 12%,var(--panel));border-color:color-mix(in oklab,var(--en) 26%,var(--line))}
   .card.ma .ic{background:color-mix(in oklab,var(--math) 12%,var(--panel));border-color:color-mix(in oklab,var(--math) 26%,var(--line))}
+  .card.ph .ic{background:color-mix(in oklab,var(--phys) 12%,var(--panel));border-color:color-mix(in oklab,var(--phys) 26%,var(--line))}
   .card h2{font-family:var(--serif);font-size:23px;font-weight:700;margin:16px 0 2px}
   .card .en-l{color:var(--ink3);font-size:12.5px;font-weight:600;letter-spacing:.4px}
   .card p{color:var(--ink2);font-size:14px;margin:12px 0 0}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
   .tag{font-size:11.5px;padding:3px 9px;border-radius:7px;background:var(--panel2);color:var(--ink2);border:1px solid var(--line)}
   .go{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-weight:700;font-size:14px}
-  .card.en .go{color:var(--en2)} .card.ma .go{color:var(--math2)}
+  .card.en .go{color:var(--en2)} .card.ma .go{color:var(--math2)} .card.ph .go{color:var(--phys2)}
+  .card.ph.active:hover{border-color:var(--phys)}
   .soon{opacity:.62}
   .soon .go{color:var(--ink3)}
   .badge{position:absolute;top:18px;right:18px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
@@ -81,12 +83,22 @@
       <div class="go">进入数学分区 →</div>
     </a>
 
+    <a class="card ph active" href="physics.html">
+      <span class="badge ready">可用</span>
+      <div class="ic">⚛️</div>
+      <h2>物理 Physics</h2>
+      <div class="en-l">O-Level Physics 6091</div>
+      <p>按专题讲力学·热学·波·光·电磁全考纲，每题分基础/O-Level/拔高三档；40 分钟摸底考定制方案，自动批改、评分标准、错题本 + 最后 10 天综合模考。</p>
+      <div class="tags"><span class="tag">专题讲解</span><span class="tag">三档难度</span><span class="tag">摸底定制</span><span class="tag">评分标准</span><span class="tag">模考</span></div>
+      <div class="go">进入物理分区 →</div>
+    </a>
+
     <div class="card soon">
       <span class="badge wip">敬请期待</span>
-      <div class="ic">🔬</div>
-      <h2>科学 Science</h2>
-      <div class="en-l">Physics · Chemistry</div>
-      <p>物理与化学分区规划中，将采用与英文、数学一致的每日冲刺与批改体系。</p>
+      <div class="ic">🧪</div>
+      <h2>化学 Chemistry</h2>
+      <div class="en-l">O-Level Chemistry 6092</div>
+      <p>化学分区规划中，将采用与英文、数学、物理一致的每日冲刺、摸底定制与批改体系。</p>
       <div class="go">即将推出</div>
     </div>
   </div>

@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O-Level 物理 · 100天冲A计划</title>
+<style>
+  :root{
+    /* 护眼暖纸浅色主题 · Physics = 静谧紫罗兰 */
+    --bg:#f3ecdd; --panel:#fdf9f0; --panel2:#f4edde; --line:#e5dcc8;
+    --ink:#3b3427; --ink2:#6f6552; --ink3:#9c9179;
+    --brand:#6d5ba0; --brand2:#584a86; --good:#3d8a5f; --bad:#c0554a; --warn:#a8791f; --gold:#a8791f;
+    --field:#fdfbf4; --well:#f0e8d6; --chip:#ece2cd; --track:#e6dcc5;
+    --radius:14px; --shadow:0 1px 2px rgba(75,60,35,.05),0 6px 20px rgba(75,60,35,.06);
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --serif:Georgia,"Songti SC","Source Han Serif SC","Noto Serif CJK SC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box} html,body{margin:0;padding:0}
+  body{background:linear-gradient(180deg,#0d0f14,#0f1115 40%);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:15px}
+  a{color:var(--brand2);text-decoration:none} a:hover{text-decoration:underline}
+  .wrap{max-width:940px;margin:0 auto;padding:20px 18px 120px}
+  header.hero{position:relative;background:radial-gradient(1200px 300px at 20% -30%,rgba(255,159,69,.26),transparent),var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);overflow:hidden}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .brand{font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--ink2)} .brand b{color:var(--brand2)}
+  .daybadge{display:flex;align-items:baseline;gap:10px;margin-top:6px}
+  .daybadge .d{font-size:52px;font-weight:900;line-height:1;background:linear-gradient(180deg,#fff,#ffc27a);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .daybadge .of{font-size:15px;color:var(--ink2)}
+  .theme{margin-top:8px;font-size:17px;font-weight:700} .theme .en{color:var(--ink2);font-weight:500;font-size:14px}
+  .phasepill{display:inline-block;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,159,69,.14);color:var(--brand2);border:1px solid rgba(255,159,69,.3);margin-top:10px}
+  .countdown{text-align:right} .countdown .n{font-size:34px;font-weight:900;color:var(--gold)} .countdown .l{font-size:12px;color:var(--ink2)}
+  .progress{margin-top:16px;height:8px;background:#0c0e13;border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+  .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--good));width:0}
+  nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px;position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#0f1115,rgba(15,17,21,.85));padding:8px 0;backdrop-filter:blur(6px)}
+  .tab{cursor:pointer;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink2);font-weight:600;font-size:14px;user-select:none}
+  .tab .em{margin-right:6px} .tab:hover{color:var(--ink)}
+  .tab.active{background:var(--brand);color:#241400;border-color:var(--brand)}
+  .tab .badge{display:inline-block;min-width:18px;text-align:center;font-size:11px;background:var(--bad);color:#fff;border-radius:99px;padding:0 5px;margin-left:6px}
+  section.panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);animation:fade .25s ease}
+  section.panel.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  h2.sec{font-size:20px;margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .sub{color:var(--ink2);font-size:13px;margin:0 0 18px}
+  h3{font-size:16px;margin:22px 0 8px;color:#f0e2d2}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  .kpt{border-left:3px solid var(--brand)} .kpt .t{font-weight:700;margin-bottom:4px} .kpt .en{color:var(--ink2);font-size:13px}
+  .tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:#232838;color:var(--ink2);margin-right:6px}
+  .tag.tech{background:rgba(255,159,69,.16);color:var(--brand2)} .tag.exam{background:rgba(122,168,255,.16);color:#9cc0ff}
+  ul.clean{margin:8px 0;padding-left:20px} ul.clean li{margin:5px 0}
+  .math{font-family:var(--mono);background:#12151d;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:#ffd8b0}
+  .work{white-space:pre-wrap;background:#12151d;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:13.5px;line-height:1.7;color:#e2e9f2;overflow-x:auto}
+  .q{margin:14px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}
+  .q .stem{font-weight:600;margin-bottom:10px} .q .stem .no{color:var(--brand2);font-weight:800;margin-right:8px}
+  .opt{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:9px;margin:6px 0;cursor:pointer;transition:.15s} .opt:hover{border-color:var(--brand)}
+  .opt input{margin-right:9px} .opt.correct{border-color:var(--good);background:rgba(51,201,139,.1)} .opt.wrong{border-color:var(--bad);background:rgba(255,93,108,.1)}
+  .expl{margin-top:10px;padding:10px 12px;border-radius:9px;background:#12151d;border:1px dashed var(--line);font-size:13.5px;color:var(--ink2);display:none} .expl.show{display:block} .expl b{color:var(--good)}
+  .btn{cursor:pointer;border:none;border-radius:10px;padding:10px 18px;font-weight:700;font-size:14px;font-family:inherit}
+  .btn.primary{background:var(--brand);color:#241400} .btn.primary:hover{background:#f08f35}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)} .btn.ghost:hover{border-color:var(--brand)}
+  .btn.gold{background:linear-gradient(90deg,#ffcf6b,#ff9f45);color:#3a2600} .btn.mini{padding:5px 10px;font-size:12px} .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+  .scorebox{margin-top:14px;padding:12px 16px;border-radius:10px;background:#12151d;border:1px solid var(--line);font-weight:700;display:none} .scorebox.show{display:block}
+  input.fin{width:220px;background:#0c0e13;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:8px 11px;font-family:var(--mono);font-size:14px}
+  .mark{margin-left:8px;font-weight:800} .mark.good{color:var(--good)} .mark.bad{color:var(--bad)}
+  textarea.ans{width:100%;min-height:80px;background:#0c0e13;border:1px solid var(--line);border-radius:9px;color:var(--ink);padding:10px 12px;font-family:var(--mono);font-size:13.5px;resize:vertical}
+  .model{display:none;margin-top:8px;padding:12px 14px;border-radius:9px;background:rgba(51,201,139,.08);border:1px solid rgba(51,201,139,.3);font-size:14px} .model.show{display:block}
+  .model .mk{font-size:12px;color:var(--warn);font-weight:700;margin-bottom:4px}
+  .empty{color:var(--ink2);text-align:center;padding:40px 10px}
+  .nb-item{border-left:3px solid var(--warn)} .nb-meta{font-size:12px;color:var(--ink3);margin-top:8px} .mastered{border-left-color:var(--good)!important;opacity:.7}
+  .genbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,rgba(15,17,21,0),#0b0d11 30%);padding:14px 18px 18px}
+  .genbar .inner{max-width:940px;margin:0 auto;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 16px;box-shadow:var(--shadow)}
+  .genbar .hint{font-size:13px;color:var(--ink2)}
+  .modal{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)} .modal.show{display:flex}
+  .modal .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;max-width:720px;width:100%;max-height:88vh;overflow:auto;padding:22px 24px;box-shadow:var(--shadow)}
+  .codearea{width:100%;min-height:150px;background:#0c0e13;border:1px solid var(--line);border-radius:10px;color:#cdd6e6;padding:12px;font-family:var(--mono);font-size:12.5px;resize:vertical;white-space:pre-wrap}
+  .x{float:right;cursor:pointer;color:var(--ink2);font-size:22px;line-height:1} .ok{color:var(--good);font-size:13px;margin-top:6px;display:none} .err{color:var(--bad);font-size:13px;margin-top:6px;display:none}
+  .divider{height:1px;background:var(--line);margin:18px 0} .step{font-size:12px;font-weight:800;color:var(--brand2);letter-spacing:.5px}
+  .exambar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:6px 0 14px}
+  .clock{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--ink2);min-width:74px}
+  .examhint{font-size:12.5px;color:var(--ink2);flex:1 1 200px} .mini-sel{background:#0c0e13;border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:7px 9px;font-family:inherit;font-size:13px}
+  body.exam-on #p-practice .model{display:none!important} body.exam-on #p-practice .btn.gold{display:none}
+  .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:8px 0 6px}
+  .statcard{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center} .statcard .sv{font-size:26px;font-weight:900;color:var(--brand2)} .statcard .sl{font-size:12px;color:var(--ink2);margin-top:2px}
+  .bar{display:flex;align-items:center;gap:10px;margin:8px 0} .bar .bl{flex:0 0 150px;font-size:13px} .bar .bt{flex:1;height:12px;background:#0c0e13;border:1px solid var(--line);border-radius:99px;overflow:hidden} .bar .bt>i{display:block;height:100%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--good))} .bar .bv{flex:0 0 auto;font-size:12px;color:var(--ink2);min-width:70px;text-align:right}
+  code{background:#0c0e13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:var(--mono);font-size:12px;color:var(--brand2)}
+  .kicker{font-size:12px;color:var(--ink3);margin-top:24px;text-align:center}
+  .mock-banner{background:linear-gradient(90deg,rgba(255,93,108,.14),rgba(255,176,32,.10));border:1px solid rgba(255,93,108,.3);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+  @media(max-width:560px){.daybadge .d{font-size:42px}.wrap{padding:14px 12px 130px}.bar .bl{flex-basis:110px}}
+
+  /* ================= 护眼暖纸主题 · 覆盖层 (comfort overrides) ================= */
+  body{font-size:16px;line-height:1.72;background:radial-gradient(1100px 460px at 50% -12%,rgba(109,91,160,.07),transparent),var(--bg)}
+  header.hero{background:radial-gradient(1000px 260px at 20% -30%,rgba(109,91,160,.11),transparent),var(--panel)}
+  .daybadge .d{background:none;-webkit-background-clip:border-box;background-clip:border-box;color:var(--brand)}
+  h2.sec{font-family:var(--serif)}
+  h3{color:var(--ink)}
+  nav.tabs{background:rgba(243,236,221,.9)}
+  .tab.active,.btn.primary{color:#fff}
+  .progress,.bar .bt{background:var(--track)}
+  .tag{background:var(--chip);color:var(--ink2)}
+  .tag.tech{background:color-mix(in oklab,var(--brand) 15%,var(--panel));color:var(--brand2)}
+  .tag.exam{background:color-mix(in oklab,#3a6ea5 14%,var(--panel));color:#2c5f83}
+  .expl,.scorebox,.math,.work{background:var(--well)}
+  .math,.work{color:var(--ink)}
+  input.fin,textarea.ans,.mini-sel,.codearea,code{background:var(--field)}
+  .codearea{color:var(--ink)}
+  .phasepill{background:color-mix(in oklab,var(--brand) 12%,var(--panel));color:var(--brand2);border:1px solid color-mix(in oklab,var(--brand) 30%,var(--line))}
+  .kpt{background:color-mix(in oklab,var(--brand) 7%,var(--panel2));border:1px solid color-mix(in oklab,var(--brand) 20%,var(--line))}
+  .nb-item{background:color-mix(in oklab,var(--warn) 8%,var(--panel2));border:1px solid color-mix(in oklab,var(--warn) 22%,var(--line))}
+  .mastered{background:color-mix(in oklab,var(--good) 9%,var(--panel2))!important;border:1px solid color-mix(in oklab,var(--good) 25%,var(--line))!important;opacity:.72}
+  .mock-banner{background:color-mix(in oklab,var(--bad) 10%,var(--panel));border:1px solid color-mix(in oklab,var(--bad) 28%,var(--line))}
+  .genbar{background:linear-gradient(180deg,rgba(243,236,221,0),var(--bg) 30%)}
+  .modal{background:rgba(50,42,26,.4)}
+  .btn.primary:hover{background:var(--brand2)}
+  .btn.gold{background:linear-gradient(90deg,#e7c67a,#d79a44);color:#4a3410}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="brand"><a href="index.html" style="color:var(--ink2)">← 学科首页</a>　ROSA · <b>O-Level 物理</b> 100天冲A计划 <span style="color:var(--ink3)">/ Physics 6091</span></div>
+        <div class="daybadge"><span class="d" id="dayNum">1</span><span class="of">/ 100 天</span></div>
+        <div class="theme" id="theme">专题加载中…</div>
+        <span class="phasepill" id="phase">阶段</span>
+      </div>
+      <div class="countdown"><div class="n" id="cdNum">100</div><div class="l">距考试倒数（天）<br><small style="color:var(--ink3)">按今日=Day1估算</small></div></div>
+    </div>
+    <div class="progress"><i id="prog"></i></div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <div class="tab active" data-tab="overview"><span class="em">📌</span>今日专题</div>
+    <div class="tab" data-tab="examples"><span class="em">📖</span>例题精讲</div>
+    <div class="tab" data-tab="practice"><span class="em">✍️</span>练习</div>
+    <div class="tab" data-tab="notebook"><span class="em">📕</span>错题本<span class="badge" id="nbBadge" style="display:none">0</span></div>
+    <div class="tab" data-tab="dash"><span class="em">📊</span>学情</div>
+  </nav>
+
+  <section class="panel show" id="p-overview">
+    <h2 class="sec"><span>📌 今日专题知识点</span></h2>
+    <p class="sub">Topical concepts · 解题技巧 · 出题思路与考试偏好</p>
+    <div id="diagBanner"></div>
+    <div id="mockBanner"></div>
+    <div id="ov-goals"></div>
+    <div id="ov-concepts"></div>
+  </section>
+
+  <section class="panel" id="p-examples">
+    <h2 class="sec"><span>📖 例题精讲</span></h2>
+    <p class="sub">带完整步骤的典型例题，先自己做，再点开解答对照方法。</p>
+    <div id="ex-list"></div>
+  </section>
+
+  <section class="panel" id="p-practice">
+    <h2 class="sec"><span>✍️ 练习与批改</span></h2>
+    <p class="sub">客观题即时批改并入错题本；结构题填最终答案自动判分，并可查看评分标准/标准解答，或请 Claude 逐步批改。</p>
+    <div class="exambar" id="exambar">
+      <span class="clock" id="clock">00:00</span>
+      <span class="examhint" id="examhint">⏱️ 限时模考：开始后隐藏所有解答/评分标准，时间到自动解锁。最后10天为综合模考。</span>
+      <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <select id="examPreset" class="mini-sel"><option value="120">Paper 1 · 2h</option><option value="150">Paper 2 · 2.5h</option><option value="15">快速 · 15min</option></select>
+        <button class="btn primary mini" id="examStart">开始模考</button>
+        <button class="btn ghost mini" id="examStop" style="display:none">结束并看解答</button>
+      </span>
+    </div>
+    <h3>① 错题复习 <small style="color:var(--ink3)">答对2次才「毕业」</small></h3>
+    <div id="pr-review"></div>
+    <h3>② 客观题 MCQ</h3>
+    <div id="pr-mcq"></div>
+    <div class="btnrow"><button class="btn primary" id="gradeMcq">提交批改 Submit &amp; Grade</button></div>
+    <div class="scorebox" id="mcqScore"></div>
+    <h3>③ 结构题 Structured Questions <small style="color:var(--ink3)">写出步骤，填最终答案</small></h3>
+    <div id="pr-structured"></div>
+  </section>
+
+  <section class="panel" id="p-notebook">
+    <h2 class="sec"><span>📕 错题本</span></h2>
+    <p class="sub">做错的客观题与结构题都在这里，会在后续「错题复习」中重复考察，答对2次即掌握。</p>
+    <div class="btnrow"><button class="btn ghost" id="clearMastered">清除已掌握</button></div>
+    <div id="nb-list"></div>
+  </section>
+
+  <section class="panel" id="p-dash">
+    <h2 class="sec"><span>📊 学情看板</span></h2>
+    <p class="sub">基于答题记录（存于 SQLite）分析正确率、最薄弱专题、错题掌握进度。</p>
+    <div id="dash-body"><div class="empty">启动 node server.js 并做几道题后显示学情分析。</div></div>
+    <div class="btnrow"><button class="btn ghost" id="refreshDash">刷新数据</button></div>
+  </section>
+
+  <p class="kicker">数据保存在本机 SQLite（db/rosa.db · subject=physics）；离线文件模式下存浏览器本地。 · Built for the A1 goal 🎯</p>
+</div>
+
+<div class="genbar"><div class="inner">
+  <div class="hint"><span id="genHint">✅ 完成今天的例题与练习后，点击右侧生成下一天。</span> <span id="syncStatus" style="font-weight:700;margin-left:8px"></span></div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+    <button class="btn ghost" id="prevDay">← 上一天</button>
+    <button class="btn gold" id="genNext">生成下一天 →</button>
+    <button class="btn ghost mini" id="genClaude" title="改用 Claude 生成更鲜活、不重复的一天（需复制粘贴）">✨ 用Claude生成</button>
+  </div>
+</div></div>
+
+<div class="modal" id="diagModal"><div class="box">
+  <span class="x" id="closeDiag">×</span>
+  <h3>🎯 物理摸底考 · 定制你的 100 天冲 A 方案</h3>
+  <p class="sub" id="diagIntro" style="margin-bottom:8px">20 题，覆盖力学·热学·波·光·电磁全考纲，含基础/O-Level/拔高三档。用时约 <b>40 分钟</b>。做完后系统评估你<b>当前水平</b>，并据此为后续每天的知识点、例题与难度<b>量身定制</b>，用 100 天确保冲上 <b>A1</b>。</p>
+  <div class="exambar" style="margin:10px 0"><span class="clock" id="diagClock">40:00</span><span class="examhint">⏱️ 建议限时完成，更接近真实水平；时间到自动交卷。也可随时点下方交卷。</span></div>
+  <div id="diagBody"></div>
+  <div class="btnrow"><button class="btn primary" id="submitDiag">交卷并评估水平 →</button></div>
+  <div id="diagResult"></div>
+</div></div>
+
+<div class="modal" id="genModal"><div class="box">
+  <span class="x" id="closeModal">×</span>
+  <h3>🚀 生成 <span id="modalDay">第 2 天</span> 的物理内容</h3>
+  <p class="sub" style="margin-bottom:14px">默认「生成下一天」已离线自动出题。想要更鲜活、不重复的内容，可复制提示词发给 Claude，再把返回 JSON 粘回。</p>
+  <div class="step">STEP 1 · 复制提示词发给 Claude</div>
+  <textarea class="codearea" id="promptOut" readonly style="min-height:170px"></textarea>
+  <div class="btnrow"><button class="btn primary" id="copyPrompt">📋 复制提示词</button></div>
+  <div class="divider"></div>
+  <div class="step">STEP 2 · 粘贴 Claude 返回的 JSON</div>
+  <textarea class="codearea" id="jsonIn" placeholder='在此粘贴以 { 开头的 JSON …'></textarea>
+  <div class="ok" id="importOk"></div><div class="err" id="importErr"></div>
+  <div class="divider"></div>
+  <div class="step">STEP 3 · 解锁</div>
+  <div class="btnrow"><button class="btn gold" id="importBtn">导入并解锁下一天 ✓</button></div>
+</div></div>
+
+<div class="modal" id="markModal"><div class="box">
+  <span class="x" id="closeMark">×</span>
+  <h3>🖊️ 请 Claude 批改 <span id="markKind"></span></h3>
+  <p class="sub" style="margin-bottom:12px">复制提示词发给 Claude，它会按 O-Level 物理评分标准给分、指出错误步骤并给出正确解法（中英双语）。</p>
+  <textarea class="codearea" id="markOut" readonly style="min-height:240px"></textarea>
+  <div class="btnrow"><button class="btn primary" id="copyMark">📋 复制批改提示词</button></div>
+</div></div>
+
+<script>
+/* ===================== ROSA O-Level MATH · engine ===================== */
+const LS={ get:(k,d)=>{try{return JSON.parse(localStorage.getItem('rphys_'+k))??d}catch(e){return d}}, set:(k,v)=>localStorage.setItem('rphys_'+k,JSON.stringify(v)) };
+const STUDENT='physics', SUBJECT='physics';
+
+/* ---------- curriculum ---------- */
+const PHASES=[
+  {r:[1,30],name:"阶段一 · 测量与力学",en:"Measurement & Mechanics"},
+  {r:[31,60],name:"阶段二 · 热学·波·光",en:"Thermal, Waves & Light"},
+  {r:[61,90],name:"阶段三 · 电与磁",en:"Electricity & Magnetism"},
+  {r:[91,100],name:"阶段四 · 综合模考",en:"Final Mock Exams"}
+
+];
+
+function focus(day){ const ph=PHASES.find(p=>day>=p.r[0]&&day<=p.r[1])||PHASES[3]; return {day,phase:ph}; }
+
+/* ---------- TOPIC BANK (each = one topical day) ---------- */
+const TOPICS=[
+  {topicZh:"测量与物理量",topicEn:"Measurement & Physical Quantities",
+   goals:["掌握 SI 单位与前缀(k, c, m, μ, n)及换算","会读游标卡尺/螺旋测微器并修正零误差","区分标量与矢量，会用勾股求垂直合力"],
+   concepts:[
+    {t:"SI 单位与前缀 SI Units & Prefixes",en:"Base units and powers of ten.",tech:"基本单位：m, kg, s, A, K。前缀 k=10³, c=10⁻², m=10⁻³, μ=10⁻⁶, n=10⁻⁹。计算前先统一换成 SI 单位。",exam:"高频考单位换算：如 5 mA=0.005 A、20 cm=0.20 m。"},
+    {t:"测量仪器与精度 Instruments & Precision",en:"Choose the right tool.",tech:"直尺 (1 mm)、游标卡尺 (0.1 mm)、螺旋测微器 (0.01 mm)。读数视线要垂直，避免视差 (parallax)；有零误差要加减修正。",exam:"micrometer 读数 = 主尺 + 旋转尺；先检查 zero error。"},
+    {t:"标量与矢量 Scalars & Vectors",en:"Direction matters?",tech:"标量只有大小：distance, speed, mass, time, energy。矢量有大小+方向：displacement, velocity, acceleration, force, momentum。垂直两矢量合成用 √(a²+b²)。",exam:"常考判断某量是标量还是矢量；垂直合力用勾股定理。"}
+   ],
+   examples:[
+    {q:"A micrometer screw gauge shows a main-scale reading of 5.5 mm and a thimble reading of 32 divisions (each 0.01 mm). Find the diameter.",
+     solution:"Diameter = main scale + thimble\n= 5.5 mm + 32 × 0.01 mm\n= 5.5 + 0.32 = 5.82 mm\n【中文】读数 = 主尺 5.5 mm 加旋转尺 32×0.01=0.32 mm，共 5.82 mm。",
+     note:"技巧：先读主尺(含 0.5 mm 半刻度)，再加旋转尺格数×0.01 mm。"},
+    {q:"Two forces, 3.0 N due east and 4.0 N due north, act at a point. Find the magnitude of the resultant force.",
+     solution:"They are perpendicular, so use Pythagoras:\nR = √(3.0² + 4.0²) = √(9+16) = √25 = 5.0 N\n【中文】两力垂直，合力 = √(3²+4²) = 5.0 N。",
+     note:"出题思路：垂直矢量合成用勾股；方向可用 tanθ 求。"}
+   ],
+   mcqs:[
+    {stem:"Which is the SI base unit of mass?",options:["kilogram","gram","newton","mole"],answer:0,expl:"质量的 SI 基本单位是 kilogram (kg)。",topic:"测量与物理量",tier:1},
+    {stem:"Express 5 mA in amperes.",options:["0.005 A","0.05 A","0.5 A","5000 A"],answer:0,expl:"m=10⁻³，5 mA=0.005 A。",topic:"测量与物理量",tier:1},
+    {stem:"Which of the following is a vector quantity?",options:["force","mass","speed","energy"],answer:0,expl:"force 有方向，是矢量；其余为标量。",topic:"测量与物理量",tier:2},
+    {stem:"On a vernier caliper the main scale reads 2.1 cm and the 6th vernier line coincides (each 0.01 cm). The reading is:",options:["2.16 cm","2.61 cm","2.06 cm","2.60 cm"],answer:0,expl:"2.1 cm + 6×0.01=2.16 cm。",topic:"测量与物理量",tier:3}
+   ],
+   structured:[
+    {q:"A rectangular metal block has length 4.0 cm, width 3.0 cm, height 2.0 cm and mass 48 g. Calculate its density in (i) g/cm³ [2] (ii) kg/m³ [1].",marks:3,ans:"2.0;2000",
+     scheme:["M1 V = 4.0×3.0×2.0 = 24 cm³","A1 ρ = 48/24 = 2.0 g/cm³","A1 = 2000 kg/m³"],
+     model:"V = 4.0 × 3.0 × 2.0 = 24 cm³\nρ = m/V = 48/24 = 2.0 g/cm³\n1 g/cm³ = 1000 kg/m³ → 2.0 g/cm³ = 2000 kg/m³\n【中文】体积 24 cm³，密度 48/24=2.0 g/cm³=2000 kg/m³。",topic:"测量与物理量",tier:2},
+    {q:"Two forces of 6.0 N and 8.0 N act at right angles to each other at a point. Find the magnitude of the resultant force.  [2]",marks:2,ans:"10",
+     scheme:["M1 R=√(6²+8²)","A1 R=10 N"],
+     model:"Perpendicular forces → R = √(6.0² + 8.0²) = √(36+64) = √100 = 10 N\n【中文】垂直合力 = √(36+64)=10 N。",topic:"测量与物理量",tier:3}
+   ]},
+  {topicZh:"运动学",topicEn:"Kinematics",
+   goals:["区分路程/位移、速率/速度，会算加速度","熟练运用匀加速公式 v=u+at, s=ut+½at², v²=u²+2as","会读位移-时间、速度-时间图（斜率与面积）"],
+   concepts:[
+    {t:"速度与加速度 Speed & Acceleration",en:"Rates of change.",tech:"speed=distance/time；velocity 含方向；acceleration a=(v−u)/t，单位 m/s²。匀加速三公式：v=u+at；s=ut+½at²；v²=u²+2as。",exam:"选公式看已知量；减速时 a 为负。"},
+    {t:"运动图像 Motion Graphs",en:"Slope & area.",tech:"位移-时间图：斜率=速度。速度-时间图：斜率=加速度，图线下面积=位移。",exam:"'area under v-t graph' = 位移；直线斜率=加速度。"},
+    {t:"自由落体 Free Fall",en:"g and air resistance.",tech:"自由下落 a=g≈10 m/s²(题目常取 10)。有空气阻力时阻力随速度增大，最终阻力=重力 → 匀速下落 (terminal velocity)。",exam:"忽略空气阻力时用 g；末速度问题分析受力。"}
+   ],
+   examples:[
+    {q:"A car accelerates uniformly from 5.0 m/s to 25 m/s in 4.0 s. Find (i) the acceleration and (ii) the distance travelled.",
+     solution:"(i) a = (v−u)/t = (25−5)/4 = 5.0 m/s²\n(ii) s = ½(u+v)t = ½(5+25)(4) = 60 m\n【中文】加速度 5 m/s²；距离用 ½(u+v)t = 60 m。",
+     note:"技巧：已知 u,v,t 求距离，用 s=½(u+v)t 最快。"},
+    {q:"A stone is dropped from rest (g = 10 m/s², ignore air resistance). Find its speed and the distance fallen after 3.0 s.",
+     solution:"v = u + gt = 0 + 10×3 = 30 m/s\ns = ½gt² = ½×10×3² = 45 m\n【中文】v=gt=30 m/s；s=½gt²=45 m。",
+     note:"出题思路：自由落体 u=0, a=g。"}
+   ],
+   mcqs:[
+    {stem:"The SI unit of acceleration is:",options:["m/s²","m/s","m","N"],answer:0,expl:"加速度 = 速度变化/时间，单位 m/s²。",topic:"运动学",tier:1},
+    {stem:"A body travels 100 m in 20 s at constant speed. Its speed is:",options:["5 m/s","20 m/s","2000 m/s","0.2 m/s"],answer:0,expl:"100/20=5 m/s。",topic:"运动学",tier:1},
+    {stem:"On a velocity–time graph, the area under the line represents the:",options:["displacement","acceleration","speed","force"],answer:0,expl:"v-t 图线下面积=位移。",topic:"运动学",tier:2},
+    {stem:"A ball is thrown vertically up at 20 m/s (g=10 m/s²). Time to reach the highest point:",options:["2.0 s","4.0 s","20 s","1.0 s"],answer:0,expl:"到最高点 v=0：t=u/g=20/10=2 s。",topic:"运动学",tier:3}
+   ],
+   structured:[
+    {q:"A car starts from rest and accelerates uniformly to 20 m/s in 8.0 s. Find (i) its acceleration [1] and (ii) the distance travelled [2].",marks:3,ans:"2.5;80",
+     scheme:["A1 a=(20−0)/8=2.5 m/s²","M1 s=½(u+v)t=½(20)(8)","A1 80 m"],
+     model:"(i) a = (20−0)/8 = 2.5 m/s²\n(ii) s = ½(u+v)t = ½(0+20)(8) = 80 m\n【中文】加速度 2.5 m/s²；距离 80 m。",topic:"运动学",tier:2},
+    {q:"A stone is dropped from a cliff and reaches the sea 4.0 s later (g=10 m/s², ignore air resistance). Find (i) the speed on impact [1] and (ii) the height of the cliff [2].",marks:3,ans:"40;80",
+     scheme:["A1 v=gt=40 m/s","M1 s=½gt²=½·10·16","A1 80 m"],
+     model:"(i) v = gt = 10×4 = 40 m/s\n(ii) s = ½gt² = ½×10×4² = 80 m\n【中文】落水速度 40 m/s，崖高 80 m。",topic:"运动学",tier:3}
+   ]},
+  {topicZh:"力与牛顿运动定律",topicEn:"Forces & Newton's Laws",
+   goals:["理解牛顿三定律与惯性","熟练用合力 F=ma 求加速度/力","会分析摩擦力、重力与法向力"],
+   concepts:[
+    {t:"牛顿第一/第二定律 Newton I & II",en:"Resultant force → acceleration.",tech:"合力为零 → 保持静止或匀速(惯性 inertia)。合力 F=ma，方向与合力同向。先求合力(各力矢量和)，再除以质量。",exam:"'resultant/net force' 是关键；匀速时合力=0。"},
+    {t:"摩擦与受力分析 Friction & Forces",en:"Draw the forces.",tech:"摩擦力方向与运动/趋势相反；驱动力−摩擦力=合力。竖直方向：重力 W=mg 与支持力/浮力等。",exam:"多力问题先画受力图，取运动方向为正。"},
+    {t:"牛顿第三定律 Newton III",en:"Action–reaction.",tech:"作用力与反作用力：大小相等、方向相反、作用在两个不同物体上。",exam:"区分'一对平衡力'(同一物体)与'作用-反作用'(两个物体)。"}
+   ],
+   examples:[
+    {q:"A resultant force of 6.0 N acts on a 2.0 kg object. Find its acceleration.",
+     solution:"a = F/m = 6.0/2.0 = 3.0 m/s²\n【中文】a=F/m=3 m/s²。",
+     note:"技巧：F=ma，先确认 F 是合力。"},
+    {q:"A 1000 kg car has a driving force of 3000 N and experiences 1000 N of friction. Find its acceleration.",
+     solution:"Resultant = 3000 − 1000 = 2000 N\na = F/m = 2000/1000 = 2.0 m/s²\n【中文】合力 2000 N，a=2 m/s²。",
+     note:"出题思路：先合力(驱动−摩擦)，再 a=F/m。"}
+   ],
+   mcqs:[
+    {stem:"A resultant force of 10 N acts on a 2.0 kg mass. The acceleration is:",options:["5.0 m/s²","20 m/s²","0.2 m/s²","8.0 m/s²"],answer:0,expl:"a=F/m=10/2=5 m/s²。",topic:"力与牛顿运动定律",tier:1},
+    {stem:"Newton's first law is best described by the idea of:",options:["inertia","gravity","friction","momentum"],answer:0,expl:"第一定律=惯性。",topic:"力与牛顿运动定律",tier:1},
+    {stem:"A 5.0 kg block on a frictionless surface is pulled by 20 N. Its acceleration is:",options:["4.0 m/s²","0.25 m/s²","100 m/s²","25 m/s²"],answer:0,expl:"a=20/5=4 m/s²。",topic:"力与牛顿运动定律",tier:2},
+    {stem:"A 1200 kg car brakes uniformly from 20 m/s to rest in 5.0 s. The braking force is:",options:["4800 N","1200 N","240 N","6000 N"],answer:0,expl:"a=20/5=4 m/s²；F=ma=1200×4=4800 N。",topic:"力与牛顿运动定律",tier:3}
+   ],
+   structured:[
+    {q:"A box of mass 4.0 kg is pushed along the floor by a force of 30 N against a friction force of 10 N. Find (i) the resultant force [1] and (ii) the acceleration [2].",marks:3,ans:"20;5",
+     scheme:["A1 resultant=30−10=20 N","M1 a=F/m=20/4","A1 5.0 m/s²"],
+     model:"(i) Resultant = 30 − 10 = 20 N\n(ii) a = F/m = 20/4.0 = 5.0 m/s²\n【中文】合力 20 N，加速度 5 m/s²。",topic:"力与牛顿运动定律",tier:2},
+    {q:"A skydiver of mass 60 kg falls at terminal velocity (g=10 m/s²). (i) State the resultant force on her [1]. (ii) Find the air resistance acting on her [2].",marks:3,ans:"0;600",
+     scheme:["B1 resultant = 0 (constant velocity)","M1 air resistance = weight = mg","A1 600 N"],
+     model:"(i) At terminal velocity she moves at constant speed → resultant force = 0.\n(ii) So air resistance = weight = mg = 60×10 = 600 N.\n【中文】末速度时合力=0，故空气阻力=重力=600 N。",topic:"力与牛顿运动定律",tier:3}
+   ]},
+  {topicZh:"质量、重量与密度",topicEn:"Mass, Weight & Density",
+   goals:["区分质量(kg)与重量 W=mg(N)","熟练用 ρ=m/V，会换算 g/cm³ 与 kg/m³","会测规则与不规则物体的密度、判断浮沉"],
+   concepts:[
+    {t:"质量与重量 Mass vs Weight",en:"Matter vs force.",tech:"mass 是物质的量(kg)，处处不变；weight 是重力 W=mg(N)，随 g 变化(地球 g≈10，月球 g≈1.6)。",exam:"常考同一物体在月球重量变化；单位别混(kg vs N)。"},
+    {t:"密度 Density",en:"ρ = m/V.",tech:"ρ=m/V，单位 kg/m³ 或 g/cm³。换算 1 g/cm³ = 1000 kg/m³。",exam:"先算体积再除；注意单位一致。"},
+    {t:"测密度与浮沉 Measuring & Floating",en:"Displacement method.",tech:"规则体：V=l×w×h。不规则体：用量筒/溢水杯测排水体积。物体密度<液体密度 → 漂浮。",exam:"'displacement can' 求不规则体积；比较密度判浮沉。"}
+   ],
+   examples:[
+    {q:"A 2.0 kg object is taken to the Moon where g = 1.6 N/kg. Find its weight on the Moon.",
+     solution:"W = mg = 2.0 × 1.6 = 3.2 N\n【中文】质量不变(2 kg)，月球重量 W=mg=3.2 N。",
+     note:"技巧：质量不变，重量随 g 改变。"},
+    {q:"200 g of a liquid fills a 250 cm³ container. Find its density.",
+     solution:"ρ = m/V = 200/250 = 0.80 g/cm³\n【中文】密度 = 200/250 = 0.8 g/cm³。",
+     note:"出题思路：直接 ρ=m/V。"}
+   ],
+   mcqs:[
+    {stem:"The weight of a 5.0 kg object (g = 10 N/kg) is:",options:["50 N","5 N","0.5 N","500 N"],answer:0,expl:"W=mg=5×10=50 N。",topic:"质量、重量与密度",tier:1},
+    {stem:"Density is defined as:",options:["mass ÷ volume","volume ÷ mass","mass × volume","force ÷ area"],answer:0,expl:"ρ=m/V。",topic:"质量、重量与密度",tier:1},
+    {stem:"A density of 1.0 g/cm³ is equal to:",options:["1000 kg/m³","100 kg/m³","10 kg/m³","1 000 000 kg/m³"],answer:0,expl:"1 g/cm³=1000 kg/m³。",topic:"质量、重量与密度",tier:2},
+    {stem:"An object floats in water (density 1000 kg/m³). Its density could be:",options:["800 kg/m³","1200 kg/m³","1000 kg/m³ exactly","2000 kg/m³"],answer:0,expl:"漂浮 → 密度<水；800 kg/m³。",topic:"质量、重量与密度",tier:3}
+   ],
+   structured:[
+    {q:"A metal cube of side 2.0 cm has a mass of 64 g. Find its density in (i) g/cm³ [2] and (ii) kg/m³ [1].",marks:3,ans:"8;8000",
+     scheme:["M1 V=2³=8 cm³","A1 ρ=64/8=8 g/cm³","A1 8000 kg/m³"],
+     model:"V = 2.0³ = 8.0 cm³\nρ = 64/8.0 = 8.0 g/cm³ = 8000 kg/m³\n【中文】体积 8 cm³，密度 8 g/cm³=8000 kg/m³。",topic:"质量、重量与密度",tier:2},
+    {q:"A stone is lowered into a measuring cylinder; the water level rises from 40 cm³ to 65 cm³. The stone's mass is 75 g. Find its density and state whether it will sink in water.  [3]",marks:3,ans:"3",
+     scheme:["M1 V=65−40=25 cm³","A1 ρ=75/25=3.0 g/cm³","B1 3000 kg/m³ > 1000 → sinks"],
+     model:"V = 65 − 40 = 25 cm³\nρ = 75/25 = 3.0 g/cm³ = 3000 kg/m³\n3000 > 1000 (water) → the stone SINKS.\n【中文】排水体积 25 cm³，密度 3 g/cm³，大于水 → 下沉。",topic:"质量、重量与密度",tier:3}
+   ]},
+  {topicZh:"力矩与平衡",topicEn:"Moments & Stability",
+   goals:["理解力矩 = 力 × 垂直距离(N·m)","会用力矩原理求平衡时的力或位置","理解重心与稳定性"],
+   concepts:[
+    {t:"力矩 Moment of a Force",en:"Turning effect.",tech:"moment = force × perpendicular distance from pivot，单位 N·m。距离要取到转轴的垂直距离。",exam:"注意是'垂直'距离；力沿作用线不改变力矩。"},
+    {t:"力矩原理 Principle of Moments",en:"Balanced turning.",tech:"平衡时：顺时针力矩之和 = 逆时针力矩之和。列方程求未知力或距离。",exam:"先标出各力到转轴的距离，分清顺/逆时针。"},
+    {t:"重心与稳定 Centre of Gravity & Stability",en:"Low CG, wide base.",tech:"重心是重力的等效作用点。底面积越大、重心越低 → 越稳定。",exam:"解释为何某物更稳：底宽/重心低。"}
+   ],
+   examples:[
+    {q:"A force of 3.0 N acts at a perpendicular distance of 0.40 m from a pivot. Find its moment.",
+     solution:"Moment = F × d = 3.0 × 0.40 = 1.2 N·m\n【中文】力矩 = 3×0.4 = 1.2 N·m。",
+     note:"技巧：力矩=力×垂直距离。"},
+    {q:"On a seesaw, a 20 N weight sits 1.5 m from the pivot. What weight 1.0 m from the pivot on the other side balances it?",
+     solution:"Moments balance: W × 1.0 = 20 × 1.5 = 30\nW = 30 N\n【中文】W×1.0=20×1.5 → W=30 N。",
+     note:"出题思路：顺=逆时针力矩。"}
+   ],
+   mcqs:[
+    {stem:"The SI unit of the moment of a force is:",options:["N·m","N","N/m","J"],answer:0,expl:"力矩单位 N·m。",topic:"力矩与平衡",tier:1},
+    {stem:"The moment of a 10 N force acting 0.50 m from a pivot is:",options:["5.0 N·m","20 N·m","0.05 N·m","10.5 N·m"],answer:0,expl:"10×0.5=5 N·m。",topic:"力矩与平衡",tier:1},
+    {stem:"An object is in rotational equilibrium when:",options:["clockwise moments = anticlockwise moments","all forces are zero","it is at the pivot","its weight is zero"],answer:0,expl:"力矩原理：顺=逆。",topic:"力矩与平衡",tier:2},
+    {stem:"A beam is pivoted at its centre. A 4.0 N force acts 3.0 m to the left. To balance, a 6.0 N force must act to the right at:",options:["2.0 m","1.5 m","4.5 m","12 m"],answer:0,expl:"6×d=4×3=12 → d=2.0 m。",topic:"力矩与平衡",tier:3}
+   ],
+   structured:[
+    {q:"A light rod is pivoted at one end. A 50 N weight hangs 0.40 m from the pivot. Find the upward force F applied at the far end, 2.0 m from the pivot, needed to balance the rod.  [3]",marks:3,ans:"10",
+     scheme:["M1 taking moments about pivot","M1 F×2.0 = 50×0.40","A1 F=10 N"],
+     model:"Take moments about the pivot:\nF × 2.0 = 50 × 0.40 = 20\nF = 20/2.0 = 10 N\n【中文】F×2.0=50×0.4 → F=10 N。",topic:"力矩与平衡",tier:2},
+    {q:"A uniform metre rule is pivoted at its 50 cm centre. A 4.0 N weight hangs at the 40 cm mark. At which mark must a 2.0 N weight hang to balance the rule?  [3]",marks:3,ans:"70",
+     scheme:["M1 4.0 N is 0.10 m from pivot → moment 0.40 N·m","M1 2.0 N × d = 0.40 → d=0.20 m","A1 on opposite side → 50+20 = 70 cm mark"],
+     model:"4.0 N acts 10 cm (0.10 m) from pivot → moment = 4.0×0.10 = 0.40 N·m (say anticlockwise).\nFor balance 2.0 N × d = 0.40 → d = 0.20 m = 20 cm on the OTHER side.\nPosition = 50 + 20 = 70 cm mark.\n【中文】4 N 距转轴 10 cm，力矩 0.4 N·m；2 N 需在另一侧 20 cm 处 → 70 cm 刻度。",topic:"力矩与平衡",tier:3}
+   ]},
+  {topicZh:"压强",topicEn:"Pressure",
+   goals:["掌握 p=F/A(Pa=N/m²)","掌握液体压强 p=ρgh(与深度、密度有关)","理解大气压、U 形管与液压传递"],
+   concepts:[
+    {t:"固体压强 Pressure = Force/Area",en:"p = F/A.",tech:"p=F/A，单位 Pa=N/m²。面积越小压强越大(如刀刃、钉尖)。",exam:"注意面积单位换成 m²；接触面积。"},
+    {t:"液体压强 Liquid Pressure",en:"p = ρgh.",tech:"液体某深度压强 p=ρgh，只与深度 h、密度 ρ 有关，与容器形状无关；同一深度各方向压强相等。",exam:"深度指到液面的竖直距离；总压强要加大气压。"},
+    {t:"大气压与传递 Atmosphere & Transmission",en:"Manometer & hydraulics.",tech:"大气压约 1.0×10⁵ Pa；U 形管(manometer)测压差 = ρg×高度差；密闭液体等压传递(液压机放大力)。",exam:"manometer 用高度差算压差。"}
+   ],
+   examples:[
+    {q:"A force of 200 N acts on an area of 0.50 m². Find the pressure.",
+     solution:"p = F/A = 200/0.50 = 400 Pa\n【中文】p=F/A=400 Pa。",
+     note:"技巧：面积必须是 m²。"},
+    {q:"Find the pressure due to water at a depth of 2.0 m (ρ=1000 kg/m³, g=10 m/s²).",
+     solution:"p = ρgh = 1000 × 10 × 2.0 = 20 000 Pa\n【中文】p=ρgh=20000 Pa。",
+     note:"出题思路：液体压强只算 ρgh(不含大气压时)。"}
+   ],
+   mcqs:[
+    {stem:"The SI unit of pressure is the:",options:["pascal (N/m²)","newton","joule","watt"],answer:0,expl:"压强单位 Pa=N/m²。",topic:"压强",tier:1},
+    {stem:"A 100 N force acts on 2.0 m². The pressure is:",options:["50 Pa","200 Pa","0.02 Pa","102 Pa"],answer:0,expl:"100/2=50 Pa。",topic:"压强",tier:1},
+    {stem:"The pressure at a point in a liquid depends on:",options:["depth and density","the shape of the container","the surface area","the mass of the container"],answer:0,expl:"p=ρgh，只与深度和密度有关。",topic:"压强",tier:2},
+    {stem:"The water pressure at a depth of 5.0 m (ρ=1000 kg/m³, g=10 m/s²) is:",options:["50 000 Pa","5000 Pa","500 Pa","50 Pa"],answer:0,expl:"ρgh=1000×10×5=50000 Pa。",topic:"压强",tier:3}
+   ],
+   structured:[
+    {q:"A block of weight 60 N rests on a table with a base area of 0.020 m². Find the pressure it exerts.  [2]",marks:2,ans:"3000",
+     scheme:["M1 p=F/A=60/0.020","A1 3000 Pa"],
+     model:"p = F/A = 60/0.020 = 3000 Pa\n【中文】p=60/0.02=3000 Pa。",topic:"压强",tier:2},
+    {q:"A diver is 15 m below the surface of seawater (ρ=1030 kg/m³, g=10 m/s², atmospheric pressure = 1.0×10⁵ Pa). Find (i) the pressure due to the water [2] and (ii) the total pressure on the diver [1].",marks:3,ans:"154500;254500",
+     scheme:["M1 p=ρgh=1030×10×15","A1 154 500 Pa","A1 total = +1.0×10⁵ = 254 500 Pa"],
+     model:"(i) p_water = ρgh = 1030 × 10 × 15 = 154 500 Pa\n(ii) Total = water + atmospheric = 154 500 + 100 000 = 254 500 Pa\n【中文】水压 154500 Pa；总压强再加大气压 = 254500 Pa。",topic:"压强",tier:3}
+   ]},
+  {topicZh:"功、能与功率",topicEn:"Work, Energy & Power",
+   goals:["掌握 W=Fd、KE=½mv²、GPE=mgh","会用能量守恒求速度/高度","掌握功率 P=W/t 与效率"],
+   concepts:[
+    {t:"功与能 Work & Energy",en:"W = Fd.",tech:"功 W=力×沿力方向的距离(J)，等于转移的能量。动能 KE=½mv²；重力势能 GPE=mgh。",exam:"力与位移同向才做功；能量单位 J。"},
+    {t:"能量守恒 Conservation of Energy",en:"Energy is transferred, not lost.",tech:"总能量守恒。下落时 GPE→KE：mgh=½mv²，可解末速度 v=√(2gh)。",exam:"'find the speed' 用能量守恒 mgh=½mv²。"},
+    {t:"功率与效率 Power & Efficiency",en:"Rate & usefulness.",tech:"功率 P=W/t=能量/时间(W)。效率 = 有用输出能量/总输入能量 × 100%。",exam:"效率≤100%；注意有用与总能量。"}
+   ],
+   examples:[
+    {q:"A force of 20 N moves an object 3.0 m in the direction of the force. Find the work done.",
+     solution:"W = Fd = 20 × 3.0 = 60 J\n【中文】W=Fd=60 J。",
+     note:"技巧：功=力×同向位移。"},
+    {q:"A 2.0 kg object moves at 3.0 m/s. Find its kinetic energy.",
+     solution:"KE = ½mv² = ½ × 2.0 × 3.0² = 9.0 J\n【中文】KE=½mv²=9 J。",
+     note:"出题思路：速度要平方。"}
+   ],
+   mcqs:[
+    {stem:"The SI unit of work (and energy) is the:",options:["joule","watt","newton","pascal"],answer:0,expl:"功和能的单位是 joule。",topic:"功、能与功率",tier:1},
+    {stem:"Power is defined as:",options:["work done ÷ time","force × distance","mass × velocity","energy × time"],answer:0,expl:"P=W/t。",topic:"功、能与功率",tier:1},
+    {stem:"The gravitational PE gained by a 5.0 kg mass raised 4.0 m (g=10 m/s²) is:",options:["200 J","20 J","2000 J","9 J"],answer:0,expl:"GPE=mgh=5×10×4=200 J。",topic:"功、能与功率",tier:2},
+    {stem:"A 1000 W motor operates for 30 s. The energy it transfers is:",options:["30 000 J","1030 J","33 J","300 J"],answer:0,expl:"E=Pt=1000×30=30000 J。",topic:"功、能与功率",tier:3}
+   ],
+   structured:[
+    {q:"A 0.50 kg ball is dropped from a height of 2.0 m (g=10 m/s²). Using energy conservation, find (i) the GPE lost [1] and (ii) the speed just before it lands [2].",marks:3,ans:"10;6.3",
+     scheme:["A1 GPE=mgh=0.50×10×2.0=10 J","M1 ½mv²=10 → v²=40","A1 v=6.3 m/s"],
+     model:"(i) GPE lost = mgh = 0.50 × 10 × 2.0 = 10 J\n(ii) ½mv² = 10 → v² = 2×10/0.50 = 40 → v = √40 ≈ 6.3 m/s\n【中文】GPE=10 J 全变 KE，v=√40≈6.3 m/s。",topic:"功、能与功率",tier:2},
+    {q:"A pump raises 300 kg of water through a height of 8.0 m in 20 s (g=10 m/s²). Find (i) the work done [2] and (ii) the output power [1].",marks:3,ans:"24000;1200",
+     scheme:["M1 W=mgh=300×10×8.0","A1 24 000 J","A1 P=W/t=24000/20=1200 W"],
+     model:"(i) W = mgh = 300 × 10 × 8.0 = 24 000 J\n(ii) P = W/t = 24 000/20 = 1200 W\n【中文】做功 24000 J，功率 1200 W。",topic:"功、能与功率",tier:3}
+   ]},
+  {topicZh:"分子模型与热传递",topicEn:"Kinetic Model & Thermal Energy Transfer",
+   goals:["用分子模型解释固/液/气与温度","区分传导、对流、辐射及其发生条件","会解释保温/散热的设计"],
+   concepts:[
+    {t:"分子动理论 Kinetic Model",en:"Particles in motion.",tech:"固体：分子紧密、在固定位置振动；液体：较松、可流动；气体：相距远、自由高速运动。温度越高，分子平均动能越大。布朗运动是分子运动的证据。",exam:"用'排列+运动'描述三态；温度∝平均动能。"},
+    {t:"三种热传递 Conduction / Convection / Radiation",en:"How heat moves.",tech:"传导：靠分子振动与自由电子(金属良导体)，主要在固体。对流：流体中冷热部分因密度差形成环流(液体、气体)。辐射：红外线，不需要介质，真空也能传。",exam:"判断某情形属哪种；辐射不需介质。"},
+    {t:"辐射的吸收与发射 Radiation Surfaces",en:"Black vs shiny.",tech:"暗黑粗糙面是良好的辐射吸收体与发射体；光亮银白面是良好的反射体、差的发射体。",exam:"保温瓶银壁减少辐射。"}
+   ],
+   examples:[
+    {q:"Explain, using the kinetic model, why metals are good conductors of heat.",
+     solution:"Metals contain free (delocalised) electrons that move rapidly and transfer kinetic energy quickly from the hot region to the cold region; lattice vibrations also pass on energy.\n【中文】金属有自由电子，快速传递动能，故导热好。",
+     note:"技巧：金属导热靠自由电子。"},
+    {q:"Explain how a convection current forms when water is heated from below.",
+     solution:"Heated water expands, becomes less dense and rises; cooler denser water sinks to take its place, setting up a circulating convection current.\n【中文】受热水膨胀变轻上升，冷水下沉，形成对流环流。",
+     note:"出题思路：密度差驱动对流。"}
+   ],
+   mcqs:[
+    {stem:"Which method of heat transfer can occur through a vacuum?",options:["radiation","conduction","convection","evaporation"],answer:0,expl:"辐射不需介质，可穿过真空。",topic:"分子模型与热传递",tier:1},
+    {stem:"In a solid, the particles:",options:["vibrate about fixed positions","move freely at high speed","are far apart","do not move at all"],answer:0,expl:"固体分子在固定位置振动。",topic:"分子模型与热传递",tier:1},
+    {stem:"Convection can occur in:",options:["liquids and gases only","solids only","a vacuum","solids and liquids only"],answer:0,expl:"对流需要流体(液/气)。",topic:"分子模型与热传递",tier:2},
+    {stem:"A dull black surface is a:",options:["good absorber and good emitter of radiation","good reflector","poor absorber","good conductor only"],answer:0,expl:"暗黑面善于吸收也善于发射辐射。",topic:"分子模型与热传递",tier:3}
+   ],
+   structured:[
+    {q:"A metal spoon and a wooden spoon are left in a warm room at the same temperature. Explain why the metal spoon feels colder when you touch it.  [2]",marks:2,
+     scheme:["B1 metal is a much better conductor","B1 conducts thermal energy away from the hand faster → feels colder"],
+     model:"Metal is a far better thermal conductor than wood, so it conducts thermal energy away from your warmer hand much faster, making it feel colder — even though both are at the same temperature.\n【中文】金属导热快，把手上的热量迅速传走，故感觉更凉。",topic:"分子模型与热传递",tier:2},
+    {q:"A vacuum flask keeps a drink hot. Explain how its design reduces heat loss by (i) conduction and convection [1] and (ii) radiation [1].",marks:2,
+     scheme:["B1 vacuum between the double walls stops conduction and convection (no particles)","B1 silvered/shiny walls reflect infra-red radiation back"],
+     model:"(i) The vacuum between the double walls has no particles, so it cannot transfer heat by conduction or convection.\n(ii) The silvered (shiny) walls reflect infra-red radiation back towards the drink, reducing radiation loss.\n【中文】双层间真空阻断传导对流；银壁反射红外辐射。",topic:"分子模型与热传递",tier:3}
+   ]}
+
+
+];
+
+/* ---------- MOCK papers (days 91-100) ---------- */
+const MOCK_BANK=[
+  {title:"综合模考 Paper A · 力学 Mechanics",note:"限时建议 45 分钟。做完点开各题评分标准逐题批改，错题记入错题本。",
+   mcqs:[
+    {stem:"A resultant force of 12 N acts on a 3.0 kg mass. Its acceleration is:",options:["4.0 m/s²","36 m/s²","0.25 m/s²","9.0 m/s²"],answer:0,expl:"a=F/m=12/3=4 m/s²。",topic:"力与牛顿运动定律",tier:1},
+    {stem:"The weight of an 8.0 kg object (g=10 N/kg) is:",options:["80 N","8 N","0.8 N","800 N"],answer:0,expl:"W=mg=80 N。",topic:"质量、重量与密度",tier:1},
+    {stem:"A car accelerates uniformly from rest to 10 m/s in 4.0 s. The distance travelled is:",options:["20 m","40 m","2.5 m","80 m"],answer:0,expl:"s=½(u+v)t=½·10·4=20 m。",topic:"运动学",tier:2},
+    {stem:"The moment of a 5.0 N force acting 0.60 m from a pivot is:",options:["3.0 N·m","8.3 N·m","5.6 N·m","0.12 N·m"],answer:0,expl:"5×0.6=3 N·m。",topic:"力矩与平衡",tier:2}
+   ],
+   structured:[
+    {q:"A 2.0 kg trolley accelerates uniformly from rest to 8.0 m/s in 4.0 s. Find (i) the acceleration [1] (ii) the resultant force [1] (iii) the distance travelled [2].",marks:4,ans:"2;4;16",
+     scheme:["A1 a=8/4=2.0 m/s²","A1 F=ma=2.0×2.0=4.0 N","M1 s=½(u+v)t=½·8·4","A1 16 m"],
+     model:"(i) a = 8.0/4.0 = 2.0 m/s²\n(ii) F = ma = 2.0 × 2.0 = 4.0 N\n(iii) s = ½(u+v)t = ½(0+8.0)(4.0) = 16 m\n【中文】加速度 2 m/s²，合力 4 N，距离 16 m。"},
+    {q:"A 3.0 kg ball is dropped from a height of 5.0 m (g=10 m/s²). Using energy conservation, find (i) the GPE lost [1] and (ii) its speed just before landing [2].",marks:3,ans:"150;10",
+     scheme:["A1 GPE=mgh=3.0×10×5.0=150 J","M1 ½mv²=150 → v²=100","A1 v=10 m/s"],
+     model:"(i) GPE = mgh = 3.0 × 10 × 5.0 = 150 J\n(ii) ½mv² = 150 → v² = 100 → v = 10 m/s\n【中文】GPE=150 J 全变动能，v=10 m/s。"}
+   ]},
+  {title:"综合模考 Paper B · 热学·波·光 Thermal, Waves & Light",note:"限时建议 45 分钟。含比热、波速与折射，注意单位与角度。",
+   mcqs:[
+    {stem:"Energy to heat 2.0 kg of water by 5.0 °C (c=4200):",options:["42 000 J","21 000 J","4200 J","8400 J"],answer:0,expl:"Q=2×4200×5=42000 J。",topic:"热学性质（比热与潜热）",tier:1},
+    {stem:"A wave of frequency 5.0 Hz has wavelength 3.0 m. Its speed is:",options:["15 m/s","1.7 m/s","0.6 m/s","8.0 m/s"],answer:0,expl:"v=fλ=15 m/s。",topic:"波的性质",tier:1},
+    {stem:"While a pure substance boils, its temperature:",options:["stays constant","rises","falls","fluctuates"],answer:0,expl:"沸腾时温度不变。",topic:"热学性质（比热与潜热）",tier:2},
+    {stem:"Light passing from air into glass bends:",options:["towards the normal","away from the normal","not at all","back along itself"],answer:0,expl:"进入光密偏向法线。",topic:"光：反射与折射",tier:2}
+   ],
+   structured:[
+    {q:"Find the energy needed to heat 0.30 kg of water from 20 °C to 80 °C. (c = 4200 J/(kg·°C))  [3]",marks:3,ans:"75600",
+     scheme:["M1 Δθ=60","M1 Q=0.30×4200×60","A1 75 600 J"],
+     model:"Q = mcΔθ = 0.30 × 4200 × (80−20) = 0.30 × 4200 × 60 = 75 600 J\n【中文】Q=0.3×4200×60=75600 J。"},
+    {q:"A ray of light in air enters glass (n = 1.50) at an angle of incidence of 45°. Find the angle of refraction.  [3]",marks:3,ans:"28.1",
+     scheme:["M1 sin r=sin45/1.5","M1 =0.4714","A1 r=28.1°"],
+     model:"sin r = sin 45° / 1.50 = 0.7071/1.50 = 0.4714\nr = 28.1°\n【中文】sin r=0.471 → r≈28°。"}
+   ]}
+
+
+];
+
+/* ================= 扩充题库：补齐全考纲 ~19 专题 + 综合模考（2026-07-05 · 冲 A1）=================
+   物理全考纲(Physics 6091)：力学·热学·波·光·电磁，每题标注 tier(1基础/2正常/3拔高)。 */
+const MORE_TOPICS=[
+  {topicZh:"热学性质（比热与潜热）",topicEn:"Thermal Properties: Heat Capacity & Latent Heat",
+   goals:["掌握 Q=mcΔθ 与比热容概念","理解熔化/沸腾时温度不变(潜热)","会用 Q=mL 与能量守恒解题"],
+   concepts:[
+    {t:"比热容 Specific Heat Capacity",en:"Q = mcΔθ.",tech:"Q=mcΔθ：加热所需能量=质量×比热容×温度变化。水 c=4200 J/(kg·°C)。单位 J/(kg·°C)。",exam:"注意 Δθ 是温度差；水的比热大。"},
+    {t:"潜热与物态变化 Latent Heat",en:"Energy at constant temperature.",tech:"熔化/沸腾时温度保持不变，吸收的能量用于破坏分子间作用力(潜热)。Q=mL，L 为比潜热(熔化/汽化)。",exam:"'why does temperature stay constant' → 能量用于改变状态，不升温。"},
+    {t:"实验与散热 Method & Losses",en:"Electrical heating.",tech:"电加热：Q=Pt=VIt。实际有热损失，故实测比理论多耗能。",exam:"效率<100%，热量散失。"}
+   ],
+   examples:[
+    {q:"How much energy is needed to raise the temperature of 2.0 kg of water by 30 °C? (c = 4200 J/(kg·°C))",
+     solution:"Q = mcΔθ = 2.0 × 4200 × 30 = 252 000 J\n【中文】Q=mcΔθ=252000 J。",
+     note:"技巧：先代入 m、c、Δθ。"},
+    {q:"Explain why the temperature of pure ice stays at 0 °C while it is melting.",
+     solution:"The energy supplied is used as latent heat of fusion to break the bonds between the water molecules (change state), not to increase their kinetic energy, so the temperature does not rise.\n【中文】吸收的能量用于熔化(破坏分子作用力)，不增加动能，故温度不变。",
+     note:"出题思路：潜热解释温度不变。"}
+   ],
+   mcqs:[
+    {stem:"The SI unit of specific heat capacity is:",options:["J/(kg·°C)","J","W","°C"],answer:0,expl:"比热容单位 J/(kg·°C)。",topic:"热学性质（比热与潜热）",tier:1},
+    {stem:"While a pure solid is melting, its temperature:",options:["stays constant","rises steadily","falls","rises then falls"],answer:0,expl:"熔化时温度不变。",topic:"热学性质（比热与潜热）",tier:1},
+    {stem:"Energy to heat 1.0 kg of water by 10 °C (c=4200): ",options:["42 000 J","4200 J","420 J","42 J"],answer:0,expl:"Q=1×4200×10=42000 J。",topic:"热学性质（比热与潜热）",tier:2},
+    {stem:"Energy to heat 0.20 kg of water from 20 °C to 100 °C (c=4200):",options:["67 200 J","16 800 J","84 000 J","8400 J"],answer:0,expl:"Q=0.20×4200×80=67200 J。",topic:"热学性质（比热与潜热）",tier:3}
+   ],
+   structured:[
+    {q:"A 0.50 kg metal block (c = 900 J/(kg·°C)) is heated from 20 °C to 70 °C. Find the energy supplied.  [3]",marks:3,ans:"22500",
+     scheme:["M1 Δθ=70−20=50","M1 Q=mcΔθ=0.50×900×50","A1 22 500 J"],
+     model:"Q = mcΔθ = 0.50 × 900 × (70−20) = 0.50 × 900 × 50 = 22 500 J\n【中文】Q=0.5×900×50=22500 J。",topic:"热学性质（比热与潜热）",tier:2},
+    {q:"An electric kettle supplies energy at 2000 J/s to 0.40 kg of water (c = 4200 J/(kg·°C)). Ignoring heat losses, find the time to heat the water from 20 °C to 100 °C.  [3]",marks:3,ans:"67.2",
+     scheme:["M1 Q=mcΔθ=0.40×4200×80=134 400 J","M1 t=Q/P=134400/2000","A1 67.2 s"],
+     model:"Q = mcΔθ = 0.40 × 4200 × 80 = 134 400 J\nt = Q/P = 134 400 / 2000 = 67.2 s\n【中文】所需能量 134400 J，时间 = 134400/2000 = 67.2 s。",topic:"热学性质（比热与潜热）",tier:3}
+   ]},
+  {topicZh:"波的性质",topicEn:"General Wave Properties",
+   goals:["区分横波与纵波，理解 λ、f、T、振幅","熟练用 v=fλ 与 T=1/f","会读波形图与描述能量传播"],
+   concepts:[
+    {t:"波的要素 Wave Quantities",en:"λ, f, T, amplitude.",tech:"波长 λ(相邻同相点距离)、频率 f(每秒波数, Hz)、周期 T=1/f、振幅(最大位移)。波传递能量而非物质。",exam:"T 与 f 互为倒数；振幅表能量大小。"},
+    {t:"横波与纵波 Transverse vs Longitudinal",en:"Direction of vibration.",tech:"横波：振动⊥传播方向(水波、光、EM)。纵波：振动∥传播方向，有压缩与稀疏(声波)。",exam:"声音是纵波；光是横波。"},
+    {t:"波速公式 v = fλ",en:"Speed = frequency × wavelength.",tech:"v=fλ。同一介质波速一般不变；频率不变，进入不同介质波长改变。",exam:"三量知二求一，注意单位。"}
+   ],
+   examples:[
+    {q:"A wave has a frequency of 50 Hz and a wavelength of 0.40 m. Find its speed.",
+     solution:"v = fλ = 50 × 0.40 = 20 m/s\n【中文】v=fλ=20 m/s。",
+     note:"技巧：v=fλ 直接代入。"},
+    {q:"A wave has a period of 0.010 s. Find its frequency.",
+     solution:"f = 1/T = 1/0.010 = 100 Hz\n【中文】f=1/T=100 Hz。",
+     note:"出题思路：f 与 T 互为倒数。"}
+   ],
+   mcqs:[
+    {stem:"A wave has frequency 10 Hz and wavelength 2.0 m. Its speed is:",options:["20 m/s","5 m/s","0.2 m/s","12 m/s"],answer:0,expl:"v=fλ=10×2=20 m/s。",topic:"波的性质",tier:1},
+    {stem:"The period T of a wave is related to frequency f by:",options:["T = 1/f","T = f","T = f²","T = 2f"],answer:0,expl:"T=1/f。",topic:"波的性质",tier:1},
+    {stem:"Sound travels as a:",options:["longitudinal wave","transverse wave","electromagnetic wave","stationary wave only"],answer:0,expl:"声波是纵波。",topic:"波的性质",tier:2},
+    {stem:"A wave travels at 340 m/s with frequency 170 Hz. Its wavelength is:",options:["2.0 m","0.5 m","510 m","57 800 m"],answer:0,expl:"λ=v/f=340/170=2.0 m。",topic:"波的性质",tier:3}
+   ],
+   structured:[
+    {q:"A water wave has a wavelength of 0.50 m and a frequency of 4.0 Hz. Find (i) its speed [2] and (ii) its period [1].",marks:3,ans:"2.0;0.25",
+     scheme:["M1 v=fλ=4.0×0.50","A1 2.0 m/s","A1 T=1/f=0.25 s"],
+     model:"(i) v = fλ = 4.0 × 0.50 = 2.0 m/s\n(ii) T = 1/f = 1/4.0 = 0.25 s\n【中文】波速 2.0 m/s，周期 0.25 s。",topic:"波的性质",tier:2},
+    {q:"A sound wave in air travels at 340 m/s. If its frequency is 2000 Hz, find its wavelength.  [2]",marks:2,ans:"0.17",
+     scheme:["M1 λ=v/f=340/2000","A1 0.17 m"],
+     model:"λ = v/f = 340/2000 = 0.17 m\n【中文】λ=v/f=0.17 m。",topic:"波的性质",tier:3}
+   ]},
+  {topicZh:"光：反射与折射",topicEn:"Light: Reflection & Refraction",
+   goals:["掌握反射定律与平面镜成像特点","掌握折射与折射率 n=sin i/sin r","理解全反射与临界角 sin c = 1/n"],
+   concepts:[
+    {t:"反射 Reflection",en:"i = r.",tech:"入射角=反射角(相对法线)。平面镜像：虚像、正立、等大、左右反转、像距=物距。",exam:"角都相对法线量；平面镜像的特点常考。"},
+    {t:"折射 Refraction",en:"n = sin i / sin r.",tech:"光由光疏进入光密(如空气→玻璃)偏向法线；折射率 n=sin i/sin r。速度在光密介质中变小。",exam:"i、r 相对法线；n>1。"},
+    {t:"全反射 Total Internal Reflection",en:"Beyond the critical angle.",tech:"光由光密→光疏，入射角>临界角 c 时全反射。sin c = 1/n。应用：光纤、棱镜。",exam:"必须由密到疏且角>c 才全反射。"}
+   ],
+   examples:[
+    {q:"A ray of light travels from air into glass (n = 1.50) at an angle of incidence of 40°. Find the angle of refraction.",
+     solution:"n = sin i / sin r → sin r = sin 40° / 1.50 = 0.643/1.50 = 0.4287\nr = 25.4°\n【中文】sin r=sin40/1.5，r≈25°。",
+     note:"技巧：n=sin i/sin r，先求 sin r。"},
+    {q:"Find the critical angle for glass of refractive index 1.50.",
+     solution:"sin c = 1/n = 1/1.50 = 0.667\nc = 41.8°\n【中文】sin c=1/1.5，c≈42°。",
+     note:"出题思路：临界角 sin c=1/n。"}
+   ],
+   mcqs:[
+    {stem:"The law of reflection states that:",options:["angle of incidence = angle of reflection","i = 2r","angles add to 90°","light always bends"],answer:0,expl:"反射定律 i=r。",topic:"光：反射与折射",tier:1},
+    {stem:"The image in a plane mirror is:",options:["virtual and upright","real and inverted","real and upright","virtual and inverted"],answer:0,expl:"平面镜像：虚像、正立。",topic:"光：反射与折射",tier:1},
+    {stem:"When light passes from air into glass, it bends:",options:["towards the normal","away from the normal","along the normal","back on itself"],answer:0,expl:"进入光密介质偏向法线。",topic:"光：反射与折射",tier:2},
+    {stem:"Glass has refractive index 1.50. Its critical angle is about:",options:["42°","48°","30°","60°"],answer:0,expl:"sin c=1/1.5→c≈41.8°。",topic:"光：反射与折射",tier:3}
+   ],
+   structured:[
+    {q:"A ray of light in air strikes a glass block (n = 1.50) at an angle of incidence of 30°. Find the angle of refraction inside the glass.  [3]",marks:3,ans:"19.5",
+     scheme:["M1 n=sin i/sin r","M1 sin r=sin30/1.5=0.333","A1 r=19.5°"],
+     model:"n = sin i / sin r → sin r = sin 30° / 1.50 = 0.500/1.50 = 0.333\nr = 19.5°\n【中文】sin r=0.333 → r≈19.5°。",topic:"光：反射与折射",tier:2},
+    {q:"The refractive index of water is 1.33. Find the critical angle for the water–air boundary.  [3]",marks:3,ans:"48.8",
+     scheme:["M1 sin c=1/n","M1 =1/1.33=0.752","A1 c=48.8°"],
+     model:"sin c = 1/n = 1/1.33 = 0.752\nc = 48.8°\n【中文】sin c=1/1.33 → c≈48.8°。",topic:"光：反射与折射",tier:3}
+   ]},
+  {topicZh:"电磁波谱与声",topicEn:"EM Spectrum & Sound",
+   goals:["记住电磁波谱顺序、共同性质与用途/危害","理解声波需要介质、为纵波","会用回声/超声计算距离"],
+   concepts:[
+    {t:"电磁波谱 EM Spectrum",en:"Radio → Gamma.",tech:"顺序(频率增大、波长减小)：radio, microwave, infra-red, visible, ultraviolet, X-ray, gamma。真空中都以光速 c=3.0×10⁸ m/s 传播。",exam:"记顺序与典型用途；频率越高能量越大越危险。"},
+    {t:"声波 Sound",en:"Needs a medium.",tech:"声是纵波，需要介质(真空不能传声)。空气中约 340 m/s。可听范围约 20 Hz–20 kHz，超过为超声波(ultrasound)。",exam:"真空不能传声；回声测距。"},
+    {t:"回声与超声 Echo & Ultrasound",en:"Distance = ½ v t.",tech:"回声：声到障碍再返回，来回距离 = v×t，单程 = ½vt。超声用于测深、探伤、医学成像。",exam:"注意来回 → 用 ½。"}
+   ],
+   examples:[
+    {q:"An echo returns 1.0 s after a sound is made. The speed of sound is 340 m/s. How far away is the reflecting wall?",
+     solution:"Distance to wall = ½ × v × t = ½ × 340 × 1.0 = 170 m\n【中文】单程 = ½vt = 170 m。",
+     note:"技巧：回声来回，单程用一半。"},
+    {q:"State the order of the EM spectrum from lowest to highest frequency.",
+     solution:"radio → microwave → infra-red → visible → ultraviolet → X-ray → gamma\n【中文】按频率增大排列如上。",
+     note:"出题思路：频率增大=波长减小。"}
+   ],
+   mcqs:[
+    {stem:"In a vacuum, all electromagnetic waves travel at:",options:["3.0×10⁸ m/s","340 m/s","1500 m/s","3.0×10⁶ m/s"],answer:0,expl:"真空光速 3×10⁸ m/s。",topic:"电磁波谱与声",tier:1},
+    {stem:"Sound cannot travel through:",options:["a vacuum","air","water","steel"],answer:0,expl:"真空无介质，不能传声。",topic:"电磁波谱与声",tier:1},
+    {stem:"Which electromagnetic wave has the highest frequency?",options:["gamma rays","radio waves","microwaves","visible light"],answer:0,expl:"gamma 频率最高。",topic:"电磁波谱与声",tier:2},
+    {stem:"An echo is heard 0.50 s after a shout; speed of sound = 340 m/s. The wall is:",options:["85 m away","170 m away","340 m away","42.5 m away"],answer:0,expl:"½×340×0.5=85 m。",topic:"电磁波谱与声",tier:3}
+   ],
+   structured:[
+    {q:"(i) State the speed of all electromagnetic waves in a vacuum. [1] (ii) Name the type of EM wave used in a TV remote control. [1] (iii) State one danger of ultraviolet radiation. [1]",marks:3,
+     scheme:["B1 3.0×10⁸ m/s","B1 infra-red","B1 skin cancer / eye damage"],
+     model:"(i) 3.0 × 10⁸ m/s.\n(ii) Infra-red.\n(iii) Ultraviolet can cause skin cancer (or eye/skin damage).\n【中文】(i) 3×10⁸ m/s (ii) 红外线 (iii) 紫外线可致皮肤癌。",topic:"电磁波谱与声",tier:2},
+    {q:"A person shouts towards a cliff and hears the echo 1.2 s later. The speed of sound in air is 340 m/s. Find the distance to the cliff.  [3]",marks:3,ans:"204",
+     scheme:["M1 total path = v×t = 340×1.2 = 408 m","M1 distance = ½ × 408","A1 204 m"],
+     model:"Total path (there and back) = v × t = 340 × 1.2 = 408 m\nDistance to cliff = ½ × 408 = 204 m\n【中文】来回 408 m，单程 204 m。",topic:"电磁波谱与声",tier:3}
+   ]},
+  {topicZh:"静电",topicEn:"Static Electricity",
+   goals:["用电子转移解释摩擦起电","掌握同性相斥、异性相吸","理解导体/绝缘体、感应起电与电场线"],
+   concepts:[
+    {t:"摩擦起电 Charging by Friction",en:"Electron transfer.",tech:"摩擦时电子从一物转移到另一物：得到电子→带负电；失去电子→带正电。电荷不能凭空产生，只是转移。",exam:"是电子(负)转移，不是质子转移。"},
+    {t:"电荷相互作用 Forces on Charges",en:"Like repel, unlike attract.",tech:"同种电荷相斥，异种电荷相吸。导体可传导电荷，绝缘体不能。",exam:"判断吸引/排斥看电荷种类。"},
+    {t:"感应与电场 Induction & Field",en:"Fields point + to −.",tech:"带电体靠近导体可使其表面电荷分离(感应)。电场线由正电荷指向负电荷。接地可导走电荷。",exam:"感应起电解释吸引中性物。"}
+   ],
+   examples:[
+    {q:"Explain, in terms of electrons, how a polythene rod becomes negatively charged when rubbed with a dry cloth.",
+     solution:"Friction transfers electrons from the cloth to the rod. The rod gains electrons, so it has more electrons than protons and becomes negatively charged (the cloth becomes positive).\n【中文】摩擦使电子由布转移到棒，棒得电子带负电。",
+     note:"技巧：得电子→负；失电子→正。"},
+    {q:"Explain why a charged balloon sticks to a neutral wall.",
+     solution:"The charged balloon induces an opposite charge on the surface of the wall (attracting opposite charges nearer). The unlike charges attract, holding the balloon to the wall.\n【中文】气球感应墙面出现异号电荷，异性相吸。",
+     note:"出题思路：感应+异性相吸。"}
+   ],
+   mcqs:[
+    {stem:"Two objects carry like charges. They will:",options:["repel each other","attract each other","not interact","become neutral"],answer:0,expl:"同性相斥。",topic:"静电",tier:1},
+    {stem:"A neutral atom that loses electrons becomes:",options:["positively charged","negatively charged","neutral still","an insulator"],answer:0,expl:"失电子→带正电。",topic:"静电",tier:1},
+    {stem:"A plastic rod becomes negatively charged when rubbed. This is because it has:",options:["gained electrons","lost electrons","gained protons","lost neutrons"],answer:0,expl:"得到电子→负电。",topic:"静电",tier:2},
+    {stem:"Electric field lines point:",options:["from positive to negative","from negative to positive","in circles","towards the ground always"],answer:0,expl:"电场线由正指向负。",topic:"静电",tier:3}
+   ],
+   structured:[
+    {q:"A student rubs an inflated balloon on their hair and the balloon becomes negatively charged. (i) Explain, in terms of electrons, how this happens. [2] (ii) State what charge the hair now has. [1]",marks:3,
+     scheme:["B1 electrons transfer from hair to balloon by friction","B1 balloon gains electrons → negative","B1 hair loses electrons → positive"],
+     model:"(i) Friction transfers electrons from the hair onto the balloon; the balloon gains electrons and becomes negatively charged.\n(ii) The hair has lost electrons, so it is positively charged.\n【中文】电子由头发转移到气球；气球带负电，头发带正电。",topic:"静电",tier:2},
+    {q:"Explain why small pieces of paper (neutral) are attracted to a charged plastic comb.  [2]",marks:2,
+     scheme:["B1 comb induces opposite charge on the near side of the paper","B1 unlike charges attract → paper pulled to comb"],
+     model:"The charged comb induces an opposite charge on the near surface of each neutral paper piece (charge separation). The unlike charges attract, so the paper is pulled towards the comb.\n【中文】梳子使纸片近端感应异号电荷，异性相吸。",topic:"静电",tier:3}
+   ]},
+  {topicZh:"电流与电阻",topicEn:"Current of Electricity",
+   goals:["掌握 I=Q/t 与 Q=It","掌握 V、R 及欧姆定律 R=V/I","会读电阻器/灯丝的 I–V 图"],
+   concepts:[
+    {t:"电流与电荷 Current & Charge",en:"I = Q/t.",tech:"电流 I=Q/t(A)，电荷 Q=It(C)。常规电流方向由正极到负极(与电子流动相反)。",exam:"Q=It，注意时间单位为秒。"},
+    {t:"电压、电阻与欧姆定律 V, R, Ohm's Law",en:"R = V/I.",tech:"电压(p.d.)V 是每单位电荷的能量(V)。电阻 R=V/I(Ω)。欧姆导体：温度不变时 I∝V。",exam:"R=V/I；欧姆导体 I–V 为过原点直线。"},
+    {t:"I–V 特性图 I–V Graphs",en:"Resistor vs lamp.",tech:"定值电阻：直线(R 不变)。灯丝灯泡：曲线上凸(温度升高→R 增大)。二极管：单向导通。",exam:"灯丝随温度电阻增大。"}
+   ],
+   examples:[
+    {q:"A charge of 10 C flows past a point in 5.0 s. Find the current.",
+     solution:"I = Q/t = 10/5.0 = 2.0 A\n【中文】I=Q/t=2 A。",
+     note:"技巧：I=Q/t。"},
+    {q:"A resistor has 12 V across it and carries 3.0 A. Find its resistance.",
+     solution:"R = V/I = 12/3.0 = 4.0 Ω\n【中文】R=V/I=4 Ω。",
+     note:"出题思路：欧姆定律。"}
+   ],
+   mcqs:[
+    {stem:"The SI unit of electric current is the:",options:["ampere","volt","ohm","coulomb"],answer:0,expl:"电流单位安培。",topic:"电流与电阻",tier:1},
+    {stem:"A resistor has 6.0 V across it and a current of 2.0 A. Its resistance is:",options:["3.0 Ω","12 Ω","0.33 Ω","8.0 Ω"],answer:0,expl:"R=V/I=3 Ω。",topic:"电流与电阻",tier:1},
+    {stem:"A current of 0.50 A flows for 20 s. The charge that passes is:",options:["10 C","40 C","0.025 C","100 C"],answer:0,expl:"Q=It=0.5×20=10 C。",topic:"电流与电阻",tier:2},
+    {stem:"For an ohmic resistor at constant temperature, the I–V graph is:",options:["a straight line through the origin","a curve","a horizontal line","a vertical line"],answer:0,expl:"I∝V，过原点直线。",topic:"电流与电阻",tier:3}
+   ],
+   structured:[
+    {q:"A charge of 30 C flows through a lamp in 60 s. Find (i) the current [2]. If the p.d. across the lamp is 6.0 V, find (ii) its resistance [1].",marks:3,ans:"0.5;12",
+     scheme:["M1 I=Q/t=30/60","A1 0.50 A","A1 R=V/I=6.0/0.50=12 Ω"],
+     model:"(i) I = Q/t = 30/60 = 0.50 A\n(ii) R = V/I = 6.0/0.50 = 12 Ω\n【中文】电流 0.5 A，电阻 12 Ω。",topic:"电流与电阻",tier:2},
+    {q:"A current of 0.25 A flows through a 48 Ω resistor. Find (i) the p.d. across it [2] and (ii) the charge that flows in 2.0 minutes [1].",marks:3,ans:"12;30",
+     scheme:["M1 V=IR=0.25×48","A1 12 V","A1 Q=It=0.25×120=30 C"],
+     model:"(i) V = IR = 0.25 × 48 = 12 V\n(ii) Q = It = 0.25 × (2.0×60) = 0.25 × 120 = 30 C\n【中文】电压 12 V；2 分钟=120 s，电荷 30 C。",topic:"电流与电阻",tier:3}
+   ]},
+  {topicZh:"直流电路",topicEn:"D.C. Circuits",
+   goals:["掌握串联(电流相同、电压相加、R 相加)","掌握并联(电压相同、电流相加、1/R=Σ1/Rᵢ)","理解分压器与热敏/光敏电阻传感器"],
+   concepts:[
+    {t:"串联电路 Series",en:"Same current, add R.",tech:"串联：电流处处相同；各电压之和=总电压；总电阻 R=R₁+R₂+…。",exam:"串联电阻相加；断一处全断。"},
+    {t:"并联电路 Parallel",en:"Same voltage, add currents.",tech:"并联：各支路电压相同；总电流=各支路电流之和；1/R=1/R₁+1/R₂+…(总电阻更小)。",exam:"并联总电阻小于任一支路。"},
+    {t:"分压与传感器 Potential Divider & Sensors",en:"Divide voltage.",tech:"分压器按电阻比分配电压。热敏电阻(thermistor)温度升高电阻减小；光敏电阻(LDR)光强增大电阻减小，用于温控/光控。",exam:"传感电路用分压输出变化电压。"}
+   ],
+   examples:[
+    {q:"A 3.0 Ω and a 6.0 Ω resistor are connected in series to an 18 V battery. Find the current.",
+     solution:"R = 3.0 + 6.0 = 9.0 Ω\nI = V/R = 18/9.0 = 2.0 A\n【中文】串联 R=9 Ω，I=18/9=2 A。",
+     note:"技巧：串联先加电阻。"},
+    {q:"Find the combined resistance of a 3.0 Ω and a 6.0 Ω resistor in parallel.",
+     solution:"1/R = 1/3.0 + 1/6.0 = 2/6 + 1/6 = 3/6 → R = 2.0 Ω\n【中文】1/R=1/3+1/6=1/2 → R=2 Ω。",
+     note:"出题思路：并联用倒数和。"}
+   ],
+   mcqs:[
+    {stem:"Two resistors in series have a combined resistance equal to:",options:["R₁ + R₂","R₁ × R₂","(R₁+R₂)/2","less than either"],answer:0,expl:"串联相加。",topic:"直流电路",tier:1},
+    {stem:"In a series circuit, the current is:",options:["the same everywhere","largest near the battery","zero","different in each resistor"],answer:0,expl:"串联电流处处相同。",topic:"直流电路",tier:1},
+    {stem:"Two 6.0 Ω resistors in parallel have a combined resistance of:",options:["3.0 Ω","12 Ω","6.0 Ω","0.33 Ω"],answer:0,expl:"相同两电阻并联=一半=3 Ω。",topic:"直流电路",tier:2},
+    {stem:"A 4.0 Ω and a 12 Ω resistor in parallel give a combined resistance of:",options:["3.0 Ω","16 Ω","8.0 Ω","48 Ω"],answer:0,expl:"1/4+1/12=1/3 → 3 Ω。",topic:"直流电路",tier:3}
+   ],
+   structured:[
+    {q:"A 4.0 Ω and an 8.0 Ω resistor are connected in series across a 12 V battery. Find (i) the total resistance [1] and (ii) the current in the circuit [2].",marks:3,ans:"12;1.0",
+     scheme:["A1 R=4.0+8.0=12 Ω","M1 I=V/R=12/12","A1 1.0 A"],
+     model:"(i) R = 4.0 + 8.0 = 12 Ω\n(ii) I = V/R = 12/12 = 1.0 A\n【中文】总电阻 12 Ω，电流 1.0 A。",topic:"直流电路",tier:2},
+    {q:"A 6.0 Ω and a 3.0 Ω resistor are connected in parallel across a 6.0 V supply. Find (i) their combined resistance [2] and (ii) the total current from the supply [1].",marks:3,ans:"2.0;3.0",
+     scheme:["M1 1/R=1/6+1/3=1/2","A1 R=2.0 Ω","A1 I=V/R=6.0/2.0=3.0 A"],
+     model:"(i) 1/R = 1/6.0 + 1/3.0 = 1/6 + 2/6 = 3/6 → R = 2.0 Ω\n(ii) I = V/R = 6.0/2.0 = 3.0 A\n【中文】并联 2 Ω，总电流 3 A。",topic:"直流电路",tier:3}
+   ]},
+  {topicZh:"实用电学",topicEn:"Practical Electricity",
+   goals:["掌握电功率 P=VI=I²R=V²/R","会算电能 E=Pt 与 kWh、电费","理解保险丝、接地与安全"],
+   concepts:[
+    {t:"电功率 Electrical Power",en:"P = VI.",tech:"P=VI=I²R=V²/R(W)。电能 E=Pt(J)；家庭用电以千瓦时 kWh 计：1 kWh=1 kW×1 h。",exam:"选公式看已知量；kWh 计费。"},
+    {t:"电能与电费 Energy & Cost",en:"kWh × price.",tech:"能量(kWh)=功率(kW)×时间(h)；电费=能量(kWh)×单价。",exam:"时间要换成小时，功率换成 kW。"},
+    {t:"用电安全 Safety",en:"Fuse, earth, insulation.",tech:"保险丝(fuse)接火线，额定值略高于正常电流，过流熔断。接地线(earth)使金属外壳安全。双重绝缘。",exam:"保险丝选取略大于工作电流的标准值。"}
+   ],
+   examples:[
+    {q:"An appliance operates at 230 V and draws a current of 2.0 A. Find its power.",
+     solution:"P = VI = 230 × 2.0 = 460 W\n【中文】P=VI=460 W。",
+     note:"技巧：P=VI。"},
+    {q:"A 2.0 kW heater runs for 3.0 hours. Find the energy used in kWh.",
+     solution:"E = P × t = 2.0 kW × 3.0 h = 6.0 kWh\n【中文】E=Pt=6 kWh。",
+     note:"出题思路：kWh=kW×h。"}
+   ],
+   mcqs:[
+    {stem:"Electrical power is given by:",options:["P = V × I","P = V + I","P = V/I","P = I/V"],answer:0,expl:"P=VI。",topic:"实用电学",tier:1},
+    {stem:"A 230 V appliance draws 2.0 A. Its power is:",options:["460 W","115 W","232 W","0.0087 W"],answer:0,expl:"P=VI=460 W。",topic:"实用电学",tier:1},
+    {stem:"Energy used by a 2.0 kW heater in 3.0 hours is:",options:["6.0 kWh","0.67 kWh","6000 kWh","5.0 kWh"],answer:0,expl:"E=2×3=6 kWh。",topic:"实用电学",tier:2},
+    {stem:"The fuse in a plug is connected in the ___ wire and should be rated just ___ the normal current.",options:["live; above","neutral; below","earth; above","live; below"],answer:0,expl:"保险丝接火线，额定略高于正常电流。",topic:"实用电学",tier:3}
+   ],
+   structured:[
+    {q:"An electric heater is rated 230 V, 920 W. Find (i) the current it draws [2] and (ii) a suitable fuse from 3 A, 5 A or 13 A [1].",marks:3,ans:"4;5",
+     scheme:["M1 I=P/V=920/230","A1 4.0 A","B1 5 A fuse (just above 4 A)"],
+     model:"(i) I = P/V = 920/230 = 4.0 A\n(ii) A 5 A fuse — the smallest standard rating just above the normal 4.0 A current.\n【中文】电流 4 A，选 5 A 保险丝(略高于工作电流)。",topic:"实用电学",tier:2},
+    {q:"A 2.0 kW kettle is used for 6.0 minutes each day. Electricity costs 25 cents per kWh. Find the daily cost of using the kettle.  [3]",marks:3,ans:"5",
+     scheme:["M1 E=Pt=2.0×(6/60)=0.20 kWh","M1 cost=0.20×25","A1 5 cents"],
+     model:"Time = 6.0 min = 0.10 h\nE = P × t = 2.0 kW × 0.10 h = 0.20 kWh\nCost = 0.20 × 25 = 5 cents\n【中文】能量 0.2 kWh，电费 0.2×25=5 分。",topic:"实用电学",tier:3}
+   ]},
+  {topicZh:"磁与电磁",topicEn:"Magnetism & Electromagnetism",
+   goals:["掌握磁极、磁场线与软铁/钢的区别","理解电流的磁效应、螺线管与电磁铁","理解电动机原理、电磁感应与变压器"],
+   concepts:[
+    {t:"磁体与磁场 Magnets & Fields",en:"N to S, like repel.",tech:"磁场线由 N 极出、进入 S 极；同名磁极相斥、异名相吸。软铁(soft iron)易被磁化也易退磁(做电磁铁芯)；钢(steel)保持磁性(做永磁体)。",exam:"磁场线方向 N→S(体外)。"},
+    {t:"电流的磁效应 Magnetic Effect of Current",en:"Solenoid = bar magnet.",tech:"通电直导线周围有环形磁场(右手握螺旋定则)。通电螺线管磁场似条形磁体。电磁铁强度随电流增大、匝数增多、加软铁芯而增强。",exam:"增强电磁铁的方法必考。"},
+    {t:"电动机与电磁感应 Motor & Induction",en:"Force & induced e.m.f.",tech:"载流导线在磁场中受力(电动机效应，左手定则)。磁通变化会在线圈中产生感应电动势(法拉第电磁感应)——发电机、变压器原理。理想变压器：Vs/Vp=Ns/Np。",exam:"变压器电压比=匝数比。"}
+   ],
+   examples:[
+    {q:"State two ways to increase the strength of an electromagnet.",
+     solution:"Increase the current; increase the number of turns on the coil (also: add a soft-iron core).\n【中文】增大电流；增加匝数(或加软铁芯)。",
+     note:"技巧：电流↑、匝数↑、软铁芯。"},
+    {q:"A transformer has 1000 primary turns and 100 secondary turns, with 240 V across the primary. Find the secondary voltage.",
+     solution:"Vs/Vp = Ns/Np → Vs = 240 × 100/1000 = 24 V\n【中文】Vs=Vp×Ns/Np=24 V。",
+     note:"出题思路：电压比=匝数比。"}
+   ],
+   mcqs:[
+    {stem:"Two like magnetic poles placed near each other will:",options:["repel","attract","do nothing","become neutral"],answer:0,expl:"同名磁极相斥。",topic:"磁与电磁",tier:1},
+    {stem:"Outside a bar magnet, magnetic field lines run from:",options:["N pole to S pole","S pole to N pole","N to N","the centre outward"],answer:0,expl:"体外磁场线 N→S。",topic:"磁与电磁",tier:1},
+    {stem:"Which does NOT increase the strength of an electromagnet?",options:["using a steel core instead of soft iron","increasing the current","adding more turns","adding a soft-iron core"],answer:0,expl:"钢芯会保留磁性，不适合电磁铁；软铁芯才好。",topic:"磁与电磁",tier:2},
+    {stem:"A transformer has 1000 primary and 100 secondary turns. With 240 V input, the output is:",options:["24 V","2400 V","2.4 V","240 V"],answer:0,expl:"Vs=240×100/1000=24 V。",topic:"磁与电磁",tier:3}
+   ],
+   structured:[
+    {q:"State two ways to increase the strength of an electromagnet, and name a suitable material for its core.  [3]",marks:3,
+     scheme:["B1 increase the current","B1 increase the number of turns","B1 soft iron core"],
+     model:"1) Increase the current in the coil.\n2) Increase the number of turns on the coil.\nCore material: soft iron (easily magnetised and demagnetised).\n【中文】增大电流、增加匝数；铁芯用软铁。",topic:"磁与电磁",tier:2},
+    {q:"A transformer has 1200 turns on the primary and 60 turns on the secondary. The primary is connected to a 240 V a.c. supply. Find (i) the secondary voltage [2] and (ii) state whether it is a step-up or step-down transformer [1].",marks:3,ans:"12",
+     scheme:["M1 Vs=Vp×Ns/Np=240×60/1200","A1 12 V","B1 step-down"],
+     model:"(i) Vs = Vp × Ns/Np = 240 × 60/1200 = 12 V\n(ii) Secondary voltage < primary → step-down transformer.\n【中文】Vs=240×60/1200=12 V；电压降低 → 降压变压器。",topic:"磁与电磁",tier:3}
+   ]}
+
+
+];
+
+/* ---------- 更多综合模考(days 91-100 轮换,共 6 套) ---------- */
+const MORE_MOCKS=[
+  {title:"综合模考 Paper C · 电学 Electricity",note:"限时建议 45 分钟。含欧姆定律、串并联与电功率。",
+   mcqs:[
+    {stem:"A resistor has 12 V across it and carries 4.0 A. Its resistance is:",options:["3.0 Ω","48 Ω","0.33 Ω","16 Ω"],answer:0,expl:"R=V/I=3 Ω。",topic:"电流与电阻",tier:1},
+    {stem:"A current of 3.0 A flows for 10 s. The charge is:",options:["30 C","3.3 C","0.3 C","13 C"],answer:0,expl:"Q=It=30 C。",topic:"电流与电阻",tier:1},
+    {stem:"A 2.0 Ω and a 3.0 Ω resistor in series give:",options:["5.0 Ω","1.2 Ω","6.0 Ω","0.83 Ω"],answer:0,expl:"串联相加=5 Ω。",topic:"直流电路",tier:2},
+    {stem:"A 230 V appliance drawing 3.0 A has a power of:",options:["690 W","77 W","233 W","0.013 W"],answer:0,expl:"P=VI=690 W。",topic:"实用电学",tier:2}
+   ],
+   structured:[
+    {q:"A 2.0 Ω and a 6.0 Ω resistor are connected in parallel across a 3.0 V supply. Find (i) the combined resistance [2] and (ii) the total current [1].",marks:3,ans:"1.5;2",
+     scheme:["M1 1/R=1/2+1/6=2/3","A1 R=1.5 Ω","A1 I=V/R=3.0/1.5=2.0 A"],
+     model:"(i) 1/R = 1/2.0 + 1/6.0 = 3/6 + 1/6 = 4/6 → R = 1.5 Ω\n(ii) I = V/R = 3.0/1.5 = 2.0 A\n【中文】并联 1.5 Ω，总电流 2 A。"},
+    {q:"A 1500 W appliance is used for 2.0 hours. Electricity costs 20 cents per kWh. Find (i) the energy used in kWh [1] and (ii) the cost [1].",marks:2,ans:"3;60",
+     scheme:["A1 E=1.5 kW×2.0 h=3.0 kWh","A1 cost=3.0×20=60 cents"],
+     model:"(i) E = 1.5 kW × 2.0 h = 3.0 kWh\n(ii) Cost = 3.0 × 20 = 60 cents\n【中文】能量 3 kWh，电费 60 分。"}
+   ]},
+  {title:"综合模考 Paper D · 磁与电磁 Magnetism & EM",note:"限时建议 40 分钟。含磁场、电磁铁与变压器。",
+   mcqs:[
+    {stem:"Two like magnetic poles will:",options:["repel","attract","do nothing","demagnetise"],answer:0,expl:"同名相斥。",topic:"磁与电磁",tier:1},
+    {stem:"Magnetic field lines outside a bar magnet run from:",options:["N to S","S to N","N to N","S to S"],answer:0,expl:"体外 N→S。",topic:"磁与电磁",tier:1},
+    {stem:"A transformer with 2000 primary and 500 secondary turns, fed 240 V, outputs:",options:["60 V","960 V","240 V","30 V"],answer:0,expl:"Vs=240×500/2000=60 V。",topic:"磁与电磁",tier:2},
+    {stem:"Which increases an electromagnet's strength?",options:["more turns on the coil","a steel core","less current","fewer turns"],answer:0,expl:"匝数增多增强。",topic:"磁与电磁",tier:2}
+   ],
+   structured:[
+    {q:"A transformer has 500 turns on the primary and 2500 turns on the secondary. The primary is connected to 240 V a.c. Find (i) the secondary voltage [2] and (ii) state the type of transformer [1].",marks:3,ans:"1200",
+     scheme:["M1 Vs=240×2500/500","A1 1200 V","B1 step-up"],
+     model:"(i) Vs = Vp × Ns/Np = 240 × 2500/500 = 1200 V\n(ii) Output > input → step-up transformer.\n【中文】Vs=1200 V，升压变压器。"},
+    {q:"State two ways to increase the strength of an electromagnet and name a suitable core material.  [3]",marks:3,
+     scheme:["B1 increase current","B1 increase number of turns","B1 soft iron core"],
+     model:"Increase the current; increase the number of turns; use a soft-iron core.\n【中文】增大电流、增加匝数、用软铁芯。"}
+   ]},
+  {title:"综合模考 Paper E · 综合 Mixed",note:"限时建议 45 分钟。跨力学、压强、电学综合。",
+   mcqs:[
+    {stem:"A body of mass 60 g has a volume of 20 cm³. Its density is:",options:["3.0 g/cm³","0.33 g/cm³","1200 g/cm³","40 g/cm³"],answer:0,expl:"ρ=60/20=3 g/cm³。",topic:"质量、重量与密度",tier:1},
+    {stem:"Water pressure at a depth of 3.0 m (ρ=1000, g=10):",options:["30 000 Pa","3000 Pa","300 Pa","30 Pa"],answer:0,expl:"ρgh=30000 Pa。",topic:"压强",tier:2},
+    {stem:"The kinetic energy of a 4.0 kg object moving at 5.0 m/s:",options:["50 J","20 J","100 J","10 J"],answer:0,expl:"½·4·25=50 J。",topic:"功、能与功率",tier:2},
+    {stem:"In a vacuum, which travels fastest: radio waves, visible light or X-rays?",options:["all travel at the same speed","radio waves","X-rays","visible light"],answer:0,expl:"所有 EM 波真空同速 c。",topic:"电磁波谱与声",tier:3}
+   ],
+   structured:[
+    {q:"A uniform beam is pivoted at its centre. A 40 N weight hangs 0.50 m to the left of the pivot. A weight W hangs 0.20 m to the right and balances the beam. Find W.  [3]",marks:3,ans:"100",
+     scheme:["M1 principle of moments","M1 W×0.20=40×0.50=20","A1 W=100 N"],
+     model:"Taking moments about the pivot: W × 0.20 = 40 × 0.50 = 20\nW = 20/0.20 = 100 N\n【中文】W×0.2=40×0.5 → W=100 N。"},
+    {q:"A current of 0.40 A flows through a lamp for 50 s at a p.d. of 12 V. Find (i) the charge that flows [2] and (ii) the resistance of the lamp [1].",marks:3,ans:"20;30",
+     scheme:["M1 Q=It=0.40×50","A1 20 C","A1 R=V/I=12/0.40=30 Ω"],
+     model:"(i) Q = It = 0.40 × 50 = 20 C\n(ii) R = V/I = 12/0.40 = 30 Ω\n【中文】电荷 20 C，电阻 30 Ω。"}
+   ]},
+  {title:"综合模考 Paper F · 全卷冲刺 Full Paper (harder)",note:"限时建议 60 分钟。跨专题综合与拔高题，做完务必逐题订正。",
+   mcqs:[
+    {stem:"A ball is thrown up at 30 m/s (g=10). Time to reach the highest point:",options:["3.0 s","6.0 s","30 s","0.33 s"],answer:0,expl:"t=u/g=30/10=3 s。",topic:"运动学",tier:2},
+    {stem:"A 3.0 Ω and a 6.0 Ω resistor in parallel give:",options:["2.0 Ω","9.0 Ω","4.5 Ω","0.5 Ω"],answer:0,expl:"1/3+1/6=1/2 → 2 Ω。",topic:"直流电路",tier:2},
+    {stem:"A medium has refractive index 1.40. Its critical angle is about:",options:["46°","44°","36°","54°"],answer:0,expl:"sin c=1/1.4=0.714→c≈45.6°。",topic:"光：反射与折射",tier:3},
+    {stem:"A force of 50 N moves an object 4.0 m in the direction of the force. The work done is:",options:["200 J","12.5 J","54 J","46 J"],answer:0,expl:"W=Fd=200 J。",topic:"功、能与功率",tier:1}
+   ],
+   structured:[
+    {q:"A motor raises a 500 kg lift through 12 m in 15 s (g=10 m/s²). Find (i) the work done [2] and (ii) the output power [1].",marks:3,ans:"60000;4000",
+     scheme:["M1 W=mgh=500×10×12","A1 60 000 J","A1 P=W/t=60000/15=4000 W"],
+     model:"(i) W = mgh = 500 × 10 × 12 = 60 000 J\n(ii) P = W/t = 60 000/15 = 4000 W\n【中文】做功 60000 J，功率 4000 W。"},
+    {q:"A 2.0 Ω and a 4.0 Ω resistor are connected in series to a 6.0 V battery. Find (i) the current [1] and (ii) the p.d. across the 4.0 Ω resistor [2].",marks:3,ans:"1;4",
+     scheme:["A1 I=V/R=6.0/6.0=1.0 A","M1 V=IR=1.0×4.0","A1 4.0 V"],
+     model:"Total R = 2.0 + 4.0 = 6.0 Ω\n(i) I = V/R = 6.0/6.0 = 1.0 A\n(ii) V(4Ω) = IR = 1.0 × 4.0 = 4.0 V\n【中文】电流 1 A，4 Ω 上电压 4 V。"}
+   ]}
+
+
+];
+
+/* 挂载扩充内容(push 不改变前 8 天已生成/冻结的记录) */
+TOPICS.push.apply(TOPICS, MORE_TOPICS);
+MOCK_BANK.push.apply(MOCK_BANK, MORE_MOCKS);
+
+/* ---------- DAY 1 seed = first topic, fully authored ---------- */
+function dayFromTopic(n,t){
+  return {day:n, topicZh:t.topicZh, topicEn:t.topicEn, goals:t.goals, concepts:t.concepts,
+    examples:t.examples,
+    mcqs:t.mcqs.map((q,i)=>({id:'m'+n+'q'+(i+1),stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,tier:q.tier})),
+    structured:t.structured.map((q,i)=>Object.assign({id:'m'+n+'s'+(i+1)},q)), mock:null};
+}
+const DAY1=dayFromTopic(1,TOPICS[0]);
+
+/* ---------- A档「冲A拔高题」题库（供个性化难度提升，按专题匹配） ---------- */
+const CHALLENGE_BANK=[
+  {topic:"测量与物理量",q:"Two forces of 5.0 N and 12 N act at right angles to each other at a point. Find the magnitude of the resultant force.  [2]",marks:2,ans:"13",
+   scheme:["M1 R=√(5²+12²)","A1 13 N"],
+   model:"R = √(5.0² + 12²) = √(25+144) = √169 = 13 N\n【中文】垂直合力 = √(25+144) = 13 N。"},
+  {topic:"运动学",q:"A car decelerates uniformly from 30 m/s to 10 m/s over a distance of 40 m. Find the magnitude of its deceleration.  [3]",marks:3,ans:"10",
+   scheme:["M1 v²=u²+2as","M1 10²=30²+2a(40) → 80a=−800","A1 a=−10 m/s² (deceleration 10 m/s²)"],
+   model:"v² = u² + 2as → 10² = 30² + 2a(40)\n100 = 900 + 80a → 80a = −800 → a = −10 m/s²\nDeceleration = 10 m/s².\n【中文】用 v²=u²+2as，a=−10 m/s²，即减速度 10 m/s²。"},
+  {topic:"力与牛顿运动定律",q:"A 1500 kg car accelerates uniformly from rest to 20 m/s in 8.0 s against a constant friction force of 500 N. Find the forward driving force from the engine.  [3]",marks:3,ans:"4250",
+   scheme:["M1 a=20/8=2.5 m/s²","M1 resultant=ma=1500×2.5=3750 N","A1 driving=3750+500=4250 N"],
+   model:"a = 20/8.0 = 2.5 m/s²\nResultant force = ma = 1500 × 2.5 = 3750 N\nDriving force = resultant + friction = 3750 + 500 = 4250 N\n【中文】合力=ma=3750 N，驱动力=合力+摩擦=4250 N。"},
+  {topic:"质量、重量与密度",q:"A crown of mass 500 g displaces 30 cm³ of water. Pure gold has a density of 19.3 g/cm³. Find the crown's density and state whether it is pure gold.  [3]",marks:3,ans:"16.7",
+   scheme:["M1 ρ=m/V=500/30","A1 16.7 g/cm³","B1 16.7 < 19.3 → not pure gold"],
+   model:"ρ = m/V = 500/30 = 16.7 g/cm³\n16.7 < 19.3, so the crown is NOT pure gold (it is less dense).\n【中文】密度 16.7 g/cm³ 小于 19.3 → 不是纯金。"},
+  {topic:"力矩与平衡",q:"A uniform beam of weight 60 N and length 2.0 m is supported by a pivot at one end and held horizontal by a vertical force F at the other end. Find F.  [3]",marks:3,ans:"30",
+   scheme:["M1 weight acts at centre, 1.0 m from pivot","M1 F×2.0 = 60×1.0","A1 F=30 N"],
+   model:"The beam's weight (60 N) acts at its centre, 1.0 m from the pivot.\nTaking moments about the pivot: F × 2.0 = 60 × 1.0 = 60\nF = 30 N\n【中文】重心在中点(距轴1.0 m)：F×2.0=60×1.0 → F=30 N。"},
+  {topic:"压强",q:"In a hydraulic system a force of 50 N is applied to a small piston of area 0.010 m². The large piston has an area of 0.050 m². Find the force produced at the large piston.  [3]",marks:3,ans:"250",
+   scheme:["M1 p=F/A=50/0.010=5000 Pa","M1 F=p×A=5000×0.050","A1 250 N"],
+   model:"Pressure transmitted = F/A = 50/0.010 = 5000 Pa\nForce on large piston = p × A = 5000 × 0.050 = 250 N\n【中文】压强 5000 Pa 等值传递，大活塞受力 = 5000×0.05 = 250 N。"},
+  {topic:"功、能与功率",q:"A motor rated at 500 W lifts a 20 kg load through 6.0 m in 4.0 s (g=10 m/s²). Find (i) the useful power output [2] and (ii) the efficiency of the motor [1].",marks:3,ans:"60",
+   scheme:["M1 useful power=mgh/t=20×10×6/4=300 W","M1 efficiency=300/500","A1 60%"],
+   model:"(i) Useful power = mgh/t = (20×10×6.0)/4.0 = 1200/4.0 = 300 W\n(ii) Efficiency = useful/input × 100% = 300/500 × 100% = 60%\n【中文】有用功率 300 W，效率 = 300/500 = 60%。"},
+  {topic:"分子模型与热传递",q:"A fixed mass of gas is heated in a sealed rigid container (constant volume). Using the kinetic model, explain why its pressure increases.  [3]",marks:3,
+   scheme:["B1 particles gain kinetic energy / move faster","B1 hit the walls harder and more frequently","B1 greater force per unit area → higher pressure"],
+   model:"Heating gives the gas particles more kinetic energy, so they move faster. They collide with the container walls harder and more often, exerting a greater average force on each unit area, so the pressure increases.\n【中文】受热→分子动能增大、运动更快→撞墙更猛更频繁→单位面积上的力更大→压强升高。"},
+  {topic:"热学性质（比热与潜热）",q:"Find the energy needed to change 0.20 kg of ice at 0 °C completely into water at 0 °C. (specific latent heat of fusion = 3.4×10⁵ J/kg)  [3]",marks:3,ans:"68000",
+   scheme:["M1 Q=mL","M1 =0.20×3.4×10⁵","A1 68 000 J"],
+   model:"Q = mL = 0.20 × 3.4×10⁵ = 68 000 J\nThe temperature stays at 0 °C — all the energy is latent heat of fusion.\n【中文】Q=mL=0.20×3.4×10⁵=68000 J，温度不变。"},
+  {topic:"波的性质",q:"20 complete waves pass a point in 4.0 s. The wavelength is 0.50 m. Find the wave speed.  [3]",marks:3,ans:"2.5",
+   scheme:["M1 f=20/4.0=5.0 Hz","M1 v=fλ=5.0×0.50","A1 2.5 m/s"],
+   model:"f = number/time = 20/4.0 = 5.0 Hz\nv = fλ = 5.0 × 0.50 = 2.5 m/s\n【中文】频率 5 Hz，波速 v=fλ=2.5 m/s。"},
+  {topic:"光：反射与折射",q:"Light travels inside glass of refractive index 1.50 and meets the glass–air boundary at an angle of incidence of 50°. Find the critical angle and state whether the light undergoes total internal reflection.  [3]",marks:3,ans:"41.8",
+   scheme:["M1 sin c=1/1.50=0.667","A1 c=41.8°","B1 50° > 41.8° → total internal reflection occurs"],
+   model:"sin c = 1/n = 1/1.50 = 0.667 → c = 41.8°\nThe angle of incidence 50° > 41.8° (critical angle), so total internal reflection occurs.\n【中文】临界角 41.8°；50°>c → 发生全反射。"},
+  {topic:"电磁波谱与声",q:"An ultrasound pulse sent from a boat returns from the seabed 0.30 s later. The speed of sound in seawater is 1500 m/s. Find the depth of the sea.  [3]",marks:3,ans:"225",
+   scheme:["M1 total distance=v×t=1500×0.30=450 m","M1 depth=½×450","A1 225 m"],
+   model:"Total path (down and back) = v × t = 1500 × 0.30 = 450 m\nDepth = ½ × 450 = 225 m\n【中文】来回 450 m，深度 = 半程 = 225 m。"},
+  {topic:"静电",q:"Explain why a road fuel tanker is connected to the ground (earthed) by a metal chain or wire while it is being filled.  [3]",marks:3,
+   scheme:["B1 friction of flowing fuel builds up static charge","B1 charge could cause a spark","B1 earthing lets the charge flow safely to the ground, preventing a spark/explosion"],
+   model:"As fuel flows, friction causes static charge to build up on the tanker. If this charge became large it could produce a spark, igniting the fuel vapour. Earthing provides a path for the charge to flow safely to the ground, preventing a dangerous spark.\n【中文】燃油流动摩擦积累静电，可能产生火花引燃；接地让电荷安全导入大地，防止火花爆炸。"},
+  {topic:"电流与电阻",q:"A filament lamp draws 0.50 A when 2.0 V is applied, and 1.0 A when 8.0 V is applied. Calculate its resistance in each case and explain what this shows.  [3]",marks:3,ans:"4;8",
+   scheme:["M1 R₁=2.0/0.50=4.0 Ω","A1 R₂=8.0/1.0=8.0 Ω","B1 resistance increases as the filament gets hotter (non-ohmic)"],
+   model:"R₁ = V/I = 2.0/0.50 = 4.0 Ω\nR₂ = V/I = 8.0/1.0 = 8.0 Ω\nThe resistance increases (4 Ω → 8 Ω) because a larger current heats the filament, raising its temperature and hence its resistance — the lamp is non-ohmic.\n【中文】R 从 4 Ω 增到 8 Ω：电流大→灯丝更热→电阻增大(非欧姆)。"},
+  {topic:"直流电路",q:"A 6.0 Ω resistor is connected in series with a parallel combination of two 4.0 Ω resistors, across a 12 V battery. Find (i) the total resistance [2] and (ii) the current drawn from the battery [1].",marks:3,ans:"8;1.5",
+   scheme:["M1 parallel: 4∥4 = 2.0 Ω","A1 total=6.0+2.0=8.0 Ω","A1 I=V/R=12/8.0=1.5 A"],
+   model:"Two 4.0 Ω in parallel: 1/R = 1/4 + 1/4 = 1/2 → 2.0 Ω\nTotal R = 6.0 + 2.0 = 8.0 Ω\nI = V/R = 12/8.0 = 1.5 A\n【中文】并联 2 Ω，总 8 Ω，电流 1.5 A。"},
+  {topic:"实用电学",q:"A 2.3 kW electric kettle runs on 230 V mains for 5.0 minutes. Find (i) the current it draws [1] and (ii) the energy it transfers, in joules [2].",marks:3,ans:"10;690000",
+   scheme:["A1 I=P/V=2300/230=10 A","M1 E=Pt=2300×(5×60)","A1 690 000 J"],
+   model:"(i) I = P/V = 2300/230 = 10 A\n(ii) E = P × t = 2300 × (5.0×60) = 2300 × 300 = 690 000 J\n【中文】电流 10 A；能量 E=Pt=2300×300=690000 J。"},
+  {topic:"磁与电磁",q:"An ideal (100% efficient) transformer steps 240 V down to 12 V. The output (secondary) current is 2.0 A. Find the input (primary) current.  [3]",marks:3,ans:"0.1",
+   scheme:["M1 power in = power out: Vp·Ip = Vs·Is","M1 240×Ip = 12×2.0 = 24","A1 Ip=0.10 A"],
+   model:"For an ideal transformer, power in = power out:\nVp × Ip = Vs × Is → 240 × Ip = 12 × 2.0 = 24\nIp = 24/240 = 0.10 A\n【中文】理想变压器功率守恒：240×Ip=12×2=24 → Ip=0.10 A。"}
+
+
+];
+
+/* ---------- OFFLINE GENERATOR（个性化：按摸底考水平定制专题顺序与难度） ---------- */
+function pickRot(a,i){const L=a.length;return a[((i%L)+L)%L];}
+function mathProfile(){ return LS.get('profile',null); }
+/* 个性化专题计划：薄弱专题前置且更高频复现；无摸底则按默认顺序全覆盖 */
+function personalTopicPlan(){
+  const base=TOPICS.map((_,i)=>i);                            // day n -> plan[n-1]; day1 固定为 DAY1(代数)
+  const prof=mathProfile();
+  if(!prof||!prof.weak||!prof.weak.length) return base;
+  const idxOf=zh=>TOPICS.findIndex(t=>t.topicZh===zh);
+  const weak=prof.weak.map(idxOf).filter(i=>i>=0);
+  const weakSet=new Set(weak);
+  const cover=[...weak, ...base.filter(i=>!weakSet.has(i))];  // 全覆盖，弱项排在最前
+  if(cover[0]===0 && cover.length>1) cover.push(cover.shift()); // 避免第2天与第1天(代数)重复
+  // plan[0] 是第1天占位(实际用固定 DAY1)，从第2天(plan[1])起弱项优先，之后再刷弱项加强复现
+  return [0, ...cover, ...weak, ...weak.slice(0,3)];
+}
+function pickChallenge(topicZh,n){
+  const match=CHALLENGE_BANK.filter(c=>c.topic===topicZh);
+  const src = match.length?match:CHALLENGE_BANK;
+  return Object.assign({},src[((n%src.length)+src.length)%src.length]);
+}
+function generateDayLocally(n){
+  if(n>=91){ const mk=pickRot(MOCK_BANK,n); return {day:n,topicZh:mk.title,topicEn:"Mock Exam",
+    goals:["按考试节奏限时完成整套题","做完逐题对照评分标准自我批改","把错题记入错题本，针对性复盘"],
+    concepts:[{t:"模考策略",en:"Exam technique",tech:"先易后难、控制每题时间；写清步骤争取方法分(M marks)。",exam:"最后10天重在查漏补缺与手感，模考后务必订正。"}],
+    examples:[], mcqs:mk.mcqs.map((q,i)=>({id:'m'+n+'q'+(i+1),stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,tier:q.tier})),
+    structured:mk.structured.map((q,i)=>Object.assign({id:'m'+n+'s'+(i+1)},q)), mock:{title:mk.title,note:mk.note}};
+  }
+  const plan=personalTopicPlan();
+  const t=TOPICS[plan[(n-1)%plan.length]];
+  const day=dayFromTopic(n,t);
+  /* 难度校准：按当前水平决定从第几天开始每天加一道 A 档拔高题（越弱越晚，先稳基础） */
+  const prof=mathProfile();
+  const fromDay = prof ? (prof.challengeFromDay||6) : 6;
+  if(n>=fromDay){ day.structured.push(Object.assign({id:'m'+n+'sC',challenge:true},pickChallenge(t.topicZh,n))); }
+  return day;
+}
+
+/* ---------- DATABASE LAYER + offline outbox ---------- */
+const SERVED = typeof location!=='undefined' && /^https?:/.test(location.protocol);
+const DB={
+  on:false, flushing:false,
+  async init(){ try{const r=await fetch('/api/health',{cache:'no-store'}); this.on=!!(r&&r.ok);}catch(e){this.on=false;} return this.on; },
+  async pull(){ if(!this.on) return;
+    try{
+      const st=await (await fetch('/api/state?student='+STUDENT)).json();
+      if(st&&st.current){ state.current=st.current; state.unlocked=st.unlocked||st.current; if(st.startDate) state.startDate=st.startDate; }
+      const d=await (await fetch('/api/days?subject='+SUBJECT)).json();
+      if(d&&typeof d==='object'){ for(const k in d) days[k]=d[k]; }
+      const nb=await (await fetch('/api/notebook?student='+STUDENT)).json();
+      if(Array.isArray(nb)) notebook=nb;
+    }catch(e){ console.warn('pull failed',e); } },
+  _req(p,body){ return fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>{ if(!r||!r.ok) throw new Error('HTTP '+(r&&r.status)); return r; }); },
+  post(p,body){ if(!SERVED) return; queueWrite(p,body); this.flush(); },
+  async flush(){ if(this.flushing||!SERVED) return; let q=outbox(); if(!q.length){updateSyncBadge();return;} this.flushing=true;
+    try{ while(q.length){ try{ await this._req(q[0].p,q[0].body); this.on=true; }catch(e){ this.on=false; break; } q.shift(); LS.set('outbox',q); updateSyncBadge(); } }
+    finally{ this.flushing=false; updateSyncBadge(); } }
+};
+function outbox(){ return LS.get('outbox',[]); }
+function collapseKey(p,body){ if(p==='state')return'state'; if(p==='notebook')return'notebook'; if(p==='day')return'day:'+(body&&body.day); return null; }
+function queueWrite(p,body){ let q=outbox(); const k=collapseKey(p,body); if(k) q=q.filter(it=>collapseKey(it.p,it.body)!==k); q.push({p,body}); if(q.length>800)q=q.slice(q.length-800); LS.set('outbox',q); updateSyncBadge(); }
+function updateSyncBadge(){ const el=document.getElementById('syncStatus'); if(!el)return; const n=outbox().length;
+  if(!SERVED){el.textContent='';return;}
+  if(n>0){el.textContent='⏳ '+n+' 条待同步';el.style.color='var(--warn)';el.title='暂连不上数据库，已存本地，恢复后自动补写';}
+  else if(DB.on){el.textContent='✓ 已同步';el.style.color='var(--good)';} else {el.textContent='';} }
+function persistState(){ LS.set('state',state); DB.post('state',{student:STUDENT,current:state.current,unlocked:state.unlocked,startDate:state.startDate}); }
+function persistDay(n){ LS.set('days',days); if(days[n]) DB.post('day',{subject:SUBJECT,day:+n,content:days[n]}); }
+function persistNotebook(){ LS.set('notebook',notebook); DB.post('notebook',{student:STUDENT,items:notebook}); }
+function logAttempt(day,id,topic,correct,kind){ DB.post('attempt',{student:STUDENT,day:day,qid:id,topic:topic||'',chosen:correct?1:0,correct:correct?1:0,kind:kind||'mcq'}); }
+
+/* ---------- STATE ---------- */
+let state=LS.get('state',{current:1,unlocked:1,startDate:null});
+let days=LS.get('days',{1:DAY1});
+let notebook=LS.get('notebook',[]);
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function currentData(){return days[state.current]||DAY1;}
+
+/* ---------- RENDER ---------- */
+function render(){
+  const d=currentData(), f=focus(state.current);
+  document.getElementById('dayNum').textContent=state.current;
+  document.getElementById('theme').innerHTML=(d.topicZh||'')+' <span class="en">/ '+(d.topicEn||'')+'</span>';
+  document.getElementById('phase').textContent=f.phase.name+' · '+f.phase.en;
+  document.getElementById('cdNum').textContent=Math.max(0,101-state.current);
+  document.getElementById('prog').style.width=(state.current)+'%';
+  document.getElementById('prevDay').disabled=state.current<=1;
+  renderOverview(d); renderExamples(d); renderMCQ(d); renderReview(); renderStructured(d); renderNotebook(); updateNbBadge();
+  if(typeof renderDiagBanner==='function') renderDiagBanner();
+}
+function renderOverview(d){
+  document.getElementById('mockBanner').innerHTML = d.mock ? '<div class="mock-banner"><b>🧪 '+d.mock.title+'</b><div style="color:var(--ink2);font-size:13px;margin-top:4px">'+d.mock.note+'</div></div>' : '';
+  document.getElementById('ov-goals').innerHTML='<div class="card kpt"><div class="t">🎯 今日目标</div><ul class="clean">'+(d.goals||[]).map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  document.getElementById('ov-concepts').innerHTML=(d.concepts||[]).map(c=>
+    '<div class="card kpt"><div class="t">'+c.t+'</div><div class="en">'+(c.en||'')+'</div>'+
+    (c.tech?'<div style="margin-top:8px"><span class="tag tech">解题技巧</span>'+c.tech+'</div>':(c.body?'<div style="margin-top:8px">'+c.body+'</div>':''))+
+    (c.exam?'<div style="margin-top:6px"><span class="tag exam">出题思路</span>'+c.exam+'</div>':'')+'</div>').join('');
+}
+function renderExamples(d){
+  const box=document.getElementById('ex-list');
+  if(!d.examples||!d.examples.length){box.innerHTML='<div class="card" style="color:var(--ink2)">今日为模考日，练习见「练习」页。</div>';return;}
+  box.innerHTML=d.examples.map((e,i)=>
+    '<div class="card"><div class="stem" style="font-weight:700"><span style="color:var(--brand2)">例 '+(i+1)+'</span>　'+e.q+'</div>'+
+    '<div class="btnrow"><button class="btn primary mini" data-ex="'+i+'">显示解答与方法</button></div>'+
+    '<div class="model" id="exm-'+i+'"><div class="mk">标准解答</div><div class="work">'+escapeHTML(e.solution)+'</div>'+
+    (e.note?'<div style="margin-top:8px"><span class="tag tech">点拨</span>'+e.note+'</div>':'')+'</div></div>').join('');
+  box.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>document.getElementById('exm-'+b.dataset.ex).classList.add('show'));
+}
+function renderMCQ(d){ document.getElementById('pr-mcq').innerHTML=(d.mcqs||[]).map((q,i)=>mcqHTML(q,i,'mcq')).join(''); }
+function tierBadge(t){
+  if(!t) return '';
+  const m={1:['基础','#3d8a5f'],2:['O-Level','#584a86'],3:['拔高','#8a6317']};
+  const x=m[t]||m[2];
+  return '<span class="tag" style="background:color-mix(in oklab,'+x[1]+' 14%,var(--panel));color:'+x[1]+';border:1px solid color-mix(in oklab,'+x[1]+' 30%,var(--line));margin-right:6px">'+x[0]+'</span>';
+}
+function mcqHTML(q,i,ns){
+  return '<div class="q" id="'+ns+'-'+q.id+'"><div class="stem"><span class="no">Q'+(i+1)+'</span>'+tierBadge(q.tier)+q.stem+'</div>'+
+   q.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+   '<div class="expl" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>';
+}
+function renderStructured(d){
+  const box=document.getElementById('pr-structured');
+  box.innerHTML=(d.structured||[]).map((q,i)=>
+    '<div class="q" id="st-'+q.id+'"><div class="stem"><span class="no">结 '+(i+1)+'</span>'+(q.challenge?'<span class="tag" style="background:color-mix(in oklab,var(--gold) 22%,var(--panel));color:#8a6317;border:1px solid color-mix(in oklab,var(--gold) 40%,var(--line));margin-right:6px">🎯 冲A拔高</span>':tierBadge(q.tier))+q.q+'</div>'+
+    '<textarea class="ans" id="stw-'+q.id+'" placeholder="写出你的解题步骤(working)…"></textarea>'+
+    (q.ans!==undefined?'<div style="margin-top:8px">最终答案：<input class="fin" id="stf-'+q.id+'" placeholder="如 x=3,y=2 / 6x-10"><span class="mark" id="stm-'+q.id+'"></span></div>':'')+
+    '<div class="btnrow">'+(q.ans!==undefined?'<button class="btn primary mini" data-chk="'+q.id+'">自动判分</button>':'')+
+     '<button class="btn ghost mini" data-sch="'+q.id+'">查看评分标准与解答</button>'+
+     '<button class="btn gold mini" data-mk="'+q.id+'">🖊️ 请Claude批改</button></div>'+
+    '<div class="model" id="stmodel-'+q.id+'"><div class="mk">评分标准（满分 '+q.marks+'）</div><ul class="clean">'+
+      (q.scheme||[]).map(s=>'<li>'+s+'</li>').join('')+'</ul><div class="mk" style="margin-top:8px">标准解答</div><div class="work">'+escapeHTML(q.model||'')+'</div>'+
+      (q.ans!==undefined?'<div style="margin-top:6px">最终答案：<span class="math">'+q.ans+'</span></div>':'')+'</div></div>').join('');
+  box.querySelectorAll('[data-sch]').forEach(b=>b.onclick=()=>document.getElementById('stmodel-'+b.dataset.sch).classList.add('show'));
+  box.querySelectorAll('[data-chk]').forEach(b=>b.onclick=()=>checkStructured(d,b.dataset.chk));
+  box.querySelectorAll('[data-mk]').forEach(b=>b.onclick=()=>{const q=(d.structured||[]).find(x=>x.id===b.dataset.mk); const w=document.getElementById('stw-'+q.id); openMark('结构题 Structured',q.q,q.marks,w?w.value:'');});
+}
+function normAns(s){ return (s||'').toLowerCase().replace(/\s+/g,'').replace(/[，、]/g,',').replace(/cm2|cm²/g,'').replace(/cm3|cm³/g,'').replace(/units?|litres?/g,''); }
+// Match one accepted answer against the student's input. Multi-part (comma) answers
+// need every part present; a single numeric value must match exactly OR be followed
+// only by a unit (non-digit) — so "12" accepts "12 N" but NOT "120".
+function ansMatch(a,got){
+  if(!a) return false;
+  if(a.indexOf(',')>=0) return a.split(',').every(p=>got.includes(p));
+  if(a===got) return true;
+  if(got.startsWith(a)){ const rest=got.slice(a.length); return !/^[.\d]/.test(rest); }
+  return false;
+}
+function checkStructured(d,id){
+  const q=(d.structured||[]).find(x=>x.id===id); if(!q) return;
+  const val=document.getElementById('stf-'+id).value, mark=document.getElementById('stm-'+id);
+  const accepted=String(q.ans).split(';').map(normAns);
+  const got=normAns(val);
+  const ok = accepted.some(a=> ansMatch(a,got) );
+  document.getElementById('stmodel-'+id).classList.add('show');
+  if(ok){ mark.textContent='✓ 正确'; mark.className='mark good'; }
+  else{ mark.textContent='✗ 待订正'; mark.className='mark bad';
+    if(!notebook.find(n=>n.id===q.id)) notebook.push({id:q.id,kind:'structured',stem:q.q,ans:q.ans,expl:'标准答案：'+q.ans,model:q.model,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current});
+    persistNotebook(); updateNbBadge(); renderNotebook();
+  }
+  logAttempt(state.current,q.id,q.topic,ok,'structured');
+}
+function renderReview(){
+  const due=notebook.filter(n=>!n.mastered).slice(0,4), box=document.getElementById('pr-review');
+  if(!due.length){box.innerHTML='<div class="card" style="color:var(--ink2)">🎉 暂无错题需要复习。</div>';return;}
+  box.innerHTML=due.map(q=> q.kind==='structured'
+    ? '<div class="q nb-item" id="rev-'+q.id+'"><div class="stem"><span class="no">复习</span>'+q.stem+' <span class="tag">已答对 '+(q.correctStreak||0)+'/2</span></div>'+
+      '最终答案：<input class="fin" id="revf-'+q.id+'" placeholder="填最终答案"><span class="mark" id="revm-'+q.id+'"></span>'+
+      '<div class="expl" id="expl-rev-'+q.id+'"><b>标准答案：'+q.ans+'</b><div class="work" style="margin-top:6px">'+escapeHTML(q.model||'')+'</div></div></div>'
+    : '<div class="q nb-item" id="rev-'+q.id+'"><div class="stem"><span class="no">复习</span>'+q.stem+' <span class="tag">已答对 '+(q.correctStreak||0)+'/2</span></div>'+
+      q.options.map((o,j)=>'<label class="opt"><input type="radio" name="rev-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+      '<div class="expl" id="expl-rev-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>'
+  ).join('')+'<div class="btnrow"><button class="btn primary" id="gradeReview">批改复习题</button></div>';
+  const b=document.getElementById('gradeReview'); if(b) b.onclick=gradeReview;
+}
+function renderNotebook(){
+  const box=document.getElementById('nb-list');
+  if(!notebook.length){box.innerHTML='<div class="empty">还没有错题。做错的题会自动收录到这里 📕</div>';return;}
+  box.innerHTML=notebook.map(n=> '<div class="card nb-item '+(n.mastered?'mastered':'')+'"><div class="stem" style="font-weight:600">'+n.stem+'</div>'+
+    (n.kind==='structured'
+      ? '<div style="margin-top:6px;color:var(--good)"><b>标准答案：'+n.ans+'</b></div><div class="expl show"><div class="work">'+escapeHTML(n.model||'')+'</div></div>'
+      : '<div style="margin-top:6px;color:var(--good)"><b>正确答案 '+String.fromCharCode(65+n.answer)+'.</b> '+n.options[n.answer]+'</div><div class="expl show" style="margin-top:8px">'+n.expl+'</div>')+
+    '<div class="nb-meta">专题：'+(n.topic||'—')+' · 第'+n.dayAdded+'天收录 · '+(n.mastered?'✅ 已掌握':'进度 '+(n.correctStreak||0)+'/2')+'</div></div>').join('');
+}
+function updateNbBadge(){ const n=notebook.filter(x=>!x.mastered).length, b=document.getElementById('nbBadge'); if(n>0){b.style.display='inline-block';b.textContent=n;}else{b.style.display='none';} }
+
+/* ---------- GRADING ---------- */
+function gradeMCQ(){
+  const d=currentData(); let correct=0,total=(d.mcqs||[]).length;
+  (d.mcqs||[]).forEach(q=>{ const chosen=document.querySelector('input[name="mcq-'+q.id+'"]:checked'); const wrap=document.getElementById('mcq-'+q.id);
+    wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-mcq-'+q.id).classList.add('show');
+    const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct'); const val=chosen?+chosen.value:null; const ok=(val===q.answer);
+    if(ok)correct++; else{ if(val!=null)opts[val].classList.add('wrong'); addToNotebook(q);} logAttempt(state.current,q.id,q.topic,ok,'mcq'); });
+  const sb=document.getElementById('mcqScore'); sb.classList.add('show'); sb.innerHTML='得分：'+correct+' / '+total+'　'+(correct===total?'🏆 满分！':'❗ 错题已加入错题本。');
+  persistNotebook(); updateNbBadge(); renderNotebook();
+}
+function addToNotebook(q){ if(notebook.find(n=>n.id===q.id))return; notebook.push({id:q.id,kind:'mcq',stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current}); }
+function gradeReview(){
+  const due=notebook.filter(n=>!n.mastered).slice(0,4);
+  due.forEach(q=>{ let ok=false;
+    if(q.kind==='structured'){ const f=document.getElementById('revf-'+q.id); if(!f)return; const accepted=String(q.ans).split(';').map(normAns); const got=normAns(f.value); ok=accepted.some(a=>ansMatch(a,got));
+      const m=document.getElementById('revm-'+q.id); m.textContent=ok?'✓':'✗'; m.className='mark '+(ok?'good':'bad'); document.getElementById('expl-rev-'+q.id).classList.add('show'); }
+    else{ const chosen=document.querySelector('input[name="rev-'+q.id+'"]:checked'); const wrap=document.getElementById('rev-'+q.id); if(!wrap)return; wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-rev-'+q.id).classList.add('show'); const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct'); if(chosen){const v=+chosen.value; ok=(v===q.answer); if(!ok)opts[v].classList.add('wrong');} }
+    if(ok){ q.correctStreak=(q.correctStreak||0)+1; if(q.correctStreak>=2)q.mastered=true; } else { q.correctStreak=0; }
+    logAttempt(state.current,q.id,q.topic,ok,'review');
+  });
+  persistNotebook(); updateNbBadge(); renderNotebook(); setTimeout(renderReview,1200);
+}
+
+/* ---------- TABS / NAV ---------- */
+document.getElementById('tabs').addEventListener('click',e=>{ const t=e.target.closest('.tab'); if(!t)return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.querySelectorAll('.panel').forEach(x=>x.classList.remove('show'));
+  t.classList.add('active'); document.getElementById('p-'+t.dataset.tab).classList.add('show'); if(t.dataset.tab==='dash')renderDashboard(); window.scrollTo({top:0,behavior:'smooth'}); });
+document.getElementById('prevDay').onclick=()=>{if(state.current>1){state.current--;persistState();render();}};
+document.getElementById('gradeMcq').onclick=gradeMCQ;
+document.getElementById('clearMastered').onclick=()=>{notebook=notebook.filter(n=>!n.mastered);persistNotebook();renderNotebook();updateNbBadge();};
+
+/* ---------- MARKING (Claude) ---------- */
+const markModal=document.getElementById('markModal');
+function openMark(kind,q,marks,working){
+  document.getElementById('markKind').textContent='· '+kind;
+  const prompt=`你是新加坡 O-Level 物理(Physics 6091)考官。请按 O-Level 评分标准批改我下面这道${kind}（满分 ${marks} 分）。
+
+【题目】
+${q.replace(/<[^>]+>/g,'')}
+
+【我的解答/步骤】
+${(working||'').trim()||'(我还没写，请给这道题的完整解法与评分标准)'}
+
+请给出：
+1. 评分：x/${marks}，并注明 M 分(方法/method)与 A 分(准确/accuracy)各得多少、为什么。
+2. 逐步检查：指出哪一步正确、哪一步出错（写出错在哪、应如何改）。
+3. 标准解答：给出规范的完整解题步骤。
+4. 一句话提醒：这类题最容易失分的地方。
+中英双语讲评：先给正确解法与得分点，再指出我的错误。`;
+  document.getElementById('markOut').value=prompt; markModal.classList.add('show');
+}
+document.getElementById('closeMark').onclick=()=>markModal.classList.remove('show');
+markModal.addEventListener('click',e=>{if(e.target===markModal)markModal.classList.remove('show');});
+document.getElementById('copyMark').onclick=()=>{const ta=document.getElementById('markOut');ta.select();navigator.clipboard.writeText(ta.value).then(()=>{const b=document.getElementById('copyMark');const o=b.textContent;b.textContent='✅ 已复制';setTimeout(()=>b.textContent=o,1500);}).catch(()=>document.execCommand('copy'));};
+
+/* ---------- DASHBOARD ---------- */
+async function renderDashboard(){
+  const box=document.getElementById('dash-body');
+  if(!DB.on){box.innerHTML='<div class="empty">离线文件模式。运行 <code>node server.js</code> 并从 http://localhost:4600/math.html 打开即可启用学情分析。</div>';return;}
+  try{ const s=await (await fetch('/api/stats?student='+STUDENT+'&subject='+SUBJECT)).json();
+    const rows=(s.weakTopics||[]).map(t=>{const rate=t.n?Math.round(t.c/t.n*100):0;return '<div class="bar"><span class="bl">'+t.topic+'</span><span class="bt"><i style="width:'+rate+'%"></i></span><span class="bv">'+rate+'% ('+t.c+'/'+t.n+')</span></div>';}).join('')||'<div style="color:var(--ink2)">暂无数据。</div>';
+    box.innerHTML='<div class="statgrid">'+stat('总答题数',s.attempts)+stat('总正确率',s.accuracy+'%')+stat('错题·未掌握',(s.notebook.total-s.notebook.mastered))+stat('已生成天数',s.daysGenerated+' / 100')+'</div>'+
+      '<h3>最薄弱专题（正确率由低到高）</h3><div>'+rows+'</div>'+
+      '<h3>错题掌握进度</h3><div class="bar"><span class="bl">已掌握</span><span class="bt"><i style="width:'+(s.notebook.total?Math.round(s.notebook.mastered/s.notebook.total*100):0)+'%"></i></span><span class="bv">'+s.notebook.mastered+' / '+s.notebook.total+'</span></div>'+
+      '<p class="kicker" style="text-align:left">💡 优先攻克正确率最低的专题；错题会在每天「错题复习」中复现。</p>';
+  }catch(e){box.innerHTML='<div class="empty">读取失败：'+e.message+'</div>';}
+}
+function stat(l,v){return '<div class="statcard"><div class="sv">'+v+'</div><div class="sl">'+l+'</div></div>';}
+document.getElementById('refreshDash').onclick=renderDashboard;
+
+/* ---------- EXAM MODE ---------- */
+let examTimer=null,examLeft=0;
+function fmt(s){const m=Math.floor(s/60),ss=s%60;return String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0');}
+function setExamMode(on){document.body.classList.toggle('exam-on',on);document.getElementById('examStart').style.display=on?'none':'';document.getElementById('examStop').style.display=on?'':'none';document.getElementById('examPreset').disabled=on;}
+function startExam(){const mins=+document.getElementById('examPreset').value||15;examLeft=mins*60;setExamMode(true);updateClock();examTimer=setInterval(()=>{examLeft--;updateClock();if(examLeft<=0)stopExam(true);},1000);}
+function updateClock(){const c=document.getElementById('clock');c.textContent=fmt(Math.max(0,examLeft));c.style.color=examLeft<=60?'var(--bad)':examLeft<=300?'var(--warn)':'var(--good)';}
+function stopExam(auto){if(examTimer){clearInterval(examTimer);examTimer=null;}setExamMode(false);document.getElementById('clock').textContent=auto?'时间到':'已结束';document.getElementById('examhint').textContent=auto?'⏰ 时间到！解答已解锁，请对照批改。':'已结束，解答已解锁。';document.querySelectorAll('#p-practice .model').forEach(m=>m.classList.add('show'));}
+document.getElementById('examStart').onclick=startExam; document.getElementById('examStop').onclick=()=>stopExam(false);
+
+/* ---------- GENERATE NEXT DAY ---------- */
+const modal=document.getElementById('genModal');
+document.getElementById('genNext').onclick=()=>{ const next=state.current+1; if(next>100){alert('🎉 已经是第100天，冲刺完成！祝你考出 A1！');return;}
+  if(!days[next]){ days[next]=generateDayLocally(next); persistDay(next); } state.current=next; state.unlocked=Math.max(state.unlocked,next); persistState(); render(); window.scrollTo({top:0,behavior:'smooth'}); };
+function openClaudeGen(){ const next=state.current+1; if(next>100){alert('🎉 已经是第100天！');return;} buildPrompt(next); document.getElementById('modalDay').textContent='第 '+next+' 天'; document.getElementById('jsonIn').value=''; document.getElementById('importOk').style.display='none'; document.getElementById('importErr').style.display='none'; modal.classList.add('show'); }
+document.getElementById('genClaude').onclick=openClaudeGen;
+document.getElementById('closeModal').onclick=()=>modal.classList.remove('show');
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show');});
+function buildPrompt(next){
+  const f=focus(next); const weak=[...new Set(notebook.filter(n=>!n.mastered).map(n=>n.topic))].filter(Boolean);
+  const isMock=next>=91;
+  document.getElementById('promptOut').value=
+`你是我的 O-Level 物理(Physics 6091)冲刺私教。为「第 ${next} 天 / 共100天」生成学习内容。
+阶段：${f.phase.name}。${isMock?'这是最后10天，请生成一套综合模考(混合多个专题)。':'请聚焦一个专题(topical)。'}
+复现我的薄弱专题：${weak.length?weak.join('、'):'（暂无，自由选题）'}
+目标：O-Level 物理 A1。题目与解题过程用英文，知识点讲解与解答用中英双语。每题标注难度 tier(1基础/2正常O-Level/3拔高)。
+
+⚠️ 只输出一个合法 JSON（无多余文字、无代码块围栏），字段：
+{
+ "day":${next},"topicZh":"中文专题","topicEn":"English topic",
+ "goals":["目标1","目标2","目标3"],
+ "concepts":[{"t":"知识点标题","en":"gloss","tech":"解题技巧/方法","exam":"出题思路与考试偏好/易错点"} ...3条],
+ "examples":[{"q":"例题(可含数字与式子)","solution":"分步解答，用\\n换行","note":"点拨/技巧"} ...2条],
+ "mcqs":[{"id":"m${next}q1","stem":"题干","options":["A","B","C","D"],"answer":0,"expl":"解析","topic":"专题名"} ...4题],
+ "structured":[{"id":"m${next}s1","q":"结构题(标注[x]分)","marks":3,"ans":"最终答案(可用;分隔多解,如 x=3,y=2)","scheme":["M1 …","M1 …","A1 …"],"model":"标准解答，用\\n换行","topic":"专题名"} ...2题]${isMock?',\n "mock":{"title":"综合模考标题","note":"说明"}':''}
+}
+注意：answer 用选项下标(0-3)；所有引号用英文双引号。`;
+}
+document.getElementById('copyPrompt').onclick=()=>{const ta=document.getElementById('promptOut');ta.select();navigator.clipboard.writeText(ta.value).then(()=>{const b=document.getElementById('copyPrompt');const o=b.textContent;b.textContent='✅ 已复制';setTimeout(()=>b.textContent=o,1500);}).catch(()=>document.execCommand('copy'));};
+document.getElementById('importBtn').onclick=()=>{
+  const raw=document.getElementById('jsonIn').value, ok=document.getElementById('importOk'), err=document.getElementById('importErr'); ok.style.display='none';err.style.display='none';
+  if(!raw.trim()){err.innerHTML='👆 请先把提示词发给 Claude，再把返回的 JSON 粘贴到上面。';err.style.display='block';return;}
+  let obj; try{obj=JSON.parse(raw.trim().replace(/^```(json)?/i,'').replace(/```$/,'').trim());}catch(e){err.textContent='❌ JSON 解析失败：'+e.message;err.style.display='block';return;}
+  if(!('day'in obj)||!obj.mcqs){err.textContent='❌ 缺少必要字段(day/mcqs)。';err.style.display='block';return;}
+  const dn=+obj.day||state.current+1; days[dn]=obj; persistDay(dn); state.current=dn; state.unlocked=Math.max(state.unlocked,dn); persistState();
+  ok.textContent='✅ 第 '+dn+' 天导入成功！'; ok.style.display='block'; setTimeout(()=>{modal.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});},700);
+};
+
+/* ---------- UTIL ---------- */
+function escapeHTML(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ================= 摸底考 / 水平定制 (placement test → tailored 100-day plan) ================= */
+const MATH_DIAG=[
+  {id:"pdg1",tier:1,topic:"力与牛顿运动定律",stem:"The SI unit of force is the:",options:["newton","joule","watt","pascal"],answer:0},
+  {id:"pdg2",tier:1,topic:"质量、重量与密度",stem:"The weight of a 3.0 kg object (g = 10 N/kg) is:",options:["30 N","3 N","0.3 N","300 N"],answer:0},
+  {id:"pdg3",tier:1,topic:"运动学",stem:"A body travels 60 m in 12 s at constant speed. Its speed is:",options:["5.0 m/s","0.2 m/s","72 m/s","720 m/s"],answer:0},
+  {id:"pdg4",tier:1,topic:"功、能与功率",stem:"The SI unit of energy is the:",options:["joule","newton","ampere","volt"],answer:0},
+  {id:"pdg5",tier:1,topic:"静电",stem:"Two objects with like charges will:",options:["repel","attract","do nothing","neutralise"],answer:0},
+  {id:"pdg6",tier:1,topic:"电流与电阻",stem:"The SI unit of electric current is the:",options:["ampere","ohm","volt","coulomb"],answer:0},
+  {id:"pdg7",tier:1,topic:"分子模型与热传递",stem:"Which type of heat transfer can pass through a vacuum?",options:["radiation","conduction","convection","boiling"],answer:0},
+  {id:"pdg8",tier:2,topic:"力与牛顿运动定律",stem:"A resultant force of 20 N acts on a 4.0 kg mass. The acceleration is:",options:["5.0 m/s²","80 m/s²","0.2 m/s²","16 m/s²"],answer:0},
+  {id:"pdg9",tier:2,topic:"质量、重量与密度",stem:"A body of mass 90 g has a volume of 30 cm³. Its density is:",options:["3.0 g/cm³","0.33 g/cm³","2700 g/cm³","60 g/cm³"],answer:0},
+  {id:"pdg10",tier:2,topic:"波的性质",stem:"A wave of frequency 4.0 Hz has a wavelength of 5.0 m. Its speed is:",options:["20 m/s","0.8 m/s","1.25 m/s","9.0 m/s"],answer:0},
+  {id:"pdg11",tier:2,topic:"电流与电阻",stem:"A resistor has 10 V across it and a current of 2.0 A. Its resistance is:",options:["5.0 Ω","20 Ω","0.2 Ω","12 Ω"],answer:0},
+  {id:"pdg12",tier:2,topic:"力矩与平衡",stem:"The moment of an 8.0 N force acting 0.50 m from a pivot is:",options:["4.0 N·m","16 N·m","8.5 N·m","0.06 N·m"],answer:0},
+  {id:"pdg13",tier:2,topic:"压强",stem:"A force of 200 N acts on an area of 4.0 m². The pressure is:",options:["50 Pa","800 Pa","0.02 Pa","204 Pa"],answer:0},
+  {id:"pdg14",tier:2,topic:"热学性质（比热与潜热）",stem:"Energy to heat 1.0 kg of water by 20 °C (c = 4200):",options:["84 000 J","4200 J","210 J","8400 J"],answer:0},
+  {id:"pdg15",tier:2,topic:"实用电学",stem:"A 230 V appliance draws 2.0 A. Its power is:",options:["460 W","115 W","232 W","0.0087 W"],answer:0},
+  {id:"pdg16",tier:2,topic:"光：反射与折射",stem:"When light passes from air into glass, it bends:",options:["towards the normal","away from the normal","not at all","back on itself"],answer:0},
+  {id:"pdg17",tier:3,topic:"运动学",stem:"A ball is thrown vertically up at 25 m/s (g=10 m/s²). Time to reach the top:",options:["2.5 s","5.0 s","25 s","0.4 s"],answer:0},
+  {id:"pdg18",tier:3,topic:"直流电路",stem:"A 6.0 Ω and a 3.0 Ω resistor in parallel give a combined resistance of:",options:["2.0 Ω","9.0 Ω","4.5 Ω","18 Ω"],answer:0},
+  {id:"pdg19",tier:3,topic:"磁与电磁",stem:"A transformer has 1000 primary and 250 secondary turns. With 240 V input, the output is:",options:["60 V","960 V","240 V","30 V"],answer:0},
+  {id:"pdg20",tier:3,topic:"光：反射与折射",stem:"Glass has a refractive index of 1.50. Its critical angle is about:",options:["42°","48°","30°","60°"],answer:0}
+
+];
+
+function diagLevel(pct){
+  if(pct>=85) return {key:'strong',zh:'接近 A1 · 冲刺提速',from:2,tip:'基础扎实，重在提速、A 档难题与模考手感。'};
+  if(pct>=70) return {key:'edge',zh:'A2/A1 边缘',from:4,tip:'离 A1 很近，主攻薄弱专题与 A 档区分题。'};
+  if(pct>=55) return {key:'B',zh:'B 档 · 冲 A 中',from:8,tip:'先系统补强薄弱专题，再逐步加难到 A 档。'};
+  if(pct>=40) return {key:'C',zh:'C 档 · 先打基础',from:14,tip:'前两周夯实基础，从第 14 天起加入拔高题。'};
+  return {key:'weak',zh:'基础较薄弱 · 稳扎稳打',from:20,tip:'前三周稳固基础与常见题型，第 20 天起进阶。'};
+}
+const diagModal=document.getElementById('diagModal');
+let diagTimer=null,diagLeft=0;
+function diagTick(){ diagLeft--; const c=document.getElementById('diagClock');
+  if(c){ c.textContent=fmt(Math.max(0,diagLeft)); c.style.color=diagLeft<=60?'var(--bad)':diagLeft<=300?'var(--warn)':'var(--good)'; }
+  if(diagLeft<=0){ if(diagTimer)clearInterval(diagTimer); diagTimer=null; doSubmitDiag(true); } }
+function openDiag(){
+  document.getElementById('diagBody').innerHTML=MATH_DIAG.map((q,i)=>
+    '<div class="q" data-mdg="'+i+'"><div class="stem"><span class="no">'+(i+1)+'</span>'+q.stem+
+    ' <span class="tag" style="opacity:.7">'+q.topic+' · T'+q.tier+'</span></div>'+
+    q.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+'</div>').join('');
+  document.getElementById('diagResult').innerHTML='';
+  document.getElementById('submitDiag').style.display='';
+  diagLeft=40*60; const c=document.getElementById('diagClock'); c.textContent='40:00'; c.style.color='var(--good)';
+  if(diagTimer)clearInterval(diagTimer); diagTimer=setInterval(diagTick,1000);
+  diagModal.classList.add('show');
+}
+function closeDiagModal(){ if(diagTimer){clearInterval(diagTimer);diagTimer=null;} diagModal.classList.remove('show'); }
+document.getElementById('closeDiag').onclick=closeDiagModal;
+diagModal.addEventListener('click',e=>{if(e.target===diagModal)closeDiagModal();});
+function doSubmitDiag(auto){
+  if(diagTimer){clearInterval(diagTimer);diagTimer=null;}
+  let score=0; const wrongTopics={}; const tierTot={1:0,2:0,3:0}, tierOk={1:0,2:0,3:0};
+  MATH_DIAG.forEach(q=>{
+    const c=document.querySelector('input[name="'+q.id+'"]:checked'); const val=c?+c.value:null; const ok=(val===q.answer);
+    tierTot[q.tier]++; if(ok){score++;tierOk[q.tier]++;}
+    else{ wrongTopics[q.topic]=(wrongTopics[q.topic]||0)+1;
+      if(!notebook.find(n=>n.id===q.id)) notebook.push({id:q.id,kind:'mcq',stem:q.stem,options:q.options,answer:q.answer,
+        expl:'摸底考错题 · 考点：'+q.topic,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current});
+    }
+    DB.post('attempt',{student:STUDENT,day:state.current,qid:q.id,topic:q.topic,chosen:(val==null?-1:val),correct:ok?1:0,kind:'diagnostic'});
+  });
+  const total=MATH_DIAG.length, pct=Math.round(score/total*100);
+  const weak=Object.keys(wrongTopics).sort((a,b)=>wrongTopics[b]-wrongTopics[a]);
+  const lv=diagLevel(pct);
+  const profile={score,total,pct,level:lv.key,levelZh:lv.zh,weak,challengeFromDay:lv.from,
+    tierAcc:{t1:tierPct(tierOk[1],tierTot[1]),t2:tierPct(tierOk[2],tierTot[2]),t3:tierPct(tierOk[3],tierTot[3])},date:todayStr()};
+  LS.set('profile',profile); persistNotebook(); updateNbBadge(); renderNotebook();
+  document.getElementById('submitDiag').style.display='none';
+  const tagWeak = weak.length? weak.slice(0,6).map(w=>'<span class="tag tech" style="display:inline-block;margin:3px">'+w+'</span>').join('') : '<span style="color:var(--good)">无明显薄弱，基础扎实！</span>';
+  document.getElementById('diagResult').innerHTML=
+    '<div class="card kpt" style="margin-top:12px">'+
+    '<div style="font-size:18px;font-weight:800">📋 你的摸底结果'+(auto?'（时间到自动交卷）':'')+'</div>'+
+    '<div style="margin:8px 0">得分 <b>'+score+'/'+total+'</b>（'+pct+'%）· 当前水平约当 <b style="color:var(--brand)">'+lv.zh+'</b></div>'+
+    '<div style="font-size:13px;color:var(--ink2);margin-bottom:8px">基础题 '+profile.tierAcc.t1+'% · 中档题 '+profile.tierAcc.t2+'% · A档难题 '+profile.tierAcc.t3+'%</div>'+
+    '<div><b>优先攻克：</b>'+tagWeak+'</div>'+
+    '<div class="mk" style="margin-top:12px">🎯 为你定制的 100 天冲 A 方案</div>'+
+    '<ul class="clean" style="font-size:14px">'+
+      '<li>'+lv.tip+'</li>'+
+      '<li>薄弱专题会<b>提前并更高频</b>出现在每天的专题与练习中，直到你答对 2 次「毕业」。</li>'+
+      '<li>从<b>第 '+lv.from+' 天</b>起，每天自动加入一道 <b>🎯 冲A拔高题</b>（A 档区分题），难度随你的水平推进。</li>'+
+      '<li>最后 10 天为 6 套综合模考，全面查漏补缺。</li>'+
+    '</ul>'+
+    '<div style="font-size:12px;color:var(--ink3)">该方案会影响之后「生成下一天」的每一天；已生成的天保持不变。错题已存入错题本。</div>'+
+    '<div class="btnrow"><button class="btn primary mini" id="diagOkBtn">好的，按此方案开始 →</button></div></div>';
+  document.getElementById('diagOkBtn').onclick=()=>{closeDiagModal();renderDiagBanner();render();};
+}
+function tierPct(a,b){ return b?Math.round(a/b*100):0; }
+document.getElementById('submitDiag').onclick=()=>doSubmitDiag(false);
+function renderDiagBanner(){
+  const b=document.getElementById('diagBanner'); if(!b) return;
+  const prof=mathProfile();
+  if(prof){
+    b.innerHTML='<div class="card" style="background:color-mix(in oklab,var(--good) 9%,var(--panel2));border:1px solid color-mix(in oklab,var(--good) 25%,var(--line))">'+
+      '<b>🎯 摸底已完成 · 方案已生效。</b> 当前水平：<b>'+prof.levelZh+'</b>（'+prof.pct+'%）　'+
+      '重点攻克：'+(prof.weak.length?prof.weak.slice(0,5).join('、'):'基础扎实')+'　'+
+      '<span style="color:var(--ink2)">拔高题自第 '+prof.challengeFromDay+' 天起</span>'+
+      ' <button class="btn ghost mini" id="redoDiag" style="margin-left:8px">重新摸底</button></div>';
+    const rd=document.getElementById('redoDiag'); if(rd) rd.onclick=openDiag; return;
+  }
+  b.innerHTML='<div class="card" style="background:color-mix(in oklab,var(--warn) 10%,var(--panel2));border:1px solid color-mix(in oklab,var(--warn) 26%,var(--line))">'+
+    '<b>🎯 建议先做「物理摸底考」</b><div style="color:var(--ink2);font-size:13.5px;margin:4px 0 8px">20 题，约 40 分钟，评估你现在的水平；之后每天的知识点、例题与难度会据此<b>量身定制</b>，用 100 天确保冲上 A1。</div>'+
+    '<button class="btn gold mini" id="openDiagBtn">开始摸底考 →</button></div>';
+  const od=document.getElementById('openDiagBtn'); if(od) od.onclick=openDiag;
+}
+
+/* ---------- BOOT ---------- */
+(async function boot(){
+  await DB.init(); await DB.pull();
+  if(!days[1]) days[1]=DAY1;               // seed if absent (after pull, days[1] is the frozen DB copy if any)
+  else { for(const k in DAY1){ if(!(k in days[1])) days[1][k]=DAY1[k]; } }  // non-destructively add new sections
+  persistDay(1);                            // ensure DB has day 1 (idempotent; never overwrites frozen questions)
+  if(!state.startDate) state.startDate=todayStr();
+  persistState(); LS.set('notebook',notebook);
+  const hint=document.getElementById('genHint');
+  if(DB.on) hint.innerHTML='🗄️ 已连接本地数据库 <b>SQLite</b>（subject=physics）· 内容与记录自动保存。';
+  else if(SERVED) hint.innerHTML='⚠️ 暂时连不上数据库，作答会先存本地，恢复后自动补写。';
+  else hint.innerHTML='💾 离线文件模式（数据存浏览器本地）。运行 <code>node server.js</code> 启用数据库。';
+  render();
+  if(SERVED){ DB.flush(); updateSyncBadge(); setInterval(()=>DB.flush(),15000); window.addEventListener('online',()=>DB.flush()); }
+})();
+</script>
+</body>
+</html>
