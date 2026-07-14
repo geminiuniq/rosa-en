@@ -312,7 +312,11 @@ const TOPICS=[
     {q:"A stone is dropped from rest (g=10 m/s², ignore air resistance). Find its speed and the distance fallen after 3.0 s.",tier:3,
      solution:"v=gt=10×3=30 m/s\ns=½gt²=½×10×9=45 m\n【中文】v=gt=30 m/s；s=½gt²=45 m。",note:"拔高：自由落体 u=0, a=g。"},
     {q:"A train travelling at 30 m/s brakes with a uniform deceleration of 1.5 m/s². Find the distance it travels before stopping.",tier:3,
-     solution:"v²=u²+2as → 0=30²+2(−1.5)s\n0=900−3.0s → s=900/3.0=300 m\n【中文】用 v²=u²+2as，s=300 m。",note:"拔高：无时间用 v²=u²+2as。"}
+     solution:"v²=u²+2as → 0=30²+2(−1.5)s\n0=900−3.0s → s=900/3.0=300 m\n【中文】用 v²=u²+2as，s=300 m。",note:"拔高：无时间用 v²=u²+2as。"},
+    {q:"A velocity–time graph is described as follows: the velocity rises in a straight line from 0 to 20 m/s during the first 4.0 s, then stays constant at 20 m/s for the next 6.0 s. Find (i) the acceleration in the first 4.0 s and (ii) the total distance travelled in 10 s.",tier:3,
+     solution:"(i) acceleration = gradient = 20/4.0 = 5.0 m/s²\n(ii) distance = area under graph = ½×4.0×20 (triangle) + 20×6.0 (rectangle) = 40 + 120 = 160 m\n【中文】读 v-t 图：斜率=加速度=5 m/s²；面积=位移=40+120=160 m。",note:"拔高·读图：v-t 图斜率=加速度，面积=位移(分成三角形+矩形)。"},
+    {q:"A ball is thrown vertically upwards at 30 m/s (g=10 m/s², ignore air resistance). Find (i) the maximum height reached and (ii) the total time it is in the air.",tier:3,
+     solution:"(i) at top v=0: v²=u²−2gh → 0=30²−2(10)h → h=45 m\n(ii) time up = u/g = 30/10 = 3.0 s; total time = 2×3.0 = 6.0 s\n【中文】最高点 v=0，h=45 m；上升 3 s，往返共 6 s。",note:"拔高：上升到顶 v=0；上下对称，总时间=2×上升时间。"}
    ],
    mcqs:[
     {stem:"The SI unit of acceleration is:",options:["m/s²","m/s","m","N"],answer:0,expl:"加速度单位 m/s²。",topic:"运动学",tier:1},
@@ -355,7 +359,11 @@ const TOPICS=[
     {q:"A skydiver of mass 60 kg falls at terminal velocity (g=10 m/s²). State the resultant force and find the air resistance.",tier:3,
      solution:"At terminal velocity, resultant force = 0.\nAir resistance = weight = mg = 60×10 = 600 N\n【中文】末速度合力=0，空气阻力=重力=600 N。",note:"拔高：末速度合力为零。"},
     {q:"A 1200 kg car brakes uniformly from 20 m/s to rest in 5.0 s. Find the braking force.",tier:3,
-     solution:"a=(0−20)/5.0=−4.0 m/s²\nF=ma=1200×4.0=4800 N (backward)\n【中文】a=−4 m/s²，制动力 F=ma=4800 N。",note:"拔高：先由运动学求 a，再 F=ma。"}
+     solution:"a=(0−20)/5.0=−4.0 m/s²\nF=ma=1200×4.0=4800 N (backward)\n【中文】a=−4 m/s²，制动力 F=ma=4800 N。",note:"拔高：先由运动学求 a，再 F=ma。"},
+    {q:"A 2.0 kg block on a bench is acted on by 12 N to the east and 8.0 N to the west, and a friction force of 1.0 N opposing its motion. Find its acceleration.",tier:3,
+     solution:"Resultant = 12 − 8.0 − 1.0 = 3.0 N (east)\na = F/m = 3.0/2.0 = 1.5 m/s²\n【中文】合力=12−8−1=3 N，a=F/m=1.5 m/s²。",note:"拔高：多个力先求净合力(含摩擦)再 F=ma。"},
+    {q:"A lift of mass 500 kg accelerates upwards at 2.0 m/s² (g=10 m/s²). Find the tension in the supporting cable.",tier:3,
+     solution:"T − mg = ma → T = m(g+a) = 500×(10+2.0) = 500×12 = 6000 N\n【中文】T−mg=ma → T=m(g+a)=6000 N。",note:"拔高：向上加速时 张力=m(g+a)；受力分析取向上为正。"}
    ],
    mcqs:[
     {stem:"A resultant force of 10 N acts on a 2.0 kg mass. The acceleration is:",options:["5.0 m/s²","20 m/s²","0.2 m/s²","8.0 m/s²"],answer:0,expl:"a=F/m=5 m/s²。",topic:"力与牛顿运动定律",tier:1},
@@ -398,7 +406,11 @@ const TOPICS=[
     {q:"A stone is lowered into a measuring cylinder; the water level rises from 40 cm³ to 65 cm³. Its mass is 75 g. Find its density and state whether it sinks in water.",tier:3,
      solution:"V=65−40=25 cm³\nρ=75/25=3.0 g/cm³=3000 kg/m³\n3000>1000 → sinks\n【中文】排水体积 25 cm³，密度 3 g/cm³>水 → 下沉。",note:"拔高：排水法+浮沉判断。"},
     {q:"A hollow ball of volume 500 cm³ has a mass of 300 g. Will it float in water (density 1.0 g/cm³)? Show your working.",tier:3,
-     solution:"ρ=300/500=0.60 g/cm³\n0.60 < 1.0 (water) → it FLOATS\n【中文】密度 0.6 g/cm³<水 → 漂浮。",note:"拔高：密度<液体则漂浮。"}
+     solution:"ρ=300/500=0.60 g/cm³\n0.60 < 1.0 (water) → it FLOATS\n【中文】密度 0.6 g/cm³<水 → 漂浮。",note:"拔高：密度<液体则漂浮。"},
+    {q:"A block of density 0.80 g/cm³ floats in water (density 1.0 g/cm³). Find the fraction of its volume that is submerged.",tier:3,
+     solution:"Fraction submerged = density of block / density of water\n= 0.80/1.0 = 0.80 (i.e. 80%)\n【中文】漂浮时 没入体积比例 = 物体密度/液体密度 = 0.80，即 80%。",note:"拔高：漂浮体没入比例 = ρ物/ρ液。"},
+    {q:"A measuring cylinder holds 50 cm³ of water. A metal object of mass 120 g is lowered in and the level rises to 80 cm³. Find (i) its density and (ii) its weight (g=10 N/kg).",tier:3,
+     solution:"(i) V=80−50=30 cm³; ρ=120/30=4.0 g/cm³\n(ii) W=mg=0.120×10=1.2 N\n【中文】排水体积 30 cm³，密度 4 g/cm³；重量 W=mg=1.2 N。",note:"拔高：排水法 + 质量换 kg 求重量。"}
    ],
    mcqs:[
     {stem:"The weight of a 5.0 kg object (g=10 N/kg) is:",options:["50 N","5 N","0.5 N","500 N"],answer:0,expl:"W=mg=50 N。",topic:"质量、重量与密度",tier:1},
@@ -441,7 +453,11 @@ const TOPICS=[
     {q:"A uniform metre rule is pivoted at its 50 cm centre. A 4.0 N weight hangs at the 40 cm mark. At which mark must a 2.0 N weight hang to balance it?",tier:3,
      solution:"4.0 N is 0.10 m from pivot → moment 0.40 N·m\n2.0 N × d = 0.40 → d=0.20 m on the other side → 70 cm mark\n【中文】4 N 距轴 0.1 m；2 N 需在另一侧 0.2 m → 70 cm 刻度。",note:"拔高：均匀尺重力在中点(此处正好是转轴，不产生力矩)。"},
     {q:"A uniform beam of weight 40 N and length 3.0 m rests on a pivot 1.0 m from its left end. Find the downward force needed at the left end to keep it horizontal.",tier:3,
-     solution:"Weight 40 N acts at centre (1.5 m from left) = 0.5 m right of pivot → moment 40×0.5=20 N·m clockwise\nForce F at left end is 1.0 m left of pivot: F×1.0=20 → F=20 N (downward)\n【中文】重力在中点(距轴0.5 m右)力矩20 N·m；左端 F×1.0=20 → F=20 N。",note:"拔高：非对称支点，重力在几何中心。"}
+     solution:"Weight 40 N acts at centre (1.5 m from left) = 0.5 m right of pivot → moment 40×0.5=20 N·m clockwise\nForce F at left end is 1.0 m left of pivot: F×1.0=20 → F=20 N (downward)\n【中文】重力在中点(距轴0.5 m右)力矩20 N·m；左端 F×1.0=20 → F=20 N。",note:"拔高：非对称支点，重力在几何中心。"},
+    {q:"A uniform beam of weight 100 N and length 4.0 m rests horizontally on two supports, one at each end. A 200 N load is placed 1.0 m from the left support. Find the upward force provided by each support.",tier:3,
+     solution:"Take moments about the left support:\nR_right×4.0 = 100×2.0 (weight at centre) + 200×1.0 = 200 + 200 = 400\nR_right = 100 N\nTotal up = total down: R_left = (100+200) − 100 = 200 N\n【中文】对左支点取矩：R右×4=100×2+200×1=400→R右=100 N；R左=300−100=200 N。",note:"拔高·两支点：对一支点取矩求另一支点力，再用竖直力平衡。"},
+    {q:"A uniform metre rule of weight 1.2 N is pivoted at its 40 cm mark. A weight W hangs at the 10 cm mark to keep it balanced. Find W.",tier:3,
+     solution:"Rule's weight acts at 50 cm mark = 0.10 m to the right of the pivot → clockwise moment = 1.2×0.10 = 0.12 N·m\nW at 10 cm is 0.30 m to the left: W×0.30 = 0.12 → W = 0.40 N\n【中文】尺重在50 cm(距轴0.10 m右)力矩0.12 N·m；W×0.30=0.12→W=0.40 N。",note:"拔高：非中心支点时，尺自身重力(作用在中点)也产生力矩。"}
    ],
    mcqs:[
     {stem:"The SI unit of the moment of a force is:",options:["N·m","N","N/m","J"],answer:0,expl:"N·m。",topic:"力矩与平衡",tier:1},
@@ -484,7 +500,11 @@ const TOPICS=[
     {q:"A diver is 15 m below the surface of seawater (ρ=1030 kg/m³, g=10, atmospheric=1.0×10⁵ Pa). Find (i) the water pressure and (ii) the total pressure.",tier:3,
      solution:"(i) p=ρgh=1030×10×15=154 500 Pa\n(ii) total=154 500+100 000=254 500 Pa\n【中文】水压154500 Pa；总压强再加大气压=254500 Pa。",note:"拔高：总压强=水压+大气压。"},
     {q:"In a hydraulic lift, a force of 40 N is applied to a small piston of area 0.005 m². The large piston has area 0.050 m². Find the force on the large piston.",tier:3,
-     solution:"p=40/0.005=8000 Pa; F=p×A=8000×0.050=400 N\n【中文】压强8000 Pa等值传递，大活塞力=400 N。",note:"拔高：液压等压传递放大力。"}
+     solution:"p=40/0.005=8000 Pa; F=p×A=8000×0.050=400 N\n【中文】压强8000 Pa等值传递，大活塞力=400 N。",note:"拔高：液压等压传递放大力。"},
+    {q:"A rectangular block of weight 120 N has dimensions 0.20 m × 0.30 m × 0.50 m. Find (i) the maximum and (ii) the minimum pressure it can exert on the ground.",tier:3,
+     solution:"Smallest face = 0.20×0.30 = 0.060 m² → max pressure = 120/0.060 = 2000 Pa\nLargest face = 0.30×0.50 = 0.15 m² → min pressure = 120/0.15 = 800 Pa\n【中文】最小面 0.06 m²→最大压强2000 Pa；最大面0.15 m²→最小压强800 Pa。",note:"拔高：同一重量，接触面积最小时压强最大。"},
+    {q:"In a U-tube manometer, a trapped gas supports a water-column height difference of 25 cm (ρ=1000 kg/m³, g=10). Find the pressure difference between the gas and the atmosphere.",tier:3,
+     solution:"Δp = ρgh = 1000×10×0.25 = 2500 Pa\n【中文】压差 Δp=ρgh=1000×10×0.25=2500 Pa。",note:"拔高·读图(U形管)：压差=ρg×高度差(h 用米)。"}
    ],
    mcqs:[
     {stem:"The SI unit of pressure is the:",options:["pascal (N/m²)","newton","joule","watt"],answer:0,expl:"Pa=N/m²。",topic:"压强",tier:1},
@@ -527,7 +547,11 @@ const TOPICS=[
     {q:"A 0.50 kg ball is dropped from 2.0 m (g=10). Using energy conservation, find its speed just before landing.",tier:3,
      solution:"GPE=mgh=0.50×10×2.0=10 J=½mv²\nv²=2×10/0.50=40 → v=6.3 m/s\n【中文】mgh=10 J 全变 KE，v=√40≈6.3 m/s。",note:"拔高：mgh=½mv²。"},
     {q:"A motor rated 500 W lifts a 20 kg load 6.0 m in 4.0 s (g=10). Find the useful power output and the efficiency.",tier:3,
-     solution:"Useful power=mgh/t=20×10×6.0/4.0=300 W\nEfficiency=300/500×100%=60%\n【中文】有用功率300 W，效率=300/500=60%。",note:"拔高：效率=有用/总×100%。"}
+     solution:"Useful power=mgh/t=20×10×6.0/4.0=300 W\nEfficiency=300/500×100%=60%\n【中文】有用功率300 W，效率=300/500=60%。",note:"拔高：效率=有用/总×100%。"},
+    {q:"A 1500 kg car speeds up from 10 m/s to 30 m/s on a level road. Find the work done by the engine (the gain in kinetic energy).",tier:3,
+     solution:"Work = ΔKE = ½m(v²−u²) = ½×1500×(30²−10²) = ½×1500×(900−100) = ½×1500×800 = 600 000 J\n【中文】功=动能增量=½m(v²−u²)=600000 J。",note:"拔高：加速做的功=动能变化；速度记得平方。"},
+    {q:"A water pump is 60% efficient. It raises 200 kg of water through 15 m in 10 s (g=10). Find the electrical input power.",tier:3,
+     solution:"Useful power = mgh/t = 200×10×15/10 = 3000 W\nInput power = useful/efficiency = 3000/0.60 = 5000 W\n【中文】有用功率=mgh/t=3000 W；输入=有用/效率=3000/0.6=5000 W。",note:"拔高：输入功率 = 有用功率 ÷ 效率。"}
    ],
    mcqs:[
     {stem:"The SI unit of work (and energy) is the:",options:["joule","watt","newton","pascal"],answer:0,expl:"joule。",topic:"功、能与功率",tier:1},
@@ -854,7 +878,7 @@ const MORE_TOPICS=[
    ]},
   {topicZh:"电流与电阻",topicEn:"Current of Electricity",
    goals:["掌握 I=Q/t 与 Q=It","掌握 V、R 及欧姆定律 R=V/I","会读电阻器/灯丝的 I–V 图"],
-   tips:{loves:"I=Q/t、Q=It、R=V/I、V=IR、I–V 图(欧姆导体直线、灯丝曲线)。O-Level 爱考电荷计算与灯丝电阻随温度变化。",
+   tips:{loves:"I=Q/t、Q=It、R=V/I、V=IR、I–V 图(欧姆导体直线、灯丝曲线)。O-Level 爱考电荷计算、灯丝电阻随温度变化，以及读 I-V 图(欧姆导体过原点直线、灯丝上凸曲线)。",
      pitfalls:"①Q=It 时间要用秒(分钟×60)；②欧姆定律 R=V/I 三量代错；③把灯丝(非欧姆)的电阻当常数(其实随温度升高而增大)。"},
    concepts:[
     {t:"电流与电荷 Current & Charge",en:"I = Q/t.",tech:"I=Q/t(A)，Q=It(C)。常规电流由正极到负极。",exam:"Q=It，时间用秒。"},
@@ -869,7 +893,11 @@ const MORE_TOPICS=[
     {q:"A current of 0.25 A flows through a 48 Ω resistor. Find the p.d. across it and the charge in 2.0 minutes.",tier:3,
      solution:"V=IR=0.25×48=12 V; Q=It=0.25×120=30 C\n【中文】V=12 V；2 分钟=120 s，Q=30 C。",note:"拔高：V=IR 与 Q=It 结合，时间换秒。"},
     {q:"A filament lamp draws 0.50 A at 2.0 V and 1.0 A at 8.0 V. Find its resistance in each case and explain the trend.",tier:3,
-     solution:"R1=2.0/0.50=4.0 Ω; R2=8.0/1.0=8.0 Ω. Resistance increases because the larger current heats the filament, raising its temperature and resistance (non-ohmic).\n【中文】R 从 4→8 Ω，因电流大灯丝更热、电阻增大。",note:"拔高：灯丝非欧姆。"}
+     solution:"R1=2.0/0.50=4.0 Ω; R2=8.0/1.0=8.0 Ω. Resistance increases because the larger current heats the filament, raising its temperature and resistance (non-ohmic).\n【中文】R 从 4→8 Ω，因电流大灯丝更热、电阻增大。",note:"拔高：灯丝非欧姆。"},
+    {q:"The I–V graph for a metal wire is a straight line through the origin that passes through the point (4.0 V, 0.50 A). (i) Find its resistance. (ii) State what the straight-line-through-origin shape tells you.",tier:3,
+     solution:"(i) R = V/I = 4.0/0.50 = 8.0 Ω\n(ii) A straight line through the origin means current is proportional to voltage → it obeys Ohm's law (ohmic conductor at constant temperature).\n【中文】读 I-V 图：R=V/I=8 Ω；过原点直线 → I∝V，服从欧姆定律。",note:"拔高·读图：I-V 过原点直线=欧姆导体，斜率的倒数=电阻。"},
+    {q:"A filament lamp's I–V graph is a curve that bends over. From it: at 2.0 V the current is 0.40 A, and at 6.0 V the current is 0.80 A. Find the resistance at each voltage and explain the shape of the graph.",tier:3,
+     solution:"R₁ = 2.0/0.40 = 5.0 Ω; R₂ = 6.0/0.80 = 7.5 Ω\nResistance increases with voltage because the larger current heats the filament, raising its temperature and resistance — so the graph curves (gradient decreases).\n【中文】R从5→7.5 Ω；电流大灯丝更热、电阻增大，故 I-V 曲线上凸。",note:"拔高·读图：灯丝 I-V 曲线上凸=电阻随温度升高而增大(非欧姆)。"}
    ],
    mcqs:[
     {stem:"The SI unit of electric current is the:",options:["ampere","volt","ohm","coulomb"],answer:0,expl:"安培。",topic:"电流与电阻",tier:1},
@@ -897,7 +925,7 @@ const MORE_TOPICS=[
    ]},
   {topicZh:"直流电路",topicEn:"D.C. Circuits",
    goals:["掌握串联(电流相同、R 相加)","掌握并联(电压相同、1/R=Σ1/Rᵢ)","会解组合电路与热敏/光敏传感器"],
-   tips:{loves:"串联(电流同、电阻相加、电压按比例分)、并联(电压同、总电阻用倒数和)、组合电路求电流/电压、热敏(温度↑R↓)与光敏(光↑R↓)。O-Level 爱考串并联组合与传感电路。",
+   tips:{loves:"串联(电流同、电阻相加、电压按比例分)、并联(电压同、总电阻用倒数和)、组合电路求电流/电压、热敏(温度↑R↓)与光敏(光↑R↓)。O-Level 爱考串并联组合、传感电路，以及读电路图与电流表/电压表读数。",
      pitfalls:"①并联电阻要用倒数和(1/R=…)，不能直接相加；②串联各电阻电压不同(按阻值比例)；③以为并联总电阻大(其实小于任一支路)。"},
    concepts:[
     {t:"串联 Series",en:"Same current, add R.",tech:"电流处处相同；电压相加；R=R₁+R₂+…。",exam:"串联电阻相加。"},
@@ -912,7 +940,11 @@ const MORE_TOPICS=[
     {q:"A 6.0 Ω resistor is in series with two 4.0 Ω resistors in parallel, across a 12 V battery. Find the total resistance and the current.",tier:3,
      solution:"Parallel: 4∥4=2.0 Ω; total=6.0+2.0=8.0 Ω; I=12/8.0=1.5 A\n【中文】并联 2 Ω，总 8 Ω，I=1.5 A。",note:"拔高：先并联再串联。"},
     {q:"A 2.0 Ω and a 4.0 Ω resistor are in series across a 12 V supply. Find the p.d. across the 4.0 Ω resistor.",tier:3,
-     solution:"I=12/6.0=2.0 A; V(4Ω)=IR=2.0×4.0=8.0 V\n【中文】电流 2 A，4 Ω 上电压 8 V。",note:"拔高：串联电压按阻值比例分。"}
+     solution:"I=12/6.0=2.0 A; V(4Ω)=IR=2.0×4.0=8.0 V\n【中文】电流 2 A，4 Ω 上电压 8 V。",note:"拔高：串联电压按阻值比例分。"},
+    {q:"A circuit (described): a 12 V battery is connected in series with a 2.0 Ω resistor and an ammeter; this is then in series with two resistors of 6.0 Ω and 3.0 Ω that are in parallel with each other. Find (i) the parallel resistance, (ii) the total resistance, (iii) the ammeter reading.",tier:3,
+     solution:"(i) parallel: 1/R=1/6.0+1/3.0=1/2 → R=2.0 Ω\n(ii) total = 2.0 (series) + 2.0 (parallel) = 4.0 Ω\n(iii) ammeter reads total current I = V/R = 12/4.0 = 3.0 A\n【中文】读电路图：并联2 Ω，总4 Ω，电流表读 I=12/4=3 A。",note:"拔高·读电路图：先算并联，再串联相加，电流表读总电流。"},
+    {q:"A circuit (described): a 4.0 Ω and an 8.0 Ω resistor are in series across a 6.0 V battery. A voltmeter is connected across the 8.0 Ω resistor. Find the voltmeter reading.",tier:3,
+     solution:"Circuit current I = V/R_total = 6.0/(4.0+8.0) = 0.50 A\nVoltmeter across 8.0 Ω: V = IR = 0.50×8.0 = 4.0 V\n【中文】读电路图：I=6/12=0.5 A；电压表读 8 Ω 上电压=IR=4 V。",note:"拔高·读电路图：串联电压按阻值比例分配，电压表读该元件两端电压。"}
    ],
    mcqs:[
     {stem:"Two resistors in series have a combined resistance of:",options:["R₁ + R₂","R₁ × R₂","(R₁+R₂)/2","less than either"],answer:0,expl:"串联相加。",topic:"直流电路",tier:1},
@@ -955,7 +987,11 @@ const MORE_TOPICS=[
     {q:"An electric heater is rated 230 V, 920 W. Find the current it draws and a suitable fuse (3 A, 5 A or 13 A).",tier:3,
      solution:"I=P/V=920/230=4.0 A → 5 A fuse (just above 4.0 A)\n【中文】I=4 A，选 5 A 保险丝。",note:"拔高：I=P/V 后选'略高于'的标准值。"},
     {q:"A 2.0 kW kettle is used for 6.0 minutes each day. Electricity costs 25 cents per kWh. Find the daily cost.",tier:3,
-     solution:"E=Pt=2.0×(6/60)=0.20 kWh; cost=0.20×25=5 cents\n【中文】能量 0.2 kWh，电费 5 分。",note:"拔高：时间换小时再算电费。"}
+     solution:"E=Pt=2.0×(6/60)=0.20 kWh; cost=0.20×25=5 cents\n【中文】能量 0.2 kWh，电费 5 分。",note:"拔高：时间换小时再算电费。"},
+    {q:"A home runs five 100 W lamps and a 2.0 kW heater together for 4.0 hours. Electricity costs 25 cents per kWh. Find (i) the total power in kW, (ii) the energy used in kWh, (iii) the cost.",tier:3,
+     solution:"(i) P = 5×100 + 2000 = 2500 W = 2.5 kW\n(ii) E = 2.5×4.0 = 10 kWh\n(iii) cost = 10×25 = 250 cents = $2.50\n【中文】总功率2.5 kW；能量10 kWh；电费250分=$2.50。",note:"拔高：先加总功率(kW)，再×时间(h)得 kWh，再算费。"},
+    {q:"A 4.6 kW instantaneous water heater runs on the 230 V mains. Find (i) the current it draws and (ii) explain why it needs its own dedicated circuit rather than a normal 13 A wall socket.",tier:3,
+     solution:"(i) I = P/V = 4600/230 = 20 A\n(ii) 20 A is far more than a normal 13 A socket/fuse can safely carry, so it needs its own higher-rated dedicated circuit to avoid overheating.\n【中文】I=P/V=20 A；远超普通13 A插座，故需独立高额定电路以防过热。",note:"拔高：大功率电器 I=P/V 很大，需专用回路。"}
    ],
    mcqs:[
     {stem:"Electrical power is given by:",options:["P = V × I","P = V + I","P = V/I","P = I/V"],answer:0,expl:"P=VI。",topic:"实用电学",tier:1},
@@ -998,7 +1034,11 @@ const MORE_TOPICS=[
     {q:"A transformer has 1200 primary and 60 secondary turns, connected to 240 V a.c. Find the secondary voltage and state its type.",tier:3,
      solution:"Vs=240×60/1200=12 V; output<input → step-down\n【中文】Vs=12 V，降压变压器。",note:"拔高：判断升/降压。"},
     {q:"An ideal transformer steps 240 V down to 12 V. The output current is 2.0 A. Find the input current.",tier:3,
-     solution:"Power in=power out: 240×Ip=12×2.0=24 → Ip=0.10 A\n【中文】理想变压器功率守恒，Ip=0.10 A。",note:"拔高：VpIp=VsIs。"}
+     solution:"Power in=power out: 240×Ip=12×2.0=24 → Ip=0.10 A\n【中文】理想变压器功率守恒，Ip=0.10 A。",note:"拔高：VpIp=VsIs。"},
+    {q:"An ideal transformer supplies a 12 V, 24 W lamp from the 240 V a.c. mains. Find (i) the current in the lamp (secondary) and (ii) the current drawn from the mains (primary).",tier:3,
+     solution:"(i) Secondary current I_s = P/V_s = 24/12 = 2.0 A\n(ii) Ideal: V_pI_p = V_sI_s → 240×I_p = 24 → I_p = 0.10 A\n【中文】次级电流=P/Vs=2 A；理想变压器功率守恒，初级电流=24/240=0.10 A。",note:"拔高：理想变压器 VpIp=VsIs；先由 P 求次级电流。"},
+    {q:"A power station produces 10 kW of power at 250 V. A transformer steps this up to 5000 V for transmission. Find the current in the cables (i) before and (ii) after stepping up, and state why high voltage is used.",tier:3,
+     solution:"(i) before: I = P/V = 10 000/250 = 40 A\n(ii) after: I = 10 000/5000 = 2.0 A\nHigh voltage means lower current, so much less energy is wasted as heat (I²R) in the cables.\n【中文】升压前 I=40 A，升压后 I=2 A；高压→小电流→输电损耗(I²R)大减。",note:"拔高：输电升压降流，减少 I²R 热损耗。"}
    ],
    mcqs:[
     {stem:"Two like magnetic poles placed near each other will:",options:["repel","attract","do nothing","become neutral"],answer:0,expl:"同名相斥。",topic:"磁与电磁",tier:1},
