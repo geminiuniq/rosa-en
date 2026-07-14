@@ -254,238 +254,348 @@ function focus(day){ const ph=PHASES.find(p=>day>=p.r[0]&&day<=p.r[1])||PHASES[3
 const TOPICS=[
   {topicZh:"测量与物理量",topicEn:"Measurement & Physical Quantities",
    goals:["掌握 SI 单位与前缀(k, c, m, μ, n)及换算","会读游标卡尺/螺旋测微器并修正零误差","区分标量与矢量，会用勾股求垂直合力"],
+   tips:{loves:"单位前缀换算(mA↔A、cm↔m)、游标卡尺/螺旋测微器读数、判断标量还是矢量、以及用勾股求垂直合力。测量常作为卷首送分题。O-Level loves prefix conversions and instrument readings.",
+     pitfalls:"①面积/体积换算幂次错(1 m²=10⁴ cm²、1 m³=10⁶ cm³)；②螺旋测微器漏读主尺的 0.5 mm 半刻度，或忘了零误差(zero error)加减；③把 speed(标量)误当 velocity(矢量)、distance 误当 displacement。"},
    concepts:[
     {t:"SI 单位与前缀 SI Units & Prefixes",en:"Base units and powers of ten.",tech:"基本单位：m, kg, s, A, K。前缀 k=10³, c=10⁻², m=10⁻³, μ=10⁻⁶, n=10⁻⁹。计算前先统一换成 SI 单位。",exam:"高频考单位换算：如 5 mA=0.005 A、20 cm=0.20 m。"},
-    {t:"测量仪器与精度 Instruments & Precision",en:"Choose the right tool.",tech:"直尺 (1 mm)、游标卡尺 (0.1 mm)、螺旋测微器 (0.01 mm)。读数视线要垂直，避免视差 (parallax)；有零误差要加减修正。",exam:"micrometer 读数 = 主尺 + 旋转尺；先检查 zero error。"},
-    {t:"标量与矢量 Scalars & Vectors",en:"Direction matters?",tech:"标量只有大小：distance, speed, mass, time, energy。矢量有大小+方向：displacement, velocity, acceleration, force, momentum。垂直两矢量合成用 √(a²+b²)。",exam:"常考判断某量是标量还是矢量；垂直合力用勾股定理。"}
+    {t:"测量仪器与精度 Instruments & Precision",en:"Choose the right tool.",tech:"直尺 (1 mm)、游标卡尺 (0.1 mm)、螺旋测微器 (0.01 mm)。读数视线垂直，避免视差；有零误差要加减修正。",exam:"micrometer 读数 = 主尺 + 旋转尺；先检查 zero error。"},
+    {t:"标量与矢量 Scalars & Vectors",en:"Direction matters?",tech:"标量只有大小：distance, speed, mass, time, energy。矢量有大小+方向：displacement, velocity, acceleration, force。垂直两矢量合成用 √(a²+b²)。",exam:"常考判断标量/矢量；垂直合力用勾股。"}
    ],
    examples:[
-    {q:"A micrometer screw gauge shows a main-scale reading of 5.5 mm and a thimble reading of 32 divisions (each 0.01 mm). Find the diameter.",
-     solution:"Diameter = main scale + thimble\n= 5.5 mm + 32 × 0.01 mm\n= 5.5 + 0.32 = 5.82 mm\n【中文】读数 = 主尺 5.5 mm 加旋转尺 32×0.01=0.32 mm，共 5.82 mm。",
-     note:"技巧：先读主尺(含 0.5 mm 半刻度)，再加旋转尺格数×0.01 mm。"},
-    {q:"Two forces, 3.0 N due east and 4.0 N due north, act at a point. Find the magnitude of the resultant force.",
-     solution:"They are perpendicular, so use Pythagoras:\nR = √(3.0² + 4.0²) = √(9+16) = √25 = 5.0 N\n【中文】两力垂直，合力 = √(3²+4²) = 5.0 N。",
-     note:"出题思路：垂直矢量合成用勾股；方向可用 tanθ 求。"}
+    {q:"A micrometer screw gauge shows a main-scale reading of 5.5 mm and a thimble reading of 32 divisions (each 0.01 mm). Find the diameter.",tier:2,
+     solution:"Diameter = 5.5 mm + 32 × 0.01 mm = 5.5 + 0.32 = 5.82 mm\n【中文】读数 = 主尺 5.5 mm + 旋转尺 0.32 mm = 5.82 mm。",note:"技巧：主尺(含0.5 mm半刻度) + 旋转尺格数×0.01 mm。"},
+    {q:"Convert an area of 2.5 m² into cm².",tier:2,
+     solution:"1 m² = 100 cm × 100 cm = 10⁴ cm²\n2.5 m² = 2.5 × 10⁴ = 25 000 cm²\n【中文】1 m²=10⁴ cm²，故 2.5 m²=25000 cm²。",note:"出题思路：面积换算幂次是长度的平方。"},
+    {q:"Two forces, 3.0 N due east and 4.0 N due north, act at a point. Find the magnitude AND direction of the resultant.",tier:3,
+     solution:"Magnitude R = √(3.0²+4.0²) = √25 = 5.0 N\nDirection: tanθ = 3.0/4.0 → θ = 36.9° east of north\n【中文】合力 5.0 N，方向偏北 36.9°(向东)。",note:"拔高：垂直合力求大小(勾股)与方向(tan)。"},
+    {q:"A hiker walks 5.0 km due east, then 12 km due north, taking 3.0 h. Find (i) the total distance, (ii) the magnitude of the displacement, (iii) the average speed.",tier:3,
+     solution:"(i) distance = 5.0 + 12 = 17 km\n(ii) displacement = √(5.0²+12²) = √169 = 13 km\n(iii) average speed = distance/time = 17/3.0 = 5.7 km/h\n【中文】路程 17 km；位移 13 km(勾股)；平均速率 = 路程/时间 = 5.7 km/h。",note:"拔高：区分路程(标量)与位移(矢量)；平均速率用路程。"}
    ],
    mcqs:[
-    {stem:"Which is the SI base unit of mass?",options:["kilogram","gram","newton","mole"],answer:0,expl:"质量的 SI 基本单位是 kilogram (kg)。",topic:"测量与物理量",tier:1},
+    {stem:"Which is the SI base unit of mass?",options:["kilogram","gram","newton","mole"],answer:0,expl:"质量的 SI 基本单位是 kilogram。",topic:"测量与物理量",tier:1},
     {stem:"Express 5 mA in amperes.",options:["0.005 A","0.05 A","0.5 A","5000 A"],answer:0,expl:"m=10⁻³，5 mA=0.005 A。",topic:"测量与物理量",tier:1},
-    {stem:"Which of the following is a vector quantity?",options:["force","mass","speed","energy"],answer:0,expl:"force 有方向，是矢量；其余为标量。",topic:"测量与物理量",tier:2},
-    {stem:"On a vernier caliper the main scale reads 2.1 cm and the 6th vernier line coincides (each 0.01 cm). The reading is:",options:["2.16 cm","2.61 cm","2.06 cm","2.60 cm"],answer:0,expl:"2.1 cm + 6×0.01=2.16 cm。",topic:"测量与物理量",tier:3}
+    {stem:"The SI base unit of length is the:",options:["metre","centimetre","kilometre","light-year"],answer:0,expl:"长度 SI 基本单位 metre。",topic:"测量与物理量",tier:1},
+    {stem:"Which of the following is a vector quantity?",options:["force","mass","speed","energy"],answer:0,expl:"force 有方向，是矢量。",topic:"测量与物理量",tier:2},
+    {stem:"Convert 2.5 m² into cm².",options:["25 000 cm²","250 cm²","2500 cm²","250 000 cm²"],answer:0,expl:"1 m²=10⁴ cm² → 25000 cm²。",topic:"测量与物理量",tier:2},
+    {stem:"A vernier caliper main scale reads 2.1 cm and the 6th vernier line coincides (each 0.01 cm). The reading is:",options:["2.16 cm","2.61 cm","2.06 cm","2.60 cm"],answer:0,expl:"2.1+6×0.01=2.16 cm。",topic:"测量与物理量",tier:2},
+    {stem:"Two perpendicular forces of 6.0 N and 8.0 N act at a point. The resultant is:",options:["10 N","14 N","2.0 N","48 N"],answer:0,expl:"√(36+64)=10 N。",topic:"测量与物理量",tier:3},
+    {stem:"A micrometer has a zero error of +0.02 mm and gives a reading of 4.50 mm. The true diameter is:",options:["4.48 mm","4.52 mm","4.50 mm","0.02 mm"],answer:0,expl:"正零误差要减：4.50−0.02=4.48 mm。",topic:"测量与物理量",tier:3}
    ],
    structured:[
-    {q:"A rectangular metal block has length 4.0 cm, width 3.0 cm, height 2.0 cm and mass 48 g. Calculate its density in (i) g/cm³ [2] (ii) kg/m³ [1].",marks:3,ans:"2.0;2000",
-     scheme:["M1 V = 4.0×3.0×2.0 = 24 cm³","A1 ρ = 48/24 = 2.0 g/cm³","A1 = 2000 kg/m³"],
-     model:"V = 4.0 × 3.0 × 2.0 = 24 cm³\nρ = m/V = 48/24 = 2.0 g/cm³\n1 g/cm³ = 1000 kg/m³ → 2.0 g/cm³ = 2000 kg/m³\n【中文】体积 24 cm³，密度 48/24=2.0 g/cm³=2000 kg/m³。",topic:"测量与物理量",tier:2},
-    {q:"Two forces of 6.0 N and 8.0 N act at right angles to each other at a point. Find the magnitude of the resultant force.  [2]",marks:2,ans:"10",
-     scheme:["M1 R=√(6²+8²)","A1 R=10 N"],
-     model:"Perpendicular forces → R = √(6.0² + 8.0²) = √(36+64) = √100 = 10 N\n【中文】垂直合力 = √(36+64)=10 N。",topic:"测量与物理量",tier:3}
+    {q:"A rectangular metal block has length 4.0 cm, width 3.0 cm, height 2.0 cm and mass 48 g. Calculate its density in (i) g/cm³ [2] (ii) kg/m³ [1].",marks:3,ans:"2.0;2000",tier:2,
+     scheme:["M1 V=4.0×3.0×2.0=24 cm³","A1 ρ=48/24=2.0 g/cm³","A1 =2000 kg/m³"],
+     model:"V = 4.0×3.0×2.0 = 24 cm³\nρ = 48/24 = 2.0 g/cm³ = 2000 kg/m³\n【中文】体积 24 cm³，密度 2.0 g/cm³=2000 kg/m³。",topic:"测量与物理量"},
+    {q:"A water tank measures 2.0 m × 1.5 m × 0.50 m. Find its volume in (i) m³ [1] and (ii) litres (1 m³ = 1000 L) [2].",marks:3,ans:"1.5;1500",tier:2,
+     scheme:["A1 V=2.0×1.5×0.50=1.5 m³","M1 ×1000","A1 1500 L"],
+     model:"V = 2.0×1.5×0.50 = 1.5 m³\n1.5 m³ × 1000 = 1500 L\n【中文】体积 1.5 m³ = 1500 升。",topic:"测量与物理量"},
+    {q:"Two forces of 6.0 N and 8.0 N act at right angles to each other. Find the magnitude of the resultant force.  [2]",marks:2,ans:"10",tier:3,
+     scheme:["M1 R=√(6²+8²)","A1 10 N"],
+     model:"R = √(6.0²+8.0²) = √100 = 10 N\n【中文】垂直合力 = √(36+64)=10 N。",topic:"测量与物理量"},
+    {q:"A hiker walks 5.0 km east then 12 km north. Find the magnitude of her displacement from the start.  [3]",marks:3,ans:"13",tier:3,
+     scheme:["M1 displacement=√(5²+12²)","M1 =√169","A1 13 km"],
+     model:"Displacement = √(5.0²+12²) = √(25+144) = √169 = 13 km\n【中文】位移 = √(25+144)=13 km。",topic:"测量与物理量"}
    ]},
   {topicZh:"运动学",topicEn:"Kinematics",
    goals:["区分路程/位移、速率/速度，会算加速度","熟练运用匀加速公式 v=u+at, s=ut+½at², v²=u²+2as","会读位移-时间、速度-时间图（斜率与面积）"],
+   tips:{loves:"匀加速三公式的选用、v-t 图的斜率(加速度)与面积(位移)、自由落体(g=10)。O-Level 常给一段图线要你读加速度或求位移面积。",
+     pitfalls:"①减速时忘了 a 取负号；②求距离时张冠李戴选错公式(已知 u,v,t 应用 s=½(u+v)t)；③把 v-t 图的斜率当成位移(斜率其实是加速度，面积才是位移)。"},
    concepts:[
-    {t:"速度与加速度 Speed & Acceleration",en:"Rates of change.",tech:"speed=distance/time；velocity 含方向；acceleration a=(v−u)/t，单位 m/s²。匀加速三公式：v=u+at；s=ut+½at²；v²=u²+2as。",exam:"选公式看已知量；减速时 a 为负。"},
-    {t:"运动图像 Motion Graphs",en:"Slope & area.",tech:"位移-时间图：斜率=速度。速度-时间图：斜率=加速度，图线下面积=位移。",exam:"'area under v-t graph' = 位移；直线斜率=加速度。"},
-    {t:"自由落体 Free Fall",en:"g and air resistance.",tech:"自由下落 a=g≈10 m/s²(题目常取 10)。有空气阻力时阻力随速度增大，最终阻力=重力 → 匀速下落 (terminal velocity)。",exam:"忽略空气阻力时用 g；末速度问题分析受力。"}
+    {t:"速度与加速度 Speed & Acceleration",en:"Rates of change.",tech:"speed=distance/time；velocity 含方向；a=(v−u)/t。匀加速：v=u+at；s=ut+½at²；v²=u²+2as。",exam:"选公式看已知量；减速 a 为负。"},
+    {t:"运动图像 Motion Graphs",en:"Slope & area.",tech:"位移-时间图斜率=速度；速度-时间图斜率=加速度、线下面积=位移。",exam:"'area under v-t graph'=位移。"},
+    {t:"自由落体 Free Fall",en:"g and air resistance.",tech:"自由下落 a=g≈10 m/s²。有空气阻力时阻力增大到等于重力 → 匀速(terminal velocity)。",exam:"忽略空气阻力用 g；末速度分析受力。"}
    ],
    examples:[
-    {q:"A car accelerates uniformly from 5.0 m/s to 25 m/s in 4.0 s. Find (i) the acceleration and (ii) the distance travelled.",
-     solution:"(i) a = (v−u)/t = (25−5)/4 = 5.0 m/s²\n(ii) s = ½(u+v)t = ½(5+25)(4) = 60 m\n【中文】加速度 5 m/s²；距离用 ½(u+v)t = 60 m。",
-     note:"技巧：已知 u,v,t 求距离，用 s=½(u+v)t 最快。"},
-    {q:"A stone is dropped from rest (g = 10 m/s², ignore air resistance). Find its speed and the distance fallen after 3.0 s.",
-     solution:"v = u + gt = 0 + 10×3 = 30 m/s\ns = ½gt² = ½×10×3² = 45 m\n【中文】v=gt=30 m/s；s=½gt²=45 m。",
-     note:"出题思路：自由落体 u=0, a=g。"}
+    {q:"A car accelerates uniformly from 5.0 m/s to 25 m/s in 4.0 s. Find (i) the acceleration and (ii) the distance travelled.",tier:2,
+     solution:"(i) a=(25−5)/4.0=5.0 m/s²\n(ii) s=½(u+v)t=½(5+25)(4)=60 m\n【中文】a=5 m/s²；距离用 ½(u+v)t=60 m。",note:"技巧：已知 u,v,t 求距离用 s=½(u+v)t。"},
+    {q:"A cyclist decelerates uniformly from 12 m/s to rest in 6.0 s. Find (i) the deceleration and (ii) the distance travelled while stopping.",tier:2,
+     solution:"(i) a=(0−12)/6.0=−2.0 m/s² (deceleration 2.0 m/s²)\n(ii) s=½(12+0)(6.0)=36 m\n【中文】减速度 2.0 m/s²；距离 36 m。",note:"出题思路：减速 a 为负；停车距离用平均速度×时间。"},
+    {q:"A stone is dropped from rest (g=10 m/s², ignore air resistance). Find its speed and the distance fallen after 3.0 s.",tier:3,
+     solution:"v=gt=10×3=30 m/s\ns=½gt²=½×10×9=45 m\n【中文】v=gt=30 m/s；s=½gt²=45 m。",note:"拔高：自由落体 u=0, a=g。"},
+    {q:"A train travelling at 30 m/s brakes with a uniform deceleration of 1.5 m/s². Find the distance it travels before stopping.",tier:3,
+     solution:"v²=u²+2as → 0=30²+2(−1.5)s\n0=900−3.0s → s=900/3.0=300 m\n【中文】用 v²=u²+2as，s=300 m。",note:"拔高：无时间用 v²=u²+2as。"}
    ],
    mcqs:[
-    {stem:"The SI unit of acceleration is:",options:["m/s²","m/s","m","N"],answer:0,expl:"加速度 = 速度变化/时间，单位 m/s²。",topic:"运动学",tier:1},
+    {stem:"The SI unit of acceleration is:",options:["m/s²","m/s","m","N"],answer:0,expl:"加速度单位 m/s²。",topic:"运动学",tier:1},
     {stem:"A body travels 100 m in 20 s at constant speed. Its speed is:",options:["5 m/s","20 m/s","2000 m/s","0.2 m/s"],answer:0,expl:"100/20=5 m/s。",topic:"运动学",tier:1},
-    {stem:"On a velocity–time graph, the area under the line represents the:",options:["displacement","acceleration","speed","force"],answer:0,expl:"v-t 图线下面积=位移。",topic:"运动学",tier:2},
-    {stem:"A ball is thrown vertically up at 20 m/s (g=10 m/s²). Time to reach the highest point:",options:["2.0 s","4.0 s","20 s","1.0 s"],answer:0,expl:"到最高点 v=0：t=u/g=20/10=2 s。",topic:"运动学",tier:3}
+    {stem:"On a velocity–time graph, the area under the line represents the:",options:["displacement","acceleration","speed","force"],answer:0,expl:"v-t 面积=位移。",topic:"运动学",tier:2},
+    {stem:"On a displacement–time graph, the gradient (slope) represents the:",options:["velocity","acceleration","distance","force"],answer:0,expl:"s-t 斜率=速度。",topic:"运动学",tier:2},
+    {stem:"A car speeds up from 10 m/s to 30 m/s in 5.0 s. Its acceleration is:",options:["4.0 m/s²","20 m/s²","2.5 m/s²","8.0 m/s²"],answer:0,expl:"(30−10)/5=4 m/s²。",topic:"运动学",tier:2},
+    {stem:"A ball is thrown vertically up at 20 m/s (g=10 m/s²). Time to reach the highest point:",options:["2.0 s","4.0 s","20 s","1.0 s"],answer:0,expl:"到顶 v=0：t=u/g=2 s。",topic:"运动学",tier:3},
+    {stem:"A stone falls freely from rest (g=10). Its speed after 4.0 s is:",options:["40 m/s","20 m/s","80 m/s","10 m/s"],answer:0,expl:"v=gt=40 m/s。",topic:"运动学",tier:3},
+    {stem:"A car decelerates from 20 m/s to rest over 40 m. Its deceleration is:",options:["5.0 m/s²","10 m/s²","2.5 m/s²","0.5 m/s²"],answer:0,expl:"0=400+2a(40)→a=−5 m/s²。",topic:"运动学",tier:3}
    ],
    structured:[
-    {q:"A car starts from rest and accelerates uniformly to 20 m/s in 8.0 s. Find (i) its acceleration [1] and (ii) the distance travelled [2].",marks:3,ans:"2.5;80",
-     scheme:["A1 a=(20−0)/8=2.5 m/s²","M1 s=½(u+v)t=½(20)(8)","A1 80 m"],
-     model:"(i) a = (20−0)/8 = 2.5 m/s²\n(ii) s = ½(u+v)t = ½(0+20)(8) = 80 m\n【中文】加速度 2.5 m/s²；距离 80 m。",topic:"运动学",tier:2},
-    {q:"A stone is dropped from a cliff and reaches the sea 4.0 s later (g=10 m/s², ignore air resistance). Find (i) the speed on impact [1] and (ii) the height of the cliff [2].",marks:3,ans:"40;80",
-     scheme:["A1 v=gt=40 m/s","M1 s=½gt²=½·10·16","A1 80 m"],
-     model:"(i) v = gt = 10×4 = 40 m/s\n(ii) s = ½gt² = ½×10×4² = 80 m\n【中文】落水速度 40 m/s，崖高 80 m。",topic:"运动学",tier:3}
+    {q:"A car starts from rest and accelerates uniformly to 20 m/s in 8.0 s. Find (i) its acceleration [1] and (ii) the distance travelled [2].",marks:3,ans:"2.5;80",tier:2,
+     scheme:["A1 a=20/8=2.5 m/s²","M1 s=½(u+v)t","A1 80 m"],
+     model:"(i) a=20/8.0=2.5 m/s²\n(ii) s=½(0+20)(8.0)=80 m\n【中文】加速度 2.5 m/s²，距离 80 m。",topic:"运动学"},
+    {q:"A bus decelerates uniformly from 15 m/s to 3.0 m/s in 4.0 s. Find (i) the deceleration [1] and (ii) the distance travelled in this time [2].",marks:3,ans:"3;36",tier:2,
+     scheme:["A1 a=(3−15)/4=−3.0 m/s²","M1 s=½(15+3)(4)","A1 36 m"],
+     model:"(i) a=(3.0−15)/4.0=−3.0 m/s² (decel 3.0 m/s²)\n(ii) s=½(15+3.0)(4.0)=36 m\n【中文】减速度 3 m/s²，距离 36 m。",topic:"运动学"},
+    {q:"A stone is dropped from a cliff and reaches the sea 4.0 s later (g=10 m/s²). Find (i) the impact speed [1] and (ii) the cliff height [2].",marks:3,ans:"40;80",tier:3,
+     scheme:["A1 v=gt=40 m/s","M1 s=½gt²","A1 80 m"],
+     model:"(i) v=gt=10×4=40 m/s\n(ii) s=½gt²=½×10×16=80 m\n【中文】落水速度 40 m/s，崖高 80 m。",topic:"运动学"},
+    {q:"A motorcycle travelling at 24 m/s brakes to rest with uniform deceleration over a distance of 48 m. Find (i) the deceleration [2] and (ii) the time taken to stop [1].",marks:3,ans:"6;4",tier:3,
+     scheme:["M1 0=24²+2a(48)","A1 a=−6.0 m/s²","A1 t=(0−24)/(−6)=4.0 s"],
+     model:"(i) v²=u²+2as → 0=24²+2a(48) → 576+96a=0 → a=−6.0 m/s²\n(ii) v=u+at → 0=24+(−6)t → t=4.0 s\n【中文】减速度 6 m/s²，用时 4 s。",topic:"运动学"}
    ]},
   {topicZh:"力与牛顿运动定律",topicEn:"Forces & Newton's Laws",
    goals:["理解牛顿三定律与惯性","熟练用合力 F=ma 求加速度/力","会分析摩擦力、重力与法向力"],
+   tips:{loves:"合力 F=ma 计算(驱动力−摩擦=ma)、末速度(terminal velocity)时合力为零、区分作用-反作用与平衡力。O-Level 常给多个力要你先求合力。",
+     pitfalls:"①F=ma 里的 F 必须是合力(net force)，别直接用单个力；②末速度时忘了合力=0(阻力=重力)；③混淆'一对平衡力'(同一物体)与'作用-反作用'(两个物体)。"},
    concepts:[
-    {t:"牛顿第一/第二定律 Newton I & II",en:"Resultant force → acceleration.",tech:"合力为零 → 保持静止或匀速(惯性 inertia)。合力 F=ma，方向与合力同向。先求合力(各力矢量和)，再除以质量。",exam:"'resultant/net force' 是关键；匀速时合力=0。"},
-    {t:"摩擦与受力分析 Friction & Forces",en:"Draw the forces.",tech:"摩擦力方向与运动/趋势相反；驱动力−摩擦力=合力。竖直方向：重力 W=mg 与支持力/浮力等。",exam:"多力问题先画受力图，取运动方向为正。"},
-    {t:"牛顿第三定律 Newton III",en:"Action–reaction.",tech:"作用力与反作用力：大小相等、方向相反、作用在两个不同物体上。",exam:"区分'一对平衡力'(同一物体)与'作用-反作用'(两个物体)。"}
+    {t:"牛顿第一/第二定律 Newton I & II",en:"Resultant force → acceleration.",tech:"合力为零→静止或匀速(惯性)。合力 F=ma。先求合力(矢量和)再除以质量。",exam:"'resultant/net force' 是关键；匀速时合力=0。"},
+    {t:"摩擦与受力分析 Friction & Forces",en:"Draw the forces.",tech:"摩擦力与运动趋势相反；驱动力−摩擦=合力。竖直：W=mg 与支持力/浮力。",exam:"多力先画受力图，取运动方向为正。"},
+    {t:"牛顿第三定律 Newton III",en:"Action–reaction.",tech:"作用力与反作用力：等大、反向、作用在两个不同物体上。",exam:"区分平衡力(同物体)与作用-反作用(两物体)。"}
    ],
    examples:[
-    {q:"A resultant force of 6.0 N acts on a 2.0 kg object. Find its acceleration.",
-     solution:"a = F/m = 6.0/2.0 = 3.0 m/s²\n【中文】a=F/m=3 m/s²。",
-     note:"技巧：F=ma，先确认 F 是合力。"},
-    {q:"A 1000 kg car has a driving force of 3000 N and experiences 1000 N of friction. Find its acceleration.",
-     solution:"Resultant = 3000 − 1000 = 2000 N\na = F/m = 2000/1000 = 2.0 m/s²\n【中文】合力 2000 N，a=2 m/s²。",
-     note:"出题思路：先合力(驱动−摩擦)，再 a=F/m。"}
+    {q:"A 1000 kg car has a driving force of 3000 N and experiences 1000 N of friction. Find its acceleration.",tier:2,
+     solution:"Resultant=3000−1000=2000 N\na=F/m=2000/1000=2.0 m/s²\n【中文】合力 2000 N，a=2 m/s²。",note:"技巧：先合力(驱动−摩擦)再 a=F/m。"},
+    {q:"A 6.0 N force acts on a 2.0 kg trolley on a frictionless bench. Find its acceleration and the distance travelled in 4.0 s from rest.",tier:2,
+     solution:"a=F/m=6.0/2.0=3.0 m/s²\ns=½at²=½×3.0×4.0²=24 m\n【中文】a=3 m/s²；s=½at²=24 m。",note:"出题思路：力学与运动学结合，先 a 再用运动公式。"},
+    {q:"A skydiver of mass 60 kg falls at terminal velocity (g=10 m/s²). State the resultant force and find the air resistance.",tier:3,
+     solution:"At terminal velocity, resultant force = 0.\nAir resistance = weight = mg = 60×10 = 600 N\n【中文】末速度合力=0，空气阻力=重力=600 N。",note:"拔高：末速度合力为零。"},
+    {q:"A 1200 kg car brakes uniformly from 20 m/s to rest in 5.0 s. Find the braking force.",tier:3,
+     solution:"a=(0−20)/5.0=−4.0 m/s²\nF=ma=1200×4.0=4800 N (backward)\n【中文】a=−4 m/s²，制动力 F=ma=4800 N。",note:"拔高：先由运动学求 a，再 F=ma。"}
    ],
    mcqs:[
-    {stem:"A resultant force of 10 N acts on a 2.0 kg mass. The acceleration is:",options:["5.0 m/s²","20 m/s²","0.2 m/s²","8.0 m/s²"],answer:0,expl:"a=F/m=10/2=5 m/s²。",topic:"力与牛顿运动定律",tier:1},
+    {stem:"A resultant force of 10 N acts on a 2.0 kg mass. The acceleration is:",options:["5.0 m/s²","20 m/s²","0.2 m/s²","8.0 m/s²"],answer:0,expl:"a=F/m=5 m/s²。",topic:"力与牛顿运动定律",tier:1},
     {stem:"Newton's first law is best described by the idea of:",options:["inertia","gravity","friction","momentum"],answer:0,expl:"第一定律=惯性。",topic:"力与牛顿运动定律",tier:1},
+    {stem:"The SI unit of force is the:",options:["newton","joule","watt","pascal"],answer:0,expl:"力的单位 newton。",topic:"力与牛顿运动定律",tier:1},
     {stem:"A 5.0 kg block on a frictionless surface is pulled by 20 N. Its acceleration is:",options:["4.0 m/s²","0.25 m/s²","100 m/s²","25 m/s²"],answer:0,expl:"a=20/5=4 m/s²。",topic:"力与牛顿运动定律",tier:2},
-    {stem:"A 1200 kg car brakes uniformly from 20 m/s to rest in 5.0 s. The braking force is:",options:["4800 N","1200 N","240 N","6000 N"],answer:0,expl:"a=20/5=4 m/s²；F=ma=1200×4=4800 N。",topic:"力与牛顿运动定律",tier:3}
+    {stem:"A 4.0 kg box is pushed with 30 N against 10 N of friction. Its acceleration is:",options:["5.0 m/s²","7.5 m/s²","10 m/s²","2.5 m/s²"],answer:0,expl:"合力20 N，a=20/4=5 m/s²。",topic:"力与牛顿运动定律",tier:2},
+    {stem:"An object moves at constant velocity. The resultant force on it is:",options:["zero","equal to its weight","in the direction of motion","increasing"],answer:0,expl:"匀速→合力=0。",topic:"力与牛顿运动定律",tier:2},
+    {stem:"A 1200 kg car brakes from 20 m/s to rest in 5.0 s. The braking force is:",options:["4800 N","1200 N","240 N","6000 N"],answer:0,expl:"a=4 m/s²，F=1200×4=4800 N。",topic:"力与牛顿运动定律",tier:3},
+    {stem:"Action and reaction forces (Newton's third law) always:",options:["act on two different objects","act on the same object","are unequal","act in the same direction"],answer:0,expl:"作用-反作用作用在两个物体上。",topic:"力与牛顿运动定律",tier:3}
    ],
    structured:[
-    {q:"A box of mass 4.0 kg is pushed along the floor by a force of 30 N against a friction force of 10 N. Find (i) the resultant force [1] and (ii) the acceleration [2].",marks:3,ans:"20;5",
-     scheme:["A1 resultant=30−10=20 N","M1 a=F/m=20/4","A1 5.0 m/s²"],
-     model:"(i) Resultant = 30 − 10 = 20 N\n(ii) a = F/m = 20/4.0 = 5.0 m/s²\n【中文】合力 20 N，加速度 5 m/s²。",topic:"力与牛顿运动定律",tier:2},
-    {q:"A skydiver of mass 60 kg falls at terminal velocity (g=10 m/s²). (i) State the resultant force on her [1]. (ii) Find the air resistance acting on her [2].",marks:3,ans:"0;600",
-     scheme:["B1 resultant = 0 (constant velocity)","M1 air resistance = weight = mg","A1 600 N"],
-     model:"(i) At terminal velocity she moves at constant speed → resultant force = 0.\n(ii) So air resistance = weight = mg = 60×10 = 600 N.\n【中文】末速度时合力=0，故空气阻力=重力=600 N。",topic:"力与牛顿运动定律",tier:3}
+    {q:"A box of mass 4.0 kg is pushed along the floor by a force of 30 N against a friction force of 10 N. Find (i) the resultant force [1] and (ii) the acceleration [2].",marks:3,ans:"20;5",tier:2,
+     scheme:["A1 20 N","M1 a=F/m=20/4","A1 5.0 m/s²"],
+     model:"(i) Resultant=30−10=20 N\n(ii) a=20/4.0=5.0 m/s²\n【中文】合力 20 N，加速度 5 m/s²。",topic:"力与牛顿运动定律"},
+    {q:"A resultant force of 12 N acts on a trolley, giving it an acceleration of 3.0 m/s². Find (i) the mass of the trolley [2] and (ii) its speed after 5.0 s from rest [1].",marks:3,ans:"4;15",tier:2,
+     scheme:["M1 m=F/a=12/3.0","A1 4.0 kg","A1 v=at=3.0×5.0=15 m/s"],
+     model:"(i) m=F/a=12/3.0=4.0 kg\n(ii) v=u+at=0+3.0×5.0=15 m/s\n【中文】质量 4 kg；5 s 后速度 15 m/s。",topic:"力与牛顿运动定律"},
+    {q:"A skydiver of mass 60 kg falls at terminal velocity (g=10 m/s²). (i) State the resultant force on her [1]. (ii) Find the air resistance acting on her [2].",marks:3,ans:"0;600",tier:3,
+     scheme:["B1 0","M1 air resistance=weight=mg","A1 600 N"],
+     model:"(i) Constant velocity → resultant force = 0.\n(ii) Air resistance = weight = 60×10 = 600 N.\n【中文】末速度合力=0，阻力=重力=600 N。",topic:"力与牛顿运动定律"},
+    {q:"A 1500 kg car accelerates from rest to 18 m/s in 6.0 s against a constant friction force of 700 N (g=10). Find (i) the acceleration [1] and (ii) the driving force from the engine [2].",marks:3,ans:"3;5200",tier:3,
+     scheme:["A1 a=18/6.0=3.0 m/s²","M1 resultant=ma=4500 N; driving=4500+700","A1 5200 N"],
+     model:"(i) a=18/6.0=3.0 m/s²\n(ii) Resultant=ma=1500×3.0=4500 N; driving=resultant+friction=4500+700=5200 N\n【中文】加速度 3 m/s²；驱动力=合力+摩擦=5200 N。",topic:"力与牛顿运动定律"}
    ]},
   {topicZh:"质量、重量与密度",topicEn:"Mass, Weight & Density",
    goals:["区分质量(kg)与重量 W=mg(N)","熟练用 ρ=m/V，会换算 g/cm³ 与 kg/m³","会测规则与不规则物体的密度、判断浮沉"],
+   tips:{loves:"重量 W=mg(尤其月球 g 不同)、密度 ρ=m/V 与单位换算、用排水法测不规则体积、比较密度判浮沉。O-Level 爱考月球重量与密度换算。",
+     pitfalls:"①把质量(kg)与重量(N)混用；②g/cm³ 与 kg/m³ 换算漏了 ×1000；③排水法算错体积(应取水位差)。"},
    concepts:[
-    {t:"质量与重量 Mass vs Weight",en:"Matter vs force.",tech:"mass 是物质的量(kg)，处处不变；weight 是重力 W=mg(N)，随 g 变化(地球 g≈10，月球 g≈1.6)。",exam:"常考同一物体在月球重量变化；单位别混(kg vs N)。"},
-    {t:"密度 Density",en:"ρ = m/V.",tech:"ρ=m/V，单位 kg/m³ 或 g/cm³。换算 1 g/cm³ = 1000 kg/m³。",exam:"先算体积再除；注意单位一致。"},
-    {t:"测密度与浮沉 Measuring & Floating",en:"Displacement method.",tech:"规则体：V=l×w×h。不规则体：用量筒/溢水杯测排水体积。物体密度<液体密度 → 漂浮。",exam:"'displacement can' 求不规则体积；比较密度判浮沉。"}
+    {t:"质量与重量 Mass vs Weight",en:"Matter vs force.",tech:"mass(kg)处处不变；weight W=mg(N)随 g 变(地球10，月球1.6)。",exam:"月球重量变化；单位别混。"},
+    {t:"密度 Density",en:"ρ = m/V.",tech:"ρ=m/V，单位 kg/m³ 或 g/cm³。1 g/cm³=1000 kg/m³。",exam:"先算体积再除；单位一致。"},
+    {t:"测密度与浮沉 Measuring & Floating",en:"Displacement method.",tech:"规则体 V=l×w×h；不规则体用量筒排水。密度<液体 → 漂浮。",exam:"'displacement can' 求体积；比较密度判浮沉。"}
    ],
    examples:[
-    {q:"A 2.0 kg object is taken to the Moon where g = 1.6 N/kg. Find its weight on the Moon.",
-     solution:"W = mg = 2.0 × 1.6 = 3.2 N\n【中文】质量不变(2 kg)，月球重量 W=mg=3.2 N。",
-     note:"技巧：质量不变，重量随 g 改变。"},
-    {q:"200 g of a liquid fills a 250 cm³ container. Find its density.",
-     solution:"ρ = m/V = 200/250 = 0.80 g/cm³\n【中文】密度 = 200/250 = 0.8 g/cm³。",
-     note:"出题思路：直接 ρ=m/V。"}
+    {q:"A metal cube of side 2.0 cm has a mass of 64 g. Find its density in g/cm³ and kg/m³.",tier:2,
+     solution:"V=2.0³=8.0 cm³\nρ=64/8.0=8.0 g/cm³=8000 kg/m³\n【中文】体积 8 cm³，密度 8 g/cm³=8000 kg/m³。",note:"技巧：先体积再密度，×1000 换算。"},
+    {q:"An object weighs 20 N on Earth (g=10 N/kg). Find (i) its mass and (ii) its weight on the Moon where g=1.6 N/kg.",tier:2,
+     solution:"(i) m=W/g=20/10=2.0 kg\n(ii) Moon weight=mg=2.0×1.6=3.2 N\n【中文】质量 2 kg(不变)；月球重量 3.2 N。",note:"出题思路：质量不变，重量随 g 变。"},
+    {q:"A stone is lowered into a measuring cylinder; the water level rises from 40 cm³ to 65 cm³. Its mass is 75 g. Find its density and state whether it sinks in water.",tier:3,
+     solution:"V=65−40=25 cm³\nρ=75/25=3.0 g/cm³=3000 kg/m³\n3000>1000 → sinks\n【中文】排水体积 25 cm³，密度 3 g/cm³>水 → 下沉。",note:"拔高：排水法+浮沉判断。"},
+    {q:"A hollow ball of volume 500 cm³ has a mass of 300 g. Will it float in water (density 1.0 g/cm³)? Show your working.",tier:3,
+     solution:"ρ=300/500=0.60 g/cm³\n0.60 < 1.0 (water) → it FLOATS\n【中文】密度 0.6 g/cm³<水 → 漂浮。",note:"拔高：密度<液体则漂浮。"}
    ],
    mcqs:[
-    {stem:"The weight of a 5.0 kg object (g = 10 N/kg) is:",options:["50 N","5 N","0.5 N","500 N"],answer:0,expl:"W=mg=5×10=50 N。",topic:"质量、重量与密度",tier:1},
+    {stem:"The weight of a 5.0 kg object (g=10 N/kg) is:",options:["50 N","5 N","0.5 N","500 N"],answer:0,expl:"W=mg=50 N。",topic:"质量、重量与密度",tier:1},
     {stem:"Density is defined as:",options:["mass ÷ volume","volume ÷ mass","mass × volume","force ÷ area"],answer:0,expl:"ρ=m/V。",topic:"质量、重量与密度",tier:1},
-    {stem:"A density of 1.0 g/cm³ is equal to:",options:["1000 kg/m³","100 kg/m³","10 kg/m³","1 000 000 kg/m³"],answer:0,expl:"1 g/cm³=1000 kg/m³。",topic:"质量、重量与密度",tier:2},
-    {stem:"An object floats in water (density 1000 kg/m³). Its density could be:",options:["800 kg/m³","1200 kg/m³","1000 kg/m³ exactly","2000 kg/m³"],answer:0,expl:"漂浮 → 密度<水；800 kg/m³。",topic:"质量、重量与密度",tier:3}
+    {stem:"The property of an object that stays the same on the Moon is its:",options:["mass","weight","density changes","none"],answer:0,expl:"质量处处不变。",topic:"质量、重量与密度",tier:1},
+    {stem:"A density of 1.0 g/cm³ equals:",options:["1000 kg/m³","100 kg/m³","10 kg/m³","1 000 000 kg/m³"],answer:0,expl:"×1000。",topic:"质量、重量与密度",tier:2},
+    {stem:"A 200 g liquid fills 250 cm³. Its density is:",options:["0.80 g/cm³","1.25 g/cm³","50 g/cm³","0.50 g/cm³"],answer:0,expl:"200/250=0.8。",topic:"质量、重量与密度",tier:2},
+    {stem:"A 2.0 kg object on the Moon (g=1.6 N/kg) weighs:",options:["3.2 N","20 N","1.25 N","2.0 N"],answer:0,expl:"mg=2×1.6=3.2 N。",topic:"质量、重量与密度",tier:2},
+    {stem:"An object floats in water (1000 kg/m³). Its density could be:",options:["800 kg/m³","1200 kg/m³","exactly 1000 with a hole","2000 kg/m³"],answer:0,expl:"漂浮→密度<水。",topic:"质量、重量与密度",tier:3},
+    {stem:"A stone raises water in a cylinder from 30 to 55 cm³; its mass is 100 g. Its density is:",options:["4.0 g/cm³","2.0 g/cm³","1.8 g/cm³","0.25 g/cm³"],answer:0,expl:"V=25，ρ=100/25=4 g/cm³。",topic:"质量、重量与密度",tier:3}
    ],
    structured:[
-    {q:"A metal cube of side 2.0 cm has a mass of 64 g. Find its density in (i) g/cm³ [2] and (ii) kg/m³ [1].",marks:3,ans:"8;8000",
-     scheme:["M1 V=2³=8 cm³","A1 ρ=64/8=8 g/cm³","A1 8000 kg/m³"],
-     model:"V = 2.0³ = 8.0 cm³\nρ = 64/8.0 = 8.0 g/cm³ = 8000 kg/m³\n【中文】体积 8 cm³，密度 8 g/cm³=8000 kg/m³。",topic:"质量、重量与密度",tier:2},
-    {q:"A stone is lowered into a measuring cylinder; the water level rises from 40 cm³ to 65 cm³. The stone's mass is 75 g. Find its density and state whether it will sink in water.  [3]",marks:3,ans:"3",
-     scheme:["M1 V=65−40=25 cm³","A1 ρ=75/25=3.0 g/cm³","B1 3000 kg/m³ > 1000 → sinks"],
-     model:"V = 65 − 40 = 25 cm³\nρ = 75/25 = 3.0 g/cm³ = 3000 kg/m³\n3000 > 1000 (water) → the stone SINKS.\n【中文】排水体积 25 cm³，密度 3 g/cm³，大于水 → 下沉。",topic:"质量、重量与密度",tier:3}
+    {q:"A metal cube of side 2.0 cm has a mass of 64 g. Find its density in (i) g/cm³ [2] and (ii) kg/m³ [1].",marks:3,ans:"8;8000",tier:2,
+     scheme:["M1 V=8 cm³","A1 8.0 g/cm³","A1 8000 kg/m³"],
+     model:"V=2.0³=8.0 cm³; ρ=64/8.0=8.0 g/cm³=8000 kg/m³\n【中文】8 cm³ → 8 g/cm³=8000 kg/m³。",topic:"质量、重量与密度"},
+    {q:"An astronaut has a mass of 80 kg. Find her weight (i) on Earth (g=10 N/kg) [1] and (ii) on the Moon (g=1.6 N/kg) [1]. (iii) State her mass on the Moon [1].",marks:3,ans:"800;128;80",tier:2,
+     scheme:["A1 Earth=80×10=800 N","A1 Moon=80×1.6=128 N","A1 mass=80 kg (unchanged)"],
+     model:"(i) 80×10=800 N\n(ii) 80×1.6=128 N\n(iii) Mass is unchanged = 80 kg.\n【中文】地球重 800 N，月球重 128 N，质量仍 80 kg。",topic:"质量、重量与密度"},
+    {q:"A stone is lowered into a measuring cylinder; the water rises from 40 cm³ to 65 cm³. Its mass is 75 g. Find its density and state whether it sinks in water.  [3]",marks:3,ans:"3",tier:3,
+     scheme:["M1 V=25 cm³","A1 ρ=3.0 g/cm³","B1 3000>1000 → sinks"],
+     model:"V=25 cm³; ρ=75/25=3.0 g/cm³=3000 kg/m³ > 1000 → sinks.\n【中文】密度 3 g/cm³ 大于水 → 下沉。",topic:"质量、重量与密度"},
+    {q:"A wooden block measures 10 cm × 8.0 cm × 5.0 cm and has a mass of 240 g. (i) Find its density [2]. (ii) State whether it floats in water (1.0 g/cm³) and why [1].",marks:3,ans:"0.6",tier:3,
+     scheme:["M1 V=400 cm³","A1 ρ=240/400=0.60 g/cm³","B1 0.60<1.0 → floats"],
+     model:"V=10×8.0×5.0=400 cm³; ρ=240/400=0.60 g/cm³\n0.60<1.0 → it floats (less dense than water).\n【中文】密度 0.6 g/cm³<水 → 漂浮。",topic:"质量、重量与密度"}
    ]},
   {topicZh:"力矩与平衡",topicEn:"Moments & Stability",
    goals:["理解力矩 = 力 × 垂直距离(N·m)","会用力矩原理求平衡时的力或位置","理解重心与稳定性"],
+   tips:{loves:"力矩原理(顺时针=逆时针)求未知力或位置、均匀尺的重心在中点、稳定性(底宽/重心低)。O-Level 爱考跷跷板/横杆平衡与米尺问题。",
+     pitfalls:"①距离要取到转轴的'垂直'距离，不是斜边；②忘了均匀杆/尺的重力作用在中点；③顺时针与逆时针力矩配错边。"},
    concepts:[
-    {t:"力矩 Moment of a Force",en:"Turning effect.",tech:"moment = force × perpendicular distance from pivot，单位 N·m。距离要取到转轴的垂直距离。",exam:"注意是'垂直'距离；力沿作用线不改变力矩。"},
-    {t:"力矩原理 Principle of Moments",en:"Balanced turning.",tech:"平衡时：顺时针力矩之和 = 逆时针力矩之和。列方程求未知力或距离。",exam:"先标出各力到转轴的距离，分清顺/逆时针。"},
-    {t:"重心与稳定 Centre of Gravity & Stability",en:"Low CG, wide base.",tech:"重心是重力的等效作用点。底面积越大、重心越低 → 越稳定。",exam:"解释为何某物更稳：底宽/重心低。"}
+    {t:"力矩 Moment of a Force",en:"Turning effect.",tech:"moment=force×perpendicular distance(N·m)。",exam:"取到转轴的垂直距离。"},
+    {t:"力矩原理 Principle of Moments",en:"Balanced turning.",tech:"平衡时顺时针力矩和=逆时针力矩和。",exam:"标出各力到转轴距离，分清顺/逆。"},
+    {t:"重心与稳定 Centre of Gravity & Stability",en:"Low CG, wide base.",tech:"重心是重力等效作用点。底面积大、重心低→更稳。",exam:"解释更稳：底宽/重心低。"}
    ],
    examples:[
-    {q:"A force of 3.0 N acts at a perpendicular distance of 0.40 m from a pivot. Find its moment.",
-     solution:"Moment = F × d = 3.0 × 0.40 = 1.2 N·m\n【中文】力矩 = 3×0.4 = 1.2 N·m。",
-     note:"技巧：力矩=力×垂直距离。"},
-    {q:"On a seesaw, a 20 N weight sits 1.5 m from the pivot. What weight 1.0 m from the pivot on the other side balances it?",
-     solution:"Moments balance: W × 1.0 = 20 × 1.5 = 30\nW = 30 N\n【中文】W×1.0=20×1.5 → W=30 N。",
-     note:"出题思路：顺=逆时针力矩。"}
+    {q:"A light rod is pivoted at one end. A 50 N weight hangs 0.40 m from the pivot. Find the upward force F at the far end, 2.0 m from the pivot, to balance it.",tier:2,
+     solution:"Moments about pivot: F×2.0=50×0.40=20 → F=10 N\n【中文】F×2.0=50×0.4 → F=10 N。",note:"技巧：绕转轴取力矩。"},
+    {q:"A see-saw balances with a 300 N child 1.2 m from the pivot on one side. A second child sits 1.5 m from the pivot on the other side. Find the weight of the second child.",tier:2,
+     solution:"W×1.5=300×1.2=360 → W=240 N\n【中文】W×1.5=300×1.2 → W=240 N。",note:"出题思路：顺=逆时针力矩。"},
+    {q:"A uniform metre rule is pivoted at its 50 cm centre. A 4.0 N weight hangs at the 40 cm mark. At which mark must a 2.0 N weight hang to balance it?",tier:3,
+     solution:"4.0 N is 0.10 m from pivot → moment 0.40 N·m\n2.0 N × d = 0.40 → d=0.20 m on the other side → 70 cm mark\n【中文】4 N 距轴 0.1 m；2 N 需在另一侧 0.2 m → 70 cm 刻度。",note:"拔高：均匀尺重力在中点(此处正好是转轴，不产生力矩)。"},
+    {q:"A uniform beam of weight 40 N and length 3.0 m rests on a pivot 1.0 m from its left end. Find the downward force needed at the left end to keep it horizontal.",tier:3,
+     solution:"Weight 40 N acts at centre (1.5 m from left) = 0.5 m right of pivot → moment 40×0.5=20 N·m clockwise\nForce F at left end is 1.0 m left of pivot: F×1.0=20 → F=20 N (downward)\n【中文】重力在中点(距轴0.5 m右)力矩20 N·m；左端 F×1.0=20 → F=20 N。",note:"拔高：非对称支点，重力在几何中心。"}
    ],
    mcqs:[
-    {stem:"The SI unit of the moment of a force is:",options:["N·m","N","N/m","J"],answer:0,expl:"力矩单位 N·m。",topic:"力矩与平衡",tier:1},
-    {stem:"The moment of a 10 N force acting 0.50 m from a pivot is:",options:["5.0 N·m","20 N·m","0.05 N·m","10.5 N·m"],answer:0,expl:"10×0.5=5 N·m。",topic:"力矩与平衡",tier:1},
-    {stem:"An object is in rotational equilibrium when:",options:["clockwise moments = anticlockwise moments","all forces are zero","it is at the pivot","its weight is zero"],answer:0,expl:"力矩原理：顺=逆。",topic:"力矩与平衡",tier:2},
-    {stem:"A beam is pivoted at its centre. A 4.0 N force acts 3.0 m to the left. To balance, a 6.0 N force must act to the right at:",options:["2.0 m","1.5 m","4.5 m","12 m"],answer:0,expl:"6×d=4×3=12 → d=2.0 m。",topic:"力矩与平衡",tier:3}
+    {stem:"The SI unit of the moment of a force is:",options:["N·m","N","N/m","J"],answer:0,expl:"N·m。",topic:"力矩与平衡",tier:1},
+    {stem:"The moment of a 10 N force 0.50 m from a pivot is:",options:["5.0 N·m","20 N·m","0.05 N·m","10.5 N·m"],answer:0,expl:"10×0.5=5。",topic:"力矩与平衡",tier:1},
+    {stem:"The turning effect of a force is called its:",options:["moment","weight","pressure","power"],answer:0,expl:"力矩=转动效果。",topic:"力矩与平衡",tier:1},
+    {stem:"An object is in rotational equilibrium when:",options:["clockwise moments = anticlockwise moments","all forces are zero","it is at the pivot","its weight is zero"],answer:0,expl:"顺=逆力矩。",topic:"力矩与平衡",tier:2},
+    {stem:"A beam pivoted at its centre has a 4.0 N force 3.0 m to the left. To balance, a 6.0 N force must act to the right at:",options:["2.0 m","1.5 m","4.5 m","12 m"],answer:0,expl:"6×d=12→d=2 m。",topic:"力矩与平衡",tier:2},
+    {stem:"A stable object generally has a:",options:["low centre of gravity and wide base","high centre of gravity","narrow base","large weight"],answer:0,expl:"重心低、底宽更稳。",topic:"力矩与平衡",tier:2},
+    {stem:"A 30 N weight 0.80 m from a pivot is balanced by a weight 0.60 m on the other side. That weight is:",options:["40 N","22.5 N","24 N","18 N"],answer:0,expl:"W×0.6=30×0.8=24→W=40 N。",topic:"力矩与平衡",tier:3},
+    {stem:"A uniform rule (weight 1.0 N) is pivoted at its 20 cm mark. Its weight produces a moment about the pivot of:",options:["0.30 N·m","0.20 N·m","0.50 N·m","0 N·m"],answer:0,expl:"重心50 cm距轴30 cm=0.3 m：1.0×0.3=0.30 N·m。",topic:"力矩与平衡",tier:3}
    ],
    structured:[
-    {q:"A light rod is pivoted at one end. A 50 N weight hangs 0.40 m from the pivot. Find the upward force F applied at the far end, 2.0 m from the pivot, needed to balance the rod.  [3]",marks:3,ans:"10",
-     scheme:["M1 taking moments about pivot","M1 F×2.0 = 50×0.40","A1 F=10 N"],
-     model:"Take moments about the pivot:\nF × 2.0 = 50 × 0.40 = 20\nF = 20/2.0 = 10 N\n【中文】F×2.0=50×0.4 → F=10 N。",topic:"力矩与平衡",tier:2},
-    {q:"A uniform metre rule is pivoted at its 50 cm centre. A 4.0 N weight hangs at the 40 cm mark. At which mark must a 2.0 N weight hang to balance the rule?  [3]",marks:3,ans:"70",
-     scheme:["M1 4.0 N is 0.10 m from pivot → moment 0.40 N·m","M1 2.0 N × d = 0.40 → d=0.20 m","A1 on opposite side → 50+20 = 70 cm mark"],
-     model:"4.0 N acts 10 cm (0.10 m) from pivot → moment = 4.0×0.10 = 0.40 N·m (say anticlockwise).\nFor balance 2.0 N × d = 0.40 → d = 0.20 m = 20 cm on the OTHER side.\nPosition = 50 + 20 = 70 cm mark.\n【中文】4 N 距转轴 10 cm，力矩 0.4 N·m；2 N 需在另一侧 20 cm 处 → 70 cm 刻度。",topic:"力矩与平衡",tier:3}
+    {q:"A light rod is pivoted at one end. A 50 N weight hangs 0.40 m from the pivot. Find the upward force F applied 2.0 m from the pivot to balance the rod.  [3]",marks:3,ans:"10",tier:2,
+     scheme:["M1 moments about pivot","M1 F×2.0=50×0.40","A1 10 N"],
+     model:"F×2.0=50×0.40=20 → F=10 N\n【中文】F×2.0=20 → F=10 N。",topic:"力矩与平衡"},
+    {q:"A see-saw pivots at its centre. A 250 N child sits 1.8 m to the left. Where must a 300 N child sit on the right to balance it?  [3]",marks:3,ans:"1.5",tier:2,
+     scheme:["M1 300×d=250×1.8=450","M1 d=450/300","A1 1.5 m"],
+     model:"300×d=250×1.8=450 → d=1.5 m to the right of the pivot.\n【中文】300×d=250×1.8 → d=1.5 m。",topic:"力矩与平衡"},
+    {q:"A uniform metre rule is pivoted at its 50 cm centre. A 4.0 N weight hangs at the 40 cm mark. At which mark must a 2.0 N weight hang to balance the rule?  [3]",marks:3,ans:"70",tier:3,
+     scheme:["M1 4.0 N 0.10 m from pivot → 0.40 N·m","M1 2.0×d=0.40→d=0.20 m","A1 70 cm mark"],
+     model:"4.0 N acts 0.10 m from pivot → moment 0.40 N·m. 2.0 N × d = 0.40 → d=0.20 m on the other side → 50+20=70 cm.\n【中文】→ 70 cm 刻度。",topic:"力矩与平衡"},
+    {q:"A uniform beam of weight 60 N and length 4.0 m is supported by a single pivot 1.5 m from the left end. Find the downward force at the left end needed to keep it horizontal.  [3]",marks:3,ans:"20",tier:3,
+     scheme:["M1 weight at centre 2.0 m → 0.5 m right of pivot, moment=60×0.5=30 N·m","M1 F×1.5=30","A1 F=20 N"],
+     model:"Weight 60 N acts at centre (2.0 m from left) = 0.5 m right of the pivot → clockwise moment = 60×0.5 = 30 N·m.\nAt left end (1.5 m from pivot): F×1.5 = 30 → F = 20 N downward.\n【中文】重力力矩 30 N·m；左端 F×1.5=30 → F=20 N。",topic:"力矩与平衡"}
    ]},
   {topicZh:"压强",topicEn:"Pressure",
    goals:["掌握 p=F/A(Pa=N/m²)","掌握液体压强 p=ρgh(与深度、密度有关)","理解大气压、U 形管与液压传递"],
+   tips:{loves:"固体压强 p=F/A(面积换 m²)、液体压强 p=ρgh、总压强=水压+大气压、液压机放大力。O-Level 爱考潜水员深度压强与液压。",
+     pitfalls:"①面积单位没换成 m²(cm²→m² 要 ÷10⁴)；②液体压强只算 ρgh 时忘了题目还要加大气压；③以为液体压强与容器形状/底面积有关(其实只与深度和密度有关)。"},
    concepts:[
-    {t:"固体压强 Pressure = Force/Area",en:"p = F/A.",tech:"p=F/A，单位 Pa=N/m²。面积越小压强越大(如刀刃、钉尖)。",exam:"注意面积单位换成 m²；接触面积。"},
-    {t:"液体压强 Liquid Pressure",en:"p = ρgh.",tech:"液体某深度压强 p=ρgh，只与深度 h、密度 ρ 有关，与容器形状无关；同一深度各方向压强相等。",exam:"深度指到液面的竖直距离；总压强要加大气压。"},
-    {t:"大气压与传递 Atmosphere & Transmission",en:"Manometer & hydraulics.",tech:"大气压约 1.0×10⁵ Pa；U 形管(manometer)测压差 = ρg×高度差；密闭液体等压传递(液压机放大力)。",exam:"manometer 用高度差算压差。"}
+    {t:"固体压强 p = F/A",en:"Pressure.",tech:"p=F/A(Pa=N/m²)。面积小压强大。",exam:"面积换 m²。"},
+    {t:"液体压强 p = ρgh",en:"Liquid pressure.",tech:"p=ρgh，只与深度h、密度ρ有关，与形状无关；同深度各向压强相等。",exam:"深度到液面；总压强加大气压。"},
+    {t:"大气压与传递 Atmosphere & Transmission",en:"Manometer & hydraulics.",tech:"大气压≈1.0×10⁵ Pa；U形管测压差=ρg×高度差；密闭液体等压传递(液压机)。",exam:"manometer 用高度差。"}
    ],
    examples:[
-    {q:"A force of 200 N acts on an area of 0.50 m². Find the pressure.",
-     solution:"p = F/A = 200/0.50 = 400 Pa\n【中文】p=F/A=400 Pa。",
-     note:"技巧：面积必须是 m²。"},
-    {q:"Find the pressure due to water at a depth of 2.0 m (ρ=1000 kg/m³, g=10 m/s²).",
-     solution:"p = ρgh = 1000 × 10 × 2.0 = 20 000 Pa\n【中文】p=ρgh=20000 Pa。",
-     note:"出题思路：液体压强只算 ρgh(不含大气压时)。"}
+    {q:"A block of weight 60 N rests on a table with base area 0.020 m². Find the pressure.",tier:2,
+     solution:"p=F/A=60/0.020=3000 Pa\n【中文】p=60/0.02=3000 Pa。",note:"技巧：面积必须 m²。"},
+    {q:"Find the pressure due to water at a depth of 8.0 m (ρ=1000 kg/m³, g=10 m/s²).",tier:2,
+     solution:"p=ρgh=1000×10×8.0=80 000 Pa\n【中文】p=ρgh=80000 Pa。",note:"出题思路：液体压强 ρgh。"},
+    {q:"A diver is 15 m below the surface of seawater (ρ=1030 kg/m³, g=10, atmospheric=1.0×10⁵ Pa). Find (i) the water pressure and (ii) the total pressure.",tier:3,
+     solution:"(i) p=ρgh=1030×10×15=154 500 Pa\n(ii) total=154 500+100 000=254 500 Pa\n【中文】水压154500 Pa；总压强再加大气压=254500 Pa。",note:"拔高：总压强=水压+大气压。"},
+    {q:"In a hydraulic lift, a force of 40 N is applied to a small piston of area 0.005 m². The large piston has area 0.050 m². Find the force on the large piston.",tier:3,
+     solution:"p=40/0.005=8000 Pa; F=p×A=8000×0.050=400 N\n【中文】压强8000 Pa等值传递，大活塞力=400 N。",note:"拔高：液压等压传递放大力。"}
    ],
    mcqs:[
-    {stem:"The SI unit of pressure is the:",options:["pascal (N/m²)","newton","joule","watt"],answer:0,expl:"压强单位 Pa=N/m²。",topic:"压强",tier:1},
+    {stem:"The SI unit of pressure is the:",options:["pascal (N/m²)","newton","joule","watt"],answer:0,expl:"Pa=N/m²。",topic:"压强",tier:1},
     {stem:"A 100 N force acts on 2.0 m². The pressure is:",options:["50 Pa","200 Pa","0.02 Pa","102 Pa"],answer:0,expl:"100/2=50 Pa。",topic:"压强",tier:1},
-    {stem:"The pressure at a point in a liquid depends on:",options:["depth and density","the shape of the container","the surface area","the mass of the container"],answer:0,expl:"p=ρgh，只与深度和密度有关。",topic:"压强",tier:2},
-    {stem:"The water pressure at a depth of 5.0 m (ρ=1000 kg/m³, g=10 m/s²) is:",options:["50 000 Pa","5000 Pa","500 Pa","50 Pa"],answer:0,expl:"ρgh=1000×10×5=50000 Pa。",topic:"压强",tier:3}
+    {stem:"To reduce the pressure a load exerts, you should:",options:["increase the contact area","decrease the area","increase the force","tilt it"],answer:0,expl:"p=F/A，面积增大压强减小。",topic:"压强",tier:1},
+    {stem:"The pressure at a point in a liquid depends on:",options:["depth and density","container shape","surface area","container mass"],answer:0,expl:"p=ρgh。",topic:"压强",tier:2},
+    {stem:"Water pressure at 5.0 m depth (ρ=1000, g=10):",options:["50 000 Pa","5000 Pa","500 Pa","50 Pa"],answer:0,expl:"1000×10×5=50000 Pa。",topic:"压强",tier:2},
+    {stem:"A force of 80 N on an area of 0.040 m² gives a pressure of:",options:["2000 Pa","3.2 Pa","320 Pa","0.0005 Pa"],answer:0,expl:"80/0.04=2000 Pa。",topic:"压强",tier:2},
+    {stem:"A diver descends to 20 m in water (ρ=1000, g=10). The pressure due to the water is:",options:["200 000 Pa","20 000 Pa","2000 Pa","100 000 Pa"],answer:0,expl:"1000×10×20=200000 Pa。",topic:"压强",tier:3},
+    {stem:"A hydraulic press applies 5000 Pa to a piston of area 0.02 m². The output force is:",options:["100 N","250 000 N","2.5 N","0.02 N"],answer:0,expl:"F=pA=5000×0.02=100 N。",topic:"压强",tier:3}
    ],
    structured:[
-    {q:"A block of weight 60 N rests on a table with a base area of 0.020 m². Find the pressure it exerts.  [2]",marks:2,ans:"3000",
-     scheme:["M1 p=F/A=60/0.020","A1 3000 Pa"],
-     model:"p = F/A = 60/0.020 = 3000 Pa\n【中文】p=60/0.02=3000 Pa。",topic:"压强",tier:2},
-    {q:"A diver is 15 m below the surface of seawater (ρ=1030 kg/m³, g=10 m/s², atmospheric pressure = 1.0×10⁵ Pa). Find (i) the pressure due to the water [2] and (ii) the total pressure on the diver [1].",marks:3,ans:"154500;254500",
-     scheme:["M1 p=ρgh=1030×10×15","A1 154 500 Pa","A1 total = +1.0×10⁵ = 254 500 Pa"],
-     model:"(i) p_water = ρgh = 1030 × 10 × 15 = 154 500 Pa\n(ii) Total = water + atmospheric = 154 500 + 100 000 = 254 500 Pa\n【中文】水压 154500 Pa；总压强再加大气压 = 254500 Pa。",topic:"压强",tier:3}
+    {q:"A block of weight 60 N rests on a table with a base area of 0.020 m². Find the pressure it exerts.  [2]",marks:2,ans:"3000",tier:2,
+     scheme:["M1 p=60/0.020","A1 3000 Pa"],
+     model:"p=F/A=60/0.020=3000 Pa\n【中文】p=3000 Pa。",topic:"压强"},
+    {q:"A cylindrical tank of water is 3.0 m deep (ρ=1000 kg/m³, g=10). Find (i) the water pressure at the bottom [2] and (ii) the force this exerts on a 0.5 m² drain cover on the base [1].",marks:3,ans:"30000;15000",tier:2,
+     scheme:["M1 p=ρgh=1000×10×3.0","A1 30 000 Pa","A1 F=pA=30000×0.5=15 000 N"],
+     model:"(i) p=ρgh=1000×10×3.0=30 000 Pa\n(ii) F=pA=30 000×0.5=15 000 N\n【中文】底部水压 30000 Pa，作用在 0.5 m² 上力=15000 N。",topic:"压强"},
+    {q:"A diver is 15 m below the surface of seawater (ρ=1030 kg/m³, g=10, atmospheric = 1.0×10⁵ Pa). Find (i) the water pressure [2] and (ii) the total pressure [1].",marks:3,ans:"154500;254500",tier:3,
+     scheme:["M1 ρgh=1030×10×15","A1 154 500 Pa","A1 total=254 500 Pa"],
+     model:"(i) p=ρgh=154 500 Pa\n(ii) total=154 500+100 000=254 500 Pa\n【中文】水压154500，总压强254500 Pa。",topic:"压强"},
+    {q:"In a hydraulic system a force of 50 N is applied to a small piston of area 0.010 m². The large piston has an area of 0.040 m². Find the force produced at the large piston.  [3]",marks:3,ans:"200",tier:3,
+     scheme:["M1 p=50/0.010=5000 Pa","M1 F=pA=5000×0.040","A1 200 N"],
+     model:"p=50/0.010=5000 Pa; F=p×A=5000×0.040=200 N\n【中文】压强5000 Pa，大活塞力=200 N。",topic:"压强"}
    ]},
   {topicZh:"功、能与功率",topicEn:"Work, Energy & Power",
    goals:["掌握 W=Fd、KE=½mv²、GPE=mgh","会用能量守恒求速度/高度","掌握功率 P=W/t 与效率"],
+   tips:{loves:"W=Fd、KE=½mv²、GPE=mgh、能量守恒(mgh=½mv²)求末速度、P=W/t 与效率。O-Level 爱考下落时 GPE→KE 求速度、以及机器效率。",
+     pitfalls:"①KE 里速度要平方(易只乘一次)；②能量守恒时把 mgh 与 ½mv² 弄反；③效率忘了乘100%或分不清'有用'与'总'能量。"},
    concepts:[
-    {t:"功与能 Work & Energy",en:"W = Fd.",tech:"功 W=力×沿力方向的距离(J)，等于转移的能量。动能 KE=½mv²；重力势能 GPE=mgh。",exam:"力与位移同向才做功；能量单位 J。"},
-    {t:"能量守恒 Conservation of Energy",en:"Energy is transferred, not lost.",tech:"总能量守恒。下落时 GPE→KE：mgh=½mv²，可解末速度 v=√(2gh)。",exam:"'find the speed' 用能量守恒 mgh=½mv²。"},
-    {t:"功率与效率 Power & Efficiency",en:"Rate & usefulness.",tech:"功率 P=W/t=能量/时间(W)。效率 = 有用输出能量/总输入能量 × 100%。",exam:"效率≤100%；注意有用与总能量。"}
+    {t:"功与能 Work & Energy",en:"W = Fd.",tech:"W=Fd(J)。KE=½mv²；GPE=mgh。",exam:"力与位移同向才做功。"},
+    {t:"能量守恒 Conservation of Energy",en:"Energy transferred.",tech:"下落 mgh=½mv² → v=√(2gh)。",exam:"'find speed' 用能量守恒。"},
+    {t:"功率与效率 Power & Efficiency",en:"Rate & usefulness.",tech:"P=W/t(W)；效率=有用/总×100%。",exam:"效率≤100%。"}
    ],
    examples:[
-    {q:"A force of 20 N moves an object 3.0 m in the direction of the force. Find the work done.",
-     solution:"W = Fd = 20 × 3.0 = 60 J\n【中文】W=Fd=60 J。",
-     note:"技巧：功=力×同向位移。"},
-    {q:"A 2.0 kg object moves at 3.0 m/s. Find its kinetic energy.",
-     solution:"KE = ½mv² = ½ × 2.0 × 3.0² = 9.0 J\n【中文】KE=½mv²=9 J。",
-     note:"出题思路：速度要平方。"}
+    {q:"A crane lifts a 200 N load through 3.0 m. Find the work done and, if it takes 5.0 s, the power.",tier:2,
+     solution:"W=Fd=200×3.0=600 J\nP=W/t=600/5.0=120 W\n【中文】做功 600 J，功率 120 W。",note:"技巧：先功再功率。"},
+    {q:"A 2.0 kg object moves at 6.0 m/s. Find its kinetic energy.",tier:2,
+     solution:"KE=½mv²=½×2.0×6.0²=½×2.0×36=36 J\n【中文】KE=½mv²=36 J。",note:"出题思路：速度先平方。"},
+    {q:"A 0.50 kg ball is dropped from 2.0 m (g=10). Using energy conservation, find its speed just before landing.",tier:3,
+     solution:"GPE=mgh=0.50×10×2.0=10 J=½mv²\nv²=2×10/0.50=40 → v=6.3 m/s\n【中文】mgh=10 J 全变 KE，v=√40≈6.3 m/s。",note:"拔高：mgh=½mv²。"},
+    {q:"A motor rated 500 W lifts a 20 kg load 6.0 m in 4.0 s (g=10). Find the useful power output and the efficiency.",tier:3,
+     solution:"Useful power=mgh/t=20×10×6.0/4.0=300 W\nEfficiency=300/500×100%=60%\n【中文】有用功率300 W，效率=300/500=60%。",note:"拔高：效率=有用/总×100%。"}
    ],
    mcqs:[
-    {stem:"The SI unit of work (and energy) is the:",options:["joule","watt","newton","pascal"],answer:0,expl:"功和能的单位是 joule。",topic:"功、能与功率",tier:1},
+    {stem:"The SI unit of work (and energy) is the:",options:["joule","watt","newton","pascal"],answer:0,expl:"joule。",topic:"功、能与功率",tier:1},
     {stem:"Power is defined as:",options:["work done ÷ time","force × distance","mass × velocity","energy × time"],answer:0,expl:"P=W/t。",topic:"功、能与功率",tier:1},
-    {stem:"The gravitational PE gained by a 5.0 kg mass raised 4.0 m (g=10 m/s²) is:",options:["200 J","20 J","2000 J","9 J"],answer:0,expl:"GPE=mgh=5×10×4=200 J。",topic:"功、能与功率",tier:2},
-    {stem:"A 1000 W motor operates for 30 s. The energy it transfers is:",options:["30 000 J","1030 J","33 J","300 J"],answer:0,expl:"E=Pt=1000×30=30000 J。",topic:"功、能与功率",tier:3}
+    {stem:"A force of 20 N moves an object 3.0 m in the force's direction. Work done:",options:["60 J","6.7 J","23 J","17 J"],answer:0,expl:"W=Fd=60 J。",topic:"功、能与功率",tier:1},
+    {stem:"The GPE gained by a 5.0 kg mass raised 4.0 m (g=10):",options:["200 J","20 J","2000 J","9 J"],answer:0,expl:"mgh=200 J。",topic:"功、能与功率",tier:2},
+    {stem:"The kinetic energy of a 4.0 kg object at 5.0 m/s:",options:["50 J","20 J","100 J","10 J"],answer:0,expl:"½×4×25=50 J。",topic:"功、能与功率",tier:2},
+    {stem:"A 1000 W motor operating for 30 s transfers:",options:["30 000 J","1030 J","33 J","300 J"],answer:0,expl:"E=Pt=30000 J。",topic:"功、能与功率",tier:2},
+    {stem:"A ball falls from 5.0 m (g=10). Ignoring air resistance, its speed on landing is:",options:["10 m/s","5 m/s","50 m/s","25 m/s"],answer:0,expl:"v=√(2gh)=√100=10 m/s。",topic:"功、能与功率",tier:3},
+    {stem:"A machine takes in 800 J and does 600 J of useful work. Its efficiency is:",options:["75%","133%","200 %","25%"],answer:0,expl:"600/800=75%。",topic:"功、能与功率",tier:3}
    ],
    structured:[
-    {q:"A 0.50 kg ball is dropped from a height of 2.0 m (g=10 m/s²). Using energy conservation, find (i) the GPE lost [1] and (ii) the speed just before it lands [2].",marks:3,ans:"10;6.3",
-     scheme:["A1 GPE=mgh=0.50×10×2.0=10 J","M1 ½mv²=10 → v²=40","A1 v=6.3 m/s"],
-     model:"(i) GPE lost = mgh = 0.50 × 10 × 2.0 = 10 J\n(ii) ½mv² = 10 → v² = 2×10/0.50 = 40 → v = √40 ≈ 6.3 m/s\n【中文】GPE=10 J 全变 KE，v=√40≈6.3 m/s。",topic:"功、能与功率",tier:2},
-    {q:"A pump raises 300 kg of water through a height of 8.0 m in 20 s (g=10 m/s²). Find (i) the work done [2] and (ii) the output power [1].",marks:3,ans:"24000;1200",
-     scheme:["M1 W=mgh=300×10×8.0","A1 24 000 J","A1 P=W/t=24000/20=1200 W"],
-     model:"(i) W = mgh = 300 × 10 × 8.0 = 24 000 J\n(ii) P = W/t = 24 000/20 = 1200 W\n【中文】做功 24000 J，功率 1200 W。",topic:"功、能与功率",tier:3}
+    {q:"A 0.50 kg ball is dropped from a height of 2.0 m (g=10). Using energy conservation, find (i) the GPE lost [1] and (ii) the speed just before it lands [2].",marks:3,ans:"10;6.3",tier:2,
+     scheme:["A1 GPE=10 J","M1 ½mv²=10→v²=40","A1 6.3 m/s"],
+     model:"(i) mgh=0.50×10×2.0=10 J\n(ii) ½mv²=10 → v²=40 → v=6.3 m/s\n【中文】GPE=10 J，v≈6.3 m/s。",topic:"功、能与功率"},
+    {q:"A pump raises 300 kg of water through 8.0 m in 20 s (g=10). Find (i) the work done [2] and (ii) the output power [1].",marks:3,ans:"24000;1200",tier:2,
+     scheme:["M1 W=mgh=300×10×8.0","A1 24 000 J","A1 P=24000/20=1200 W"],
+     model:"(i) W=mgh=24 000 J\n(ii) P=W/t=1200 W\n【中文】做功 24000 J，功率 1200 W。",topic:"功、能与功率"},
+    {q:"A 60 kg cyclist freewheels from rest down a hill, dropping a height of 20 m (g=10). Ignoring friction, find (i) the GPE lost [1] and (ii) the speed at the bottom [2].",marks:3,ans:"12000;20",tier:3,
+     scheme:["A1 GPE=mgh=60×10×20=12 000 J","M1 ½mv²=12000→v²=400","A1 20 m/s"],
+     model:"(i) GPE=mgh=12 000 J\n(ii) ½mv²=12 000 → v²=2×12000/60=400 → v=20 m/s\n【中文】GPE=12000 J，末速度 20 m/s。",topic:"功、能与功率"},
+    {q:"An electric motor rated 800 W lifts a 30 kg load through 8.0 m in 5.0 s (g=10). Find (i) the useful work done [2] and (ii) the efficiency of the motor [1].",marks:3,ans:"2400;60",tier:3,
+     scheme:["M1 useful W=mgh=30×10×8.0","A1 2400 J","A1 efficiency=(2400/5)/800? use power: useful P=480 W → 480/800=60%"],
+     model:"Useful work = mgh = 30×10×8.0 = 2400 J\nUseful power = 2400/5.0 = 480 W; input power = 800 W\nEfficiency = 480/800 × 100% = 60%\n【中文】有用功 2400 J；有用功率 480 W，效率=480/800=60%。",topic:"功、能与功率"}
    ]},
   {topicZh:"分子模型与热传递",topicEn:"Kinetic Model & Thermal Energy Transfer",
    goals:["用分子模型解释固/液/气与温度","区分传导、对流、辐射及其发生条件","会解释保温/散热的设计"],
+   tips:{loves:"用分子模型描述三态与温度、判断传导/对流/辐射、解释保温瓶/隔热设计、暗黑面善吸收发射辐射。O-Level 爱考'解释类'题，要按分子/密度差作答。",
+     pitfalls:"①对流误说成能在固体或真空发生(对流只在流体)；②辐射误说需要介质(辐射可穿真空)；③解释题只写结论不写机理(要写'自由电子/密度差/红外线')。"},
    concepts:[
-    {t:"分子动理论 Kinetic Model",en:"Particles in motion.",tech:"固体：分子紧密、在固定位置振动；液体：较松、可流动；气体：相距远、自由高速运动。温度越高，分子平均动能越大。布朗运动是分子运动的证据。",exam:"用'排列+运动'描述三态；温度∝平均动能。"},
-    {t:"三种热传递 Conduction / Convection / Radiation",en:"How heat moves.",tech:"传导：靠分子振动与自由电子(金属良导体)，主要在固体。对流：流体中冷热部分因密度差形成环流(液体、气体)。辐射：红外线，不需要介质，真空也能传。",exam:"判断某情形属哪种；辐射不需介质。"},
-    {t:"辐射的吸收与发射 Radiation Surfaces",en:"Black vs shiny.",tech:"暗黑粗糙面是良好的辐射吸收体与发射体；光亮银白面是良好的反射体、差的发射体。",exam:"保温瓶银壁减少辐射。"}
+    {t:"分子动理论 Kinetic Model",en:"Particles in motion.",tech:"固体紧密振动；液体较松可流动；气体相距远高速运动。温度↑→平均动能↑。布朗运动是证据。",exam:"用'排列+运动'描述三态。"},
+    {t:"三种热传递 Conduction/Convection/Radiation",en:"How heat moves.",tech:"传导靠振动与自由电子(固体、金属好)；对流靠流体密度差环流(液/气)；辐射靠红外线，不需介质。",exam:"判断情形属哪种。"},
+    {t:"辐射表面 Radiation Surfaces",en:"Black vs shiny.",tech:"暗黑粗糙面善吸收也善发射辐射；光亮银白面善反射、差发射。",exam:"保温瓶银壁减辐射。"}
    ],
    examples:[
-    {q:"Explain, using the kinetic model, why metals are good conductors of heat.",
-     solution:"Metals contain free (delocalised) electrons that move rapidly and transfer kinetic energy quickly from the hot region to the cold region; lattice vibrations also pass on energy.\n【中文】金属有自由电子，快速传递动能，故导热好。",
-     note:"技巧：金属导热靠自由电子。"},
-    {q:"Explain how a convection current forms when water is heated from below.",
-     solution:"Heated water expands, becomes less dense and rises; cooler denser water sinks to take its place, setting up a circulating convection current.\n【中文】受热水膨胀变轻上升，冷水下沉，形成对流环流。",
-     note:"出题思路：密度差驱动对流。"}
+    {q:"Explain, using the kinetic model, why metals are good conductors of heat.",tier:2,
+     solution:"Metals have free (delocalised) electrons that move rapidly and carry kinetic energy quickly from hot to cold regions; lattice vibrations also pass energy along.\n【中文】金属有自由电子，快速传递动能，故导热好。",note:"技巧：金属导热靠自由电子。"},
+    {q:"Explain how a convection current forms when water is heated from below.",tier:2,
+     solution:"Heated water expands, becomes less dense and rises; cooler denser water sinks to replace it, forming a circulating convection current.\n【中文】受热水膨胀变轻上升，冷水下沉，形成对流环流。",note:"出题思路：密度差驱动对流。"},
+    {q:"A vacuum flask keeps a drink hot. Explain how its design reduces heat loss by (i) conduction and convection and (ii) radiation.",tier:3,
+     solution:"(i) The vacuum between the double walls has no particles, so it stops conduction and convection.\n(ii) The silvered walls reflect infra-red radiation back towards the drink.\n【中文】真空阻断传导对流；银壁反射红外辐射。",note:"拔高：分两种机理作答。"},
+    {q:"Explain why, on a cold day, a tiled floor feels colder to bare feet than a carpeted floor at the same temperature.",tier:3,
+     solution:"Tiles are much better thermal conductors than carpet, so they conduct heat away from your feet faster, making them feel colder — even though both are at the same temperature.\n【中文】瓷砖导热快，把脚上的热迅速传走，故感觉更凉。",note:"拔高：同温不同导热率的感觉差异。"}
    ],
    mcqs:[
-    {stem:"Which method of heat transfer can occur through a vacuum?",options:["radiation","conduction","convection","evaporation"],answer:0,expl:"辐射不需介质，可穿过真空。",topic:"分子模型与热传递",tier:1},
-    {stem:"In a solid, the particles:",options:["vibrate about fixed positions","move freely at high speed","are far apart","do not move at all"],answer:0,expl:"固体分子在固定位置振动。",topic:"分子模型与热传递",tier:1},
-    {stem:"Convection can occur in:",options:["liquids and gases only","solids only","a vacuum","solids and liquids only"],answer:0,expl:"对流需要流体(液/气)。",topic:"分子模型与热传递",tier:2},
-    {stem:"A dull black surface is a:",options:["good absorber and good emitter of radiation","good reflector","poor absorber","good conductor only"],answer:0,expl:"暗黑面善于吸收也善于发射辐射。",topic:"分子模型与热传递",tier:3}
+    {stem:"Which method of heat transfer can occur through a vacuum?",options:["radiation","conduction","convection","evaporation"],answer:0,expl:"辐射不需介质。",topic:"分子模型与热传递",tier:1},
+    {stem:"In a solid, the particles:",options:["vibrate about fixed positions","move freely at high speed","are far apart","do not move"],answer:0,expl:"固体分子固定位置振动。",topic:"分子模型与热传递",tier:1},
+    {stem:"Metals conduct heat well mainly because they have:",options:["free electrons","large atoms","high density","shiny surfaces"],answer:0,expl:"自由电子导热。",topic:"分子模型与热传递",tier:1},
+    {stem:"Convection can occur in:",options:["liquids and gases only","solids only","a vacuum","solids and liquids only"],answer:0,expl:"对流需流体。",topic:"分子模型与热传递",tier:2},
+    {stem:"A dull black surface is a:",options:["good absorber and good emitter of radiation","good reflector","poor absorber","good conductor"],answer:0,expl:"暗黑面善吸收发射。",topic:"分子模型与热传递",tier:2},
+    {stem:"As a gas is heated, the average speed of its particles:",options:["increases","decreases","stays the same","becomes zero"],answer:0,expl:"温度↑→速度↑。",topic:"分子模型与热传递",tier:2},
+    {stem:"Warm air rises in a room because, on heating, it becomes:",options:["less dense","more dense","heavier","cooler"],answer:0,expl:"受热膨胀变轻(密度小)上升。",topic:"分子模型与热传递",tier:3},
+    {stem:"Brownian motion (random jiggling of smoke particles) is evidence that:",options:["air molecules are moving and colliding with them","smoke is hot","light pushes them","gravity varies"],answer:0,expl:"布朗运动证明气体分子在运动碰撞。",topic:"分子模型与热传递",tier:3}
    ],
    structured:[
-    {q:"A metal spoon and a wooden spoon are left in a warm room at the same temperature. Explain why the metal spoon feels colder when you touch it.  [2]",marks:2,
-     scheme:["B1 metal is a much better conductor","B1 conducts thermal energy away from the hand faster → feels colder"],
-     model:"Metal is a far better thermal conductor than wood, so it conducts thermal energy away from your warmer hand much faster, making it feel colder — even though both are at the same temperature.\n【中文】金属导热快，把手上的热量迅速传走，故感觉更凉。",topic:"分子模型与热传递",tier:2},
-    {q:"A vacuum flask keeps a drink hot. Explain how its design reduces heat loss by (i) conduction and convection [1] and (ii) radiation [1].",marks:2,
-     scheme:["B1 vacuum between the double walls stops conduction and convection (no particles)","B1 silvered/shiny walls reflect infra-red radiation back"],
-     model:"(i) The vacuum between the double walls has no particles, so it cannot transfer heat by conduction or convection.\n(ii) The silvered (shiny) walls reflect infra-red radiation back towards the drink, reducing radiation loss.\n【中文】双层间真空阻断传导对流；银壁反射红外辐射。",topic:"分子模型与热传递",tier:3}
+    {q:"A metal spoon and a wooden spoon are left in a warm room at the same temperature. Explain why the metal spoon feels colder when touched.  [2]",marks:2,tier:2,
+     scheme:["B1 metal is a much better conductor","B1 conducts heat away from the hand faster → feels colder"],
+     model:"Metal is a far better thermal conductor than wood, so it conducts heat away from your warmer hand much faster, making it feel colder — although both are at the same temperature.\n【中文】金属导热快，把手上的热迅速传走，故更凉。",topic:"分子模型与热传递"},
+    {q:"Using the kinetic model, describe the arrangement and motion of the particles in (i) a solid [1] and (ii) a gas [1], and state what happens to their average kinetic energy when heated [1].",marks:3,tier:2,
+     scheme:["B1 solid: closely packed, vibrate about fixed positions","B1 gas: far apart, move freely at high speed","B1 heating increases their average kinetic energy"],
+     model:"(i) Solid: particles closely packed, vibrating about fixed positions.\n(ii) Gas: particles far apart, moving freely and quickly in all directions.\nHeating increases their average kinetic energy (they move faster).\n【中文】固体紧密振动；气体相距远高速运动；受热平均动能增大。",topic:"分子模型与热传递"},
+    {q:"A vacuum flask keeps a drink hot. Explain how its design reduces heat loss by (i) conduction and convection [1] and (ii) radiation [1].",marks:2,tier:3,
+     scheme:["B1 vacuum between walls has no particles → no conduction/convection","B1 silvered walls reflect infra-red radiation back"],
+     model:"(i) The vacuum between the double walls has no particles, so heat cannot pass by conduction or convection.\n(ii) The silvered walls reflect infra-red radiation back towards the drink.\n【中文】真空阻传导对流；银壁反射红外辐射。",topic:"分子模型与热传递"},
+    {q:"Explain, in terms of heat transfer, why (i) the pipes in a solar water heater are painted black [1] and (ii) the outside of a house heat radiator is often shiny in cool climates [1]. Suggest which design choice is better for absorbing heat [1].",marks:3,tier:3,
+     scheme:["B1 black is a good absorber of radiation","B1 shiny is a poor emitter/good reflector","B1 black is better for absorbing heat"],
+     model:"(i) Black surfaces are good absorbers of (infra-red) radiation, so the pipes absorb more solar energy.\n(ii) Shiny surfaces are poor emitters, reducing radiation loss.\nFor absorbing heat, the black surface is better.\n【中文】黑色善吸收辐射；亮面差发射(保温)；吸热选黑色。",topic:"分子模型与热传递"}
    ]}
-
-
 ];
 
 /* ---------- MOCK papers (days 91-100) ---------- */
@@ -528,268 +638,392 @@ const MOCK_BANK=[
    物理全考纲(Physics 6091)：力学·热学·波·光·电磁，每题标注 tier(1基础/2正常/3拔高)。 */
 const MORE_TOPICS=[
   {topicZh:"热学性质（比热与潜热）",topicEn:"Thermal Properties: Heat Capacity & Latent Heat",
-   goals:["掌握 Q=mcΔθ 与比热容概念","理解熔化/沸腾时温度不变(潜热)","会用 Q=mL 与能量守恒解题"],
+   goals:["掌握 Q=mcΔθ 与比热容概念","理解熔化/沸腾时温度不变(潜热)","会用 Q=mL 与电加热 Q=Pt 解题"],
+   tips:{loves:"Q=mcΔθ 计算、熔化/沸腾时温度不变(潜热)、电加热 Q=Pt 求温升或时间、比较不同物质的比热。O-Level 爱考水的高比热与'温度为何不变'的解释。",
+     pitfalls:"①Δθ 要用温度'差'不是温度值；②潜热题误以为温度会升高(其实状态改变时温度不变)；③单位没统一(kg↔g、kJ↔J)。"},
    concepts:[
-    {t:"比热容 Specific Heat Capacity",en:"Q = mcΔθ.",tech:"Q=mcΔθ：加热所需能量=质量×比热容×温度变化。水 c=4200 J/(kg·°C)。单位 J/(kg·°C)。",exam:"注意 Δθ 是温度差；水的比热大。"},
-    {t:"潜热与物态变化 Latent Heat",en:"Energy at constant temperature.",tech:"熔化/沸腾时温度保持不变，吸收的能量用于破坏分子间作用力(潜热)。Q=mL，L 为比潜热(熔化/汽化)。",exam:"'why does temperature stay constant' → 能量用于改变状态，不升温。"},
-    {t:"实验与散热 Method & Losses",en:"Electrical heating.",tech:"电加热：Q=Pt=VIt。实际有热损失，故实测比理论多耗能。",exam:"效率<100%，热量散失。"}
+    {t:"比热容 Specific Heat Capacity",en:"Q = mcΔθ.",tech:"Q=mcΔθ。水 c=4200 J/(kg·°C)，单位 J/(kg·°C)。",exam:"Δθ 是温差；水比热大。"},
+    {t:"潜热与物态变化 Latent Heat",en:"Constant temperature.",tech:"熔化/沸腾温度不变，能量用于破坏分子作用力。Q=mL。",exam:"'why constant' → 潜热。"},
+    {t:"电加热 Electrical Heating",en:"Q = Pt.",tech:"电加热 Q=Pt=VIt。实际有热损失。",exam:"结合 Q=mcΔθ 求时间/温升。"}
    ],
    examples:[
-    {q:"How much energy is needed to raise the temperature of 2.0 kg of water by 30 °C? (c = 4200 J/(kg·°C))",
-     solution:"Q = mcΔθ = 2.0 × 4200 × 30 = 252 000 J\n【中文】Q=mcΔθ=252000 J。",
-     note:"技巧：先代入 m、c、Δθ。"},
-    {q:"Explain why the temperature of pure ice stays at 0 °C while it is melting.",
-     solution:"The energy supplied is used as latent heat of fusion to break the bonds between the water molecules (change state), not to increase their kinetic energy, so the temperature does not rise.\n【中文】吸收的能量用于熔化(破坏分子作用力)，不增加动能，故温度不变。",
-     note:"出题思路：潜热解释温度不变。"}
+    {q:"How much energy is needed to raise the temperature of 2.0 kg of water by 30 °C? (c=4200)",tier:2,
+     solution:"Q=mcΔθ=2.0×4200×30=252 000 J\n【中文】Q=mcΔθ=252000 J。",note:"技巧：代入 m,c,Δθ。"},
+    {q:"A 0.50 kg metal block (c=900) is heated from 20 °C to 70 °C. Find the energy supplied.",tier:2,
+     solution:"Q=mcΔθ=0.50×900×50=22 500 J\n【中文】Q=0.5×900×50=22500 J。",note:"出题思路：Δθ=50。"},
+    {q:"An electric kettle supplies energy at 2000 J/s to 0.40 kg of water (c=4200). Ignoring losses, find the time to heat it from 20 °C to 100 °C.",tier:3,
+     solution:"Q=mcΔθ=0.40×4200×80=134 400 J\nt=Q/P=134 400/2000=67.2 s\n【中文】能量134400 J，时间=Q/P=67.2 s。",note:"拔高：Q=mcΔθ 与 Q=Pt 结合。"},
+    {q:"Find the energy needed to change 0.20 kg of ice at 0 °C completely into water at 0 °C. (L_fusion=3.4×10⁵ J/kg)",tier:3,
+     solution:"Q=mL=0.20×3.4×10⁵=68 000 J (temperature stays at 0 °C)\n【中文】Q=mL=68000 J，温度不变。",note:"拔高：熔化用潜热 Q=mL。"}
    ],
    mcqs:[
-    {stem:"The SI unit of specific heat capacity is:",options:["J/(kg·°C)","J","W","°C"],answer:0,expl:"比热容单位 J/(kg·°C)。",topic:"热学性质（比热与潜热）",tier:1},
-    {stem:"While a pure solid is melting, its temperature:",options:["stays constant","rises steadily","falls","rises then falls"],answer:0,expl:"熔化时温度不变。",topic:"热学性质（比热与潜热）",tier:1},
-    {stem:"Energy to heat 1.0 kg of water by 10 °C (c=4200): ",options:["42 000 J","4200 J","420 J","42 J"],answer:0,expl:"Q=1×4200×10=42000 J。",topic:"热学性质（比热与潜热）",tier:2},
-    {stem:"Energy to heat 0.20 kg of water from 20 °C to 100 °C (c=4200):",options:["67 200 J","16 800 J","84 000 J","8400 J"],answer:0,expl:"Q=0.20×4200×80=67200 J。",topic:"热学性质（比热与潜热）",tier:3}
+    {stem:"The SI unit of specific heat capacity is:",options:["J/(kg·°C)","J","W","°C"],answer:0,expl:"J/(kg·°C)。",topic:"热学性质（比热与潜热）",tier:1},
+    {stem:"While a pure solid is melting, its temperature:",options:["stays constant","rises","falls","fluctuates"],answer:0,expl:"熔化温度不变。",topic:"热学性质（比热与潜热）",tier:1},
+    {stem:"While a pure liquid is boiling, its temperature:",options:["stays constant","rises steadily","falls","doubles"],answer:0,expl:"沸腾温度不变。",topic:"热学性质（比热与潜热）",tier:1},
+    {stem:"Energy to heat 1.0 kg of water by 10 °C (c=4200):",options:["42 000 J","4200 J","420 J","42 J"],answer:0,expl:"1×4200×10=42000 J。",topic:"热学性质（比热与潜热）",tier:2},
+    {stem:"Energy to heat 0.50 kg of a metal (c=400) by 20 °C:",options:["4000 J","8000 J","400 J","200 J"],answer:0,expl:"0.5×400×20=4000 J。",topic:"热学性质（比热与潜热）",tier:2},
+    {stem:"Water has a high specific heat capacity, which means it:",options:["needs a lot of energy to change temperature","heats up very quickly","cannot be boiled","has low density"],answer:0,expl:"高比热=难升温。",topic:"热学性质（比热与潜热）",tier:2},
+    {stem:"Energy to heat 0.20 kg of water from 20 °C to 100 °C (c=4200):",options:["67 200 J","16 800 J","84 000 J","8400 J"],answer:0,expl:"0.20×4200×80=67200 J。",topic:"热学性质（比热与潜热）",tier:3},
+    {stem:"Energy to melt 0.50 kg of ice at 0 °C (L=3.4×10⁵ J/kg):",options:["170 000 J","3400 J","68 000 J","1700 J"],answer:0,expl:"Q=mL=0.5×3.4e5=170000 J。",topic:"热学性质（比热与潜热）",tier:3}
    ],
    structured:[
-    {q:"A 0.50 kg metal block (c = 900 J/(kg·°C)) is heated from 20 °C to 70 °C. Find the energy supplied.  [3]",marks:3,ans:"22500",
-     scheme:["M1 Δθ=70−20=50","M1 Q=mcΔθ=0.50×900×50","A1 22 500 J"],
-     model:"Q = mcΔθ = 0.50 × 900 × (70−20) = 0.50 × 900 × 50 = 22 500 J\n【中文】Q=0.5×900×50=22500 J。",topic:"热学性质（比热与潜热）",tier:2},
-    {q:"An electric kettle supplies energy at 2000 J/s to 0.40 kg of water (c = 4200 J/(kg·°C)). Ignoring heat losses, find the time to heat the water from 20 °C to 100 °C.  [3]",marks:3,ans:"67.2",
-     scheme:["M1 Q=mcΔθ=0.40×4200×80=134 400 J","M1 t=Q/P=134400/2000","A1 67.2 s"],
-     model:"Q = mcΔθ = 0.40 × 4200 × 80 = 134 400 J\nt = Q/P = 134 400 / 2000 = 67.2 s\n【中文】所需能量 134400 J，时间 = 134400/2000 = 67.2 s。",topic:"热学性质（比热与潜热）",tier:3}
+    {q:"A 0.50 kg metal block (c=900 J/(kg·°C)) is heated from 20 °C to 70 °C. Find the energy supplied.  [3]",marks:3,ans:"22500",tier:2,
+     scheme:["M1 Δθ=50","M1 Q=0.50×900×50","A1 22 500 J"],
+     model:"Q=mcΔθ=0.50×900×(70−20)=22 500 J\n【中文】Q=22500 J。",topic:"热学性质（比热与潜热）"},
+    {q:"An 1800 W heater warms a 2.0 kg aluminium block (c=900) for 60 s. Ignoring losses, find the temperature rise.  [3]",marks:3,ans:"60",tier:2,
+     scheme:["M1 Q=Pt=1800×60=108 000 J","M1 Δθ=Q/(mc)=108000/(2.0×900)","A1 60 °C"],
+     model:"Q=Pt=1800×60=108 000 J\nΔθ=Q/(mc)=108 000/(2.0×900)=60 °C\n【中文】能量108000 J，温升=Q/(mc)=60 °C。",topic:"热学性质（比热与潜热）"},
+    {q:"An electric kettle supplies 2000 J/s to 0.40 kg of water (c=4200). Ignoring losses, find the time to heat the water from 20 °C to 100 °C.  [3]",marks:3,ans:"67.2",tier:3,
+     scheme:["M1 Q=0.40×4200×80=134 400 J","M1 t=Q/P","A1 67.2 s"],
+     model:"Q=mcΔθ=134 400 J; t=Q/P=134 400/2000=67.2 s\n【中文】时间 67.2 s。",topic:"热学性质（比热与潜热）"},
+    {q:"Find the total energy needed to turn 0.10 kg of ice at 0 °C into water at 20 °C. (L_fusion=3.4×10⁵ J/kg, c_water=4200)  [3]",marks:3,ans:"42400",tier:3,
+     scheme:["M1 melt: Q1=mL=0.10×3.4e5=34 000 J","M1 warm: Q2=mcΔθ=0.10×4200×20=8400 J","A1 total=42 400 J"],
+     model:"Melt the ice: Q1=mL=0.10×3.4×10⁵=34 000 J\nWarm the water: Q2=mcΔθ=0.10×4200×20=8400 J\nTotal=34 000+8400=42 400 J\n【中文】先熔化34000 J，再升温8400 J，共42400 J。",topic:"热学性质（比热与潜热）"}
    ]},
   {topicZh:"波的性质",topicEn:"General Wave Properties",
    goals:["区分横波与纵波，理解 λ、f、T、振幅","熟练用 v=fλ 与 T=1/f","会读波形图与描述能量传播"],
+   tips:{loves:"v=fλ 与 T=1/f 的换算、横波与纵波的区分、由'每秒几个波'求频率、由波形图读波长/振幅。O-Level 常给频率与波长要你求波速。",
+     pitfalls:"①T 与 f 互为倒数常弄反；②把振幅当波长；③单位(Hz, m, s)不统一。"},
    concepts:[
-    {t:"波的要素 Wave Quantities",en:"λ, f, T, amplitude.",tech:"波长 λ(相邻同相点距离)、频率 f(每秒波数, Hz)、周期 T=1/f、振幅(最大位移)。波传递能量而非物质。",exam:"T 与 f 互为倒数；振幅表能量大小。"},
-    {t:"横波与纵波 Transverse vs Longitudinal",en:"Direction of vibration.",tech:"横波：振动⊥传播方向(水波、光、EM)。纵波：振动∥传播方向，有压缩与稀疏(声波)。",exam:"声音是纵波；光是横波。"},
-    {t:"波速公式 v = fλ",en:"Speed = frequency × wavelength.",tech:"v=fλ。同一介质波速一般不变；频率不变，进入不同介质波长改变。",exam:"三量知二求一，注意单位。"}
+    {t:"波的要素 Wave Quantities",en:"λ, f, T, amplitude.",tech:"波长λ、频率f(Hz)、周期T=1/f、振幅。波传递能量而非物质。",exam:"T=1/f。"},
+    {t:"横波与纵波 Transverse vs Longitudinal",en:"Direction of vibration.",tech:"横波振动⊥传播(光、水波)；纵波振动∥传播，有压缩稀疏(声波)。",exam:"声=纵波；光=横波。"},
+    {t:"波速公式 v = fλ",en:"Speed.",tech:"v=fλ。进入不同介质频率不变、波长改变。",exam:"知二求一。"}
    ],
    examples:[
-    {q:"A wave has a frequency of 50 Hz and a wavelength of 0.40 m. Find its speed.",
-     solution:"v = fλ = 50 × 0.40 = 20 m/s\n【中文】v=fλ=20 m/s。",
-     note:"技巧：v=fλ 直接代入。"},
-    {q:"A wave has a period of 0.010 s. Find its frequency.",
-     solution:"f = 1/T = 1/0.010 = 100 Hz\n【中文】f=1/T=100 Hz。",
-     note:"出题思路：f 与 T 互为倒数。"}
+    {q:"A wave has a frequency of 50 Hz and a wavelength of 0.40 m. Find its speed.",tier:2,
+     solution:"v=fλ=50×0.40=20 m/s\n【中文】v=fλ=20 m/s。",note:"技巧：直接代入。"},
+    {q:"A wave has a period of 0.010 s. Find its frequency.",tier:2,
+     solution:"f=1/T=1/0.010=100 Hz\n【中文】f=1/T=100 Hz。",note:"出题思路：f 与 T 互为倒数。"},
+    {q:"20 complete waves pass a point in 4.0 s. The wavelength is 0.50 m. Find the wave speed.",tier:3,
+     solution:"f=20/4.0=5.0 Hz; v=fλ=5.0×0.50=2.5 m/s\n【中文】f=5 Hz，v=fλ=2.5 m/s。",note:"拔高：先由'每秒波数'求 f。"},
+    {q:"A sound wave in air travels at 340 m/s with a frequency of 2000 Hz. Find its wavelength.",tier:3,
+     solution:"λ=v/f=340/2000=0.17 m\n【中文】λ=v/f=0.17 m。",note:"拔高：λ=v/f。"}
    ],
    mcqs:[
-    {stem:"A wave has frequency 10 Hz and wavelength 2.0 m. Its speed is:",options:["20 m/s","5 m/s","0.2 m/s","12 m/s"],answer:0,expl:"v=fλ=10×2=20 m/s。",topic:"波的性质",tier:1},
-    {stem:"The period T of a wave is related to frequency f by:",options:["T = 1/f","T = f","T = f²","T = 2f"],answer:0,expl:"T=1/f。",topic:"波的性质",tier:1},
-    {stem:"Sound travels as a:",options:["longitudinal wave","transverse wave","electromagnetic wave","stationary wave only"],answer:0,expl:"声波是纵波。",topic:"波的性质",tier:2},
-    {stem:"A wave travels at 340 m/s with frequency 170 Hz. Its wavelength is:",options:["2.0 m","0.5 m","510 m","57 800 m"],answer:0,expl:"λ=v/f=340/170=2.0 m。",topic:"波的性质",tier:3}
+    {stem:"A wave has frequency 10 Hz and wavelength 2.0 m. Its speed is:",options:["20 m/s","5 m/s","0.2 m/s","12 m/s"],answer:0,expl:"v=fλ=20 m/s。",topic:"波的性质",tier:1},
+    {stem:"The period T of a wave relates to frequency f by:",options:["T = 1/f","T = f","T = f²","T = 2f"],answer:0,expl:"T=1/f。",topic:"波的性质",tier:1},
+    {stem:"Sound travels as a:",options:["longitudinal wave","transverse wave","electromagnetic wave","standing wave only"],answer:0,expl:"声=纵波。",topic:"波的性质",tier:1},
+    {stem:"A wave travels at 340 m/s with frequency 170 Hz. Its wavelength is:",options:["2.0 m","0.5 m","510 m","57 800 m"],answer:0,expl:"λ=340/170=2 m。",topic:"波的性质",tier:2},
+    {stem:"The period of a 4.0 Hz wave is:",options:["0.25 s","4.0 s","2.0 s","0.5 s"],answer:0,expl:"T=1/4=0.25 s。",topic:"波的性质",tier:2},
+    {stem:"Light travels as a:",options:["transverse wave","longitudinal wave","sound wave","pressure wave"],answer:0,expl:"光=横波。",topic:"波的性质",tier:2},
+    {stem:"10 complete waves pass a point in 2.0 s with wavelength 0.30 m. The speed is:",options:["1.5 m/s","3.0 m/s","0.6 m/s","20 m/s"],answer:0,expl:"f=5 Hz，v=5×0.3=1.5 m/s。",topic:"波的性质",tier:3},
+    {stem:"A wave has period 0.020 s and wavelength 0.60 m. Its speed is:",options:["30 m/s","0.012 m/s","12 m/s","3.0 m/s"],answer:0,expl:"v=λ/T=0.6/0.02=30 m/s。",topic:"波的性质",tier:3}
    ],
    structured:[
-    {q:"A water wave has a wavelength of 0.50 m and a frequency of 4.0 Hz. Find (i) its speed [2] and (ii) its period [1].",marks:3,ans:"2.0;0.25",
-     scheme:["M1 v=fλ=4.0×0.50","A1 2.0 m/s","A1 T=1/f=0.25 s"],
-     model:"(i) v = fλ = 4.0 × 0.50 = 2.0 m/s\n(ii) T = 1/f = 1/4.0 = 0.25 s\n【中文】波速 2.0 m/s，周期 0.25 s。",topic:"波的性质",tier:2},
-    {q:"A sound wave in air travels at 340 m/s. If its frequency is 2000 Hz, find its wavelength.  [2]",marks:2,ans:"0.17",
+    {q:"A water wave has a wavelength of 0.50 m and a frequency of 4.0 Hz. Find (i) its speed [2] and (ii) its period [1].",marks:3,ans:"2.0;0.25",tier:2,
+     scheme:["M1 v=fλ","A1 2.0 m/s","A1 T=0.25 s"],
+     model:"v=fλ=4.0×0.50=2.0 m/s; T=1/f=0.25 s\n【中文】波速 2.0 m/s，周期 0.25 s。",topic:"波的性质"},
+    {q:"A wave travels at 12 m/s with a wavelength of 0.30 m. Find (i) its frequency [2] and (ii) its period [1].",marks:3,ans:"40;0.025",tier:2,
+     scheme:["M1 f=v/λ=12/0.30","A1 40 Hz","A1 T=1/40=0.025 s"],
+     model:"f=v/λ=12/0.30=40 Hz; T=1/f=1/40=0.025 s\n【中文】频率 40 Hz，周期 0.025 s。",topic:"波的性质"},
+    {q:"A sound wave in air travels at 340 m/s. If its frequency is 2000 Hz, find its wavelength.  [2]",marks:2,ans:"0.17",tier:3,
      scheme:["M1 λ=v/f=340/2000","A1 0.17 m"],
-     model:"λ = v/f = 340/2000 = 0.17 m\n【中文】λ=v/f=0.17 m。",topic:"波的性质",tier:3}
+     model:"λ=v/f=340/2000=0.17 m\n【中文】λ=0.17 m。",topic:"波的性质"},
+    {q:"25 complete waves pass a point in 5.0 s. Each wave has a wavelength of 1.2 m. Find (i) the frequency [1] and (ii) the wave speed [2].",marks:3,ans:"5;6",tier:3,
+     scheme:["A1 f=25/5.0=5.0 Hz","M1 v=fλ=5.0×1.2","A1 6.0 m/s"],
+     model:"(i) f=25/5.0=5.0 Hz\n(ii) v=fλ=5.0×1.2=6.0 m/s\n【中文】频率 5 Hz，波速 6 m/s。",topic:"波的性质"}
    ]},
   {topicZh:"光：反射与折射",topicEn:"Light: Reflection & Refraction",
    goals:["掌握反射定律与平面镜成像特点","掌握折射与折射率 n=sin i/sin r","理解全反射与临界角 sin c = 1/n"],
+   tips:{loves:"n=sin i/sin r 求折射角、临界角 sin c=1/n、平面镜像特点(虚像/正立/等大)、全反射条件与光纤。O-Level 爱考折射角计算与临界角。",
+     pitfalls:"①角都要'相对法线'量，不是相对表面；②全反射只在'由光密到光疏且角>临界角'时发生；③折射方向记反(进入光密介质偏向法线)。"},
    concepts:[
-    {t:"反射 Reflection",en:"i = r.",tech:"入射角=反射角(相对法线)。平面镜像：虚像、正立、等大、左右反转、像距=物距。",exam:"角都相对法线量；平面镜像的特点常考。"},
-    {t:"折射 Refraction",en:"n = sin i / sin r.",tech:"光由光疏进入光密(如空气→玻璃)偏向法线；折射率 n=sin i/sin r。速度在光密介质中变小。",exam:"i、r 相对法线；n>1。"},
-    {t:"全反射 Total Internal Reflection",en:"Beyond the critical angle.",tech:"光由光密→光疏，入射角>临界角 c 时全反射。sin c = 1/n。应用：光纤、棱镜。",exam:"必须由密到疏且角>c 才全反射。"}
+    {t:"反射 Reflection",en:"i = r.",tech:"入射角=反射角(相对法线)。平面镜像：虚、正立、等大、左右反转、像距=物距。",exam:"角相对法线量。"},
+    {t:"折射 Refraction",en:"n = sin i / sin r.",tech:"空气→玻璃偏向法线；n=sin i/sin r>1。",exam:"先求 sin r。"},
+    {t:"全反射 Total Internal Reflection",en:"Beyond critical angle.",tech:"由光密→光疏且入射角>临界角 c 时全反射。sin c=1/n。",exam:"必须由密到疏。"}
    ],
    examples:[
-    {q:"A ray of light travels from air into glass (n = 1.50) at an angle of incidence of 40°. Find the angle of refraction.",
-     solution:"n = sin i / sin r → sin r = sin 40° / 1.50 = 0.643/1.50 = 0.4287\nr = 25.4°\n【中文】sin r=sin40/1.5，r≈25°。",
-     note:"技巧：n=sin i/sin r，先求 sin r。"},
-    {q:"Find the critical angle for glass of refractive index 1.50.",
-     solution:"sin c = 1/n = 1/1.50 = 0.667\nc = 41.8°\n【中文】sin c=1/1.5，c≈42°。",
-     note:"出题思路：临界角 sin c=1/n。"}
+    {q:"A ray of light in air strikes a glass block (n=1.50) at an angle of incidence of 30°. Find the angle of refraction.",tier:2,
+     solution:"sin r=sin 30°/1.50=0.500/1.50=0.333 → r=19.5°\n【中文】sin r=0.333，r≈19.5°。",note:"技巧：n=sin i/sin r，先求 sin r。"},
+    {q:"An object is placed 15 cm in front of a plane mirror. State the image distance and describe the image.",tier:2,
+     solution:"Image distance = 15 cm behind the mirror. The image is virtual, upright, same size, laterally inverted.\n【中文】像距 15 cm(镜后)；虚像、正立、等大、左右反转。",note:"出题思路：平面镜像距=物距。"},
+    {q:"Find the critical angle for glass of refractive index 1.50.",tier:3,
+     solution:"sin c=1/n=1/1.50=0.667 → c=41.8°\n【中文】sin c=1/1.5，c≈42°。",note:"拔高：临界角 sin c=1/n。"},
+    {q:"Light inside glass (n=1.50) meets the glass–air boundary at 50°. Does total internal reflection occur? Explain.",tier:3,
+     solution:"Critical angle c=41.8°. Since 50° > 41.8° and light goes from denser to less dense, total internal reflection occurs.\n【中文】临界角 41.8°，50°>c 且由密到疏 → 全反射。",note:"拔高：比较入射角与临界角。"}
    ],
    mcqs:[
-    {stem:"The law of reflection states that:",options:["angle of incidence = angle of reflection","i = 2r","angles add to 90°","light always bends"],answer:0,expl:"反射定律 i=r。",topic:"光：反射与折射",tier:1},
-    {stem:"The image in a plane mirror is:",options:["virtual and upright","real and inverted","real and upright","virtual and inverted"],answer:0,expl:"平面镜像：虚像、正立。",topic:"光：反射与折射",tier:1},
-    {stem:"When light passes from air into glass, it bends:",options:["towards the normal","away from the normal","along the normal","back on itself"],answer:0,expl:"进入光密介质偏向法线。",topic:"光：反射与折射",tier:2},
-    {stem:"Glass has refractive index 1.50. Its critical angle is about:",options:["42°","48°","30°","60°"],answer:0,expl:"sin c=1/1.5→c≈41.8°。",topic:"光：反射与折射",tier:3}
+    {stem:"The law of reflection states that:",options:["angle of incidence = angle of reflection","i = 2r","angles add to 90°","light always bends"],answer:0,expl:"i=r。",topic:"光：反射与折射",tier:1},
+    {stem:"The image in a plane mirror is:",options:["virtual and upright","real and inverted","real and upright","virtual and inverted"],answer:0,expl:"虚像正立。",topic:"光：反射与折射",tier:1},
+    {stem:"When light passes from air into glass, it bends:",options:["towards the normal","away from the normal","along the normal","back on itself"],answer:0,expl:"进入光密偏向法线。",topic:"光：反射与折射",tier:1},
+    {stem:"The refractive index n is given by:",options:["sin i / sin r","sin r / sin i","i / r","i × r"],answer:0,expl:"n=sin i/sin r。",topic:"光：反射与折射",tier:2},
+    {stem:"The critical angle c of a medium satisfies:",options:["sin c = 1/n","sin c = n","cos c = 1/n","tan c = n"],answer:0,expl:"sin c=1/n。",topic:"光：反射与折射",tier:2},
+    {stem:"The refractive index of any transparent medium (relative to air) is always:",options:["greater than 1","less than 1","equal to 1","equal to 0"],answer:0,expl:"n>1。",topic:"光：反射与折射",tier:2},
+    {stem:"Glass has refractive index 1.50. Its critical angle is about:",options:["42°","48°","30°","60°"],answer:0,expl:"sin c=1/1.5→42°。",topic:"光：反射与折射",tier:3},
+    {stem:"For total internal reflection to occur, light must travel from:",options:["a denser to a less dense medium, above the critical angle","a less dense to a denser medium","any medium at any angle","air into glass"],answer:0,expl:"由密到疏且角>c。",topic:"光：反射与折射",tier:3}
    ],
    structured:[
-    {q:"A ray of light in air strikes a glass block (n = 1.50) at an angle of incidence of 30°. Find the angle of refraction inside the glass.  [3]",marks:3,ans:"19.5",
-     scheme:["M1 n=sin i/sin r","M1 sin r=sin30/1.5=0.333","A1 r=19.5°"],
-     model:"n = sin i / sin r → sin r = sin 30° / 1.50 = 0.500/1.50 = 0.333\nr = 19.5°\n【中文】sin r=0.333 → r≈19.5°。",topic:"光：反射与折射",tier:2},
-    {q:"The refractive index of water is 1.33. Find the critical angle for the water–air boundary.  [3]",marks:3,ans:"48.8",
-     scheme:["M1 sin c=1/n","M1 =1/1.33=0.752","A1 c=48.8°"],
-     model:"sin c = 1/n = 1/1.33 = 0.752\nc = 48.8°\n【中文】sin c=1/1.33 → c≈48.8°。",topic:"光：反射与折射",tier:3}
+    {q:"A ray of light in air strikes a glass block (n=1.50) at an angle of incidence of 30°. Find the angle of refraction inside the glass.  [3]",marks:3,ans:"19.5",tier:2,
+     scheme:["M1 sin r=sin30/1.5","M1 =0.333","A1 r=19.5°"],
+     model:"sin r=sin 30°/1.50=0.333 → r=19.5°\n【中文】r≈19.5°。",topic:"光：反射与折射"},
+    {q:"An object is placed 12 cm in front of a plane mirror. (i) State the image distance [1]. (ii) State two properties of the image [2].",marks:3,ans:"12",tier:2,
+     scheme:["A1 12 cm behind the mirror","B1 virtual, upright","B1 same size / laterally inverted"],
+     model:"(i) 12 cm behind the mirror.\n(ii) Virtual, upright, same size, laterally inverted (any two).\n【中文】像距 12 cm；虚像、正立、等大、左右反转。",topic:"光：反射与折射"},
+    {q:"The refractive index of water is 1.33. Find the critical angle for the water–air boundary.  [3]",marks:3,ans:"48.8",tier:3,
+     scheme:["M1 sin c=1/1.33","M1 =0.752","A1 c=48.8°"],
+     model:"sin c=1/1.33=0.752 → c=48.8°\n【中文】c≈48.8°。",topic:"光：反射与折射"},
+    {q:"Light travelling inside glass (n=1.50) meets the glass–air surface at an angle of incidence of 50°. (i) Find the critical angle [2]. (ii) State, with a reason, what happens to the light [1].",marks:3,ans:"41.8",tier:3,
+     scheme:["M1 sin c=1/1.5=0.667","A1 c=41.8°","B1 50°>41.8° → total internal reflection"],
+     model:"(i) sin c=1/1.50=0.667 → c=41.8°\n(ii) 50° > 41.8°, so the light undergoes total internal reflection.\n【中文】临界角 41.8°，50°>c → 全反射。",topic:"光：反射与折射"}
    ]},
   {topicZh:"电磁波谱与声",topicEn:"EM Spectrum & Sound",
    goals:["记住电磁波谱顺序、共同性质与用途/危害","理解声波需要介质、为纵波","会用回声/超声计算距离"],
+   tips:{loves:"电磁波谱顺序与用途/危害、真空中都以光速传播、声需介质且为纵波、回声与超声测距(单程=½vt)。O-Level 爱考回声/超声距离与波谱用途。",
+     pitfalls:"①以为声能在真空传播(真空不能传声)；②回声测距忘了÷2(来回距离)；③电磁波谱顺序记反(频率增大=波长减小)。"},
    concepts:[
-    {t:"电磁波谱 EM Spectrum",en:"Radio → Gamma.",tech:"顺序(频率增大、波长减小)：radio, microwave, infra-red, visible, ultraviolet, X-ray, gamma。真空中都以光速 c=3.0×10⁸ m/s 传播。",exam:"记顺序与典型用途；频率越高能量越大越危险。"},
-    {t:"声波 Sound",en:"Needs a medium.",tech:"声是纵波，需要介质(真空不能传声)。空气中约 340 m/s。可听范围约 20 Hz–20 kHz，超过为超声波(ultrasound)。",exam:"真空不能传声；回声测距。"},
-    {t:"回声与超声 Echo & Ultrasound",en:"Distance = ½ v t.",tech:"回声：声到障碍再返回，来回距离 = v×t，单程 = ½vt。超声用于测深、探伤、医学成像。",exam:"注意来回 → 用 ½。"}
+    {t:"电磁波谱 EM Spectrum",en:"Radio → Gamma.",tech:"顺序(频率增大)：radio, microwave, infra-red, visible, ultraviolet, X-ray, gamma。真空中都以 c=3×10⁸ m/s 传播。",exam:"记顺序与用途；频率高更危险。"},
+    {t:"声波 Sound",en:"Needs a medium.",tech:"声为纵波，需介质(真空不能传)。空气中约 340 m/s，可听 20 Hz–20 kHz。",exam:"真空不传声。"},
+    {t:"回声与超声 Echo & Ultrasound",en:"½ v t.",tech:"回声来回距离=vt，单程=½vt。超声(>20 kHz)测深、探伤、成像。",exam:"来回用 ½。"}
    ],
    examples:[
-    {q:"An echo returns 1.0 s after a sound is made. The speed of sound is 340 m/s. How far away is the reflecting wall?",
-     solution:"Distance to wall = ½ × v × t = ½ × 340 × 1.0 = 170 m\n【中文】单程 = ½vt = 170 m。",
-     note:"技巧：回声来回，单程用一半。"},
-    {q:"State the order of the EM spectrum from lowest to highest frequency.",
-     solution:"radio → microwave → infra-red → visible → ultraviolet → X-ray → gamma\n【中文】按频率增大排列如上。",
-     note:"出题思路：频率增大=波长减小。"}
+    {q:"State the order of the electromagnetic spectrum from lowest to highest frequency.",tier:2,
+     solution:"radio → microwave → infra-red → visible → ultraviolet → X-ray → gamma\n【中文】按频率增大排列。",note:"技巧：频率增大=波长减小。"},
+    {q:"A radio station broadcasts at 100 MHz (1.0×10⁸ Hz). Find the wavelength (c=3.0×10⁸ m/s).",tier:2,
+     solution:"λ=c/f=3.0×10⁸/1.0×10⁸=3.0 m\n【中文】λ=c/f=3.0 m。",note:"出题思路：EM 波 v=c。"},
+    {q:"A person shouts towards a cliff and hears the echo 1.2 s later. Speed of sound = 340 m/s. Find the distance to the cliff.",tier:3,
+     solution:"Total path=vt=340×1.2=408 m; distance=½×408=204 m\n【中文】来回 408 m，单程 204 m。",note:"拔高：回声÷2。"},
+    {q:"An ultrasound pulse returns from the seabed 0.30 s after being sent. Speed in water=1500 m/s. Find the depth.",tier:3,
+     solution:"Total=1500×0.30=450 m; depth=½×450=225 m\n【中文】来回 450 m，深度 225 m。",note:"拔高：超声测深÷2。"}
    ],
    mcqs:[
-    {stem:"In a vacuum, all electromagnetic waves travel at:",options:["3.0×10⁸ m/s","340 m/s","1500 m/s","3.0×10⁶ m/s"],answer:0,expl:"真空光速 3×10⁸ m/s。",topic:"电磁波谱与声",tier:1},
-    {stem:"Sound cannot travel through:",options:["a vacuum","air","water","steel"],answer:0,expl:"真空无介质，不能传声。",topic:"电磁波谱与声",tier:1},
-    {stem:"Which electromagnetic wave has the highest frequency?",options:["gamma rays","radio waves","microwaves","visible light"],answer:0,expl:"gamma 频率最高。",topic:"电磁波谱与声",tier:2},
-    {stem:"An echo is heard 0.50 s after a shout; speed of sound = 340 m/s. The wall is:",options:["85 m away","170 m away","340 m away","42.5 m away"],answer:0,expl:"½×340×0.5=85 m。",topic:"电磁波谱与声",tier:3}
+    {stem:"In a vacuum, all electromagnetic waves travel at:",options:["3.0×10⁸ m/s","340 m/s","1500 m/s","3.0×10⁶ m/s"],answer:0,expl:"真空光速。",topic:"电磁波谱与声",tier:1},
+    {stem:"Sound cannot travel through:",options:["a vacuum","air","water","steel"],answer:0,expl:"真空无介质。",topic:"电磁波谱与声",tier:1},
+    {stem:"Which electromagnetic wave has the highest frequency?",options:["gamma rays","radio waves","microwaves","visible light"],answer:0,expl:"gamma 最高。",topic:"电磁波谱与声",tier:1},
+    {stem:"Which EM wave is used in a TV remote control?",options:["infra-red","gamma rays","radio waves","X-rays"],answer:0,expl:"红外线。",topic:"电磁波谱与声",tier:2},
+    {stem:"Which EM wave has the longest wavelength?",options:["radio waves","gamma rays","ultraviolet","visible light"],answer:0,expl:"无线电波波长最长。",topic:"电磁波谱与声",tier:2},
+    {stem:"A danger of ultraviolet radiation is that it can cause:",options:["skin cancer","deafness","broken bones","tooth decay"],answer:0,expl:"UV 致皮肤癌。",topic:"电磁波谱与声",tier:2},
+    {stem:"An echo is heard 0.50 s after a shout; sound speed = 340 m/s. The wall is:",options:["85 m away","170 m away","340 m away","42.5 m away"],answer:0,expl:"½×340×0.5=85 m。",topic:"电磁波谱与声",tier:3},
+    {stem:"The approximate upper limit of human hearing is:",options:["20 000 Hz","2000 Hz","200 Hz","2 000 000 Hz"],answer:0,expl:"约 20 kHz。",topic:"电磁波谱与声",tier:3}
    ],
    structured:[
-    {q:"(i) State the speed of all electromagnetic waves in a vacuum. [1] (ii) Name the type of EM wave used in a TV remote control. [1] (iii) State one danger of ultraviolet radiation. [1]",marks:3,
+    {q:"(i) State the speed of all EM waves in a vacuum [1]. (ii) Name the EM wave used in a TV remote control [1]. (iii) State one danger of ultraviolet radiation [1].",marks:3,tier:2,
      scheme:["B1 3.0×10⁸ m/s","B1 infra-red","B1 skin cancer / eye damage"],
-     model:"(i) 3.0 × 10⁸ m/s.\n(ii) Infra-red.\n(iii) Ultraviolet can cause skin cancer (or eye/skin damage).\n【中文】(i) 3×10⁸ m/s (ii) 红外线 (iii) 紫外线可致皮肤癌。",topic:"电磁波谱与声",tier:2},
-    {q:"A person shouts towards a cliff and hears the echo 1.2 s later. The speed of sound in air is 340 m/s. Find the distance to the cliff.  [3]",marks:3,ans:"204",
-     scheme:["M1 total path = v×t = 340×1.2 = 408 m","M1 distance = ½ × 408","A1 204 m"],
-     model:"Total path (there and back) = v × t = 340 × 1.2 = 408 m\nDistance to cliff = ½ × 408 = 204 m\n【中文】来回 408 m，单程 204 m。",topic:"电磁波谱与声",tier:3}
+     model:"(i) 3.0×10⁸ m/s. (ii) Infra-red. (iii) Can cause skin cancer.\n【中文】(i) 3×10⁸ m/s (ii) 红外线 (iii) 皮肤癌。",topic:"电磁波谱与声"},
+    {q:"A radio wave has a frequency of 200 MHz (2.0×10⁸ Hz). Find its wavelength. (c=3.0×10⁸ m/s)  [2]",marks:2,ans:"1.5",tier:2,
+     scheme:["M1 λ=c/f=3.0e8/2.0e8","A1 1.5 m"],
+     model:"λ=c/f=3.0×10⁸/2.0×10⁸=1.5 m\n【中文】λ=1.5 m。",topic:"电磁波谱与声"},
+    {q:"A person shouts towards a cliff and hears the echo 1.2 s later (sound speed = 340 m/s). Find the distance to the cliff.  [3]",marks:3,ans:"204",tier:3,
+     scheme:["M1 total=340×1.2=408 m","M1 ÷2","A1 204 m"],
+     model:"Total path = 340×1.2 = 408 m; distance = ½×408 = 204 m\n【中文】单程 204 m。",topic:"电磁波谱与声"},
+    {q:"A ship's sonar sends an ultrasound pulse that returns from the seabed after 0.40 s. The speed of sound in water is 1500 m/s. Find the depth of the seabed.  [3]",marks:3,ans:"300",tier:3,
+     scheme:["M1 total=1500×0.40=600 m","M1 ÷2","A1 300 m"],
+     model:"Total path = 1500×0.40 = 600 m; depth = ½×600 = 300 m\n【中文】深度 300 m。",topic:"电磁波谱与声"}
    ]},
   {topicZh:"静电",topicEn:"Static Electricity",
-   goals:["用电子转移解释摩擦起电","掌握同性相斥、异性相吸","理解导体/绝缘体、感应起电与电场线"],
+   goals:["用电子转移解释摩擦起电","掌握同性相斥、异性相吸","理解导体/绝缘体、感应起电与危害/应用"],
+   tips:{loves:"用'电子转移'解释摩擦起电、同异性电荷、感应起电解释吸引中性物、接地导走电荷与危险(加油/雷电)。O-Level 静电几乎都是解释题。",
+     pitfalls:"①说成'质子转移'(其实是电子转移)；②'得电子=负、失电子=正'记反；③解释吸引中性物时漏掉'感应(induced charge)'这一步。"},
    concepts:[
-    {t:"摩擦起电 Charging by Friction",en:"Electron transfer.",tech:"摩擦时电子从一物转移到另一物：得到电子→带负电；失去电子→带正电。电荷不能凭空产生，只是转移。",exam:"是电子(负)转移，不是质子转移。"},
-    {t:"电荷相互作用 Forces on Charges",en:"Like repel, unlike attract.",tech:"同种电荷相斥，异种电荷相吸。导体可传导电荷，绝缘体不能。",exam:"判断吸引/排斥看电荷种类。"},
-    {t:"感应与电场 Induction & Field",en:"Fields point + to −.",tech:"带电体靠近导体可使其表面电荷分离(感应)。电场线由正电荷指向负电荷。接地可导走电荷。",exam:"感应起电解释吸引中性物。"}
+    {t:"摩擦起电 Charging by Friction",en:"Electron transfer.",tech:"摩擦转移电子：得电子→负，失电子→正。电荷守恒，只是转移。",exam:"是电子(负)转移。"},
+    {t:"电荷作用 Forces on Charges",en:"Like repel, unlike attract.",tech:"同性相斥、异性相吸。导体传导电荷，绝缘体不。",exam:"看电荷种类判吸斥。"},
+    {t:"感应与危害 Induction & Hazards",en:"Fields, earthing.",tech:"带电体使导体表面电荷分离(感应)。电场线由正→负。接地可安全导走电荷。",exam:"感应解释吸引中性物；接地防火花。"}
    ],
    examples:[
-    {q:"Explain, in terms of electrons, how a polythene rod becomes negatively charged when rubbed with a dry cloth.",
-     solution:"Friction transfers electrons from the cloth to the rod. The rod gains electrons, so it has more electrons than protons and becomes negatively charged (the cloth becomes positive).\n【中文】摩擦使电子由布转移到棒，棒得电子带负电。",
-     note:"技巧：得电子→负；失电子→正。"},
-    {q:"Explain why a charged balloon sticks to a neutral wall.",
-     solution:"The charged balloon induces an opposite charge on the surface of the wall (attracting opposite charges nearer). The unlike charges attract, holding the balloon to the wall.\n【中文】气球感应墙面出现异号电荷，异性相吸。",
-     note:"出题思路：感应+异性相吸。"}
+    {q:"Explain, in terms of electrons, how a polythene rod becomes negatively charged when rubbed with a dry cloth.",tier:2,
+     solution:"Friction transfers electrons from the cloth to the rod. The rod gains electrons, so it becomes negatively charged (the cloth becomes positive).\n【中文】电子由布转移到棒，棒得电子带负电。",note:"技巧：得电子→负。"},
+    {q:"State what happens when a positively charged rod is brought near (a) a positive charge and (b) a negative charge.",tier:2,
+     solution:"(a) They repel (like charges). (b) They attract (unlike charges).\n【中文】(a) 相斥 (b) 相吸。",note:"出题思路：同斥异吸。"},
+    {q:"Explain why a charged balloon sticks to a neutral wall.",tier:3,
+     solution:"The charged balloon induces an opposite charge on the near surface of the wall (charge separation). The unlike charges attract, holding the balloon in place.\n【中文】气球感应墙面异号电荷，异性相吸。",note:"拔高：感应+异性相吸。"},
+    {q:"Explain why a road fuel tanker is connected to the ground (earthed) while being filled.",tier:3,
+     solution:"Flowing fuel causes static charge to build up by friction. If large, this could cause a spark and ignite fuel vapour. Earthing lets the charge flow safely to the ground, preventing a spark.\n【中文】摩擦积累静电可能火花引燃；接地安全导走电荷。",note:"拔高：静电危害与接地。"}
    ],
    mcqs:[
-    {stem:"Two objects carry like charges. They will:",options:["repel each other","attract each other","not interact","become neutral"],answer:0,expl:"同性相斥。",topic:"静电",tier:1},
-    {stem:"A neutral atom that loses electrons becomes:",options:["positively charged","negatively charged","neutral still","an insulator"],answer:0,expl:"失电子→带正电。",topic:"静电",tier:1},
-    {stem:"A plastic rod becomes negatively charged when rubbed. This is because it has:",options:["gained electrons","lost electrons","gained protons","lost neutrons"],answer:0,expl:"得到电子→负电。",topic:"静电",tier:2},
-    {stem:"Electric field lines point:",options:["from positive to negative","from negative to positive","in circles","towards the ground always"],answer:0,expl:"电场线由正指向负。",topic:"静电",tier:3}
+    {stem:"Two objects with like charges will:",options:["repel","attract","do nothing","neutralise"],answer:0,expl:"同性相斥。",topic:"静电",tier:1},
+    {stem:"An atom that loses electrons becomes:",options:["positively charged","negatively charged","neutral","an insulator"],answer:0,expl:"失电子→正。",topic:"静电",tier:1},
+    {stem:"Charging by friction transfers:",options:["electrons","protons","neutrons","atoms"],answer:0,expl:"转移电子。",topic:"静电",tier:1},
+    {stem:"A plastic rod becomes negatively charged when rubbed because it has:",options:["gained electrons","lost electrons","gained protons","lost neutrons"],answer:0,expl:"得电子。",topic:"静电",tier:2},
+    {stem:"Electric field lines point:",options:["from positive to negative","from negative to positive","in circles","towards the ground"],answer:0,expl:"由正→负。",topic:"静电",tier:2},
+    {stem:"Which of these is the best conductor of charge?",options:["copper","plastic","glass","rubber"],answer:0,expl:"金属(铜)导电。",topic:"静电",tier:2},
+    {stem:"A charged comb attracts small neutral pieces of paper because it:",options:["induces opposite charge on the paper","makes the paper hot","adds electrons to the paper always","is magnetic"],answer:0,expl:"感应异号电荷。",topic:"静电",tier:3},
+    {stem:"Aircraft and fuel tankers are earthed mainly to:",options:["let static charge flow safely to the ground","increase their weight","reduce air resistance","charge the fuel"],answer:0,expl:"安全导走静电。",topic:"静电",tier:3}
    ],
    structured:[
-    {q:"A student rubs an inflated balloon on their hair and the balloon becomes negatively charged. (i) Explain, in terms of electrons, how this happens. [2] (ii) State what charge the hair now has. [1]",marks:3,
+    {q:"A student rubs an inflated balloon on their hair; the balloon becomes negatively charged. (i) Explain, in terms of electrons, how this happens [2]. (ii) State the charge on the hair [1].",marks:3,tier:2,
      scheme:["B1 electrons transfer from hair to balloon by friction","B1 balloon gains electrons → negative","B1 hair loses electrons → positive"],
-     model:"(i) Friction transfers electrons from the hair onto the balloon; the balloon gains electrons and becomes negatively charged.\n(ii) The hair has lost electrons, so it is positively charged.\n【中文】电子由头发转移到气球；气球带负电，头发带正电。",topic:"静电",tier:2},
-    {q:"Explain why small pieces of paper (neutral) are attracted to a charged plastic comb.  [2]",marks:2,
-     scheme:["B1 comb induces opposite charge on the near side of the paper","B1 unlike charges attract → paper pulled to comb"],
-     model:"The charged comb induces an opposite charge on the near surface of each neutral paper piece (charge separation). The unlike charges attract, so the paper is pulled towards the comb.\n【中文】梳子使纸片近端感应异号电荷，异性相吸。",topic:"静电",tier:3}
+     model:"(i) Friction transfers electrons from the hair to the balloon; the balloon gains electrons and becomes negative.\n(ii) The hair has lost electrons → positively charged.\n【中文】电子由头发转移到气球；头发带正电。",topic:"静电"},
+    {q:"Explain why small pieces of neutral paper are attracted to a charged plastic comb.  [2]",marks:2,tier:2,
+     scheme:["B1 comb induces opposite charge on the near side of the paper","B1 unlike charges attract"],
+     model:"The charged comb induces an opposite charge on the near surface of each neutral paper piece. The unlike charges then attract, pulling the paper to the comb.\n【中文】感应异号电荷，异性相吸。",topic:"静电"},
+    {q:"Explain why a fuel tanker is earthed with a metal wire while it is being filled with fuel.  [3]",marks:3,tier:3,
+     scheme:["B1 friction of flowing fuel builds up static charge","B1 a large charge could cause a spark igniting vapour","B1 earthing lets charge flow safely to the ground"],
+     model:"Flowing fuel builds up static charge by friction. A large charge could produce a spark that ignites the fuel vapour. Earthing gives the charge a safe path to the ground, preventing a spark.\n【中文】摩擦生静电，可能火花引燃；接地安全导走。",topic:"静电"},
+    {q:"A metal sphere is positively charged. Explain what happens to its charge when a person touches it with a bare hand (earthing it).  [2]",marks:2,tier:3,
+     scheme:["B1 electrons flow from the person (earth) to the sphere","B1 they neutralise the positive charge → sphere becomes neutral"],
+     model:"Earthing provides a path for electrons to flow from the ground (through the person) onto the positively charged sphere, neutralising it, so the sphere becomes uncharged.\n【中文】电子经人体从大地流向正电球，中和电荷，球变中性。",topic:"静电"}
    ]},
   {topicZh:"电流与电阻",topicEn:"Current of Electricity",
    goals:["掌握 I=Q/t 与 Q=It","掌握 V、R 及欧姆定律 R=V/I","会读电阻器/灯丝的 I–V 图"],
+   tips:{loves:"I=Q/t、Q=It、R=V/I、V=IR、I–V 图(欧姆导体直线、灯丝曲线)。O-Level 爱考电荷计算与灯丝电阻随温度变化。",
+     pitfalls:"①Q=It 时间要用秒(分钟×60)；②欧姆定律 R=V/I 三量代错；③把灯丝(非欧姆)的电阻当常数(其实随温度升高而增大)。"},
    concepts:[
-    {t:"电流与电荷 Current & Charge",en:"I = Q/t.",tech:"电流 I=Q/t(A)，电荷 Q=It(C)。常规电流方向由正极到负极(与电子流动相反)。",exam:"Q=It，注意时间单位为秒。"},
-    {t:"电压、电阻与欧姆定律 V, R, Ohm's Law",en:"R = V/I.",tech:"电压(p.d.)V 是每单位电荷的能量(V)。电阻 R=V/I(Ω)。欧姆导体：温度不变时 I∝V。",exam:"R=V/I；欧姆导体 I–V 为过原点直线。"},
-    {t:"I–V 特性图 I–V Graphs",en:"Resistor vs lamp.",tech:"定值电阻：直线(R 不变)。灯丝灯泡：曲线上凸(温度升高→R 增大)。二极管：单向导通。",exam:"灯丝随温度电阻增大。"}
+    {t:"电流与电荷 Current & Charge",en:"I = Q/t.",tech:"I=Q/t(A)，Q=It(C)。常规电流由正极到负极。",exam:"Q=It，时间用秒。"},
+    {t:"欧姆定律 Ohm's Law",en:"R = V/I.",tech:"V(p.d.)是每单位电荷能量。R=V/I(Ω)。欧姆导体 I∝V。",exam:"R=V/I。"},
+    {t:"I–V 特性图 I–V Graphs",en:"Resistor vs lamp.",tech:"定值电阻直线；灯丝上凸(温度↑→R↑)；二极管单向。",exam:"灯丝随温度电阻增大。"}
    ],
    examples:[
-    {q:"A charge of 10 C flows past a point in 5.0 s. Find the current.",
-     solution:"I = Q/t = 10/5.0 = 2.0 A\n【中文】I=Q/t=2 A。",
-     note:"技巧：I=Q/t。"},
-    {q:"A resistor has 12 V across it and carries 3.0 A. Find its resistance.",
-     solution:"R = V/I = 12/3.0 = 4.0 Ω\n【中文】R=V/I=4 Ω。",
-     note:"出题思路：欧姆定律。"}
+    {q:"A charge of 10 C flows past a point in 5.0 s. Find the current.",tier:2,
+     solution:"I=Q/t=10/5.0=2.0 A\n【中文】I=Q/t=2 A。",note:"技巧：I=Q/t。"},
+    {q:"A resistor has 12 V across it and carries 3.0 A. Find its resistance.",tier:2,
+     solution:"R=V/I=12/3.0=4.0 Ω\n【中文】R=V/I=4 Ω。",note:"出题思路：欧姆定律。"},
+    {q:"A current of 0.25 A flows through a 48 Ω resistor. Find the p.d. across it and the charge in 2.0 minutes.",tier:3,
+     solution:"V=IR=0.25×48=12 V; Q=It=0.25×120=30 C\n【中文】V=12 V；2 分钟=120 s，Q=30 C。",note:"拔高：V=IR 与 Q=It 结合，时间换秒。"},
+    {q:"A filament lamp draws 0.50 A at 2.0 V and 1.0 A at 8.0 V. Find its resistance in each case and explain the trend.",tier:3,
+     solution:"R1=2.0/0.50=4.0 Ω; R2=8.0/1.0=8.0 Ω. Resistance increases because the larger current heats the filament, raising its temperature and resistance (non-ohmic).\n【中文】R 从 4→8 Ω，因电流大灯丝更热、电阻增大。",note:"拔高：灯丝非欧姆。"}
    ],
    mcqs:[
-    {stem:"The SI unit of electric current is the:",options:["ampere","volt","ohm","coulomb"],answer:0,expl:"电流单位安培。",topic:"电流与电阻",tier:1},
-    {stem:"A resistor has 6.0 V across it and a current of 2.0 A. Its resistance is:",options:["3.0 Ω","12 Ω","0.33 Ω","8.0 Ω"],answer:0,expl:"R=V/I=3 Ω。",topic:"电流与电阻",tier:1},
-    {stem:"A current of 0.50 A flows for 20 s. The charge that passes is:",options:["10 C","40 C","0.025 C","100 C"],answer:0,expl:"Q=It=0.5×20=10 C。",topic:"电流与电阻",tier:2},
-    {stem:"For an ohmic resistor at constant temperature, the I–V graph is:",options:["a straight line through the origin","a curve","a horizontal line","a vertical line"],answer:0,expl:"I∝V，过原点直线。",topic:"电流与电阻",tier:3}
+    {stem:"The SI unit of electric current is the:",options:["ampere","volt","ohm","coulomb"],answer:0,expl:"安培。",topic:"电流与电阻",tier:1},
+    {stem:"A resistor has 6.0 V across it and 2.0 A through it. Its resistance is:",options:["3.0 Ω","12 Ω","0.33 Ω","8.0 Ω"],answer:0,expl:"R=3 Ω。",topic:"电流与电阻",tier:1},
+    {stem:"Conventional current flows from:",options:["the positive to the negative terminal","negative to positive","the middle outwards","earth to live"],answer:0,expl:"由正到负。",topic:"电流与电阻",tier:1},
+    {stem:"A current of 0.50 A flows for 20 s. The charge is:",options:["10 C","40 C","0.025 C","100 C"],answer:0,expl:"Q=It=10 C。",topic:"电流与电阻",tier:2},
+    {stem:"The p.d. across a 4.0 Ω resistor carrying 3.0 A is:",options:["12 V","1.33 V","7.0 V","0.75 V"],answer:0,expl:"V=IR=12 V。",topic:"电流与电阻",tier:2},
+    {stem:"For an ohmic resistor at constant temperature, the I–V graph is:",options:["a straight line through the origin","a curve","a horizontal line","a vertical line"],answer:0,expl:"I∝V。",topic:"电流与电阻",tier:2},
+    {stem:"As a filament lamp gets hotter, its resistance:",options:["increases","decreases","stays the same","becomes zero"],answer:0,expl:"温度↑→R↑。",topic:"电流与电阻",tier:3},
+    {stem:"A current of 2.0 A flows for 3.0 minutes. The charge that passes is:",options:["360 C","6.0 C","90 C","0.67 C"],answer:0,expl:"Q=It=2×180=360 C。",topic:"电流与电阻",tier:3}
    ],
    structured:[
-    {q:"A charge of 30 C flows through a lamp in 60 s. Find (i) the current [2]. If the p.d. across the lamp is 6.0 V, find (ii) its resistance [1].",marks:3,ans:"0.5;12",
-     scheme:["M1 I=Q/t=30/60","A1 0.50 A","A1 R=V/I=6.0/0.50=12 Ω"],
-     model:"(i) I = Q/t = 30/60 = 0.50 A\n(ii) R = V/I = 6.0/0.50 = 12 Ω\n【中文】电流 0.5 A，电阻 12 Ω。",topic:"电流与电阻",tier:2},
-    {q:"A current of 0.25 A flows through a 48 Ω resistor. Find (i) the p.d. across it [2] and (ii) the charge that flows in 2.0 minutes [1].",marks:3,ans:"12;30",
+    {q:"A charge of 30 C flows through a lamp in 60 s. Find (i) the current [2]. If the p.d. across the lamp is 6.0 V, find (ii) its resistance [1].",marks:3,ans:"0.5;12",tier:2,
+     scheme:["M1 I=30/60","A1 0.50 A","A1 R=6.0/0.50=12 Ω"],
+     model:"(i) I=Q/t=30/60=0.50 A\n(ii) R=V/I=6.0/0.50=12 Ω\n【中文】电流 0.5 A，电阻 12 Ω。",topic:"电流与电阻"},
+    {q:"A resistor carries 3.0 A when connected to a 12 V supply. Find (i) its resistance [1] and (ii) the charge that flows through it in 40 s [2].",marks:3,ans:"4;120",tier:2,
+     scheme:["A1 R=12/3.0=4.0 Ω","M1 Q=It=3.0×40","A1 120 C"],
+     model:"(i) R=V/I=12/3.0=4.0 Ω\n(ii) Q=It=3.0×40=120 C\n【中文】电阻 4 Ω，电荷 120 C。",topic:"电流与电阻"},
+    {q:"A current of 0.25 A flows through a 48 Ω resistor. Find (i) the p.d. across it [2] and (ii) the charge that flows in 2.0 minutes [1].",marks:3,ans:"12;30",tier:3,
      scheme:["M1 V=IR=0.25×48","A1 12 V","A1 Q=It=0.25×120=30 C"],
-     model:"(i) V = IR = 0.25 × 48 = 12 V\n(ii) Q = It = 0.25 × (2.0×60) = 0.25 × 120 = 30 C\n【中文】电压 12 V；2 分钟=120 s，电荷 30 C。",topic:"电流与电阻",tier:3}
+     model:"(i) V=IR=0.25×48=12 V\n(ii) Q=It=0.25×120=30 C\n【中文】电压 12 V，电荷 30 C。",topic:"电流与电阻"},
+    {q:"A filament lamp draws 0.20 A at 3.0 V and 0.50 A at 12 V. (i) Find its resistance at each voltage [2]. (ii) State and explain the trend [1].",marks:3,ans:"15;24",tier:3,
+     scheme:["M1 R1=3.0/0.20=15 Ω","A1 R2=12/0.50=24 Ω","B1 increases: filament hotter → higher resistance"],
+     model:"(i) R1=3.0/0.20=15 Ω; R2=12/0.50=24 Ω\n(ii) Resistance increases because the larger current heats the filament, raising its temperature and resistance.\n【中文】R 从 15→24 Ω，灯丝变热电阻增大。",topic:"电流与电阻"}
    ]},
   {topicZh:"直流电路",topicEn:"D.C. Circuits",
-   goals:["掌握串联(电流相同、电压相加、R 相加)","掌握并联(电压相同、电流相加、1/R=Σ1/Rᵢ)","理解分压器与热敏/光敏电阻传感器"],
+   goals:["掌握串联(电流相同、R 相加)","掌握并联(电压相同、1/R=Σ1/Rᵢ)","会解组合电路与热敏/光敏传感器"],
+   tips:{loves:"串联(电流同、电阻相加、电压按比例分)、并联(电压同、总电阻用倒数和)、组合电路求电流/电压、热敏(温度↑R↓)与光敏(光↑R↓)。O-Level 爱考串并联组合与传感电路。",
+     pitfalls:"①并联电阻要用倒数和(1/R=…)，不能直接相加；②串联各电阻电压不同(按阻值比例)；③以为并联总电阻大(其实小于任一支路)。"},
    concepts:[
-    {t:"串联电路 Series",en:"Same current, add R.",tech:"串联：电流处处相同；各电压之和=总电压；总电阻 R=R₁+R₂+…。",exam:"串联电阻相加；断一处全断。"},
-    {t:"并联电路 Parallel",en:"Same voltage, add currents.",tech:"并联：各支路电压相同；总电流=各支路电流之和；1/R=1/R₁+1/R₂+…(总电阻更小)。",exam:"并联总电阻小于任一支路。"},
-    {t:"分压与传感器 Potential Divider & Sensors",en:"Divide voltage.",tech:"分压器按电阻比分配电压。热敏电阻(thermistor)温度升高电阻减小；光敏电阻(LDR)光强增大电阻减小，用于温控/光控。",exam:"传感电路用分压输出变化电压。"}
+    {t:"串联 Series",en:"Same current, add R.",tech:"电流处处相同；电压相加；R=R₁+R₂+…。",exam:"串联电阻相加。"},
+    {t:"并联 Parallel",en:"Same V, add currents.",tech:"电压相同；电流相加；1/R=1/R₁+1/R₂+…(总电阻更小)。",exam:"倒数和。"},
+    {t:"传感器 Sensors",en:"Thermistor & LDR.",tech:"热敏电阻温度升高电阻减小；光敏电阻光强增大电阻减小；配分压器做温控/光控。",exam:"传感电路输出变化电压。"}
    ],
    examples:[
-    {q:"A 3.0 Ω and a 6.0 Ω resistor are connected in series to an 18 V battery. Find the current.",
-     solution:"R = 3.0 + 6.0 = 9.0 Ω\nI = V/R = 18/9.0 = 2.0 A\n【中文】串联 R=9 Ω，I=18/9=2 A。",
-     note:"技巧：串联先加电阻。"},
-    {q:"Find the combined resistance of a 3.0 Ω and a 6.0 Ω resistor in parallel.",
-     solution:"1/R = 1/3.0 + 1/6.0 = 2/6 + 1/6 = 3/6 → R = 2.0 Ω\n【中文】1/R=1/3+1/6=1/2 → R=2 Ω。",
-     note:"出题思路：并联用倒数和。"}
+    {q:"A 3.0 Ω and a 6.0 Ω resistor are connected in series to an 18 V battery. Find the current.",tier:2,
+     solution:"R=3.0+6.0=9.0 Ω; I=V/R=18/9.0=2.0 A\n【中文】串联 R=9 Ω，I=2 A。",note:"技巧：串联先加电阻。"},
+    {q:"Find the combined resistance of a 3.0 Ω and a 6.0 Ω resistor in parallel.",tier:2,
+     solution:"1/R=1/3.0+1/6.0=3/6 → R=2.0 Ω\n【中文】倒数和 → R=2 Ω。",note:"出题思路：并联用倒数和。"},
+    {q:"A 6.0 Ω resistor is in series with two 4.0 Ω resistors in parallel, across a 12 V battery. Find the total resistance and the current.",tier:3,
+     solution:"Parallel: 4∥4=2.0 Ω; total=6.0+2.0=8.0 Ω; I=12/8.0=1.5 A\n【中文】并联 2 Ω，总 8 Ω，I=1.5 A。",note:"拔高：先并联再串联。"},
+    {q:"A 2.0 Ω and a 4.0 Ω resistor are in series across a 12 V supply. Find the p.d. across the 4.0 Ω resistor.",tier:3,
+     solution:"I=12/6.0=2.0 A; V(4Ω)=IR=2.0×4.0=8.0 V\n【中文】电流 2 A，4 Ω 上电压 8 V。",note:"拔高：串联电压按阻值比例分。"}
    ],
    mcqs:[
-    {stem:"Two resistors in series have a combined resistance equal to:",options:["R₁ + R₂","R₁ × R₂","(R₁+R₂)/2","less than either"],answer:0,expl:"串联相加。",topic:"直流电路",tier:1},
-    {stem:"In a series circuit, the current is:",options:["the same everywhere","largest near the battery","zero","different in each resistor"],answer:0,expl:"串联电流处处相同。",topic:"直流电路",tier:1},
-    {stem:"Two 6.0 Ω resistors in parallel have a combined resistance of:",options:["3.0 Ω","12 Ω","6.0 Ω","0.33 Ω"],answer:0,expl:"相同两电阻并联=一半=3 Ω。",topic:"直流电路",tier:2},
-    {stem:"A 4.0 Ω and a 12 Ω resistor in parallel give a combined resistance of:",options:["3.0 Ω","16 Ω","8.0 Ω","48 Ω"],answer:0,expl:"1/4+1/12=1/3 → 3 Ω。",topic:"直流电路",tier:3}
+    {stem:"Two resistors in series have a combined resistance of:",options:["R₁ + R₂","R₁ × R₂","(R₁+R₂)/2","less than either"],answer:0,expl:"串联相加。",topic:"直流电路",tier:1},
+    {stem:"In a series circuit, the current is:",options:["the same everywhere","largest near the battery","zero","different in each resistor"],answer:0,expl:"串联电流相同。",topic:"直流电路",tier:1},
+    {stem:"Components connected in parallel have the same:",options:["voltage (p.d.) across them","current through them","resistance","charge"],answer:0,expl:"并联电压相同。",topic:"直流电路",tier:1},
+    {stem:"Two 6.0 Ω resistors in parallel give:",options:["3.0 Ω","12 Ω","6.0 Ω","0.33 Ω"],answer:0,expl:"相同两并联=一半。",topic:"直流电路",tier:2},
+    {stem:"A 4.0 Ω and a 12 Ω resistor in parallel give:",options:["3.0 Ω","16 Ω","8.0 Ω","48 Ω"],answer:0,expl:"1/4+1/12=1/3→3 Ω。",topic:"直流电路",tier:2},
+    {stem:"A 3.0 Ω and a 6.0 Ω resistor in series across 9.0 V carry a current of:",options:["1.0 A","3.0 A","0.5 A","2.0 A"],answer:0,expl:"R=9，I=1 A。",topic:"直流电路",tier:2},
+    {stem:"When a thermistor gets hotter, its resistance:",options:["decreases","increases","stays constant","becomes infinite"],answer:0,expl:"热敏温度↑R↓。",topic:"直流电路",tier:3},
+    {stem:"In bright light, the resistance of an LDR:",options:["decreases","increases","stays the same","is infinite"],answer:0,expl:"光敏光↑R↓。",topic:"直流电路",tier:3}
    ],
    structured:[
-    {q:"A 4.0 Ω and an 8.0 Ω resistor are connected in series across a 12 V battery. Find (i) the total resistance [1] and (ii) the current in the circuit [2].",marks:3,ans:"12;1.0",
-     scheme:["A1 R=4.0+8.0=12 Ω","M1 I=V/R=12/12","A1 1.0 A"],
-     model:"(i) R = 4.0 + 8.0 = 12 Ω\n(ii) I = V/R = 12/12 = 1.0 A\n【中文】总电阻 12 Ω，电流 1.0 A。",topic:"直流电路",tier:2},
-    {q:"A 6.0 Ω and a 3.0 Ω resistor are connected in parallel across a 6.0 V supply. Find (i) their combined resistance [2] and (ii) the total current from the supply [1].",marks:3,ans:"2.0;3.0",
-     scheme:["M1 1/R=1/6+1/3=1/2","A1 R=2.0 Ω","A1 I=V/R=6.0/2.0=3.0 A"],
-     model:"(i) 1/R = 1/6.0 + 1/3.0 = 1/6 + 2/6 = 3/6 → R = 2.0 Ω\n(ii) I = V/R = 6.0/2.0 = 3.0 A\n【中文】并联 2 Ω，总电流 3 A。",topic:"直流电路",tier:3}
+    {q:"A 4.0 Ω and an 8.0 Ω resistor are connected in series across a 12 V battery. Find (i) the total resistance [1] and (ii) the current [2].",marks:3,ans:"12;1.0",tier:2,
+     scheme:["A1 R=12 Ω","M1 I=V/R","A1 1.0 A"],
+     model:"(i) R=4.0+8.0=12 Ω\n(ii) I=12/12=1.0 A\n【中文】总 12 Ω，电流 1 A。",topic:"直流电路"},
+    {q:"A 6.0 Ω and a 3.0 Ω resistor are connected in parallel across a 6.0 V supply. Find (i) the combined resistance [2] and (ii) the total current [1].",marks:3,ans:"2.0;3.0",tier:2,
+     scheme:["M1 1/R=1/6+1/3=1/2","A1 R=2.0 Ω","A1 I=6.0/2.0=3.0 A"],
+     model:"(i) 1/R=1/6+2/6=3/6 → R=2.0 Ω\n(ii) I=6.0/2.0=3.0 A\n【中文】并联 2 Ω，电流 3 A。",topic:"直流电路"},
+    {q:"A 6.0 Ω resistor is connected in series with two 4.0 Ω resistors that are in parallel, across a 12 V battery. Find (i) the total resistance [2] and (ii) the current from the battery [1].",marks:3,ans:"8;1.5",tier:3,
+     scheme:["M1 4∥4=2.0 Ω","A1 total=6.0+2.0=8.0 Ω","A1 I=12/8.0=1.5 A"],
+     model:"Parallel pair: 1/R=1/4+1/4=1/2 → 2.0 Ω. Total=6.0+2.0=8.0 Ω. I=12/8.0=1.5 A\n【中文】并联 2 Ω，总 8 Ω，电流 1.5 A。",topic:"直流电路"},
+    {q:"A 2.0 Ω and a 4.0 Ω resistor are connected in series to a 12 V battery. Find (i) the current [1] and (ii) the p.d. across the 4.0 Ω resistor [2].",marks:3,ans:"2;8",tier:3,
+     scheme:["A1 I=12/6.0=2.0 A","M1 V=IR=2.0×4.0","A1 8.0 V"],
+     model:"Total R=6.0 Ω; I=12/6.0=2.0 A; V(4Ω)=IR=2.0×4.0=8.0 V\n【中文】电流 2 A，4 Ω 上 8 V。",topic:"直流电路"}
    ]},
   {topicZh:"实用电学",topicEn:"Practical Electricity",
    goals:["掌握电功率 P=VI=I²R=V²/R","会算电能 E=Pt 与 kWh、电费","理解保险丝、接地与安全"],
+   tips:{loves:"P=VI 求功率或电流、E=Pt 与 kWh 电费、由 I=P/V 选保险丝、火线接保险丝与接地安全。O-Level 爱考电费计算与选保险丝。",
+     pitfalls:"①算 kWh 时时间要用小时(分钟÷60)、功率用 kW；②保险丝选'略高于'工作电流的标准值(3/5/13 A)；③P=VI 与 E=Pt 混用。"},
    concepts:[
-    {t:"电功率 Electrical Power",en:"P = VI.",tech:"P=VI=I²R=V²/R(W)。电能 E=Pt(J)；家庭用电以千瓦时 kWh 计：1 kWh=1 kW×1 h。",exam:"选公式看已知量；kWh 计费。"},
-    {t:"电能与电费 Energy & Cost",en:"kWh × price.",tech:"能量(kWh)=功率(kW)×时间(h)；电费=能量(kWh)×单价。",exam:"时间要换成小时，功率换成 kW。"},
-    {t:"用电安全 Safety",en:"Fuse, earth, insulation.",tech:"保险丝(fuse)接火线，额定值略高于正常电流，过流熔断。接地线(earth)使金属外壳安全。双重绝缘。",exam:"保险丝选取略大于工作电流的标准值。"}
+    {t:"电功率 Power",en:"P = VI.",tech:"P=VI=I²R=V²/R(W)。E=Pt(J)。",exam:"选公式看已知量。"},
+    {t:"电能与电费 Energy & Cost",en:"kWh × price.",tech:"能量(kWh)=功率(kW)×时间(h)；电费=kWh×单价。",exam:"时间换小时。"},
+    {t:"用电安全 Safety",en:"Fuse, earth.",tech:"保险丝接火线，额定略高于正常电流。接地线保护金属外壳。双重绝缘。",exam:"由 I=P/V 选保险丝。"}
    ],
    examples:[
-    {q:"An appliance operates at 230 V and draws a current of 2.0 A. Find its power.",
-     solution:"P = VI = 230 × 2.0 = 460 W\n【中文】P=VI=460 W。",
-     note:"技巧：P=VI。"},
-    {q:"A 2.0 kW heater runs for 3.0 hours. Find the energy used in kWh.",
-     solution:"E = P × t = 2.0 kW × 3.0 h = 6.0 kWh\n【中文】E=Pt=6 kWh。",
-     note:"出题思路：kWh=kW×h。"}
+    {q:"An appliance operates at 230 V and draws 2.0 A. Find its power.",tier:2,
+     solution:"P=VI=230×2.0=460 W\n【中文】P=VI=460 W。",note:"技巧：P=VI。"},
+    {q:"A 2.0 kW heater runs for 3.0 hours. Find the energy used in kWh.",tier:2,
+     solution:"E=Pt=2.0×3.0=6.0 kWh\n【中文】E=Pt=6 kWh。",note:"出题思路：kWh=kW×h。"},
+    {q:"An electric heater is rated 230 V, 920 W. Find the current it draws and a suitable fuse (3 A, 5 A or 13 A).",tier:3,
+     solution:"I=P/V=920/230=4.0 A → 5 A fuse (just above 4.0 A)\n【中文】I=4 A，选 5 A 保险丝。",note:"拔高：I=P/V 后选'略高于'的标准值。"},
+    {q:"A 2.0 kW kettle is used for 6.0 minutes each day. Electricity costs 25 cents per kWh. Find the daily cost.",tier:3,
+     solution:"E=Pt=2.0×(6/60)=0.20 kWh; cost=0.20×25=5 cents\n【中文】能量 0.2 kWh，电费 5 分。",note:"拔高：时间换小时再算电费。"}
    ],
    mcqs:[
     {stem:"Electrical power is given by:",options:["P = V × I","P = V + I","P = V/I","P = I/V"],answer:0,expl:"P=VI。",topic:"实用电学",tier:1},
-    {stem:"A 230 V appliance draws 2.0 A. Its power is:",options:["460 W","115 W","232 W","0.0087 W"],answer:0,expl:"P=VI=460 W。",topic:"实用电学",tier:1},
-    {stem:"Energy used by a 2.0 kW heater in 3.0 hours is:",options:["6.0 kWh","0.67 kWh","6000 kWh","5.0 kWh"],answer:0,expl:"E=2×3=6 kWh。",topic:"实用电学",tier:2},
-    {stem:"The fuse in a plug is connected in the ___ wire and should be rated just ___ the normal current.",options:["live; above","neutral; below","earth; above","live; below"],answer:0,expl:"保险丝接火线，额定略高于正常电流。",topic:"实用电学",tier:3}
+    {stem:"A 230 V appliance draws 2.0 A. Its power is:",options:["460 W","115 W","232 W","0.0087 W"],answer:0,expl:"460 W。",topic:"实用电学",tier:1},
+    {stem:"Electrical energy is given by:",options:["power × time","power ÷ time","voltage × current²","current ÷ time"],answer:0,expl:"E=Pt。",topic:"实用电学",tier:1},
+    {stem:"Energy used by a 2.0 kW heater in 3.0 hours:",options:["6.0 kWh","0.67 kWh","6000 kWh","5.0 kWh"],answer:0,expl:"2×3=6 kWh。",topic:"实用电学",tier:2},
+    {stem:"The fuse in a plug is connected in the ___ wire:",options:["live","neutral","earth","either"],answer:0,expl:"火线。",topic:"实用电学",tier:2},
+    {stem:"A 1150 W device on 230 V draws a current of:",options:["5.0 A","0.20 A","2.6 A","26 A"],answer:0,expl:"I=P/V=5 A。",topic:"实用电学",tier:2},
+    {stem:"A 3.0 kW heater used for 0.50 h costs (at 20 cents/kWh):",options:["30 cents","60 cents","1.5 cents","150 cents"],answer:0,expl:"E=1.5 kWh，费=30 分。",topic:"实用电学",tier:3},
+    {stem:"A suitable fuse for an appliance drawing 4.0 A is:",options:["5 A","3 A","1 A","0.5 A"],answer:0,expl:"选略高于 4 A → 5 A。",topic:"实用电学",tier:3}
    ],
    structured:[
-    {q:"An electric heater is rated 230 V, 920 W. Find (i) the current it draws [2] and (ii) a suitable fuse from 3 A, 5 A or 13 A [1].",marks:3,ans:"4;5",
-     scheme:["M1 I=P/V=920/230","A1 4.0 A","B1 5 A fuse (just above 4 A)"],
-     model:"(i) I = P/V = 920/230 = 4.0 A\n(ii) A 5 A fuse — the smallest standard rating just above the normal 4.0 A current.\n【中文】电流 4 A，选 5 A 保险丝(略高于工作电流)。",topic:"实用电学",tier:2},
-    {q:"A 2.0 kW kettle is used for 6.0 minutes each day. Electricity costs 25 cents per kWh. Find the daily cost of using the kettle.  [3]",marks:3,ans:"5",
-     scheme:["M1 E=Pt=2.0×(6/60)=0.20 kWh","M1 cost=0.20×25","A1 5 cents"],
-     model:"Time = 6.0 min = 0.10 h\nE = P × t = 2.0 kW × 0.10 h = 0.20 kWh\nCost = 0.20 × 25 = 5 cents\n【中文】能量 0.2 kWh，电费 0.2×25=5 分。",topic:"实用电学",tier:3}
+    {q:"An electric heater is rated 230 V, 920 W. Find (i) the current it draws [2] and (ii) a suitable fuse from 3 A, 5 A or 13 A [1].",marks:3,ans:"4;5",tier:2,
+     scheme:["M1 I=P/V=920/230","A1 4.0 A","B1 5 A fuse"],
+     model:"(i) I=P/V=920/230=4.0 A\n(ii) 5 A fuse (just above 4.0 A).\n【中文】电流 4 A，选 5 A 保险丝。",topic:"实用电学"},
+    {q:"A 60 W lamp is switched on for 5.0 hours each day. Find (i) the energy used per day in kWh [1] and (ii) the daily cost at 20 cents per kWh [1].",marks:2,ans:"0.3;6",tier:2,
+     scheme:["A1 E=0.060 kW×5.0 h=0.30 kWh","A1 cost=0.30×20=6 cents"],
+     model:"(i) E=0.060 kW × 5.0 h = 0.30 kWh\n(ii) Cost=0.30×20=6 cents\n【中文】能量 0.3 kWh，电费 6 分。",topic:"实用电学"},
+    {q:"A 2.0 kW kettle is used for 6.0 minutes each day. Electricity costs 25 cents per kWh. Find the daily cost.  [3]",marks:3,ans:"5",tier:3,
+     scheme:["M1 t=0.10 h; E=2.0×0.10=0.20 kWh","M1 cost=0.20×25","A1 5 cents"],
+     model:"t=6.0 min=0.10 h; E=2.0×0.10=0.20 kWh; cost=0.20×25=5 cents\n【中文】能量 0.2 kWh，电费 5 分。",topic:"实用电学"},
+    {q:"A 1.5 kW iron is used for 40 minutes. Find the energy used in (i) kWh [1] and (ii) joules [2].",marks:3,ans:"1;3600000",tier:3,
+     scheme:["A1 E=1.5×(40/60)=1.0 kWh","M1 E=Pt=1500×2400","A1 3 600 000 J"],
+     model:"(i) E=1.5 kW × (40/60) h = 1.0 kWh\n(ii) E=Pt=1500 W × 2400 s = 3 600 000 J\n【中文】1 kWh；换算 J：1500×2400=3.6×10⁶ J。",topic:"实用电学"}
    ]},
   {topicZh:"磁与电磁",topicEn:"Magnetism & Electromagnetism",
    goals:["掌握磁极、磁场线与软铁/钢的区别","理解电流的磁效应、螺线管与电磁铁","理解电动机原理、电磁感应与变压器"],
+   tips:{loves:"同异名磁极、磁场线 N→S、增强电磁铁的方法、软铁做电磁铁芯/钢做永磁体、变压器电压比=匝数比、理想变压器功率守恒。O-Level 爱考电磁铁增强与变压器计算。",
+     pitfalls:"①电磁铁芯要用'软铁'(易退磁)，不是钢；②磁场线方向体外由 N→S；③变压器公式 Vs/Vp=Ns/Np 上下配错。"},
    concepts:[
-    {t:"磁体与磁场 Magnets & Fields",en:"N to S, like repel.",tech:"磁场线由 N 极出、进入 S 极；同名磁极相斥、异名相吸。软铁(soft iron)易被磁化也易退磁(做电磁铁芯)；钢(steel)保持磁性(做永磁体)。",exam:"磁场线方向 N→S(体外)。"},
-    {t:"电流的磁效应 Magnetic Effect of Current",en:"Solenoid = bar magnet.",tech:"通电直导线周围有环形磁场(右手握螺旋定则)。通电螺线管磁场似条形磁体。电磁铁强度随电流增大、匝数增多、加软铁芯而增强。",exam:"增强电磁铁的方法必考。"},
-    {t:"电动机与电磁感应 Motor & Induction",en:"Force & induced e.m.f.",tech:"载流导线在磁场中受力(电动机效应，左手定则)。磁通变化会在线圈中产生感应电动势(法拉第电磁感应)——发电机、变压器原理。理想变压器：Vs/Vp=Ns/Np。",exam:"变压器电压比=匝数比。"}
+    {t:"磁体与磁场 Magnets & Fields",en:"N to S; like repel.",tech:"磁场线由 N 出、进 S；同名相斥、异名相吸。软铁易磁化/退磁(电磁铁芯)；钢保持磁性(永磁体)。",exam:"磁场线体外 N→S。"},
+    {t:"电流的磁效应 Magnetic Effect",en:"Solenoid = magnet.",tech:"通电导线有磁场；螺线管似条形磁体。电磁铁随电流↑、匝数↑、加软铁芯而增强。",exam:"增强电磁铁方法必考。"},
+    {t:"电动机与电磁感应 Motor & Induction",en:"Force & induced e.m.f.",tech:"载流导线在磁场受力(电动机，左手定则)。磁通变化产生感应电动势(发电机、变压器)。理想变压器 Vs/Vp=Ns/Np。",exam:"变压器电压比=匝数比。"}
    ],
    examples:[
-    {q:"State two ways to increase the strength of an electromagnet.",
-     solution:"Increase the current; increase the number of turns on the coil (also: add a soft-iron core).\n【中文】增大电流；增加匝数(或加软铁芯)。",
-     note:"技巧：电流↑、匝数↑、软铁芯。"},
-    {q:"A transformer has 1000 primary turns and 100 secondary turns, with 240 V across the primary. Find the secondary voltage.",
-     solution:"Vs/Vp = Ns/Np → Vs = 240 × 100/1000 = 24 V\n【中文】Vs=Vp×Ns/Np=24 V。",
-     note:"出题思路：电压比=匝数比。"}
+    {q:"State two ways to increase the strength of an electromagnet.",tier:2,
+     solution:"Increase the current; increase the number of turns (also: add a soft-iron core).\n【中文】增大电流；增加匝数(或加软铁芯)。",note:"技巧：电流↑、匝数↑、软铁芯。"},
+    {q:"A transformer has 1000 primary turns and 100 secondary turns, with 240 V across the primary. Find the secondary voltage.",tier:2,
+     solution:"Vs=Vp×Ns/Np=240×100/1000=24 V\n【中文】Vs=Vp×Ns/Np=24 V。",note:"出题思路：电压比=匝数比。"},
+    {q:"A transformer has 1200 primary and 60 secondary turns, connected to 240 V a.c. Find the secondary voltage and state its type.",tier:3,
+     solution:"Vs=240×60/1200=12 V; output<input → step-down\n【中文】Vs=12 V，降压变压器。",note:"拔高：判断升/降压。"},
+    {q:"An ideal transformer steps 240 V down to 12 V. The output current is 2.0 A. Find the input current.",tier:3,
+     solution:"Power in=power out: 240×Ip=12×2.0=24 → Ip=0.10 A\n【中文】理想变压器功率守恒，Ip=0.10 A。",note:"拔高：VpIp=VsIs。"}
    ],
    mcqs:[
-    {stem:"Two like magnetic poles placed near each other will:",options:["repel","attract","do nothing","become neutral"],answer:0,expl:"同名磁极相斥。",topic:"磁与电磁",tier:1},
-    {stem:"Outside a bar magnet, magnetic field lines run from:",options:["N pole to S pole","S pole to N pole","N to N","the centre outward"],answer:0,expl:"体外磁场线 N→S。",topic:"磁与电磁",tier:1},
-    {stem:"Which does NOT increase the strength of an electromagnet?",options:["using a steel core instead of soft iron","increasing the current","adding more turns","adding a soft-iron core"],answer:0,expl:"钢芯会保留磁性，不适合电磁铁；软铁芯才好。",topic:"磁与电磁",tier:2},
-    {stem:"A transformer has 1000 primary and 100 secondary turns. With 240 V input, the output is:",options:["24 V","2400 V","2.4 V","240 V"],answer:0,expl:"Vs=240×100/1000=24 V。",topic:"磁与电磁",tier:3}
+    {stem:"Two like magnetic poles placed near each other will:",options:["repel","attract","do nothing","become neutral"],answer:0,expl:"同名相斥。",topic:"磁与电磁",tier:1},
+    {stem:"Outside a bar magnet, field lines run from:",options:["N pole to S pole","S pole to N pole","N to N","the centre outward"],answer:0,expl:"体外 N→S。",topic:"磁与电磁",tier:1},
+    {stem:"A permanent magnet is best made from:",options:["steel","soft iron","copper","aluminium"],answer:0,expl:"钢保持磁性。",topic:"磁与电磁",tier:1},
+    {stem:"Which increases the strength of an electromagnet?",options:["more turns on the coil","fewer turns","less current","a plastic core"],answer:0,expl:"匝数增多增强。",topic:"磁与电磁",tier:2},
+    {stem:"The core of an electromagnet should be made of:",options:["soft iron","steel","copper","plastic"],answer:0,expl:"软铁易退磁。",topic:"磁与电磁",tier:2},
+    {stem:"A transformer with 2000 primary and 500 secondary turns, fed 240 V, outputs:",options:["60 V","960 V","240 V","30 V"],answer:0,expl:"240×500/2000=60 V。",topic:"磁与电磁",tier:2},
+    {stem:"A step-up transformer has more turns on its:",options:["secondary coil","primary coil","iron core","both coils equally"],answer:0,expl:"升压次级匝数多。",topic:"磁与电磁",tier:3},
+    {stem:"An ideal transformer steps 240 V to 24 V with an output current of 1.0 A. The input current is:",options:["0.10 A","10 A","1.0 A","2.4 A"],answer:0,expl:"功率守恒：240Ip=24×1→Ip=0.1 A。",topic:"磁与电磁",tier:3}
    ],
    structured:[
-    {q:"State two ways to increase the strength of an electromagnet, and name a suitable material for its core.  [3]",marks:3,
+    {q:"State two ways to increase the strength of an electromagnet, and name a suitable material for its core.  [3]",marks:3,tier:2,
      scheme:["B1 increase the current","B1 increase the number of turns","B1 soft iron core"],
-     model:"1) Increase the current in the coil.\n2) Increase the number of turns on the coil.\nCore material: soft iron (easily magnetised and demagnetised).\n【中文】增大电流、增加匝数；铁芯用软铁。",topic:"磁与电磁",tier:2},
-    {q:"A transformer has 1200 turns on the primary and 60 turns on the secondary. The primary is connected to a 240 V a.c. supply. Find (i) the secondary voltage [2] and (ii) state whether it is a step-up or step-down transformer [1].",marks:3,ans:"12",
-     scheme:["M1 Vs=Vp×Ns/Np=240×60/1200","A1 12 V","B1 step-down"],
-     model:"(i) Vs = Vp × Ns/Np = 240 × 60/1200 = 12 V\n(ii) Secondary voltage < primary → step-down transformer.\n【中文】Vs=240×60/1200=12 V；电压降低 → 降压变压器。",topic:"磁与电磁",tier:3}
+     model:"Increase the current; increase the number of turns; core: soft iron (easily magnetised and demagnetised).\n【中文】增大电流、增加匝数；铁芯用软铁。",topic:"磁与电磁"},
+    {q:"A transformer has 1000 turns on the primary and 250 turns on the secondary. The primary is connected to 240 V a.c. Find (i) the secondary voltage [2] and (ii) state the type of transformer [1].",marks:3,ans:"60",tier:2,
+     scheme:["M1 Vs=240×250/1000","A1 60 V","B1 step-down"],
+     model:"(i) Vs=Vp×Ns/Np=240×250/1000=60 V\n(ii) Output<input → step-down.\n【中文】Vs=60 V，降压。",topic:"磁与电磁"},
+    {q:"A transformer has 1200 turns on the primary and 60 turns on the secondary, connected to 240 V a.c. Find (i) the secondary voltage [2] and (ii) state whether it is step-up or step-down [1].",marks:3,ans:"12",tier:3,
+     scheme:["M1 Vs=240×60/1200","A1 12 V","B1 step-down"],
+     model:"(i) Vs=240×60/1200=12 V\n(ii) Step-down (output < input).\n【中文】Vs=12 V，降压。",topic:"磁与电磁"},
+    {q:"An ideal (100% efficient) transformer steps 240 V down to 12 V. The secondary (output) current is 2.0 A. Find the primary (input) current.  [3]",marks:3,ans:"0.1",tier:3,
+     scheme:["M1 Vp·Ip=Vs·Is","M1 240×Ip=12×2.0=24","A1 Ip=0.10 A"],
+     model:"Power in = power out: Vp×Ip=Vs×Is → 240×Ip=12×2.0=24 → Ip=0.10 A\n【中文】功率守恒，Ip=0.10 A。",topic:"磁与电磁"}
    ]}
-
-
 ];
 
 /* ---------- 更多综合模考(days 91-100 轮换,共 6 套) ---------- */
@@ -864,7 +1098,7 @@ MOCK_BANK.push.apply(MOCK_BANK, MORE_MOCKS);
 
 /* ---------- DAY 1 seed = first topic, fully authored ---------- */
 function dayFromTopic(n,t){
-  return {day:n, topicZh:t.topicZh, topicEn:t.topicEn, goals:t.goals, concepts:t.concepts,
+  return {day:n, topicZh:t.topicZh, topicEn:t.topicEn, goals:t.goals, concepts:t.concepts, tips:t.tips,
     examples:t.examples,
     mcqs:t.mcqs.map((q,i)=>({id:'m'+n+'q'+(i+1),stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,tier:q.tier})),
     structured:t.structured.map((q,i)=>Object.assign({id:'m'+n+'s'+(i+1)},q)), mock:null};
@@ -1020,16 +1254,27 @@ function render(){
 function renderOverview(d){
   document.getElementById('mockBanner').innerHTML = d.mock ? '<div class="mock-banner"><b>🧪 '+d.mock.title+'</b><div style="color:var(--ink2);font-size:13px;margin-top:4px">'+d.mock.note+'</div></div>' : '';
   document.getElementById('ov-goals').innerHTML='<div class="card kpt"><div class="t">🎯 今日目标</div><ul class="clean">'+(d.goals||[]).map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  const t=d.tips;
   document.getElementById('ov-concepts').innerHTML=(d.concepts||[]).map(c=>
     '<div class="card kpt"><div class="t">'+c.t+'</div><div class="en">'+(c.en||'')+'</div>'+
     (c.tech?'<div style="margin-top:8px"><span class="tag tech">解题技巧</span>'+c.tech+'</div>':(c.body?'<div style="margin-top:8px">'+c.body+'</div>':''))+
-    (c.exam?'<div style="margin-top:6px"><span class="tag exam">出题思路</span>'+c.exam+'</div>':'')+'</div>').join('');
+    (c.exam?'<div style="margin-top:6px"><span class="tag exam">出题思路</span>'+c.exam+'</div>':'')+'</div>').join('')+
+    (t ? '<div class="card" style="background:color-mix(in oklab,var(--gold) 9%,var(--panel2));border:1px solid color-mix(in oklab,var(--gold) 26%,var(--line))">'+
+      '<div class="t">📝 本章考试 Tips <span class="en" style="font-weight:400">Exam tips for this chapter</span></div>'+
+      (t.loves?'<div style="margin-top:8px"><span class="tag" style="background:color-mix(in oklab,var(--good) 16%,var(--panel));color:#2f6e4c;border:1px solid color-mix(in oklab,var(--good) 30%,var(--line))">🔥 O-Level 最爱考</span> '+t.loves+'</div>':'')+
+      (t.pitfalls?'<div style="margin-top:10px"><span class="tag" style="background:color-mix(in oklab,var(--bad) 14%,var(--panel));color:var(--bad);border:1px solid color-mix(in oklab,var(--bad) 30%,var(--line))">⚠️ 最易出错</span> '+t.pitfalls+'</div>':'')+
+      '</div>' : '');
+}
+function exTierBadge(t){
+  if(t===3) return '<span class="tag" style="background:color-mix(in oklab,#8a6317 15%,var(--panel));color:#8a6317;border:1px solid color-mix(in oklab,#8a6317 30%,var(--line));margin-left:8px">拔高</span>';
+  if(t===2) return '<span class="tag" style="background:color-mix(in oklab,var(--brand) 14%,var(--panel));color:var(--brand2);border:1px solid color-mix(in oklab,var(--brand) 30%,var(--line));margin-left:8px">正常</span>';
+  return '';
 }
 function renderExamples(d){
   const box=document.getElementById('ex-list');
   if(!d.examples||!d.examples.length){box.innerHTML='<div class="card" style="color:var(--ink2)">今日为模考日，练习见「练习」页。</div>';return;}
   box.innerHTML=d.examples.map((e,i)=>
-    '<div class="card"><div class="stem" style="font-weight:700"><span style="color:var(--brand2)">例 '+(i+1)+'</span>　'+e.q+'</div>'+
+    '<div class="card"><div class="stem" style="font-weight:700"><span style="color:var(--brand2)">例 '+(i+1)+'</span>'+exTierBadge(e.tier)+'　'+e.q+'</div>'+
     '<div class="btnrow"><button class="btn primary mini" data-ex="'+i+'">显示解答与方法</button></div>'+
     '<div class="model" id="exm-'+i+'"><div class="mk">标准解答</div><div class="work">'+escapeHTML(e.solution)+'</div>'+
     (e.note?'<div style="margin-top:8px"><span class="tag tech">点拨</span>'+e.note+'</div>':'')+'</div></div>').join('');
