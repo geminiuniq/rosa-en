@@ -1587,9 +1587,11 @@ function renderDiagBanner(){
 /* ---------- BOOT ---------- */
 (async function boot(){
   await DB.init(); await DB.pull();
-  if(!days[1]) days[1]=DAY1;               // seed if absent (after pull, days[1] is the frozen DB copy if any)
-  else { for(const k in DAY1){ if(!(k in days[1])) days[1][k]=DAY1[k]; } }  // non-destructively add new sections
-  persistDay(1);                            // ensure DB has day 1 (idempotent; never overwrites frozen questions)
+  // Day 1 is the fixed intro chapter (never student-generated), so always refresh its
+  // content from the latest DAY1 — picks up new examples / practice / tips added by updates.
+  // (Days 2+ stay frozen; student records live in notebook/attempts, not in the day object.)
+  days[1]=DAY1;
+  persistDay(1);                            // overwrite any stale day-1 copy saved in the DB
   if(!state.startDate) state.startDate=todayStr();
   persistState(); LS.set('notebook',notebook);
   const hint=document.getElementById('genHint');
