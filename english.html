@@ -207,6 +207,34 @@
   .modal{background:rgba(50,42,26,.4)}
   .btn.primary:hover{background:var(--brand2)}
   .btn.gold{background:linear-gradient(90deg,#e7c67a,#d79a44);color:#4a3410}
+
+  /* ---- 单词翻转卡片 (flip cards) ---- */
+  .vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .flip{height:210px;perspective:1000px;cursor:pointer}
+  .flip .fin{position:relative;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+  .flip.flipped .fin{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .flip .front{background:var(--panel2);align-items:center;justify-content:center;text-align:center;gap:6px}
+  .flip .front .w{font-family:var(--serif);font-size:27px;font-weight:800;color:var(--ink);line-height:1.2;word-break:break-word}
+  .flip .front .pos{font-style:italic;color:var(--brand2);font-size:14px}
+  .flip .front .hint{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-size:11.5px;color:var(--ink3)}
+  .flip .back{background:var(--well);transform:rotateY(180deg);overflow-y:auto;text-align:left}
+  .flip .back .w{font-family:var(--serif);font-weight:800;font-size:16px;color:var(--ink)}
+  .flip .back .pos{font-style:italic;color:var(--brand2);font-size:12px;margin-left:5px}
+  .flip .back .en{font-size:12.5px;color:var(--ink2);margin-top:5px}
+  .flip .back .zh{font-size:14px;font-weight:600;margin-top:2px;color:var(--ink)}
+  .flip .back .ex{font-size:12.5px;font-style:italic;color:var(--ink2);margin-top:7px}
+  .flip .back .use{font-size:12px;color:var(--warn);margin-top:6px}
+  .flip .no{position:absolute;top:9px;left:12px;font-size:11px;color:var(--ink3);font-weight:700;z-index:1}
+  .flip .vtag{position:absolute;top:9px;right:11px;z-index:1}
+  .flip .know{margin-top:10px;align-self:stretch;flex:0 0 auto}
+  .flip.mastered .front{background:color-mix(in oklab,var(--good) 13%,var(--panel2));border-color:color-mix(in oklab,var(--good) 30%,var(--line))}
+  .flip.mastered .front .w{color:color-mix(in oklab,var(--good) 45%,var(--ink))}
+  .vtag.mstd{background:color-mix(in oklab,var(--good) 18%,var(--panel));color:#2f6e4c;border:1px solid color-mix(in oklab,var(--good) 32%,var(--line));font-size:11px;padding:2px 8px;border-radius:6px}
+  /* mastered vocab list in dashboard */
+  .vwrap{display:flex;flex-wrap:wrap;gap:7px;margin:8px 0}
+  .vchip{font-size:12.5px;padding:4px 10px;border-radius:7px;background:color-mix(in oklab,var(--good) 10%,var(--panel2));border:1px solid color-mix(in oklab,var(--good) 24%,var(--line));color:var(--ink)}
 </style>
 </head>
 <body>
@@ -233,7 +261,7 @@
     <div class="tab" data-tab="materials"><span class="em">📰</span>参考材料</div>
     <div class="tab" data-tab="practice"><span class="em">✍️</span>笔试练习</div>
     <div class="tab" data-tab="oral"><span class="em">🎤</span>听力口语</div>
-    <div class="tab" data-tab="vocab"><span class="em">🔤</span>单词 30</div>
+    <div class="tab" data-tab="vocab"><span class="em">🔤</span>单词 50</div>
     <div class="tab" data-tab="notebook"><span class="em">📕</span>错题本<span class="badge" id="nbBadge" style="display:none">0</span></div>
     <div class="tab" data-tab="dash"><span class="em">📊</span>学情</div>
   </nav>
@@ -317,7 +345,7 @@
   <!-- VOCAB -->
   <section class="panel" id="p-vocab">
     <h2 class="sec"><span class="zh">🔤 今日单词</span></h2>
-    <p class="sub">S4 优秀生高频词 · 30 个 / 天 · 含中英释义、经典例句、重要用法。<span class="tag new">new 新词</span><span class="tag rev">review 复习</span></p>
+    <p class="sub">S4 优秀生高频词 · 50 个 / 天 · 翻卡学习：正面单词，点击翻到背面看中英释义、例句与用法；点「✓ 我会了」标记掌握（学情里可查）。<span class="tag new">new 新词</span><span class="tag rev">review 复习</span></p>
     <div class="btnrow" style="margin-bottom:6px">
       <button class="btn primary" id="startQuiz">🎯 开始主动回忆测验</button>
       <button class="btn ghost" id="showCards">📇 只看卡片</button>
@@ -760,7 +788,62 @@ const VOCAB_EXTRA=[
   {w:"resilient",pos:"adj.",en:"able to recover quickly from difficulty",zh:"有韧性的，能复原的",ex:"Children are often remarkably resilient.",use:"resilient to sth；n resilience"},
   {w:"scrutinise",pos:"v.",en:"to examine closely and critically",zh:"仔细检查，审视",ex:"The examiners scrutinised every answer.",use:"英式 -ise；n scrutiny"}
 ];
-function vocabPool(){return DAY1.vocab.concat(VOCAB_EXTRA);} // 90 words
+/* 扩充词库（支持每天 50 词，减少重复）— S4/O-Level 高频写作与理解词 */
+const MORE_VOCAB=[
+  {w:"advocate",pos:"v./n.",en:"to publicly support; a supporter",zh:"提倡，拥护；倡导者",ex:"She advocates a total ban on single-use plastics.",use:"advocate for sth；n an advocate of"},
+  {w:"alleviate",pos:"v.",en:"to make suffering or a problem less severe",zh:"减轻，缓解",ex:"The new policy aims to alleviate traffic congestion.",use:"alleviate pain/poverty；近 ease"},
+  {w:"ambiguous",pos:"adj.",en:"open to more than one interpretation; unclear",zh:"模棱两可的，含糊的",ex:"His ambiguous reply left everyone confused.",use:"n ambiguity；反 clear/explicit"},
+  {w:"benevolent",pos:"adj.",en:"kind and generous",zh:"仁慈的，慈善的",ex:"A benevolent donor funded the new library.",use:"benevolent smile；n benevolence"},
+  {w:"candid",pos:"adj.",en:"honest and straightforward",zh:"坦率的，直言的",ex:"I'll be candid: the plan has serious flaws.",use:"candid about sth；近 frank"},
+  {w:"coherent",pos:"adj.",en:"logical and well-organised; consistent",zh:"连贯的，条理清晰的",ex:"A coherent essay guides the reader smoothly.",use:"n coherence；写作评分关键词"},
+  {w:"compelling",pos:"adj.",en:"convincing; holding attention",zh:"令人信服的，引人入胜的",ex:"She made a compelling argument for reform.",use:"compelling evidence/story"},
+  {w:"conspicuous",pos:"adj.",en:"clearly visible; attracting notice",zh:"显眼的，惹人注目的",ex:"His absence was conspicuous.",use:"反 inconspicuous；adv conspicuously"},
+  {w:"contemplate",pos:"v.",en:"to think about carefully",zh:"深思，考虑",ex:"She contemplated the consequences before deciding.",use:"contemplate doing sth"},
+  {w:"credible",pos:"adj.",en:"able to be believed; convincing",zh:"可信的，可靠的",ex:"The witness gave a credible account.",use:"n credibility；反 incredible(此处贬)"},
+  {w:"detrimental",pos:"adj.",en:"causing harm",zh:"有害的",ex:"Excessive screen time is detrimental to health.",use:"detrimental to sth；近 harmful"},
+  {w:"deteriorate",pos:"v.",en:"to become progressively worse",zh:"恶化，变坏",ex:"Her health deteriorated rapidly.",use:"n deterioration；反 improve"},
+  {w:"diligent",pos:"adj.",en:"showing careful and persistent effort",zh:"勤勉的，用功的",ex:"Diligent students revise a little every day.",use:"n diligence；adv diligently"},
+  {w:"diminish",pos:"v.",en:"to make or become smaller/less",zh:"减少，削弱",ex:"Fame did not diminish her humility.",use:"近 reduce；反 increase"},
+  {w:"eloquent",pos:"adj.",en:"fluent and persuasive in speech",zh:"雄辩的，有说服力的",ex:"Her eloquent speech moved the audience.",use:"n eloquence；口试加分"},
+  {w:"endeavour",pos:"v./n.",en:"to try hard; an earnest attempt",zh:"努力，尽力（尝试）",ex:"We endeavour to reply within a day.",use:"英式 -our；endeavour to do"},
+  {w:"enhance",pos:"v.",en:"to improve the quality or value of",zh:"提高，增强",ex:"Good lighting enhances the photograph.",use:"n enhancement；近 improve"},
+  {w:"formidable",pos:"adj.",en:"inspiring fear or respect; impressive",zh:"令人敬畏的，强大的",ex:"They faced a formidable opponent.",use:"a formidable task/challenge"},
+  {w:"futile",pos:"adj.",en:"pointless; incapable of success",zh:"徒劳的，无用的",ex:"Further resistance seemed futile.",use:"n futility；近 pointless"},
+  {w:"gregarious",pos:"adj.",en:"fond of company; sociable",zh:"爱交际的，合群的",ex:"A gregarious host, he knew everyone.",use:"反 reclusive/solitary"},
+  {w:"hinder",pos:"v.",en:"to create difficulties; delay",zh:"阻碍，妨碍",ex:"Heavy rain hindered the rescue.",use:"n hindrance；反 aid/help"},
+  {w:"immerse",pos:"v.",en:"to involve oneself deeply; to submerge",zh:"使沉浸，浸入",ex:"She immersed herself in the novel.",use:"immerse oneself in；adj immersive"},
+  {w:"indispensable",pos:"adj.",en:"absolutely necessary",zh:"不可或缺的",ex:"Water is indispensable to life.",use:"indispensable to/for；反 dispensable"},
+  {w:"inevitable",pos:"adj.",en:"certain to happen; unavoidable",zh:"不可避免的，必然的",ex:"Change is inevitable.",use:"adv inevitably；n inevitability"},
+  {w:"intricate",pos:"adj.",en:"very complicated or detailed",zh:"错综复杂的，精细的",ex:"The watch has an intricate mechanism.",use:"近 complex；intricate pattern"},
+  {w:"jeopardise",pos:"v.",en:"to put at risk",zh:"危及，损害",ex:"One mistake could jeopardise the project.",use:"英式 -ise；n jeopardy"},
+  {w:"lucrative",pos:"adj.",en:"producing a great deal of profit",zh:"有利可图的，赚钱的",ex:"Tutoring proved a lucrative sideline.",use:"a lucrative business/deal"},
+  {w:"meticulous",pos:"adj.",en:"very careful and precise",zh:"一丝不苟的，极仔细的",ex:"He kept meticulous records.",use:"meticulous about sth；adv -ly"},
+  {w:"mitigate",pos:"v.",en:"to make less severe",zh:"减轻，缓和",ex:"Planting trees can mitigate flooding.",use:"n mitigation；近 alleviate"},
+  {w:"nostalgia",pos:"n.",en:"a sentimental longing for the past",zh:"怀旧，乡愁",ex:"Old songs fill her with nostalgia.",use:"adj nostalgic；nostalgia for"},
+  {w:"obsolete",pos:"adj.",en:"no longer used; out of date",zh:"过时的，废弃的",ex:"The technology is now obsolete.",use:"近 outdated；反 current"},
+  {w:"paramount",pos:"adj.",en:"more important than anything else",zh:"至高无上的，最重要的",ex:"Safety is of paramount importance.",use:"of paramount importance（固定搭配）"},
+  {w:"perseverance",pos:"n.",en:"persistence despite difficulty",zh:"毅力，坚持不懈",ex:"Success comes through perseverance.",use:"v persevere (with/in)"},
+  {w:"plausible",pos:"adj.",en:"seeming reasonable or probable",zh:"貌似合理的，可信的",ex:"That's a plausible explanation.",use:"反 implausible；adv plausibly"},
+  {w:"predominant",pos:"adj.",en:"most common or noticeable; main",zh:"占主导的，主要的",ex:"Green is the predominant colour here.",use:"adv predominantly；v predominate"},
+  {w:"profound",pos:"adj.",en:"very great; showing deep insight",zh:"深刻的，深远的",ex:"The book had a profound effect on me.",use:"profound impact；adv profoundly"},
+  {w:"prevalent",pos:"adj.",en:"widespread; common in an area/time",zh:"普遍的，盛行的",ex:"The disease is prevalent in the tropics.",use:"n prevalence；近 widespread"},
+  {w:"reluctant",pos:"adj.",en:"unwilling and hesitant",zh:"不情愿的，勉强的",ex:"He was reluctant to admit the error.",use:"reluctant to do；n reluctance"},
+  {w:"reticent",pos:"adj.",en:"not revealing one's thoughts readily",zh:"沉默寡言的，不愿多说的",ex:"She was reticent about her plans.",use:"reticent about；近 reserved"},
+  {w:"scarce",pos:"adj.",en:"insufficient for demand; rare",zh:"稀缺的，不足的",ex:"Fresh water is scarce in the region.",use:"n scarcity；adv scarcely=几乎不"},
+  {w:"sceptical",pos:"adj.",en:"not easily convinced; doubtful",zh:"怀疑的，将信将疑的",ex:"Scientists remained sceptical of the claim.",use:"sceptical about/of；n scepticism"},
+  {w:"substantial",pos:"adj.",en:"large in size, value or importance",zh:"大量的，可观的",ex:"They made a substantial profit.",use:"adv substantially；近 considerable"},
+  {w:"superficial",pos:"adj.",en:"shallow; only on the surface",zh:"肤浅的，表面的",ex:"His knowledge was superficial.",use:"反 profound；superficial wound"},
+  {w:"tenacious",pos:"adj.",en:"holding firmly; persistent",zh:"顽强的，坚韧的",ex:"Her tenacious effort finally paid off.",use:"n tenacity；近 persistent"},
+  {w:"transient",pos:"adj.",en:"lasting only a short time",zh:"短暂的，转瞬即逝的",ex:"Fame can be transient.",use:"近 fleeting；反 permanent"},
+  {w:"versatile",pos:"adj.",en:"able to adapt to many functions",zh:"多才多艺的，多用途的",ex:"A versatile player, she fills any position.",use:"n versatility"},
+  {w:"vibrant",pos:"adj.",en:"full of energy; bright and striking",zh:"充满活力的；鲜明的",ex:"A vibrant city buzzing with life.",use:"vibrant colours/culture"},
+  {w:"vulnerable",pos:"adj.",en:"exposed to harm; easily hurt",zh:"脆弱的，易受伤害的",ex:"The elderly are vulnerable to the cold.",use:"vulnerable to sth；n vulnerability"}
+];
+function vocabPool(){ // merge banks, dedupe by word so no day repeats a word
+  const all=DAY1.vocab.concat(VOCAB_EXTRA).concat(MORE_VOCAB), seen=new Set(), out=[];
+  for(const v of all){ const k=String(v.w).toLowerCase(); if(!seen.has(k)){ seen.add(k); out.push(v); } }
+  return out;
+}
 
 const MCQ_BANK=[
   {stem:"Neither of the two plans ____ acceptable to the panel.",options:["are","is","were","have been"],answer:1,expl:"neither of + 复数名词，动词用<b>单数</b> is。",topic:"主谓一致"},
@@ -1245,8 +1328,8 @@ function genEditing(n){
   return {intro:"下面每一行有<b>一处</b>错误（时态/主谓一致/介词/可数性/词性）。在方框中填入改正后的词。",lines:lines};
 }
 function genVocab(n){
-  const pool=vocabPool(), per=30, start=((n-1)*20)%pool.length, out=[];
-  for(let k=0;k<per;k++) out.push(Object.assign({},pickRot(pool,start+k),{tag:k<20?'new':'review'}));
+  const pool=vocabPool(), per=50, start=((n-1)*30)%pool.length, out=[];
+  for(let k=0;k<per;k++) out.push(Object.assign({},pickRot(pool,start+k),{tag:k<30?'new':'review'}));
   return out;
 }
 function genMaterials(n){
@@ -1296,6 +1379,8 @@ const DB={
       if(d&&typeof d==='object'){ for(const k in d) days[k]=d[k]; }
       const nb=await (await fetch('/api/notebook?student='+STUDENT)).json();
       if(Array.isArray(nb)) notebook=nb;
+      const vm=await (await fetch('/api/vocab?student='+STUDENT)).json();
+      if(Array.isArray(vm)) vocabMastered=vm.map(w=>String(w).toLowerCase());
     }catch(e){ console.warn('DB pull failed',e); }
   },
   _req(p,body){ return fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
@@ -1329,6 +1414,7 @@ function outbox(){ return LS.get('outbox',[]); }
 function collapseKey(p,body){
   if(p==='state') return 'state';
   if(p==='notebook') return 'notebook';
+  if(p==='vocab') return 'vocab';
   if(p==='day') return 'day:'+(body&&body.day);
   if(p==='essay') return 'essay:'+(body&&body.day);
   return null;
@@ -1351,12 +1437,31 @@ function updateSyncBadge(){
 function persistState(){ LS.set('state',state); DB.post('state',{student:STUDENT,current:state.current,unlocked:state.unlocked,startDate:state.startDate}); }
 function persistDay(n){ LS.set('days',days); if(days[n]) DB.post('day',{subject:SUBJECT,day:+n,content:days[n]}); }
 function persistNotebook(){ LS.set('notebook',notebook); DB.post('notebook',{student:STUDENT,items:notebook}); }
+function persistVocab(){ LS.set('vocabMastered',vocabMastered); DB.post('vocab',{student:STUDENT,words:vocabMastered}); }
+function isVocabMastered(w){ return vocabMastered.includes(String(w).toLowerCase()); }
+function updateDashIfOpen(){ const p=document.getElementById('p-dash'); if(p&&p.classList.contains('show')) renderDashboard(); }
+function toggleVocabMastered(w){
+  const key=String(w).toLowerCase(), on=!vocabMastered.includes(key);
+  if(on) vocabMastered.push(key); else vocabMastered=vocabMastered.filter(x=>x!==key);
+  persistVocab();
+  // update every card showing this word: flip to front + refresh badge/button (no full re-render)
+  document.querySelectorAll('.flip[data-w]').forEach(card=>{
+    if(card.getAttribute('data-w').toLowerCase()!==key) return;
+    card.classList.toggle('mastered',on); card.classList.remove('flipped');
+    const vt=card.querySelector('.vtag');
+    if(vt){ if(on){vt.className='vtag mstd';vt.textContent='✓ 已掌握';} else {vt.className='vtag';vt.innerHTML='<span class="tag new">new</span>';} }
+    const kb=card.querySelector('[data-know]');
+    if(kb){ kb.textContent=on?'↩ 取消掌握':'✓ 我会了'; kb.className='btn '+(on?'ghost':'primary')+' mini know'; }
+  });
+  updateDashIfOpen();
+}
 function logAttempt(day,q,chosenVal,correct,kind){ DB.post('attempt',{student:STUDENT,day:day,qid:q.id,topic:q.topic||'',chosen:(chosenVal==null?-1:chosenVal),correct:correct?1:0,kind:kind||'mcq'}); }
 
 /* ---------- STATE ---------- */
 let state=LS.get('state',{current:1,unlocked:1,startDate:null});
 let days=LS.get('days',{1:DAY1});
 let notebook=LS.get('notebook',[]); // [{id,stem,options,answer,expl,topic,correctStreak,mastered,dayAdded}]
+let vocabMastered=LS.get('vocabMastered',[]); // ["word", ...] lowercased, mastered via 我会了
 
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
 
@@ -1544,14 +1649,37 @@ function renderOral(d){
   document.getElementById('or-listen').innerHTML=(o.listening||[]).map(m=>
     '<div class="card"><div class="mat"><div class="ic">'+(m.ic||'🎧')+'</div><div class="body"><div class="ttl">'+m.ttl+'</div><div class="src">'+m.src+'</div><div class="why">'+m.why+'</div></div><a class="go" href="'+m.url+'" target="_blank" rel="noopener">打开 ↗</a></div></div>').join('');
 }
+function vtagHTML(v){
+  return v.tag==='review' ? '<span class="vtag"><span class="tag rev">复习</span></span>'
+                          : '<span class="vtag"><span class="tag new">new</span></span>';
+}
 function renderVocab(d){
-  document.getElementById('voc-grid').innerHTML=(d.vocab||[]).map((v,i)=>
-    '<div class="vcard"><span class="no">'+(i+1).toString().padStart(2,'0')+'</span>'+
-    '<div><span class="w">'+v.w+'</span><span class="pos">'+(v.pos||'')+'</span> '+(v.tag==='review'?'<span class="tag rev">复习</span>':'<span class="tag new">new</span>')+'</div>'+
-    '<div class="en">'+(v.en||'')+'</div><div class="zh">'+(v.zh||'')+'</div>'+
-    (v.ex?'<div class="ex">"'+v.ex+'"</div>':'')+
-    (v.use?'<div class="use">▸ '+v.use+'</div>':'')+'</div>'
-  ).join('');
+  const grid=document.getElementById('voc-grid');
+  grid.innerHTML=(d.vocab||[]).map((v,i)=>{
+    const mstd=isVocabMastered(v.w);
+    const tag = mstd ? '<span class="vtag mstd">✓ 已掌握</span>' : vtagHTML(v);
+    return '<div class="flip'+(mstd?' mastered':'')+'" data-w="'+v.w+'"><div class="fin">'+
+      '<div class="face front">'+
+        '<span class="no">'+(i+1).toString().padStart(2,'0')+'</span>'+tag+
+        '<div class="w">'+v.w+'</div>'+(v.pos?'<div class="pos">'+v.pos+'</div>':'')+
+        '<div class="hint">点击翻转查看释义 ↻</div>'+
+      '</div>'+
+      '<div class="face back">'+
+        '<div><span class="w">'+v.w+'</span>'+(v.pos?'<span class="pos">'+v.pos+'</span>':'')+'</div>'+
+        (v.en?'<div class="en">'+v.en+'</div>':'')+
+        (v.zh?'<div class="zh">'+v.zh+'</div>':'')+
+        (v.ex?'<div class="ex">“'+v.ex+'”</div>':'')+
+        (v.use?'<div class="use">▸ '+v.use+'</div>':'')+
+        '<button class="btn '+(mstd?'ghost':'primary')+' mini know" data-know="'+v.w+'">'+(mstd?'↩ 取消掌握':'✓ 我会了')+'</button>'+
+      '</div>'+
+    '</div></div>';
+  }).join('');
+  grid.onclick=(e)=>{
+    const kb=e.target.closest('[data-know]');
+    if(kb){ e.stopPropagation(); toggleVocabMastered(kb.getAttribute('data-know')); return; }
+    const card=e.target.closest('.flip');
+    if(card) card.classList.toggle('flipped');
+  };
   // wire quiz controls
   const sq=document.getElementById('startQuiz'), sc=document.getElementById('showCards');
   if(sq) sq.onclick=()=>startVocabQuiz(d);
@@ -1750,6 +1878,10 @@ async function renderDashboard(){
       '<h3>最薄弱知识点（正确率由低到高）</h3><div class="bars">'+topicRows+'</div>'+
       '<h3>错题掌握进度</h3><div class="bar"><span class="bl">已掌握</span><span class="bt"><i style="width:'+
         (s.notebook.total?Math.round(s.notebook.mastered/s.notebook.total*100):0)+'%"></i></span><span class="bv">'+s.notebook.mastered+' / '+s.notebook.total+'</span></div>'+
+      '<h3>已掌握单词（'+vocabMastered.length+' 个）</h3>'+
+      (vocabMastered.length
+        ? '<div class="vwrap">'+vocabMastered.slice().sort().map(w=>'<span class="vchip">'+w+'</span>').join('')+'</div>'
+        : '<div style="color:var(--ink2)">还没有标记「我会了」的单词——去「今日单词」翻卡学习，点卡片下方「✓ 我会了」即可。</div>')+
       '<p class="kicker" style="text-align:left">💡 建议：优先攻克正确率最低的知识点；生成下一天时会自动把这些薄弱点编入新题复现。</p>';
   }catch(e){box.innerHTML='<div class="empty">读取学情失败：'+e.message+'</div>';}
 }
@@ -1958,6 +2090,13 @@ function nl2br(s){return escapeHTML(s).replace(/\n/g,'<br>');}
   // (notebook / attempts / diagnostic / essays / progress) are left untouched.
   if(!days[1]) days[1]=DAY1;
   else { for(const k in DAY1){ if(!(k in days[1])) days[1][k]=DAY1[k]; } }
+  // Day 1 vocab was authored at 30; top it up to 50 from the pool (additive & deduped,
+  // never removes the authored words) so every day now shows 50.
+  if(days[1] && Array.isArray(days[1].vocab) && days[1].vocab.length<50){
+    const have=new Set(days[1].vocab.map(v=>String(v.w).toLowerCase()));
+    for(const v of genVocab(1)){ if(days[1].vocab.length>=50) break;
+      const key=String(v.w).toLowerCase(); if(!have.has(key)){ days[1].vocab.push(Object.assign({},v,{tag:'review'})); have.add(key); } }
+  }
   persistDay(1);                            // ensure DB has day 1 (idempotent; never overwrites frozen questions)
   if(!state.startDate) state.startDate=todayStr();
   persistState();

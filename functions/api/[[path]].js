@@ -128,6 +128,23 @@ export async function onRequest(context) {
       return json({ ok: true });
     }
 
+    /* GET /api/vocab?student=  -> ["word", ...] mastered words */
+    if (seg[0] === 'vocab' && method === 'GET') {
+      const rs = await DB.prepare(`SELECT word FROM vocab_mastered WHERE student=? ORDER BY word`).bind(student).all();
+      return json((rs.results || []).map((r) => r.word));
+    }
+    /* POST /api/vocab  {student, words:[...]}  — full replace (atomic batch) */
+    if (seg[0] === 'vocab' && method === 'POST') {
+      const b = await request.json().catch(() => ({}));
+      const st = b.student || 'default';
+      const words = Array.isArray(b.words) ? b.words : [];
+      const stmts = [DB.prepare(`DELETE FROM vocab_mastered WHERE student=?`).bind(st)];
+      const ins = DB.prepare(`INSERT OR IGNORE INTO vocab_mastered(student,word) VALUES(?,?)`);
+      for (const w of words) if (w) stmts.push(ins.bind(st, String(w).toLowerCase()));
+      await DB.batch(stmts);
+      return json({ ok: true, count: words.length });
+    }
+
     /* GET /api/stats?student=&subject= */
     if (seg[0] === 'stats' && method === 'GET') {
       const a = await DB.prepare(`SELECT COUNT(*) n, SUM(correct) c FROM attempt WHERE student=?`).bind(student).first();

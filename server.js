@@ -78,6 +78,13 @@ CREATE TABLE IF NOT EXISTS essay (
   updated_at TEXT DEFAULT (datetime('now')),
   PRIMARY KEY (student, day)
 );
+
+CREATE TABLE IF NOT EXISTS vocab_mastered (
+  student  TEXT NOT NULL,
+  word     TEXT NOT NULL,
+  added_at TEXT DEFAULT (datetime('now')),
+  PRIMARY KEY (student, word)
+);
 `);
 
 // migrate an older day_content table (no `subject` column) → tag existing rows as 'english'
@@ -206,6 +213,25 @@ async function api(req, res, url) {
                 ON CONFLICT(student,day) DO UPDATE SET text=excluded.text, words=excluded.words, updated_at=datetime('now')`)
       .run(b.student || 'default', b.day | 0, b.text || '', b.words | 0);
     return J(res, 200, { ok: true });
+  }
+
+  // GET /api/vocab?student=  -> ["word", ...] mastered words
+  if (seg[0] === 'vocab' && req.method === 'GET') {
+    const rows = db.prepare(`SELECT word FROM vocab_mastered WHERE student=? ORDER BY word`).all(student);
+    return J(res, 200, rows.map(r => r.word));
+  }
+  // POST /api/vocab  {student, words:[...]}  (full replace for that student)
+  if (seg[0] === 'vocab' && req.method === 'POST') {
+    const b = await readBody(req); const st = b.student || 'default';
+    const words = Array.isArray(b.words) ? b.words : [];
+    db.prepare('BEGIN').run();
+    try {
+      db.prepare(`DELETE FROM vocab_mastered WHERE student=?`).run(st);
+      const ins = db.prepare(`INSERT OR IGNORE INTO vocab_mastered(student,word) VALUES(?,?)`);
+      for (const w of words) if (w) ins.run(st, String(w).toLowerCase());
+      db.prepare('COMMIT').run();
+    } catch (e) { db.prepare('ROLLBACK').run(); return J(res, 500, { error: String(e) }); }
+    return J(res, 200, { ok: true, count: words.length });
   }
 
   // GET /api/stats  -> learning summary

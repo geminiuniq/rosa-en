@@ -57,4 +57,11 @@ CREATE TABLE IF NOT EXISTS essay (
   PRIMARY KEY (student, day)
 );
 
+CREATE TABLE IF NOT EXISTS vocab_mastered (
+  student  TEXT NOT NULL,
+  word     TEXT NOT NULL,
+  added_at TEXT DEFAULT (datetime('now')),
+  PRIMARY KEY (student, word)
+);
+
 INSERT OR IGNORE INTO student(id,name,start_date) VALUES('default','Student',date('now'));
