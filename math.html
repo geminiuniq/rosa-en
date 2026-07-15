@@ -253,17 +253,17 @@ const TOPICS=[
   {topicZh:"代数式的展开与因式分解",topicEn:"Algebra: Expansion & Factorisation",
    goals:["熟练展开(a±b)²、(a+b)(a−b)等乘法公式","掌握提公因式、十字相乘、分组分解四种因式分解法","识别考试中'先因式分解再化简'的信号"],
    concepts:[
-    {t:"乘法公式 Special Products",en:"Memorise the identities.",tech:"(a+b)²=a²+2ab+b²；(a−b)²=a²−2ab+b²；(a+b)(a−b)=a²−b²。",exam:"考官常把 a、b 换成含系数的式子（如 (2x−3)²），务必对每一项都平方并带上系数。"},
-    {t:"因式分解四法 Factorisation",en:"Four methods.",tech:"① 提公因式 ② 平方差 a²−b² ③ 十字相乘 ax²+bx+c ④ 分组分解(4项)。先看有无公因式，再判断项数。",exam:"'Factorise completely' 意味着要分解到底——常见陷阱是分解一次后还能再提公因式。"},
-    {t:"化简的顺序 Simplify Strategy",en:"Factor first, then cancel.",tech:"代数分式化简：分子分母各自因式分解 → 约去公因式。切勿在未因式分解时直接约项。",exam:"高频题：化简 (x²−9)/(x²+4x+3)，先分解为 (x−3)(x+3)/[(x+1)(x+3)] 再约。"}
+    {t:"乘法公式 Special Products",en:"Memorise the identities.",tech:"(a+b)²=a²+2ab+b²；(a−b)²=a²−2ab+b²；(a+b)(a−b)=a²−b²。 ｜ EN: The three special product identities (square of a sum, square of a difference, and difference of two squares).",exam:"考官常把 a、b 换成含系数的式子（如 (2x−3)²），务必对每一项都平方并带上系数。 ｜ EN: Examiners often replace a and b with terms carrying coefficients (e.g. (2x−3)²); be sure to square every term and keep its coefficient."},
+    {t:"因式分解四法 Factorisation",en:"Four methods.",tech:"① 提公因式 ② 平方差 a²−b² ③ 十字相乘 ax²+bx+c ④ 分组分解(4项)。先看有无公因式，再判断项数。 ｜ EN: (1) take out the common factor (2) difference of two squares a²−b² (3) cross method ax²+bx+c (4) grouping into pairs (4 terms). First check for a common factor, then judge by the number of terms.",exam:"'Factorise completely' 意味着要分解到底——常见陷阱是分解一次后还能再提公因式。 ｜ EN: 'Factorise completely' means factor all the way down — a common trap is that after factorising once you can still take out another common factor."},
+    {t:"化简的顺序 Simplify Strategy",en:"Factor first, then cancel.",tech:"代数分式化简：分子分母各自因式分解 → 约去公因式。切勿在未因式分解时直接约项。 ｜ EN: Simplifying algebraic fractions: factorise the numerator and denominator separately, then cancel the common factor. Never cancel terms before factorising.",exam:"高频题：化简 (x²−9)/(x²+4x+3)，先分解为 (x−3)(x+3)/[(x+1)(x+3)] 再约。 ｜ EN: Frequent question: simplify (x²−9)/(x²+4x+3); first factor it to (x−3)(x+3)/[(x+1)(x+3)] then cancel."}
    ],
    examples:[
     {q:"Expand and simplify: (2x − 3)² − (x − 1)(x + 4).",
-     solution:"(2x−3)² = 4x² − 12x + 9\n(x−1)(x+4) = x² + 3x − 4\n原式 = 4x² − 12x + 9 − (x² + 3x − 4)\n     = 4x² − 12x + 9 − x² − 3x + 4\n     = 3x² − 15x + 13",
-     note:"技巧：减去一个括号时，括号内每一项都要变号——这里 −(x²+3x−4) 的 +4 变成 +4。"},
+     solution:"(2x−3)² = 4x² − 12x + 9\n(x−1)(x+4) = x² + 3x − 4\n原式 = 4x² − 12x + 9 − (x² + 3x − 4)\n     = 4x² − 12x + 9 − x² − 3x + 4\n     = 3x² − 15x + 13\nEN: Expand each part: (2x−3)²=4x²−12x+9 and (x−1)(x+4)=x²+3x−4. Subtract the second from the first, changing the sign of every term inside the bracket, then collect like terms to get 3x²−15x+13.",
+     note:"技巧：减去一个括号时，括号内每一项都要变号——这里 −(x²+3x−4) 的 +4 变成 +4。 ｜ EN: Tip: when subtracting a bracket, change the sign of every term inside — here −(x²+3x−4) turns the −4 into +4."},
     {q:"Factorise completely: 3x² − 12.",
-     solution:"3x² − 12 = 3(x² − 4)      ← 先提公因式 3\n        = 3(x − 2)(x + 2)   ← 再用平方差",
-     note:"出题思路：这类题在考'完全分解'意识——只写 3(x²−4) 会丢分。"}
+     solution:"3x² − 12 = 3(x² − 4)      ← 先提公因式 3\n        = 3(x − 2)(x + 2)   ← 再用平方差\nEN: First take out the common factor 3 to get 3(x²−4), then apply the difference of two squares to reach 3(x−2)(x+2).",
+     note:"出题思路：这类题在考'完全分解'意识——只写 3(x²−4) 会丢分。 ｜ EN: Design intent: this type tests awareness of 'complete factorisation' — writing only 3(x²−4) loses marks."}
    ],
    mcqs:[
     {stem:"Expand (3x − 2)².",options:["9x² − 4","9x² − 12x + 4","9x² − 6x + 4","3x² − 12x + 4"],answer:1,expl:"(3x−2)²=9x²−2·3x·2+4=9x²−12x+4。",topic:"代数展开"},
@@ -282,17 +282,17 @@ const TOPICS=[
   {topicZh:"一次方程与不等式",topicEn:"Linear Equations & Inequalities",
    goals:["熟练解含分数、括号的一次方程","掌握不等式解法及'乘除负数变号'规则","会在数轴上表示并读写整数解"],
    concepts:[
-    {t:"解一次方程 Solving Linear Eqns",en:"Do the same to both sides.",tech:"去括号→去分母(乘各项)→移项(变号)→合并→系数化1。每一步对等式两边同做。",exam:"含分数时最易错：乘公分母要乘'每一项'，包括不含分母的项。"},
-    {t:"不等式变号 Inequality Sign",en:"Flip when × or ÷ by a negative.",tech:"两边同乘/除以负数时，不等号方向反转：−2x>6 → x<−3。",exam:"这是最高频扣分点，考官专门设计需要除以负数的题。"},
-    {t:"整数解 Integer Solutions",en:"List within range.",tech:"'largest integer' / 'smallest integer x satisfying…'——解出范围后取端点最近的整数。",exam:"注意 < 与 ≤ 的区别决定端点能否取到。"}
+    {t:"解一次方程 Solving Linear Eqns",en:"Do the same to both sides.",tech:"去括号→去分母(乘各项)→移项(变号)→合并→系数化1。每一步对等式两边同做。 ｜ EN: Remove brackets, then clear fractions by multiplying every term, then move terms across changing sign, then collect, then make the coefficient 1. Do the same to both sides at every step.",exam:"含分数时最易错：乘公分母要乘'每一项'，包括不含分母的项。 ｜ EN: Fractions cause the most errors: when multiplying by the common denominator, multiply every single term, including terms that have no denominator."},
+    {t:"不等式变号 Inequality Sign",en:"Flip when × or ÷ by a negative.",tech:"两边同乘/除以负数时，不等号方向反转：−2x>6 → x<−3。 ｜ EN: When multiplying or dividing both sides by a negative number, reverse the inequality sign: −2x>6 gives x<−3.",exam:"这是最高频扣分点，考官专门设计需要除以负数的题。 ｜ EN: This is the most common place to lose marks; examiners deliberately design questions that require dividing by a negative."},
+    {t:"整数解 Integer Solutions",en:"List within range.",tech:"'largest integer' / 'smallest integer x satisfying…'——解出范围后取端点最近的整数。 ｜ EN: 'largest integer' / 'smallest integer x satisfying...' — after solving for the range, take the integer nearest the endpoint.",exam:"注意 < 与 ≤ 的区别决定端点能否取到。 ｜ EN: Note the difference between < and ≤, which decides whether the endpoint itself can be taken."}
    ],
    examples:[
     {q:"Solve (2x − 1)/3 − (x − 2)/4 = 1.",
-     solution:"×12：4(2x−1) − 3(x−2) = 12\n8x − 4 − 3x + 6 = 12\n5x + 2 = 12\n5x = 10\nx = 2",
-     note:"技巧：公分母12乘每一项，右边的1也要×12=12。"},
+     solution:"×12：4(2x−1) − 3(x−2) = 12\n8x − 4 − 3x + 6 = 12\n5x + 2 = 12\n5x = 10\nx = 2\nEN: Multiply every term by the common denominator 12, expand the brackets, collect like terms to 5x+2=12, then solve to get x=2.",
+     note:"技巧：公分母12乘每一项，右边的1也要×12=12。 ｜ EN: Tip: the common denominator 12 multiplies every term; the 1 on the right must also be x12 = 12."},
     {q:"Solve the inequality 3 − 2x ≥ 9, and state the largest integer value of x.",
-     solution:"3 − 2x ≥ 9\n−2x ≥ 6\nx ≤ −3        ← 除以 −2，不等号反向\n最大整数 x = −3",
-     note:"出题思路：先考不等式解法，再叠加'整数解'读数——两步都给分。"}
+     solution:"3 − 2x ≥ 9\n−2x ≥ 6\nx ≤ −3        ← 除以 −2，不等号反向\n最大整数 x = −3\nEN: Rearrange to −2x≥6, then divide by −2 which reverses the sign to give x≤−3; the largest integer satisfying this is x=−3.",
+     note:"出题思路：先考不等式解法，再叠加'整数解'读数——两步都给分。 ｜ EN: Design intent: it first tests solving the inequality, then adds reading off the 'integer solution' — both steps earn marks."}
    ],
    mcqs:[
     {stem:"Solve 5(x − 2) = 3x + 4.",options:["x=7","x=3","x=−3","x=1"],answer:0,expl:"5x−10=3x+4 → 2x=14 → x=7。",topic:"一次方程"},
@@ -311,17 +311,17 @@ const TOPICS=[
   {topicZh:"联立方程",topicEn:"Simultaneous Equations",
    goals:["熟练用代入法与消元法解二元一次方程组","会解一次+二次的联立(代入法)","能把应用题转化为方程组"],
    concepts:[
-    {t:"消元法 Elimination",en:"Match coefficients, add/subtract.",tech:"使某一未知数系数相等(乘倍数)→同号相减、异号相加消去→回代。",exam:"考官偏好系数不整齐、需要各乘一个数的题，检验'乘了每一项'。"},
-    {t:"代入法 Substitution",en:"For linear + non-linear.",tech:"一次方程解出一个未知数→代入另一式。一次+二次联立必用代入法，得到一元二次。",exam:"高频：直线与曲线交点 → 联立得二次方程，判别式判断交点个数。"},
-    {t:"应用题建模 Word Problems",en:"Define variables clearly.",tech:"设两个未知数、按题意列两个方程；答完写清单位与实际意义。",exam:"务必'let x be…'定义变量，否则失方法分。"}
+    {t:"消元法 Elimination",en:"Match coefficients, add/subtract.",tech:"使某一未知数系数相等(乘倍数)→同号相减、异号相加消去→回代。 ｜ EN: Make the coefficient of one unknown equal by multiplying, then subtract if the signs match or add if they differ to eliminate it, then substitute back.",exam:"考官偏好系数不整齐、需要各乘一个数的题，检验'乘了每一项'。 ｜ EN: Examiners prefer questions with untidy coefficients that require multiplying each equation by a number, testing that you multiply every term."},
+    {t:"代入法 Substitution",en:"For linear + non-linear.",tech:"一次方程解出一个未知数→代入另一式。一次+二次联立必用代入法，得到一元二次。 ｜ EN: Solve one unknown from the linear equation, then substitute into the other. A linear plus quadratic pair must use substitution, giving a single quadratic.",exam:"高频：直线与曲线交点 → 联立得二次方程，判别式判断交点个数。 ｜ EN: Frequent: the intersection of a line and a curve — the simultaneous equations give a quadratic, and the discriminant tells the number of intersection points."},
+    {t:"应用题建模 Word Problems",en:"Define variables clearly.",tech:"设两个未知数、按题意列两个方程；答完写清单位与实际意义。 ｜ EN: Let two unknowns and form two equations from the wording; at the end state the units and the real-world meaning.",exam:"务必'let x be…'定义变量，否则失方法分。 ｜ EN: Always define your variables with 'let x be...', otherwise you lose the method marks."}
    ],
    examples:[
     {q:"Solve: 3x + 2y = 16 and 5x − 2y = 8.",
-     solution:"两式相加(y系数异号)：8x = 24 → x = 3\n代入 3(3)+2y=16 → 2y=7 → y=3.5",
-     note:"技巧：+2y 与 −2y 相加即消去 y，最省事。"},
+     solution:"两式相加(y系数异号)：8x = 24 → x = 3\n代入 3(3)+2y=16 → 2y=7 → y=3.5\nEN: Because the y-coefficients have opposite signs, add the two equations to eliminate y: 8x=24 so x=3; substitute into the first equation to find 2y=7, so y=3.5.",
+     note:"技巧：+2y 与 −2y 相加即消去 y，最省事。 ｜ EN: Tip: adding +2y and −2y cancels y directly — the least effort."},
     {q:"Solve: y = x + 1 and x² + y² = 25.",
-     solution:"代入：x² + (x+1)² = 25\nx² + x² + 2x + 1 = 25\n2x² + 2x − 24 = 0\nx² + x − 12 = 0\n(x+4)(x−3)=0 → x=−4 or 3\nx=−4→y=−3;  x=3→y=4",
-     note:"出题思路：直线交圆，两组解=两个交点坐标。"}
+     solution:"代入：x² + (x+1)² = 25\nx² + x² + 2x + 1 = 25\n2x² + 2x − 24 = 0\nx² + x − 12 = 0\n(x+4)(x−3)=0 → x=−4 or 3\nx=−4→y=−3;  x=3→y=4\nEN: Substitute y=x+1 into the circle equation, expand and simplify to 2x²+2x−24=0, divide by 2, factorise (x+4)(x−3)=0 to get x=−4 or 3, then find the matching y values.",
+     note:"出题思路：直线交圆，两组解=两个交点坐标。 ｜ EN: Design intent: a line meeting a circle — the two solution pairs are the coordinates of the two intersection points."}
    ],
    mcqs:[
     {stem:"If x + y = 7 and x − y = 1, then x =",options:["3","4","5","6"],answer:1,expl:"相加2x=8→x=4。",topic:"联立方程"},
@@ -340,17 +340,17 @@ const TOPICS=[
   {topicZh:"二次方程与函数",topicEn:"Quadratic Equations & Functions",
    goals:["会用因式分解、公式法、配方法解二次方程","理解判别式与根的关系","掌握抛物线顶点、对称轴、最值"],
    concepts:[
-    {t:"求根公式 Quadratic Formula",en:"x = [−b ± √(b²−4ac)] / 2a",tech:"不能因式分解时用公式；'give answer to 2 d.p.'提示用公式。",exam:"务必带括号算 b²−4ac，负号与平方易错；两个答案都要写。"},
-    {t:"判别式 Discriminant",en:"Δ = b² − 4ac.",tech:"Δ>0两实根；Δ=0一个(重)根/相切；Δ<0无实根。",exam:"'has two distinct roots' → Δ>0；'tangent/equal roots' → Δ=0，常反过来求参数。"},
-    {t:"配方与最值 Completing the Square",en:"y=a(x−h)²+k.",tech:"配方得顶点(h,k)：a>0时k为最小值，a<0时为最大值；对称轴 x=h。",exam:"高频：求 y=x²−6x+11 的最小值 → (x−3)²+2 → 最小值2，当x=3。"}
+    {t:"求根公式 Quadratic Formula",en:"x = [−b ± √(b²−4ac)] / 2a",tech:"不能因式分解时用公式；'give answer to 2 d.p.'提示用公式。 ｜ EN: Use the formula when it cannot be factorised; 'give answer to 2 d.p.' is a hint to use the formula.",exam:"务必带括号算 b²−4ac，负号与平方易错；两个答案都要写。 ｜ EN: Always compute b²−4ac carefully with brackets; signs and squaring are error-prone; write both answers."},
+    {t:"判别式 Discriminant",en:"Δ = b² − 4ac.",tech:"Δ>0两实根；Δ=0一个(重)根/相切；Δ<0无实根。 ｜ EN: Delta>0 two real roots; Delta=0 one repeated root / tangent; Delta<0 no real roots.",exam:"'has two distinct roots' → Δ>0；'tangent/equal roots' → Δ=0，常反过来求参数。 ｜ EN: 'has two distinct roots' gives Delta>0; 'tangent/equal roots' gives Delta=0, often used in reverse to find a parameter."},
+    {t:"配方与最值 Completing the Square",en:"y=a(x−h)²+k.",tech:"配方得顶点(h,k)：a>0时k为最小值，a<0时为最大值；对称轴 x=h。 ｜ EN: Completing the square gives the vertex (h,k): when a>0, k is the minimum, when a<0 it is the maximum; the line of symmetry is x=h.",exam:"高频：求 y=x²−6x+11 的最小值 → (x−3)²+2 → 最小值2，当x=3。 ｜ EN: Frequent: find the minimum of y=x²−6x+11, which is (x−3)²+2, so minimum 2 when x=3."}
    ],
    examples:[
     {q:"Solve x² − 4x − 3 = 0, giving answers to 2 decimal places.",
-     solution:"a=1,b=−4,c=−3\nb²−4ac = 16 − 4(1)(−3) = 16 + 12 = 28\nx = [4 ± √28]/2 = [4 ± 5.2915]/2\nx = 4.65  or  x = −0.65",
-     note:"技巧：√28≈5.29；'2 d.p.'强烈提示用公式而非因式分解。"},
+     solution:"a=1,b=−4,c=−3\nb²−4ac = 16 − 4(1)(−3) = 16 + 12 = 28\nx = [4 ± √28]/2 = [4 ± 5.2915]/2\nx = 4.65  or  x = −0.65\nEN: Identify a=1, b=−4, c=−3, compute the discriminant b²−4ac=28, then apply the quadratic formula to get x=4.65 or x=−0.65 (2 d.p.).",
+     note:"技巧：√28≈5.29；'2 d.p.'强烈提示用公式而非因式分解。 ｜ EN: Tip: √28≈5.29; '2 d.p.' strongly signals using the formula rather than factorising."},
     {q:"Express y = x² − 6x + 11 in the form (x − h)² + k, and state the minimum value.",
-     solution:"x² − 6x + 11 = (x − 3)² − 9 + 11 = (x − 3)² + 2\n最小值 = 2，当 x = 3 时取得",
-     note:"出题思路：配方一题两考——顶点式 + 最值/对称轴。"}
+     solution:"x² − 6x + 11 = (x − 3)² − 9 + 11 = (x − 3)² + 2\n最小值 = 2，当 x = 3 时取得\nEN: Complete the square by halving −6 to form (x−3)², subtract 3²=9 and add 11, giving (x−3)²+2; the minimum value is 2, reached when x=3.",
+     note:"出题思路：配方一题两考——顶点式 + 最值/对称轴。 ｜ EN: Design intent: completing the square tests two things at once — the vertex form plus the max/min or line of symmetry."}
    ],
    mcqs:[
     {stem:"The roots of x² − 7x + 12 = 0 are:",options:["3 and 4","−3 and −4","2 and 6","1 and 12"],answer:0,expl:"(x−3)(x−4)=0。",topic:"二次方程"},
@@ -369,17 +369,17 @@ const TOPICS=[
   {topicZh:"指数律与标准式",topicEn:"Indices & Standard Form",
    goals:["熟练运用指数运算律","理解负指数、零指数、分数指数","会用标准式(a×10ⁿ)表示大小数并计算"],
    concepts:[
-    {t:"指数律 Laws of Indices",en:"Combine powers.",tech:"aᵐ·aⁿ=aᵐ⁺ⁿ；aᵐ/aⁿ=aᵐ⁻ⁿ；(aᵐ)ⁿ=aᵐⁿ；a⁰=1；a⁻ⁿ=1/aⁿ；a^(1/n)=ⁿ√a。",exam:"混合题需逐律拆解；负/分数指数是高频考点。"},
-    {t:"分数指数 Fractional Indices",en:"a^(m/n)=(ⁿ√a)ᵐ.",tech:"如 8^(2/3)=(³√8)²=2²=4。先开根号再乘方，数字更小好算。",exam:"考官爱考 27^(−2/3) 这类：先处理负号取倒数，再分数指数。"},
-    {t:"标准式 Standard Form",en:"a×10ⁿ, 1≤a<10.",tech:"大数n为正、小数n为负；乘除时系数相乘除、10的指数相加减。",exam:"注意最终 a 必须在 1~10 之间，需要调整指数。"}
+    {t:"指数律 Laws of Indices",en:"Combine powers.",tech:"aᵐ·aⁿ=aᵐ⁺ⁿ；aᵐ/aⁿ=aᵐ⁻ⁿ；(aᵐ)ⁿ=aᵐⁿ；a⁰=1；a⁻ⁿ=1/aⁿ；a^(1/n)=ⁿ√a。 ｜ EN: The index laws: multiply means add powers, divide means subtract powers, a power of a power means multiply, a⁰=1, a⁻ⁿ=1/aⁿ, and a^(1/n)=the nth root of a.",exam:"混合题需逐律拆解；负/分数指数是高频考点。 ｜ EN: Mixed questions must be broken down law by law; negative and fractional indices are frequent exam points."},
+    {t:"分数指数 Fractional Indices",en:"a^(m/n)=(ⁿ√a)ᵐ.",tech:"如 8^(2/3)=(³√8)²=2²=4。先开根号再乘方，数字更小好算。 ｜ EN: e.g. 8^(2/3)=(cube root of 8)²=2²=4. Take the root first then the power, so the numbers stay smaller and easier.",exam:"考官爱考 27^(−2/3) 这类：先处理负号取倒数，再分数指数。 ｜ EN: Examiners like items such as 27^(−2/3): first deal with the negative sign by taking the reciprocal, then the fractional index."},
+    {t:"标准式 Standard Form",en:"a×10ⁿ, 1≤a<10.",tech:"大数n为正、小数n为负；乘除时系数相乘除、10的指数相加减。 ｜ EN: For large numbers n is positive, for small numbers n is negative; when multiplying or dividing, multiply/divide the coefficients and add/subtract the powers of 10.",exam:"注意最终 a 必须在 1~10 之间，需要调整指数。 ｜ EN: Note the final a must lie between 1 and 10, so you may need to adjust the power."}
    ],
    examples:[
     {q:"Simplify (2x³y⁻²)³ / (4x²y).",
-     solution:"分子 = 8x⁹y⁻⁶\n= 8x⁹y⁻⁶ / (4x²y)\n= 2 x⁹⁻² y⁻⁶⁻¹\n= 2x⁷y⁻⁷  =  2x⁷/y⁷",
-     note:"技巧：先把括号的幂分配到每个因子，再用除法律减指数。"},
+     solution:"分子 = 8x⁹y⁻⁶\n= 8x⁹y⁻⁶ / (4x²y)\n= 2 x⁹⁻² y⁻⁶⁻¹\n= 2x⁷y⁻⁷  =  2x⁷/y⁷\nEN: Cube each factor in the numerator to get 8x⁹y⁻⁶, then divide by 4x²y by subtracting indices, giving 2x⁷y⁻⁷ = 2x⁷/y⁷.",
+     note:"技巧：先把括号的幂分配到每个因子，再用除法律减指数。 ｜ EN: Tip: first distribute the outer power to every factor inside the bracket, then use the division law to subtract indices."},
     {q:"Evaluate 27^(−2/3).",
-     solution:"27^(−2/3) = 1 / 27^(2/3) = 1 / (³√27)² = 1 / 3² = 1/9",
-     note:"出题思路：负指数取倒数 + 分数指数开方，两步都是给分点。"}
+     solution:"27^(−2/3) = 1 / 27^(2/3) = 1 / (³√27)² = 1 / 3² = 1/9\nEN: The negative index means take the reciprocal, then 27^(2/3)=(cube root of 27)²=3²=9, so the answer is 1/9.",
+     note:"出题思路：负指数取倒数 + 分数指数开方，两步都是给分点。 ｜ EN: Design intent: negative index gives a reciprocal, plus fractional index gives a root; both steps earn marks."}
    ],
    mcqs:[
     {stem:"Simplify a⁵ × a⁻²·",options:["a³","a⁷","a⁻¹⁰","a²·⁵"],answer:0,expl:"指数相加5+(−2)=3。",topic:"指数律"},
@@ -398,17 +398,17 @@ const TOPICS=[
   {topicZh:"百分比、比与变化率",topicEn:"Percentage, Ratio & Rate",
    goals:["熟练百分比增减、反向百分比(原价)","掌握比例分配与按比例放缩","会算复利/单利与增长率"],
    concepts:[
-    {t:"反向百分比 Reverse Percentage",en:"Find the original.",tech:"售价是原价的(100±x)%：原价=售价÷(1±x/100)。切勿直接在售价上加减同一百分比。",exam:"'after a 20% discount the price is $... find original'——必用反向百分比，是经典陷阱。"},
-    {t:"比例分配 Ratio Sharing",en:"Divide in a : b : c.",tech:"总份数=a+b+c；每份=总量÷总份数；各得=份数×每份。",exam:"常与'其中一人比另一人多$x'结合，用'一份的值'求总量。"},
-    {t:"复利 Compound Interest",en:"A = P(1 + r/100)ⁿ.",tech:"P本金、r年利率%、n年数；复利用幂，单利用 P·r·n/100。",exam:"注意题目问'利息'还是'本利和'——利息=A−P。"}
+    {t:"反向百分比 Reverse Percentage",en:"Find the original.",tech:"售价是原价的(100±x)%：原价=售价÷(1±x/100)。切勿直接在售价上加减同一百分比。 ｜ EN: The selling price is (100±x)% of the original: original = selling price / (1±x/100). Never simply add or subtract the same percentage on the selling price.",exam:"'after a 20% discount the price is $... find original'——必用反向百分比，是经典陷阱。 ｜ EN: 'after a 20% discount the price is $... find original' — you must use reverse percentage; this is a classic trap."},
+    {t:"比例分配 Ratio Sharing",en:"Divide in a : b : c.",tech:"总份数=a+b+c；每份=总量÷总份数；各得=份数×每份。 ｜ EN: Total parts = a+b+c; value of one part = total / total parts; each share = number of parts x value of one part.",exam:"常与'其中一人比另一人多$x'结合，用'一份的值'求总量。 ｜ EN: Often combined with 'one person gets $x more than another', using the value of one part to find the total."},
+    {t:"复利 Compound Interest",en:"A = P(1 + r/100)ⁿ.",tech:"P本金、r年利率%、n年数；复利用幂，单利用 P·r·n/100。 ｜ EN: P is the principal, r the annual rate %, n the number of years; compound interest uses a power, simple interest uses P·r·n/100.",exam:"注意题目问'利息'还是'本利和'——利息=A−P。 ｜ EN: Note whether the question asks for the 'interest' or the 'total amount' — interest = A − P."}
    ],
    examples:[
     {q:"After a discount of 15%, a jacket costs $102. Find its original price.",
-     solution:"售价 = 原价 × 85%\n原价 = 102 ÷ 0.85 = $120",
-     note:"技巧：85%对应0.85，用除法回推原价，勿用 102×1.15。"},
+     solution:"售价 = 原价 × 85%\n原价 = 102 ÷ 0.85 = $120\nEN: Since the selling price is 85% of the original, original = 102 / 0.85 = $120.",
+     note:"技巧：85%对应0.85，用除法回推原价，勿用 102×1.15。 ｜ EN: Tip: 85% is 0.85; divide to work back to the original, don't use 102x1.15."},
     {q:"$960 is shared between A and B in the ratio 5 : 7. How much does B receive?",
-     solution:"总份数 = 5 + 7 = 12\n一份 = 960 ÷ 12 = 80\nB = 7 × 80 = $560",
-     note:"出题思路：先求'一份的值'，是比例题的通用钥匙。"}
+     solution:"总份数 = 5 + 7 = 12\n一份 = 960 ÷ 12 = 80\nB = 7 × 80 = $560\nEN: Total parts = 5+7 = 12, so one part = 960/12 = 80; B receives 7 parts = 7x80 = $560.",
+     note:"出题思路：先求'一份的值'，是比例题的通用钥匙。 ｜ EN: Design intent: finding the value of one part first is the universal key to ratio questions."}
    ],
    mcqs:[
     {stem:"Increase 80 by 25%.",options:["100","105","95","20"],answer:0,expl:"80×1.25=100。",topic:"百分比"},
@@ -427,17 +427,17 @@ const TOPICS=[
   {topicZh:"三角比与方位角",topicEn:"Trigonometry & Bearings",
    goals:["熟练直角三角形 SOH-CAH-TOA","掌握正弦定理、余弦定理适用情形","会用方位角(三位数、从北顺时针)解题"],
    concepts:[
-    {t:"SOH-CAH-TOA",en:"Right-angled ratios.",tech:"sin=对/斜, cos=邻/斜, tan=对/邻。求角用 sin⁻¹/cos⁻¹/tan⁻¹。",exam:"先标出已知边相对目标角的位置(对/邻/斜)，再选比。"},
-    {t:"正弦/余弦定理 Sine & Cosine Rule",en:"Non-right triangles.",tech:"余弦定理(SAS求边或SSS求角)：a²=b²+c²−2bc·cosA；正弦定理(已知角与对边)：a/sinA=b/sinB。",exam:"判定：有直角用SOH-CAH-TOA；否则看条件选正弦或余弦定理。"},
-    {t:"方位角 Bearings",en:"3 figures, clockwise from North.",tech:"总是三位数(如045°)，从正北顺时针量。返程方位=去程±180°。",exam:"常与余弦/正弦定理结合，画图标北向线是关键第一步。"}
+    {t:"SOH-CAH-TOA",en:"Right-angled ratios.",tech:"sin=对/斜, cos=邻/斜, tan=对/邻。求角用 sin⁻¹/cos⁻¹/tan⁻¹。 ｜ EN: sin = opposite/hypotenuse, cos = adjacent/hypotenuse, tan = opposite/adjacent. To find an angle use sin⁻¹/cos⁻¹/tan⁻¹.",exam:"先标出已知边相对目标角的位置(对/邻/斜)，再选比。 ｜ EN: First label each known side relative to the target angle (opposite/adjacent/hypotenuse), then choose the ratio."},
+    {t:"正弦/余弦定理 Sine & Cosine Rule",en:"Non-right triangles.",tech:"余弦定理(SAS求边或SSS求角)：a²=b²+c²−2bc·cosA；正弦定理(已知角与对边)：a/sinA=b/sinB。 ｜ EN: Cosine rule (SAS to find a side, or SSS to find an angle): a²=b²+c²−2bc·cosA; sine rule (a known angle and its opposite side): a/sinA=b/sinB.",exam:"判定：有直角用SOH-CAH-TOA；否则看条件选正弦或余弦定理。 ｜ EN: Deciding: if there is a right angle use SOH-CAH-TOA; otherwise choose the sine or cosine rule based on the given information."},
+    {t:"方位角 Bearings",en:"3 figures, clockwise from North.",tech:"总是三位数(如045°)，从正北顺时针量。返程方位=去程±180°。 ｜ EN: Always three figures (e.g. 045°), measured clockwise from north. The back bearing = the outward bearing ± 180°.",exam:"常与余弦/正弦定理结合，画图标北向线是关键第一步。 ｜ EN: Often combined with the cosine/sine rule; drawing the diagram and marking the north line is the crucial first step."}
    ],
    examples:[
     {q:"In right-angled △ABC, angle B = 90°, AB = 5 cm, BC = 12 cm. Find angle A.",
-     solution:"tan A = 对/邻 = BC/AB = 12/5 = 2.4\nA = tan⁻¹(2.4) = 67.4° (1 d.p.)",
-     note:"技巧：相对角A，BC是对边、AB是邻边 → 用 tan。"},
+     solution:"tan A = 对/邻 = BC/AB = 12/5 = 2.4\nA = tan⁻¹(2.4) = 67.4° (1 d.p.)\nEN: Relative to angle A, BC is opposite and AB is adjacent, so tan A = 12/5 = 2.4, giving A = tan⁻¹(2.4) = 67.4° (1 d.p.).",
+     note:"技巧：相对角A，BC是对边、AB是邻边 → 用 tan。 ｜ EN: Tip: relative to angle A, BC is the opposite side and AB is the adjacent side, so use tan."},
     {q:"Town B is 8 km from A on a bearing of 060°. Find how far B is East of A.",
-     solution:"East distance = 8 sin 60° = 8 × 0.866 = 6.93 km",
-     note:"出题思路：方位角转成直角三角形——东向分量用 sinθ(θ从北量)。"}
+     solution:"East distance = 8 sin 60° = 8 × 0.866 = 6.93 km\nEN: The eastward component uses the sine of the angle measured from north: 8 sin60° = 6.93 km.",
+     note:"出题思路：方位角转成直角三角形——东向分量用 sinθ(θ从北量)。 ｜ EN: Design intent: convert the bearing into a right-angled triangle — the eastward component uses sinθ, where θ is measured from north."}
    ],
    mcqs:[
     {stem:"In a right triangle, opposite=3, hypotenuse=5. sinθ =",options:["0.6","0.8","0.75","1.67"],answer:0,expl:"sin=对/斜=3/5=0.6。",topic:"三角比"},
@@ -456,17 +456,17 @@ const TOPICS=[
   {topicZh:"周长、面积与体积",topicEn:"Mensuration",
    goals:["熟记圆、扇形、常见立体的公式","掌握扇形弧长/面积与圆心角关系","会算圆柱/圆锥/球的体积与表面积"],
    concepts:[
-    {t:"圆与扇形 Circle & Sector",en:"Arc & sector.",tech:"圆周长2πr、面积πr²；扇形弧长=(θ/360)·2πr，面积=(θ/360)·πr²。",exam:"θ用度；'perimeter of sector'=弧长+2条半径，别漏半径。"},
-    {t:"立体体积 Volumes",en:"Prism, cylinder, cone, sphere.",tech:"柱体=底面积×高；圆锥=⅓πr²h；球=4/3πr³；球面积=4πr²。",exam:"复合体'先拆分后相加/相减'；注意圆锥的⅓和球的系数。"},
-    {t:"单位换算 Units",en:"Careful with cm/m.",tech:"面积换算 1 m²=10⁴ cm²，体积 1 m³=10⁶ cm³；答案保留题目要求的有效数字。",exam:"π用计算器值，除非题目指定 π=3.14 或 22/7。"}
+    {t:"圆与扇形 Circle & Sector",en:"Arc & sector.",tech:"圆周长2πr、面积πr²；扇形弧长=(θ/360)·2πr，面积=(θ/360)·πr²。 ｜ EN: Circle: circumference 2πr, area πr²; sector: arc length=(θ/360)·2πr, area=(θ/360)·πr².",exam:"θ用度；'perimeter of sector'=弧长+2条半径，别漏半径。 ｜ EN: θ is in degrees; 'perimeter of sector' = arc length + 2 radii, so don't forget the radii."},
+    {t:"立体体积 Volumes",en:"Prism, cylinder, cone, sphere.",tech:"柱体=底面积×高；圆锥=⅓πr²h；球=4/3πr³；球面积=4πr²。 ｜ EN: Prism = base area x height; cone = (1/3)πr²h; sphere = (4/3)πr³; surface area of a sphere = 4πr².",exam:"复合体'先拆分后相加/相减'；注意圆锥的⅓和球的系数。 ｜ EN: For composite solids, split them up first then add or subtract; watch the 1/3 for the cone and the coefficient for the sphere."},
+    {t:"单位换算 Units",en:"Careful with cm/m.",tech:"面积换算 1 m²=10⁴ cm²，体积 1 m³=10⁶ cm³；答案保留题目要求的有效数字。 ｜ EN: Area conversion 1 m²=10⁴ cm², volume 1 m³=10⁶ cm³; round the answer to the significant figures the question asks for.",exam:"π用计算器值，除非题目指定 π=3.14 或 22/7。 ｜ EN: Use the calculator value of π unless the question specifies π=3.14 or 22/7."}
    ],
    examples:[
     {q:"A sector has radius 10 cm and angle 72°. Find its area (π = 3.142).",
-     solution:"面积 = (72/360) × π × 10²\n     = 0.2 × 3.142 × 100\n     = 62.84 cm²",
-     note:"技巧：72/360=0.2，先约分再乘更快。"},
+     solution:"面积 = (72/360) × π × 10²\n     = 0.2 × 3.142 × 100\n     = 62.84 cm²\nEN: The sector area is the fraction 72/360 = 0.2 of the full circle: 0.2 x π x 10² = 62.84 cm².",
+     note:"技巧：72/360=0.2，先约分再乘更快。 ｜ EN: Tip: 72/360=0.2; simplify the fraction first, then multiply — it is faster."},
     {q:"Find the volume of a cone with radius 6 cm and height 14 cm. (π=22/7)",
-     solution:"V = ⅓ π r² h = ⅓ × 22/7 × 6² × 14\n  = ⅓ × 22/7 × 36 × 14\n  = ⅓ × 22 × 36 × 2 = 528 cm³",
-     note:"出题思路：给 π=22/7 时数字能约成整数，暗示用约分。"}
+     solution:"V = ⅓ π r² h = ⅓ × 22/7 × 6² × 14\n  = ⅓ × 22/7 × 36 × 14\n  = ⅓ × 22 × 36 × 2 = 528 cm³\nEN: Use the cone volume formula (1/3)πr²h; with π=22/7 the 7 cancels the 14 to 2, giving (1/3)x22x36x2 = 528 cm³.",
+     note:"出题思路：给 π=22/7 时数字能约成整数，暗示用约分。 ｜ EN: Design intent: when π=22/7 is given, the numbers cancel to whole numbers, hinting you should cancel."}
    ],
    mcqs:[
     {stem:"Area of a circle radius 7 cm (π=22/7):",options:["154 cm²","44 cm²","49 cm²","22 cm²"],answer:0,expl:"22/7×49=154。",topic:"圆面积"},
@@ -524,17 +524,17 @@ const MORE_TOPICS=[
   {topicZh:"坐标几何",topicEn:"Coordinate Geometry",
    goals:["熟练求梯度、两点距离、中点","会由点与梯度写出直线方程 y=mx+c","掌握平行(梯度相等)与垂直(m₁·m₂=−1)"],
    concepts:[
-    {t:"梯度与距离 Gradient & Length",en:"From two points.",tech:"梯度 m=(y₂−y₁)/(x₂−x₁)；距离=√[(x₂−x₁)²+(y₂−y₁)²]；中点=((x₁+x₂)/2,(y₁+y₂)/2)。",exam:"距离常要求 surd form(如 4√5)，别急着按小数——先化简根号。"},
-    {t:"直线方程 Equation of a Line",en:"y = mx + c.",tech:"先求 m，再代一个已知点解出 c；或用 y−y₁=m(x−x₁)。",exam:"'find the equation' 必须写成 y=… 或 ax+by=c 的完整形式，只写梯度会失分。"},
-    {t:"平行与垂直 Parallel & Perp.",en:"Slopes relate.",tech:"平行：梯度相等；垂直：两梯度乘积 = −1(互为负倒数)。",exam:"高频：给一条线求过某点且垂直/平行的线——先由关系定 m，再代点。"}
+    {t:"梯度与距离 Gradient & Length",en:"From two points.",tech:"梯度 m=(y₂−y₁)/(x₂−x₁)；距离=√[(x₂−x₁)²+(y₂−y₁)²]；中点=((x₁+x₂)/2,(y₁+y₂)/2)。 ｜ EN: Gradient m=(y₂−y₁)/(x₂−x₁); distance=√[(x₂−x₁)²+(y₂−y₁)²]; midpoint=((x₁+x₂)/2,(y₁+y₂)/2).",exam:"距离常要求 surd form(如 4√5)，别急着按小数——先化简根号。 ｜ EN: Distance is often required in surd form (e.g. 4√5); don't rush to a decimal — simplify the surd first."},
+    {t:"直线方程 Equation of a Line",en:"y = mx + c.",tech:"先求 m，再代一个已知点解出 c；或用 y−y₁=m(x−x₁)。 ｜ EN: First find m, then substitute one known point to solve for c; or use y−y₁=m(x−x₁).",exam:"'find the equation' 必须写成 y=… 或 ax+by=c 的完整形式，只写梯度会失分。 ｜ EN: 'find the equation' must be written in the full form y=... or ax+by=c; writing only the gradient loses marks."},
+    {t:"平行与垂直 Parallel & Perp.",en:"Slopes relate.",tech:"平行：梯度相等；垂直：两梯度乘积 = −1(互为负倒数)。 ｜ EN: Parallel: equal gradients; perpendicular: the product of the two gradients = −1 (they are negative reciprocals).",exam:"高频：给一条线求过某点且垂直/平行的线——先由关系定 m，再代点。 ｜ EN: Frequent: given a line, find the line through a point that is perpendicular/parallel — fix m from the relationship first, then substitute the point."}
    ],
    examples:[
     {q:"A(1, 2) and B(5, 10). Find (i) the gradient of AB, (ii) the length of AB in surd form.",
-     solution:"(i) m = (10−2)/(5−1) = 8/4 = 2\n(ii) AB = √[(5−1)²+(10−2)²] = √(16+64) = √80 = 4√5",
-     note:"技巧：√80 = √(16×4×...) → 提出完全平方因子 16 得 4√5。"},
+     solution:"(i) m = (10−2)/(5−1) = 8/4 = 2\n(ii) AB = √[(5−1)²+(10−2)²] = √(16+64) = √80 = 4√5\nEN: (i) gradient = (10−2)/(5−1) = 2. (ii) distance = √(16+64) = √80, then take out the square factor 16 to write it as 4√5.",
+     note:"技巧：√80 = √(16×4×...) → 提出完全平方因子 16 得 4√5。 ｜ EN: Tip: √80 = √(16x5), so take out the perfect-square factor 16 to get 4√5."},
     {q:"Find the equation of the line through (0, −3) with gradient 2.",
-     solution:"y = mx + c，m=2，过 (0,−3) → c=−3\ny = 2x − 3",
-     note:"出题思路：过 y 轴上的点时 c 直接读出，最省步骤。"}
+     solution:"y = mx + c，m=2，过 (0,−3) → c=−3\ny = 2x − 3\nEN: Use y=mx+c with m=2; since the line passes through (0,−3), c=−3, so y=2x−3.",
+     note:"出题思路：过 y 轴上的点时 c 直接读出，最省步骤。 ｜ EN: Design intent: when the line passes through a point on the y-axis, c can be read off directly — the shortest route."}
    ],
    mcqs:[
     {stem:"Gradient of the line through (0,1) and (2,5) is:",options:["2","3","0.5","−2"],answer:0,expl:"(5−1)/(2−0)=2。",topic:"梯度"},
@@ -553,17 +553,17 @@ const MORE_TOPICS=[
   {topicZh:"函数与二次图像",topicEn:"Functions & Quadratic Graphs",
    goals:["会读二次图像的开口、对称轴、顶点、截距","掌握由 y=0 求根、配方求顶点","理解用图像交点求方程解"],
    concepts:[
-    {t:"二次图像特征 Parabola Features",en:"Shape from a,b,c.",tech:"y=ax²+bx+c：a>0 开口向上(有最小值)，a<0 向下(最大值)；对称轴 x=−b/2a；y 截距 = c；根 = 与 x 轴交点。",exam:"'turning point / minimum value' 先求对称轴 x，再代回求 y。"},
-    {t:"配方 Completing the Square",en:"Vertex form.",tech:"y=a(x−h)²+k，顶点 (h,k)。配方能直接读最值与对称轴。",exam:"'minimum value of y' 即 k；'value of x when minimum' 即 h。"},
-    {t:"图解方程 Graphical Solutions",en:"Read intersections.",tech:"曲线与直线交点的 x 坐标 = 对应方程的解；画一条水平/斜线来解新方程。",exam:"'use your graph to solve …' 要先把目标方程整理成 曲线=某直线 的形式。"}
+    {t:"二次图像特征 Parabola Features",en:"Shape from a,b,c.",tech:"y=ax²+bx+c：a>0 开口向上(有最小值)，a<0 向下(最大值)；对称轴 x=−b/2a；y 截距 = c；根 = 与 x 轴交点。 ｜ EN: y=ax²+bx+c: a>0 opens upward (has a minimum), a<0 opens downward (a maximum); line of symmetry x=−b/2a; y-intercept = c; roots = where it crosses the x-axis.",exam:"'turning point / minimum value' 先求对称轴 x，再代回求 y。 ｜ EN: 'turning point / minimum value': first find the line of symmetry x, then substitute back to find y."},
+    {t:"配方 Completing the Square",en:"Vertex form.",tech:"y=a(x−h)²+k，顶点 (h,k)。配方能直接读最值与对称轴。 ｜ EN: y=a(x−h)²+k, vertex (h,k). Completing the square lets you read the max/min and the line of symmetry directly.",exam:"'minimum value of y' 即 k；'value of x when minimum' 即 h。 ｜ EN: 'minimum value of y' is k; 'value of x when minimum' is h."},
+    {t:"图解方程 Graphical Solutions",en:"Read intersections.",tech:"曲线与直线交点的 x 坐标 = 对应方程的解；画一条水平/斜线来解新方程。 ｜ EN: The x-coordinates where the curve meets a line = the solutions of the corresponding equation; draw a horizontal or sloped line to solve a new equation.",exam:"'use your graph to solve …' 要先把目标方程整理成 曲线=某直线 的形式。 ｜ EN: 'use your graph to solve ...' — first rearrange the target equation into the form curve = some straight line."}
    ],
    examples:[
     {q:"For y = x² − 4x + 3, find the roots and the turning point.",
-     solution:"因式分解：(x−1)(x−3)=0 → 根 x=1, x=3\n对称轴 x = (1+3)/2 = 2；代回 y = 4−8+3 = −1\n顶点 (2, −1)，最小值 −1",
-     note:"技巧：有两根时对称轴 = 两根平均，比 −b/2a 更快。"},
+     solution:"因式分解：(x−1)(x−3)=0 → 根 x=1, x=3\n对称轴 x = (1+3)/2 = 2；代回 y = 4−8+3 = −1\n顶点 (2, −1)，最小值 −1\nEN: Factorise to (x−1)(x−3)=0 giving roots x=1 and x=3; the line of symmetry is the mean of the roots, x=2; substitute back to get y=−1, so the turning point is (2,−1) with minimum value −1.",
+     note:"技巧：有两根时对称轴 = 两根平均，比 −b/2a 更快。 ｜ EN: Tip: when there are two roots, the line of symmetry is their average, which is faster than −b/2a."},
     {q:"Express y = x² − 6x + 5 in the form (x−h)² + k and state the minimum value.",
-     solution:"x²−6x+5 = (x−3)² − 9 + 5 = (x−3)² − 4\n顶点 (3, −4)，最小值 = −4",
-     note:"出题思路：配方 = 取 b 的一半平方 (−3)²=9 补进再减去。"}
+     solution:"x²−6x+5 = (x−3)² − 9 + 5 = (x−3)² − 4\n顶点 (3, −4)，最小值 = −4\nEN: Complete the square to (x−3)²−4; the vertex is (3,−4) and the minimum value is −4.",
+     note:"出题思路：配方 = 取 b 的一半平方 (−3)²=9 补进再减去。 ｜ EN: Design intent: completing the square means take half of b, square it ((−3)²=9), add it in then subtract it."}
    ],
    mcqs:[
     {stem:"The roots of y=(x−2)(x+5) are:",options:["2 and −5","−2 and 5","2 and 5","−2 and −5"],answer:0,expl:"令 y=0：x=2 或 x=−5。",topic:"二次根"},
@@ -582,17 +582,17 @@ const MORE_TOPICS=[
   {topicZh:"数列与规律",topicEn:"Number Sequences",
    goals:["会由公差求线性数列第 n 项","会用二阶差判定二次数列","能反解'第几项等于某值'"],
    concepts:[
-    {t:"线性数列 Linear Sequences",en:"Common difference.",tech:"第 n 项 = dn + (首项−d)，d 为公差。如 5,8,11 → d=3，nth=3n+2。",exam:"先算公差 d，nth 的系数就是 d；常数用 n=1 校准。"},
-    {t:"二次数列 Quadratic Sequences",en:"Second difference.",tech:"一阶差不恒定、二阶差恒定 = 2a，则 nth 含 an²。先定 a，再减去 an² 求剩余线性部分。",exam:"识别信号：差值本身在等差递增(如 4,6,8)。"},
-    {t:"反解项数 Which Term",en:"Solve for n.",tech:"令 nth 表达式 = 目标值，解出 n；n 必须为正整数，否则该值不在数列中。",exam:"'is 100 a term?' 解 n 若非整数则答 No。"}
+    {t:"线性数列 Linear Sequences",en:"Common difference.",tech:"第 n 项 = dn + (首项−d)，d 为公差。如 5,8,11 → d=3，nth=3n+2。 ｜ EN: nth term = dn + (first term − d), where d is the common difference. e.g. 5,8,11 gives d=3, nth=3n+2.",exam:"先算公差 d，nth 的系数就是 d；常数用 n=1 校准。 ｜ EN: First find the common difference d; the coefficient of n in the nth term is d; use n=1 to calibrate the constant."},
+    {t:"二次数列 Quadratic Sequences",en:"Second difference.",tech:"一阶差不恒定、二阶差恒定 = 2a，则 nth 含 an²。先定 a，再减去 an² 求剩余线性部分。 ｜ EN: If the first differences are not constant but the second differences are constant = 2a, then the nth term contains an². Fix a first, then subtract an² to find the remaining linear part.",exam:"识别信号：差值本身在等差递增(如 4,6,8)。 ｜ EN: Recognition signal: the differences themselves increase in an arithmetic pattern (e.g. 4,6,8)."},
+    {t:"反解项数 Which Term",en:"Solve for n.",tech:"令 nth 表达式 = 目标值，解出 n；n 必须为正整数，否则该值不在数列中。 ｜ EN: Set the nth-term expression = the target value and solve for n; n must be a positive whole number, otherwise the value is not in the sequence.",exam:"'is 100 a term?' 解 n 若非整数则答 No。 ｜ EN: 'is 100 a term?' Solve for n; if n is not a whole number, answer No."}
    ],
    examples:[
     {q:"Find the nth term of 5, 8, 11, 14, … and hence the 20th term.",
-     solution:"公差 d=3 → nth = 3n + 2 (n=1 校验:3+2=5 ✓)\n第20项 = 3(20)+2 = 62",
-     note:"技巧：nth 系数=公差3；常数=首项−公差=5−3=2。"},
+     solution:"公差 d=3 → nth = 3n + 2 (n=1 校验:3+2=5 ✓)\n第20项 = 3(20)+2 = 62\nEN: The common difference is d=3, so the nth term = 3n+2 (check n=1: 3+2=5); the 20th term = 3(20)+2 = 62.",
+     note:"技巧：nth 系数=公差3；常数=首项−公差=5−3=2。 ｜ EN: Tip: the coefficient in the nth term = the common difference 3; the constant = first term − common difference = 5−3 = 2."},
     {q:"Find the nth term of 2, 6, 12, 20, …",
-     solution:"一阶差 4,6,8；二阶差 2 → 含 n²(a=1)\n减去 n²：2−1=1,6−4=2,12−9=3 → 剩 n\nnth = n² + n = n(n+1)",
-     note:"出题思路：二阶差=2 提示 a=1；逐项相减找线性余项。"}
+     solution:"一阶差 4,6,8；二阶差 2 → 含 n²(a=1)\n减去 n²：2−1=1,6−4=2,12−9=3 → 剩 n\nnth = n² + n = n(n+1)\nEN: The first differences 4,6,8 give a constant second difference 2, so the nth term contains n² with a=1; subtracting n² from each term leaves 1,2,3, that is n, so nth = n²+n = n(n+1).",
+     note:"出题思路：二阶差=2 提示 a=1；逐项相减找线性余项。 ｜ EN: Design intent: a second difference of 2 signals a=1; subtract term by term to find the remaining linear part."}
    ],
    mcqs:[
     {stem:"nth term of 7, 11, 15, 19, … is:",options:["4n+3","4n−1","3n+4","4n"],answer:0,expl:"d=4，4n+3(n=1→7)。",topic:"线性数列"},
@@ -611,17 +611,17 @@ const MORE_TOPICS=[
   {topicZh:"正比与反比",topicEn:"Direct & Inverse Proportion",
    goals:["会由条件求比例常数 k","区分正比 y=kx 与反比 y=k/x","处理 y∝x²、y∝√x 等变式"],
    concepts:[
-    {t:"正比 Direct",en:"y = kx.",tech:"y∝x → y=kx；y∝x² → y=kx²。先代已知求 k，再用 k 求未知。",exam:"'y is proportional to the square of x' = y=kx²，别漏平方。"},
-    {t:"反比 Inverse",en:"y = k/x.",tech:"y∝1/x → y=k/x；y∝1/x² → y=k/x²。x 变 t 倍，y 变 1/t 倍。",exam:"关键词 inversely / varies inversely → 分母含 x。"},
-    {t:"三步法 3-Step Method",en:"Set → find k → use.",tech:"①写关系式 ②代一组数据求 k ③代目标求答。",exam:"务必写出关系式与 k 值，方法分靠这两步。"}
+    {t:"正比 Direct",en:"y = kx.",tech:"y∝x → y=kx；y∝x² → y=kx²。先代已知求 k，再用 k 求未知。 ｜ EN: y proportional to x gives y=kx; y proportional to x² gives y=kx². Substitute the known values to find k first, then use k to find the unknown.",exam:"'y is proportional to the square of x' = y=kx²，别漏平方。 ｜ EN: 'y is proportional to the square of x' means y=kx²; don't miss the square."},
+    {t:"反比 Inverse",en:"y = k/x.",tech:"y∝1/x → y=k/x；y∝1/x² → y=k/x²。x 变 t 倍，y 变 1/t 倍。 ｜ EN: y proportional to 1/x gives y=k/x; y proportional to 1/x² gives y=k/x². If x becomes t times larger, y becomes 1/t times.",exam:"关键词 inversely / varies inversely → 分母含 x。 ｜ EN: Keywords inversely / varies inversely mean x is in the denominator."},
+    {t:"三步法 3-Step Method",en:"Set → find k → use.",tech:"①写关系式 ②代一组数据求 k ③代目标求答。 ｜ EN: (1) write the relationship (2) substitute one set of data to find k (3) substitute the target to get the answer.",exam:"务必写出关系式与 k 值，方法分靠这两步。 ｜ EN: Always write out the relationship and the value of k; the method marks depend on these two steps."}
    ],
    examples:[
     {q:"y is directly proportional to x². When x=3, y=18. Find y when x=5.",
-     solution:"y=kx²；18=k(9)→k=2\ny=2x²，x=5 → y=2(25)=50",
-     note:"技巧：先求 k=2 是全题关键，之后代入即得。"},
+     solution:"y=kx²；18=k(9)→k=2\ny=2x²，x=5 → y=2(25)=50\nEN: Write y=kx²; substituting x=3, y=18 gives k=2, so y=2x²; then x=5 gives y=2(25)=50.",
+     note:"技巧：先求 k=2 是全题关键，之后代入即得。 ｜ EN: Tip: finding k=2 first is the key to the whole question; after that just substitute."},
     {q:"y varies inversely as x. When x=6, y=4. Find x when y=8.",
-     solution:"y=k/x；4=k/6→k=24\n8=24/x → x=3",
-     note:"出题思路：反比 xy=k 恒定=24，直接用 xy 守恒也可。"}
+     solution:"y=k/x；4=k/6→k=24\n8=24/x → x=3\nEN: Write y=k/x; substituting x=6, y=4 gives k=24; then setting y=8 gives 8=24/x, so x=3.",
+     note:"出题思路：反比 xy=k 恒定=24，直接用 xy 守恒也可。 ｜ EN: Design intent: for inverse proportion xy=k is constant (=24), so you could also just use the fact that xy is conserved."}
    ],
    mcqs:[
     {stem:"If y∝x and y=10 when x=2, then y when x=5 is:",options:["25","20","12.5","50"],answer:0,expl:"k=5→y=5×5=25。",topic:"正比"},
@@ -640,17 +640,17 @@ const MORE_TOPICS=[
   {topicZh:"集合与文氏图",topicEn:"Sets & Venn Diagrams",
    goals:["熟悉 ∈、⊂、∪、∩、A′ 等记号","会画/读文氏图分区","用 n(A∪B)=n(A)+n(B)−n(A∩B) 解题"],
    concepts:[
-    {t:"集合记号 Notation",en:"Symbols.",tech:"∪ 并、∩ 交、A′ 补(不在A)、⊂ 子集、ξ 全集、n(A) 元素个数、∅ 空集。",exam:"看清是 ∪(或/合并) 还是 ∩(且/公共)——最易看错。"},
-    {t:"文氏图分区 Venn Regions",en:"Only-regions.",tech:"n(A only)=n(A)−n(A∩B)；neither=n(ξ)−n(A∪B)。填图从中间 n(A∩B) 往外填。",exam:"'only'/'both'/'neither' 对应不同分区，先在图上标交集。"},
-    {t:"容斥公式 Inclusion-Exclusion",en:"Union formula.",tech:"n(A∪B)=n(A)+n(B)−n(A∩B)。已知三个量可求第四个。",exam:"应用题(选课/运动)几乎都用此式，先设未知为交集。"}
+    {t:"集合记号 Notation",en:"Symbols.",tech:"∪ 并、∩ 交、A′ 补(不在A)、⊂ 子集、ξ 全集、n(A) 元素个数、∅ 空集。 ｜ EN: ∪ union, ∩ intersection, A' complement (not in A), ⊂ subset, ξ universal set, n(A) number of elements, ∅ empty set.",exam:"看清是 ∪(或/合并) 还是 ∩(且/公共)——最易看错。 ｜ EN: Check carefully whether it is ∪ (or/combine) or ∩ (and/common) — the easiest thing to misread."},
+    {t:"文氏图分区 Venn Regions",en:"Only-regions.",tech:"n(A only)=n(A)−n(A∩B)；neither=n(ξ)−n(A∪B)。填图从中间 n(A∩B) 往外填。 ｜ EN: n(A only)=n(A)−n(A∩B); neither=n(ξ)−n(A∪B). Fill the diagram outward, starting from the middle n(A∩B).",exam:"'only'/'both'/'neither' 对应不同分区，先在图上标交集。 ｜ EN: 'only'/'both'/'neither' correspond to different regions; mark the intersection on the diagram first."},
+    {t:"容斥公式 Inclusion-Exclusion",en:"Union formula.",tech:"n(A∪B)=n(A)+n(B)−n(A∩B)。已知三个量可求第四个。 ｜ EN: n(A∪B)=n(A)+n(B)−n(A∩B). Knowing any three of these lets you find the fourth.",exam:"应用题(选课/运动)几乎都用此式，先设未知为交集。 ｜ EN: Word problems (subject choices / sports) almost always use this formula; let the unknown be the intersection first."}
    ],
    examples:[
     {q:"ξ={1,…,10}, A={even numbers}, B={multiples of 3}. List A∩B and A∪B.",
-     solution:"A={2,4,6,8,10}, B={3,6,9}\nA∩B={6}\nA∪B={2,3,4,6,8,9,10}",
-     note:"技巧：交集找公共元素，并集合并去重。"},
+     solution:"A={2,4,6,8,10}, B={3,6,9}\nA∩B={6}\nA∪B={2,3,4,6,8,9,10}\nEN: List A (evens) and B (multiples of 3); the intersection is the common element {6}, and the union combines all elements without repeats.",
+     note:"技巧：交集找公共元素，并集合并去重。 ｜ EN: Tip: the intersection takes the common elements; the union combines them and removes duplicates."},
     {q:"In a class of 30, 18 study Chemistry, 15 study Biology, 5 study both. How many study neither?",
-     solution:"n(C∪B)=18+15−5=28\nneither=30−28=2",
-     note:"出题思路：先求并集再用全集减。"}
+     solution:"n(C∪B)=18+15−5=28\nneither=30−28=2\nEN: Use the union formula: n(C∪B)=18+15−5=28; those studying neither = 30−28=2.",
+     note:"出题思路：先求并集再用全集减。 ｜ EN: Design intent: find the union first, then subtract it from the universal set."}
    ],
    mcqs:[
     {stem:"If A={1,2,3}, B={2,3,4}, then A∩B =",options:["{2,3}","{1,2,3,4}","{1,4}","{2,3,4}"],answer:0,expl:"公共元素 2,3。",topic:"交集"},
@@ -669,17 +669,17 @@ const MORE_TOPICS=[
   {topicZh:"角度、多边形与平行线",topicEn:"Angles, Polygons & Parallel Lines",
    goals:["熟练直线/一点/对顶角关系","掌握平行线的同位、内错、同旁内角","会用多边形内外角公式"],
    concepts:[
-    {t:"基本角 Basic Angles",en:"Line & point.",tech:"直线上角和=180°；绕一点=360°；对顶角相等。",exam:"给代数式角时，把和列成方程解 x。"},
-    {t:"平行线 Parallel Lines",en:"F, Z, C angles.",tech:"同位角(F)相等；内错角(Z)相等；同旁内角(C/co-interior)和=180°。",exam:"务必写明理由(corr./alt./co-int. angles)才得推理分。"},
-    {t:"多边形 Polygons",en:"Interior & exterior.",tech:"内角和=(n−2)×180°；外角和=360°；正 n 边形每个外角=360/n，内角=180−外角。",exam:"给正多边形内角/外角反求 n：n=360/外角。"}
+    {t:"基本角 Basic Angles",en:"Line & point.",tech:"直线上角和=180°；绕一点=360°；对顶角相等。 ｜ EN: Angles on a straight line sum to 180°; angles around a point sum to 360°; vertically opposite angles are equal.",exam:"给代数式角时，把和列成方程解 x。 ｜ EN: When the angles are given as algebraic expressions, form an equation from their sum and solve for x."},
+    {t:"平行线 Parallel Lines",en:"F, Z, C angles.",tech:"同位角(F)相等；内错角(Z)相等；同旁内角(C/co-interior)和=180°。 ｜ EN: Corresponding angles (F) are equal; alternate angles (Z) are equal; co-interior angles (C) sum to 180°.",exam:"务必写明理由(corr./alt./co-int. angles)才得推理分。 ｜ EN: Always state the reason (corr./alt./co-int. angles) to earn the reasoning marks."},
+    {t:"多边形 Polygons",en:"Interior & exterior.",tech:"内角和=(n−2)×180°；外角和=360°；正 n 边形每个外角=360/n，内角=180−外角。 ｜ EN: Sum of interior angles=(n−2)x180°; sum of exterior angles=360°; for a regular n-gon each exterior angle=360/n and each interior angle=180−exterior.",exam:"给正多边形内角/外角反求 n：n=360/外角。 ｜ EN: Given the interior/exterior angle of a regular polygon, find n in reverse: n=360/exterior angle."}
    ],
    examples:[
     {q:"A regular polygon has an exterior angle of 24°. How many sides has it?",
-     solution:"n = 360 / 24 = 15\n共 15 条边",
-     note:"技巧：正多边形先用外角 360/外角 求 n 最快。"},
+     solution:"n = 360 / 24 = 15\n共 15 条边\nEN: For a regular polygon, n = 360 / exterior angle = 360/24 = 15, so it has 15 sides.",
+     note:"技巧：正多边形先用外角 360/外角 求 n 最快。 ｜ EN: Tip: for a regular polygon, using 360/exterior angle to find n is the fastest."},
     {q:"Find the interior angle sum of a hexagon, and each interior angle if regular.",
-     solution:"内角和=(6−2)×180°=720°\n正六边形每个=720/6=120°",
-     note:"出题思路：先算和，再除以 n 得单个内角。"}
+     solution:"内角和=(6−2)×180°=720°\n正六边形每个=720/6=120°\nEN: Sum of interior angles=(6−2)x180°=720°; for a regular hexagon each interior angle=720/6=120°.",
+     note:"出题思路：先算和，再除以 n 得单个内角。 ｜ EN: Design intent: work out the sum first, then divide by n to get each interior angle."}
    ],
    mcqs:[
     {stem:"Sum of interior angles of a pentagon:",options:["540°","360°","720°","450°"],answer:0,expl:"(5−2)×180=540。",topic:"多边形"},
@@ -698,17 +698,17 @@ const MORE_TOPICS=[
   {topicZh:"全等与相似",topicEn:"Congruence & Similarity",
    goals:["掌握全等判定 SSS/SAS/ASA/RHS","用相似求未知边(对应边成比例)","会用面积比 k²、体积比 k³"],
    concepts:[
-    {t:"全等 Congruence",en:"Tests.",tech:"SSS、SAS、ASA、RHS 四种判定；全等图形对应边角相等。",exam:"证明题要写出用哪条判定，并逐条列对应相等的边/角。"},
-    {t:"相似 Similarity",en:"Proportional sides.",tech:"对应角相等 → 相似；对应边成同一比例 k(scale factor)。未知边=已知边×k。",exam:"先配对对应边(最长对最长)，再列比例式。"},
-    {t:"面积体积比 Area & Volume Ratio",en:"k², k³.",tech:"长度比 k → 面积比 k² → 体积比 k³。反向：体积比开立方得长度比。",exam:"相似容器/固体题必考此关系，注意平方与立方别混。"}
+    {t:"全等 Congruence",en:"Tests.",tech:"SSS、SAS、ASA、RHS 四种判定；全等图形对应边角相等。 ｜ EN: The four congruence tests SSS, SAS, ASA, RHS; congruent figures have equal corresponding sides and angles.",exam:"证明题要写出用哪条判定，并逐条列对应相等的边/角。 ｜ EN: In a proof, state which test you use and list each pair of equal corresponding sides/angles."},
+    {t:"相似 Similarity",en:"Proportional sides.",tech:"对应角相等 → 相似；对应边成同一比例 k(scale factor)。未知边=已知边×k。 ｜ EN: Equal corresponding angles gives similar; corresponding sides are in the same ratio k (the scale factor). Unknown side = known side x k.",exam:"先配对对应边(最长对最长)，再列比例式。 ｜ EN: First pair up corresponding sides (longest with longest), then write the ratio equation."},
+    {t:"面积体积比 Area & Volume Ratio",en:"k², k³.",tech:"长度比 k → 面积比 k² → 体积比 k³。反向：体积比开立方得长度比。 ｜ EN: Length ratio k gives area ratio k² gives volume ratio k³. In reverse: cube-root the volume ratio to get the length ratio.",exam:"相似容器/固体题必考此关系，注意平方与立方别混。 ｜ EN: Similar container/solid questions always test this relationship; be careful not to mix up the square and the cube."}
    ],
    examples:[
     {q:"Triangles are similar with side ratio 2 : 3. The smaller has area 20 cm². Find the larger area.",
-     solution:"面积比=(3/2)²=9/4\n大面积=20×9/4=45 cm²",
-     note:"技巧：面积用长度比的平方。"},
+     solution:"面积比=(3/2)²=9/4\n大面积=20×9/4=45 cm²\nEN: The area ratio is the square of the side ratio, (3/2)²=9/4, so the larger area = 20x9/4 = 45 cm².",
+     note:"技巧：面积用长度比的平方。 ｜ EN: Tip: area uses the square of the length ratio."},
     {q:"Two similar solids have volumes 8 cm³ and 27 cm³. Find the ratio of their surface areas.",
-     solution:"体积比 8:27 → 长度比 2:3(开立方)\n面积比=2²:3²=4:9",
-     note:"出题思路：体积比开立方得长度比，再平方得面积比。"}
+     solution:"体积比 8:27 → 长度比 2:3(开立方)\n面积比=2²:3²=4:9\nEN: Cube-root the volume ratio 8:27 to get the length ratio 2:3, then square it for the area ratio 2²:3²=4:9.",
+     note:"出题思路：体积比开立方得长度比，再平方得面积比。 ｜ EN: Design intent: cube-root the volume ratio to get the length ratio, then square it to get the area ratio."}
    ],
    mcqs:[
     {stem:"Similar triangles have side ratio 3:5. Their area ratio is:",options:["9:25","3:5","6:10","27:125"],answer:0,expl:"(3:5)²=9:25。",topic:"相似"},
@@ -727,17 +727,17 @@ const MORE_TOPICS=[
   {topicZh:"圆的性质",topicEn:"Circle Properties",
    goals:["圆心角=2×圆周角、半圆角=90°","同弧圆周角相等、圆内接四边形对角互补","切线⊥半径、切线长相等"],
    concepts:[
-    {t:"圆周角定理 Angle Theorems",en:"Centre = 2×circumference.",tech:"同弧：圆心角=2×圆周角；半圆上圆周角=90°；同弧(同段)圆周角相等。",exam:"看清两角是否对同一段弧——这是用定理的前提。"},
-    {t:"圆内接四边形 Cyclic Quadrilateral",en:"Opposite sum 180.",tech:"圆内接四边形对角互补(和=180°)。",exam:"'ABCD is a cyclic quadrilateral' 是用此定理的信号词。"},
-    {t:"切线 Tangents",en:"Perp. to radius.",tech:"切线⊥过切点的半径(90°)；从圆外一点到圆的两条切线长相等。",exam:"切线题先在切点画半径造出直角三角形。"}
+    {t:"圆周角定理 Angle Theorems",en:"Centre = 2×circumference.",tech:"同弧：圆心角=2×圆周角；半圆上圆周角=90°；同弧(同段)圆周角相等。 ｜ EN: Same arc: the angle at the centre = 2 x the angle at the circumference; the angle in a semicircle = 90°; angles in the same segment are equal.",exam:"看清两角是否对同一段弧——这是用定理的前提。 ｜ EN: Check whether the two angles stand on the same arc — this is the precondition for using the theorem."},
+    {t:"圆内接四边形 Cyclic Quadrilateral",en:"Opposite sum 180.",tech:"圆内接四边形对角互补(和=180°)。 ｜ EN: Opposite angles of a cyclic quadrilateral are supplementary (sum = 180°).",exam:"'ABCD is a cyclic quadrilateral' 是用此定理的信号词。 ｜ EN: 'ABCD is a cyclic quadrilateral' is the signal phrase for using this theorem."},
+    {t:"切线 Tangents",en:"Perp. to radius.",tech:"切线⊥过切点的半径(90°)；从圆外一点到圆的两条切线长相等。 ｜ EN: A tangent is perpendicular to the radius at the point of contact (90°); the two tangents from an external point to a circle are equal in length.",exam:"切线题先在切点画半径造出直角三角形。 ｜ EN: For tangent questions, first draw the radius at the point of contact to create a right-angled triangle."}
    ],
    examples:[
     {q:"O is the centre. The angle at the centre AOC = 130°. Find the angle ABC at the circumference (B on the major arc).",
-     solution:"圆周角 = ½ × 圆心角\nangle ABC = ½ × 130° = 65°",
-     note:"技巧：同弧 AC，圆周角是圆心角的一半。"},
+     solution:"圆周角 = ½ × 圆心角\nangle ABC = ½ × 130° = 65°\nEN: The angle at the circumference is half the angle at the centre on the same arc, so angle ABC = (1/2) x 130° = 65°.",
+     note:"技巧：同弧 AC，圆周角是圆心角的一半。 ｜ EN: Tip: on the same arc AC, the angle at the circumference is half the angle at the centre."},
     {q:"PT is a tangent at T, O the centre. Angle OPT = 32°. Find angle POT.",
-     solution:"切线⊥半径 → angle OTP = 90°\n△OPT：angle POT = 180° − 90° − 32° = 58°",
-     note:"出题思路：切点处半径造直角，再用三角形内角和。"}
+     solution:"切线⊥半径 → angle OTP = 90°\n△OPT：angle POT = 180° − 90° − 32° = 58°\nEN: The tangent is perpendicular to the radius, so angle OTP=90°; in triangle OPT the angles sum to 180°, giving angle POT = 180°−90°−32° = 58°.",
+     note:"出题思路：切点处半径造直角，再用三角形内角和。 ｜ EN: Design intent: the radius at the point of contact creates a right angle, then use the angle sum of the triangle."}
    ],
    mcqs:[
     {stem:"The angle in a semicircle is:",options:["90°","180°","45°","60°"],answer:0,expl:"直径所对圆周角=90°。",topic:"半圆角"},
@@ -756,17 +756,17 @@ const MORE_TOPICS=[
   {topicZh:"向量(二维)",topicEn:"Vectors in Two Dimensions",
    goals:["会用列向量表示与运算","求模长 |v|=√(a²+b²)","由位置向量求 AB=OB−OA"],
    concepts:[
-    {t:"列向量运算 Column Vectors",en:"Add, subtract, scale.",tech:"逐分量相加减；k(a,b)=(ka,kb)。方向相反取负。",exam:"注意上/下分量分别运算，别错位。"},
-    {t:"模长 Magnitude",en:"Length.",tech:"|(a,b)| = √(a²+b²)。",exam:"结果常留 surd 或 3 s.f.；负号平方后消去。"},
-    {t:"位置与位移向量 Position & Displacement",en:"AB = OB − OA.",tech:"AB = 终点 − 起点 = OB − OA；平行向量互为标量倍。",exam:"'AB' 方向从 A 到 B，一定是 OB−OA,顺序别反。"}
+    {t:"列向量运算 Column Vectors",en:"Add, subtract, scale.",tech:"逐分量相加减；k(a,b)=(ka,kb)。方向相反取负。 ｜ EN: Add or subtract component by component; k(a,b)=(ka,kb). The opposite direction is the negative.",exam:"注意上/下分量分别运算，别错位。 ｜ EN: Work the top and bottom components separately and don't misalign them."},
+    {t:"模长 Magnitude",en:"Length.",tech:"|(a,b)| = √(a²+b²)。 ｜ EN: |(a,b)| = √(a²+b²).",exam:"结果常留 surd 或 3 s.f.；负号平方后消去。 ｜ EN: The result is often left as a surd or to 3 s.f.; the negative sign disappears once squared."},
+    {t:"位置与位移向量 Position & Displacement",en:"AB = OB − OA.",tech:"AB = 终点 − 起点 = OB − OA；平行向量互为标量倍。 ｜ EN: AB = endpoint − start point = OB − OA; parallel vectors are scalar multiples of each other.",exam:"'AB' 方向从 A 到 B，一定是 OB−OA,顺序别反。 ｜ EN: 'AB' goes from A to B, so it is always OB−OA; don't reverse the order."}
    ],
    examples:[
     {q:"Given a = (3, 4), find |a|.",
-     solution:"|a| = √(3² + 4²) = √25 = 5",
-     note:"技巧：3-4-5 是常见勾股数,模长=5。"},
+     solution:"|a| = √(3² + 4²) = √25 = 5\nEN: The magnitude is √(3²+4²)=√25=5.",
+     note:"技巧：3-4-5 是常见勾股数,模长=5。 ｜ EN: Tip: 3-4-5 is a common Pythagorean triple, so the magnitude is 5."},
     {q:"OA = (2, 1) and OB = (5, 7). Find AB as a column vector and its magnitude.",
-     solution:"AB = OB − OA = (5−2, 7−1) = (3, 6)\n|AB| = √(9+36) = √45 = 3√5",
-     note:"出题思路:先减出位移向量,再求模。"}
+     solution:"AB = OB − OA = (5−2, 7−1) = (3, 6)\n|AB| = √(9+36) = √45 = 3√5\nEN: AB = OB − OA = (3,6); its magnitude = √(9+36)=√45, which simplifies to 3√5.",
+     note:"出题思路:先减出位移向量,再求模。 ｜ EN: Design intent: first subtract to get the displacement vector, then find its magnitude."}
    ],
    mcqs:[
     {stem:"|(6, 8)| =",options:["10","14","48","7"],answer:0,expl:"√(36+64)=√100=10。",topic:"模长"},
@@ -785,17 +785,17 @@ const MORE_TOPICS=[
   {topicZh:"统计与数据处理",topicEn:"Statistics & Data Handling",
    goals:["会求平均数、中位数、众数、极差","会读累积频率曲线求中位数、四分位数、IQR","理解标准差表示离散程度"],
    concepts:[
-    {t:"集中趋势 Averages",en:"Mean, median, mode.",tech:"平均数=总和/个数；中位数=排序后中间值(偶数取两中平均)；众数=出现最多的值。",exam:"求中位数前务必先排序;偶数个别忘了取两个中间数平均。"},
-    {t:"分组数据 Grouped Data",en:"Estimated mean.",tech:"估计平均=Σ(f×组中值)/Σf;组中值=组界平均。",exam:"'estimate the mean' 用组中值,答案是估计值。"},
-    {t:"累积频率 Cumulative Frequency",en:"Median & quartiles.",tech:"由 c.f. 曲线:中位数在 ½N 处,Q1 在 ¼N,Q3 在 ¾N;IQR=Q3−Q1。",exam:"先算 N,再从纵轴对应比例横读 x 值;箱形图用五数概括。"}
+    {t:"集中趋势 Averages",en:"Mean, median, mode.",tech:"平均数=总和/个数；中位数=排序后中间值(偶数取两中平均)；众数=出现最多的值。 ｜ EN: Mean = sum / count; median = the middle value after sorting (for an even count, average the two middle values); mode = the most frequent value.",exam:"求中位数前务必先排序;偶数个别忘了取两个中间数平均。 ｜ EN: Always sort before finding the median; with an even count don't forget to average the two middle numbers."},
+    {t:"分组数据 Grouped Data",en:"Estimated mean.",tech:"估计平均=Σ(f×组中值)/Σf;组中值=组界平均。 ｜ EN: Estimated mean = Σ(f x midpoint)/Σf; the class midpoint = the average of the class boundaries.",exam:"'estimate the mean' 用组中值,答案是估计值。 ｜ EN: 'estimate the mean' uses the class midpoints, so the answer is an estimate."},
+    {t:"累积频率 Cumulative Frequency",en:"Median & quartiles.",tech:"由 c.f. 曲线:中位数在 ½N 处,Q1 在 ¼N,Q3 在 ¾N;IQR=Q3−Q1。 ｜ EN: From the cumulative frequency curve: the median is at (1/2)N, Q1 at (1/4)N, Q3 at (3/4)N; IQR=Q3−Q1.",exam:"先算 N,再从纵轴对应比例横读 x 值;箱形图用五数概括。 ｜ EN: Work out N first, then read across from the corresponding fraction on the vertical axis to the x value; a box plot uses the five-number summary."}
    ],
    examples:[
     {q:"Find the mean, median and mode of 4, 7, 7, 9, 13.",
-     solution:"平均=(4+7+7+9+13)/5=40/5=8\n中位数=中间值=7\n众数=7",
-     note:"技巧:5 个数已排序,中位数取第3个。"},
+     solution:"平均=(4+7+7+9+13)/5=40/5=8\n中位数=中间值=7\n众数=7\nEN: Mean = 40/5 = 8; since the data are already sorted, the median is the middle value 7; the mode is the most frequent value, 7.",
+     note:"技巧:5 个数已排序,中位数取第3个。 ｜ EN: Tip: with 5 sorted numbers, the median is the 3rd one."},
     {q:"From a cumulative frequency curve for 60 students, the median is 52, Q1=40 and Q3=64. Find the interquartile range.",
-     solution:"IQR = Q3 − Q1 = 64 − 40 = 24",
-     note:"出题思路:IQR 衡量中间50%的散布。"}
+     solution:"IQR = Q3 − Q1 = 64 − 40 = 24\nEN: The interquartile range = Q3 − Q1 = 64 − 40 = 24.",
+     note:"出题思路:IQR 衡量中间50%的散布。 ｜ EN: Design intent: the IQR measures the spread of the middle 50% of the data."}
    ],
    mcqs:[
     {stem:"Median of 3, 5, 7, 9, 11:",options:["7","5","9","6"],answer:0,expl:"中间第3个=7。",topic:"中位数"},
@@ -814,17 +814,17 @@ const MORE_TOPICS=[
   {topicZh:"概率",topicEn:"Probability",
    goals:["会用 P=有利/总数,范围 0~1","用 P(not A)=1−P(A) 求补事件","会处理相继事件(树状图、有/无放回)"],
    concepts:[
-    {t:"基本概率 Basic Probability",en:"Favourable / total.",tech:"P(事件)=有利结果数/总结果数;必然=1,不可能=0。",exam:"先数清总样本数(分母),别漏样本。"},
-    {t:"补事件 Complement",en:"1 − P.",tech:"P(不发生)=1−P(发生);'at least one' 常用 1−P(一个都没有)。",exam:"'at least' 想到补集往往最快。"},
-    {t:"相继事件 Combined Events",en:"Multiply along branches.",tech:"独立事件相乘;沿树状图分支相乘、不同路径相加;无放回时第二次分母减1。",exam:"分清 with / without replacement——无放回分母、分子都要减。"}
+    {t:"基本概率 Basic Probability",en:"Favourable / total.",tech:"P(事件)=有利结果数/总结果数;必然=1,不可能=0。 ｜ EN: P(event) = number of favourable outcomes / total outcomes; certain = 1, impossible = 0.",exam:"先数清总样本数(分母),别漏样本。 ｜ EN: Count the total number of outcomes (the denominator) carefully; don't miss any."},
+    {t:"补事件 Complement",en:"1 − P.",tech:"P(不发生)=1−P(发生);'at least one' 常用 1−P(一个都没有)。 ｜ EN: P(does not happen) = 1 − P(happens); 'at least one' is usually 1 − P(none).",exam:"'at least' 想到补集往往最快。 ｜ EN: For 'at least', thinking of the complement is usually the fastest."},
+    {t:"相继事件 Combined Events",en:"Multiply along branches.",tech:"独立事件相乘;沿树状图分支相乘、不同路径相加;无放回时第二次分母减1。 ｜ EN: Independent events multiply; multiply along the branches of a tree diagram and add across different paths; without replacement the second denominator is reduced by 1.",exam:"分清 with / without replacement——无放回分母、分子都要减。 ｜ EN: Distinguish with / without replacement — without replacement both the numerator and denominator decrease."}
    ],
    examples:[
     {q:"A bag has 3 red and 5 blue balls. One is drawn. Find P(red) and P(not red).",
-     solution:"P(red)=3/8\nP(not red)=1−3/8=5/8",
-     note:"技巧:补事件用 1 减,免得重数。"},
+     solution:"P(red)=3/8\nP(not red)=1−3/8=5/8\nEN: P(red)=3/8; P(not red) is the complement, 1−3/8=5/8.",
+     note:"技巧:补事件用 1 减,免得重数。 ｜ EN: Tip: use 1 minus for the complementary event to avoid recounting."},
     {q:"A fair spinner has P(win)=0.25. It is spun twice. Find P(win exactly once).",
-     solution:"P(win once)=2 × 0.25 × 0.75 = 0.375\n(= 3/8)",
-     note:"出题思路:恰好一次=两条路径(赢-输、输-赢)相加,故乘2。"}
+     solution:"P(win once)=2 × 0.25 × 0.75 = 0.375\n(= 3/8)\nEN: Winning exactly once has two paths (win-lose and lose-win), so P = 2 x 0.25 x 0.75 = 0.375 = 3/8.",
+     note:"出题思路:恰好一次=两条路径(赢-输、输-赢)相加,故乘2。 ｜ EN: Design intent: exactly once = the sum of two paths (win-lose and lose-win), hence the x2."}
    ],
    mcqs:[
     {stem:"P(rolling an even number on a fair die):",options:["1/2","1/3","1/6","2/3"],answer:0,expl:"3/6=1/2。",topic:"基本概率"},
@@ -1399,9 +1399,11 @@ function renderDiagBanner(){
 /* ---------- BOOT ---------- */
 (async function boot(){
   await DB.init(); await DB.pull();
-  if(!days[1]) days[1]=DAY1;               // seed if absent (after pull, days[1] is the frozen DB copy if any)
-  else { for(const k in DAY1){ if(!(k in days[1])) days[1][k]=DAY1[k]; } }  // non-destructively add new sections
-  persistDay(1);                            // ensure DB has day 1 (idempotent; never overwrites frozen questions)
+  // Day 1 is the fixed intro chapter (never student-generated), so always refresh its
+  // content from the latest DAY1 — picks up updates (e.g. bilingual concepts/examples).
+  // (Days 2+ stay frozen; student records live in notebook/attempts, not in the day object.)
+  days[1]=DAY1;
+  persistDay(1);                            // overwrite any stale day-1 copy saved in the DB
   if(!state.startDate) state.startDate=todayStr();
   persistState(); LS.set('notebook',notebook);
   const hint=document.getElementById('genHint');

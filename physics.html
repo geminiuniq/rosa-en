@@ -257,9 +257,9 @@ const TOPICS=[
    tips:{loves:"单位前缀换算(mA↔A、cm↔m)、游标卡尺/螺旋测微器读数、判断标量还是矢量、以及用勾股求垂直合力。测量常作为卷首送分题。O-Level loves prefix conversions and instrument readings.",
      pitfalls:"①面积/体积换算幂次错(1 m²=10⁴ cm²、1 m³=10⁶ cm³)；②螺旋测微器漏读主尺的 0.5 mm 半刻度，或忘了零误差(zero error)加减；③把 speed(标量)误当 velocity(矢量)、distance 误当 displacement。"},
    concepts:[
-    {t:"SI 单位与前缀 SI Units & Prefixes",en:"Base units and powers of ten.",tech:"基本单位：m, kg, s, A, K。前缀 k=10³, c=10⁻², m=10⁻³, μ=10⁻⁶, n=10⁻⁹。计算前先统一换成 SI 单位。",exam:"高频考单位换算：如 5 mA=0.005 A、20 cm=0.20 m。"},
-    {t:"测量仪器与精度 Instruments & Precision",en:"Choose the right tool.",tech:"直尺 (1 mm)、游标卡尺 (0.1 mm)、螺旋测微器 (0.01 mm)。读数视线垂直，避免视差；有零误差要加减修正。",exam:"micrometer 读数 = 主尺 + 旋转尺；先检查 zero error。"},
-    {t:"标量与矢量 Scalars & Vectors",en:"Direction matters?",tech:"标量只有大小：distance, speed, mass, time, energy。矢量有大小+方向：displacement, velocity, acceleration, force。垂直两矢量合成用 √(a²+b²)。",exam:"常考判断标量/矢量；垂直合力用勾股。"}
+    {t:"SI 单位与前缀 SI Units & Prefixes",en:"Base units and powers of ten.",tech:"基本单位：m, kg, s, A, K。前缀 k=10³, c=10⁻², m=10⁻³, μ=10⁻⁶, n=10⁻⁹。计算前先统一换成 SI 单位。 ｜ EN: Base units: m, kg, s, A, K. Prefixes k=10³, c=10⁻², m=10⁻³, μ=10⁻⁶, n=10⁻⁹. Convert everything to SI units before calculating.",exam:"高频考单位换算：如 5 mA=0.005 A、20 cm=0.20 m。 ｜ EN: Unit conversions are frequently tested, e.g. 5 mA=0.005 A, 20 cm=0.20 m."},
+    {t:"测量仪器与精度 Instruments & Precision",en:"Choose the right tool.",tech:"直尺 (1 mm)、游标卡尺 (0.1 mm)、螺旋测微器 (0.01 mm)。读数视线垂直，避免视差；有零误差要加减修正。 ｜ EN: Ruler (1 mm), vernier caliper (0.1 mm), micrometer screw gauge (0.01 mm). Read with the line of sight perpendicular to avoid parallax; correct for any zero error by adding or subtracting.",exam:"micrometer 读数 = 主尺 + 旋转尺；先检查 zero error。 ｜ EN: Micrometer reading = main scale + thimble scale; check the zero error first."},
+    {t:"标量与矢量 Scalars & Vectors",en:"Direction matters?",tech:"标量只有大小：distance, speed, mass, time, energy。矢量有大小+方向：displacement, velocity, acceleration, force。垂直两矢量合成用 √(a²+b²)。 ｜ EN: Scalars have magnitude only: distance, speed, mass, time, energy. Vectors have magnitude + direction: displacement, velocity, acceleration, force. Combine two perpendicular vectors with √(a²+b²).",exam:"常考判断标量/矢量；垂直合力用勾股。 ｜ EN: Often tested: deciding scalar vs vector; use Pythagoras for a perpendicular resultant force."}
    ],
    examples:[
     {q:"A micrometer screw gauge shows a main-scale reading of 5.5 mm and a thimble reading of 32 divisions (each 0.01 mm). Find the diameter.",tier:2,
@@ -300,9 +300,9 @@ const TOPICS=[
    tips:{loves:"匀加速三公式的选用、v-t 图的斜率(加速度)与面积(位移)、自由落体(g=10)。O-Level 常给一段图线要你读加速度或求位移面积。",
      pitfalls:"①减速时忘了 a 取负号；②求距离时张冠李戴选错公式(已知 u,v,t 应用 s=½(u+v)t)；③把 v-t 图的斜率当成位移(斜率其实是加速度，面积才是位移)。"},
    concepts:[
-    {t:"速度与加速度 Speed & Acceleration",en:"Rates of change.",tech:"speed=distance/time；velocity 含方向；a=(v−u)/t。匀加速：v=u+at；s=ut+½at²；v²=u²+2as。",exam:"选公式看已知量；减速 a 为负。"},
-    {t:"运动图像 Motion Graphs",en:"Slope & area.",tech:"位移-时间图斜率=速度；速度-时间图斜率=加速度、线下面积=位移。",exam:"'area under v-t graph'=位移。"},
-    {t:"自由落体 Free Fall",en:"g and air resistance.",tech:"自由下落 a=g≈10 m/s²。有空气阻力时阻力增大到等于重力 → 匀速(terminal velocity)。",exam:"忽略空气阻力用 g；末速度分析受力。"}
+    {t:"速度与加速度 Speed & Acceleration",en:"Rates of change.",tech:"speed=distance/time；velocity 含方向；a=(v−u)/t。匀加速：v=u+at；s=ut+½at²；v²=u²+2as。 ｜ EN: speed=distance/time; velocity includes direction; a=(v−u)/t. Uniform acceleration: v=u+at; s=ut+½at²; v²=u²+2as.",exam:"选公式看已知量；减速 a 为负。 ｜ EN: Choose the formula based on the quantities given; deceleration makes a negative."},
+    {t:"运动图像 Motion Graphs",en:"Slope & area.",tech:"位移-时间图斜率=速度；速度-时间图斜率=加速度、线下面积=位移。 ｜ EN: On a displacement-time graph the gradient = velocity; on a velocity-time graph the gradient = acceleration and the area under the line = displacement.",exam:"'area under v-t graph'=位移。 ｜ EN: 'area under v-t graph' = displacement."},
+    {t:"自由落体 Free Fall",en:"g and air resistance.",tech:"自由下落 a=g≈10 m/s²。有空气阻力时阻力增大到等于重力 → 匀速(terminal velocity)。 ｜ EN: In free fall a=g≈10 m/s². With air resistance, the resistance grows until it equals the weight → constant speed (terminal velocity).",exam:"忽略空气阻力用 g；末速度分析受力。 ｜ EN: Use g when air resistance is ignored; analyse the forces at terminal velocity."}
    ],
    examples:[
     {q:"A car accelerates uniformly from 5.0 m/s to 25 m/s in 4.0 s. Find (i) the acceleration and (ii) the distance travelled.",tier:2,
@@ -347,9 +347,9 @@ const TOPICS=[
    tips:{loves:"合力 F=ma 计算(驱动力−摩擦=ma)、末速度(terminal velocity)时合力为零、区分作用-反作用与平衡力。O-Level 常给多个力要你先求合力。",
      pitfalls:"①F=ma 里的 F 必须是合力(net force)，别直接用单个力；②末速度时忘了合力=0(阻力=重力)；③混淆'一对平衡力'(同一物体)与'作用-反作用'(两个物体)。"},
    concepts:[
-    {t:"牛顿第一/第二定律 Newton I & II",en:"Resultant force → acceleration.",tech:"合力为零→静止或匀速(惯性)。合力 F=ma。先求合力(矢量和)再除以质量。",exam:"'resultant/net force' 是关键；匀速时合力=0。"},
-    {t:"摩擦与受力分析 Friction & Forces",en:"Draw the forces.",tech:"摩擦力与运动趋势相反；驱动力−摩擦=合力。竖直：W=mg 与支持力/浮力。",exam:"多力先画受力图，取运动方向为正。"},
-    {t:"牛顿第三定律 Newton III",en:"Action–reaction.",tech:"作用力与反作用力：等大、反向、作用在两个不同物体上。",exam:"区分平衡力(同物体)与作用-反作用(两物体)。"}
+    {t:"牛顿第一/第二定律 Newton I & II",en:"Resultant force → acceleration.",tech:"合力为零→静止或匀速(惯性)。合力 F=ma。先求合力(矢量和)再除以质量。 ｜ EN: Zero resultant force → at rest or constant velocity (inertia). Resultant force F=ma. Find the resultant (vector sum) first, then divide by the mass.",exam:"'resultant/net force' 是关键；匀速时合力=0。 ｜ EN: 'resultant/net force' is the key; at constant velocity the resultant force = 0."},
+    {t:"摩擦与受力分析 Friction & Forces",en:"Draw the forces.",tech:"摩擦力与运动趋势相反；驱动力−摩擦=合力。竖直：W=mg 与支持力/浮力。 ｜ EN: Friction opposes the tendency to move; driving force − friction = resultant force. Vertically: W=mg together with the support force / upthrust.",exam:"多力先画受力图，取运动方向为正。 ｜ EN: With several forces, draw a free-body diagram first and take the direction of motion as positive."},
+    {t:"牛顿第三定律 Newton III",en:"Action–reaction.",tech:"作用力与反作用力：等大、反向、作用在两个不同物体上。 ｜ EN: Action and reaction forces: equal in size, opposite in direction, acting on two different objects.",exam:"区分平衡力(同物体)与作用-反作用(两物体)。 ｜ EN: Distinguish balanced forces (same object) from action-reaction (two objects)."}
    ],
    examples:[
     {q:"A 1000 kg car has a driving force of 3000 N and experiences 1000 N of friction. Find its acceleration.",tier:2,
@@ -394,9 +394,9 @@ const TOPICS=[
    tips:{loves:"重量 W=mg(尤其月球 g 不同)、密度 ρ=m/V 与单位换算、用排水法测不规则体积、比较密度判浮沉。O-Level 爱考月球重量与密度换算。",
      pitfalls:"①把质量(kg)与重量(N)混用；②g/cm³ 与 kg/m³ 换算漏了 ×1000；③排水法算错体积(应取水位差)。"},
    concepts:[
-    {t:"质量与重量 Mass vs Weight",en:"Matter vs force.",tech:"mass(kg)处处不变；weight W=mg(N)随 g 变(地球10，月球1.6)。",exam:"月球重量变化；单位别混。"},
-    {t:"密度 Density",en:"ρ = m/V.",tech:"ρ=m/V，单位 kg/m³ 或 g/cm³。1 g/cm³=1000 kg/m³。",exam:"先算体积再除；单位一致。"},
-    {t:"测密度与浮沉 Measuring & Floating",en:"Displacement method.",tech:"规则体 V=l×w×h；不规则体用量筒排水。密度<液体 → 漂浮。",exam:"'displacement can' 求体积；比较密度判浮沉。"}
+    {t:"质量与重量 Mass vs Weight",en:"Matter vs force.",tech:"mass(kg)处处不变；weight W=mg(N)随 g 变(地球10，月球1.6)。 ｜ EN: Mass (kg) is the same everywhere; weight W=mg (N) changes with g (Earth 10, Moon 1.6).",exam:"月球重量变化；单位别混。 ｜ EN: Weight changes on the Moon; do not mix up the units."},
+    {t:"密度 Density",en:"ρ = m/V.",tech:"ρ=m/V，单位 kg/m³ 或 g/cm³。1 g/cm³=1000 kg/m³。 ｜ EN: ρ=m/V, in kg/m³ or g/cm³. 1 g/cm³=1000 kg/m³.",exam:"先算体积再除；单位一致。 ｜ EN: Work out the volume first, then divide; keep the units consistent."},
+    {t:"测密度与浮沉 Measuring & Floating",en:"Displacement method.",tech:"规则体 V=l×w×h；不规则体用量筒排水。密度<液体 → 漂浮。 ｜ EN: Regular solid V=l×w×h; for an irregular solid use water displacement in a measuring cylinder. Density < liquid → floats.",exam:"'displacement can' 求体积；比较密度判浮沉。 ｜ EN: Use a 'displacement can' for the volume; compare densities to decide floating or sinking."}
    ],
    examples:[
     {q:"A metal cube of side 2.0 cm has a mass of 64 g. Find its density in g/cm³ and kg/m³.",tier:2,
@@ -441,9 +441,9 @@ const TOPICS=[
    tips:{loves:"力矩原理(顺时针=逆时针)求未知力或位置、均匀尺的重心在中点、稳定性(底宽/重心低)。O-Level 爱考跷跷板/横杆平衡与米尺问题。",
      pitfalls:"①距离要取到转轴的'垂直'距离，不是斜边；②忘了均匀杆/尺的重力作用在中点；③顺时针与逆时针力矩配错边。"},
    concepts:[
-    {t:"力矩 Moment of a Force",en:"Turning effect.",tech:"moment=force×perpendicular distance(N·m)。",exam:"取到转轴的垂直距离。"},
-    {t:"力矩原理 Principle of Moments",en:"Balanced turning.",tech:"平衡时顺时针力矩和=逆时针力矩和。",exam:"标出各力到转轴距离，分清顺/逆。"},
-    {t:"重心与稳定 Centre of Gravity & Stability",en:"Low CG, wide base.",tech:"重心是重力等效作用点。底面积大、重心低→更稳。",exam:"解释更稳：底宽/重心低。"}
+    {t:"力矩 Moment of a Force",en:"Turning effect.",tech:"moment=force×perpendicular distance(N·m)。 ｜ EN: moment = force × perpendicular distance (N·m).",exam:"取到转轴的垂直距离。 ｜ EN: Take the perpendicular distance to the pivot."},
+    {t:"力矩原理 Principle of Moments",en:"Balanced turning.",tech:"平衡时顺时针力矩和=逆时针力矩和。 ｜ EN: In equilibrium, the sum of clockwise moments = the sum of anticlockwise moments.",exam:"标出各力到转轴距离，分清顺/逆。 ｜ EN: Mark each force's distance to the pivot and sort out clockwise vs anticlockwise."},
+    {t:"重心与稳定 Centre of Gravity & Stability",en:"Low CG, wide base.",tech:"重心是重力等效作用点。底面积大、重心低→更稳。 ｜ EN: The centre of gravity is the point where the weight acts. A large base area and a low centre of gravity → more stable.",exam:"解释更稳：底宽/重心低。 ｜ EN: Explain greater stability by a wide base / low centre of gravity."}
    ],
    examples:[
     {q:"A light rod is pivoted at one end. A 50 N weight hangs 0.40 m from the pivot. Find the upward force F at the far end, 2.0 m from the pivot, to balance it.",tier:2,
@@ -488,9 +488,9 @@ const TOPICS=[
    tips:{loves:"固体压强 p=F/A(面积换 m²)、液体压强 p=ρgh、总压强=水压+大气压、液压机放大力。O-Level 爱考潜水员深度压强与液压。",
      pitfalls:"①面积单位没换成 m²(cm²→m² 要 ÷10⁴)；②液体压强只算 ρgh 时忘了题目还要加大气压；③以为液体压强与容器形状/底面积有关(其实只与深度和密度有关)。"},
    concepts:[
-    {t:"固体压强 p = F/A",en:"Pressure.",tech:"p=F/A(Pa=N/m²)。面积小压强大。",exam:"面积换 m²。"},
-    {t:"液体压强 p = ρgh",en:"Liquid pressure.",tech:"p=ρgh，只与深度h、密度ρ有关，与形状无关；同深度各向压强相等。",exam:"深度到液面；总压强加大气压。"},
-    {t:"大气压与传递 Atmosphere & Transmission",en:"Manometer & hydraulics.",tech:"大气压≈1.0×10⁵ Pa；U形管测压差=ρg×高度差；密闭液体等压传递(液压机)。",exam:"manometer 用高度差。"}
+    {t:"固体压强 p = F/A",en:"Pressure.",tech:"p=F/A(Pa=N/m²)。面积小压强大。 ｜ EN: p=F/A (Pa=N/m²). Smaller area gives greater pressure.",exam:"面积换 m²。 ｜ EN: Convert the area to m²."},
+    {t:"液体压强 p = ρgh",en:"Liquid pressure.",tech:"p=ρgh，只与深度h、密度ρ有关，与形状无关；同深度各向压强相等。 ｜ EN: p=ρgh, depending only on depth h and density ρ, not on shape; at the same depth the pressure is equal in all directions.",exam:"深度到液面；总压强加大气压。 ｜ EN: Measure the depth to the liquid surface; add atmospheric pressure for the total pressure."},
+    {t:"大气压与传递 Atmosphere & Transmission",en:"Manometer & hydraulics.",tech:"大气压≈1.0×10⁵ Pa；U形管测压差=ρg×高度差；密闭液体等压传递(液压机)。 ｜ EN: Atmospheric pressure ≈1.0×10⁵ Pa; a U-tube measures pressure difference = ρg × height difference; an enclosed liquid transmits pressure equally (hydraulic press).",exam:"manometer 用高度差。 ｜ EN: Use the height difference for a manometer."}
    ],
    examples:[
     {q:"A block of weight 60 N rests on a table with base area 0.020 m². Find the pressure.",tier:2,
@@ -535,9 +535,9 @@ const TOPICS=[
    tips:{loves:"W=Fd、KE=½mv²、GPE=mgh、能量守恒(mgh=½mv²)求末速度、P=W/t 与效率。O-Level 爱考下落时 GPE→KE 求速度、以及机器效率。",
      pitfalls:"①KE 里速度要平方(易只乘一次)；②能量守恒时把 mgh 与 ½mv² 弄反；③效率忘了乘100%或分不清'有用'与'总'能量。"},
    concepts:[
-    {t:"功与能 Work & Energy",en:"W = Fd.",tech:"W=Fd(J)。KE=½mv²；GPE=mgh。",exam:"力与位移同向才做功。"},
-    {t:"能量守恒 Conservation of Energy",en:"Energy transferred.",tech:"下落 mgh=½mv² → v=√(2gh)。",exam:"'find speed' 用能量守恒。"},
-    {t:"功率与效率 Power & Efficiency",en:"Rate & usefulness.",tech:"P=W/t(W)；效率=有用/总×100%。",exam:"效率≤100%。"}
+    {t:"功与能 Work & Energy",en:"W = Fd.",tech:"W=Fd(J)。KE=½mv²；GPE=mgh。 ｜ EN: W=Fd (J). KE=½mv²; GPE=mgh.",exam:"力与位移同向才做功。 ｜ EN: Work is done only when the force and displacement are in the same direction."},
+    {t:"能量守恒 Conservation of Energy",en:"Energy transferred.",tech:"下落 mgh=½mv² → v=√(2gh)。 ｜ EN: Falling: mgh=½mv² → v=√(2gh).",exam:"'find speed' 用能量守恒。 ｜ EN: Use conservation of energy to 'find speed'."},
+    {t:"功率与效率 Power & Efficiency",en:"Rate & usefulness.",tech:"P=W/t(W)；效率=有用/总×100%。 ｜ EN: P=W/t (W); efficiency = useful / total × 100%.",exam:"效率≤100%。 ｜ EN: Efficiency ≤ 100%."}
    ],
    examples:[
     {q:"A crane lifts a 200 N load through 3.0 m. Find the work done and, if it takes 5.0 s, the power.",tier:2,
@@ -582,9 +582,9 @@ const TOPICS=[
    tips:{loves:"用分子模型描述三态与温度、判断传导/对流/辐射、解释保温瓶/隔热设计、暗黑面善吸收发射辐射。O-Level 爱考'解释类'题，要按分子/密度差作答。",
      pitfalls:"①对流误说成能在固体或真空发生(对流只在流体)；②辐射误说需要介质(辐射可穿真空)；③解释题只写结论不写机理(要写'自由电子/密度差/红外线')。"},
    concepts:[
-    {t:"分子动理论 Kinetic Model",en:"Particles in motion.",tech:"固体紧密振动；液体较松可流动；气体相距远高速运动。温度↑→平均动能↑。布朗运动是证据。",exam:"用'排列+运动'描述三态。"},
-    {t:"三种热传递 Conduction/Convection/Radiation",en:"How heat moves.",tech:"传导靠振动与自由电子(固体、金属好)；对流靠流体密度差环流(液/气)；辐射靠红外线，不需介质。",exam:"判断情形属哪种。"},
-    {t:"辐射表面 Radiation Surfaces",en:"Black vs shiny.",tech:"暗黑粗糙面善吸收也善发射辐射；光亮银白面善反射、差发射。",exam:"保温瓶银壁减辐射。"}
+    {t:"分子动理论 Kinetic Model",en:"Particles in motion.",tech:"固体紧密振动；液体较松可流动；气体相距远高速运动。温度↑→平均动能↑。布朗运动是证据。 ｜ EN: In a solid particles are packed and vibrate; in a liquid they are looser and can flow; in a gas they are far apart and move fast. Higher temperature → higher average kinetic energy. Brownian motion is the evidence.",exam:"用'排列+运动'描述三态。 ｜ EN: Describe the three states by 'arrangement + motion'."},
+    {t:"三种热传递 Conduction/Convection/Radiation",en:"How heat moves.",tech:"传导靠振动与自由电子(固体、金属好)；对流靠流体密度差环流(液/气)；辐射靠红外线，不需介质。 ｜ EN: Conduction relies on vibration and free electrons (solids, good in metals); convection relies on circulation driven by density differences in a fluid (liquids/gases); radiation relies on infra-red and needs no medium.",exam:"判断情形属哪种。 ｜ EN: Decide which type a given situation is."},
+    {t:"辐射表面 Radiation Surfaces",en:"Black vs shiny.",tech:"暗黑粗糙面善吸收也善发射辐射；光亮银白面善反射、差发射。 ｜ EN: A dull black rough surface is a good absorber and good emitter of radiation; a shiny silvery surface is a good reflector and poor emitter.",exam:"保温瓶银壁减辐射。 ｜ EN: The silvered wall of a vacuum flask reduces radiation."}
    ],
    examples:[
     {q:"Explain, using the kinetic model, why metals are good conductors of heat.",tier:2,
@@ -666,9 +666,9 @@ const MORE_TOPICS=[
    tips:{loves:"Q=mcΔθ 计算、熔化/沸腾时温度不变(潜热)、电加热 Q=Pt 求温升或时间、比较不同物质的比热。O-Level 爱考水的高比热与'温度为何不变'的解释。",
      pitfalls:"①Δθ 要用温度'差'不是温度值；②潜热题误以为温度会升高(其实状态改变时温度不变)；③单位没统一(kg↔g、kJ↔J)。"},
    concepts:[
-    {t:"比热容 Specific Heat Capacity",en:"Q = mcΔθ.",tech:"Q=mcΔθ。水 c=4200 J/(kg·°C)，单位 J/(kg·°C)。",exam:"Δθ 是温差；水比热大。"},
-    {t:"潜热与物态变化 Latent Heat",en:"Constant temperature.",tech:"熔化/沸腾温度不变，能量用于破坏分子作用力。Q=mL。",exam:"'why constant' → 潜热。"},
-    {t:"电加热 Electrical Heating",en:"Q = Pt.",tech:"电加热 Q=Pt=VIt。实际有热损失。",exam:"结合 Q=mcΔθ 求时间/温升。"}
+    {t:"比热容 Specific Heat Capacity",en:"Q = mcΔθ.",tech:"Q=mcΔθ。水 c=4200 J/(kg·°C)，单位 J/(kg·°C)。 ｜ EN: Q=mcΔθ. For water c=4200 J/(kg·°C), units J/(kg·°C).",exam:"Δθ 是温差；水比热大。 ｜ EN: Δθ is the temperature change; water has a large specific heat capacity."},
+    {t:"潜热与物态变化 Latent Heat",en:"Constant temperature.",tech:"熔化/沸腾温度不变，能量用于破坏分子作用力。Q=mL。 ｜ EN: During melting/boiling the temperature stays constant, as the energy is used to break the forces between molecules. Q=mL.",exam:"'why constant' → 潜热。 ｜ EN: 'why constant' → latent heat."},
+    {t:"电加热 Electrical Heating",en:"Q = Pt.",tech:"电加热 Q=Pt=VIt。实际有热损失。 ｜ EN: Electrical heating Q=Pt=VIt. In practice there is heat loss.",exam:"结合 Q=mcΔθ 求时间/温升。 ｜ EN: Combine with Q=mcΔθ to find the time or temperature rise."}
    ],
    examples:[
     {q:"How much energy is needed to raise the temperature of 2.0 kg of water by 30 °C? (c=4200)",tier:2,
@@ -709,9 +709,9 @@ const MORE_TOPICS=[
    tips:{loves:"v=fλ 与 T=1/f 的换算、横波与纵波的区分、由'每秒几个波'求频率、由波形图读波长/振幅。O-Level 常给频率与波长要你求波速。",
      pitfalls:"①T 与 f 互为倒数常弄反；②把振幅当波长；③单位(Hz, m, s)不统一。"},
    concepts:[
-    {t:"波的要素 Wave Quantities",en:"λ, f, T, amplitude.",tech:"波长λ、频率f(Hz)、周期T=1/f、振幅。波传递能量而非物质。",exam:"T=1/f。"},
-    {t:"横波与纵波 Transverse vs Longitudinal",en:"Direction of vibration.",tech:"横波振动⊥传播(光、水波)；纵波振动∥传播，有压缩稀疏(声波)。",exam:"声=纵波；光=横波。"},
-    {t:"波速公式 v = fλ",en:"Speed.",tech:"v=fλ。进入不同介质频率不变、波长改变。",exam:"知二求一。"}
+    {t:"波的要素 Wave Quantities",en:"λ, f, T, amplitude.",tech:"波长λ、频率f(Hz)、周期T=1/f、振幅。波传递能量而非物质。 ｜ EN: Wavelength λ, frequency f (Hz), period T=1/f, amplitude. A wave transfers energy, not matter.",exam:"T=1/f。 ｜ EN: T=1/f."},
+    {t:"横波与纵波 Transverse vs Longitudinal",en:"Direction of vibration.",tech:"横波振动⊥传播(光、水波)；纵波振动∥传播，有压缩稀疏(声波)。 ｜ EN: In a transverse wave the vibration is perpendicular to the direction of travel (light, water waves); in a longitudinal wave the vibration is parallel to travel, with compressions and rarefactions (sound waves).",exam:"声=纵波；光=横波。 ｜ EN: Sound = longitudinal wave; light = transverse wave."},
+    {t:"波速公式 v = fλ",en:"Speed.",tech:"v=fλ。进入不同介质频率不变、波长改变。 ｜ EN: v=fλ. On entering a different medium the frequency stays the same while the wavelength changes.",exam:"知二求一。 ｜ EN: Given any two, find the third."}
    ],
    examples:[
     {q:"A wave has a frequency of 50 Hz and a wavelength of 0.40 m. Find its speed.",tier:2,
@@ -752,9 +752,9 @@ const MORE_TOPICS=[
    tips:{loves:"n=sin i/sin r 求折射角、临界角 sin c=1/n、平面镜像特点(虚像/正立/等大)、全反射条件与光纤。O-Level 爱考折射角计算与临界角。",
      pitfalls:"①角都要'相对法线'量，不是相对表面；②全反射只在'由光密到光疏且角>临界角'时发生；③折射方向记反(进入光密介质偏向法线)。"},
    concepts:[
-    {t:"反射 Reflection",en:"i = r.",tech:"入射角=反射角(相对法线)。平面镜像：虚、正立、等大、左右反转、像距=物距。",exam:"角相对法线量。"},
-    {t:"折射 Refraction",en:"n = sin i / sin r.",tech:"空气→玻璃偏向法线；n=sin i/sin r>1。",exam:"先求 sin r。"},
-    {t:"全反射 Total Internal Reflection",en:"Beyond critical angle.",tech:"由光密→光疏且入射角>临界角 c 时全反射。sin c=1/n。",exam:"必须由密到疏。"}
+    {t:"反射 Reflection",en:"i = r.",tech:"入射角=反射角(相对法线)。平面镜像：虚、正立、等大、左右反转、像距=物距。 ｜ EN: Angle of incidence = angle of reflection (measured from the normal). A plane-mirror image is: virtual, upright, same size, laterally inverted, image distance = object distance.",exam:"角相对法线量。 ｜ EN: Measure angles from the normal."},
+    {t:"折射 Refraction",en:"n = sin i / sin r.",tech:"空气→玻璃偏向法线；n=sin i/sin r>1。 ｜ EN: Air → glass bends towards the normal; n=sin i/sin r>1.",exam:"先求 sin r。 ｜ EN: Find sin r first."},
+    {t:"全反射 Total Internal Reflection",en:"Beyond critical angle.",tech:"由光密→光疏且入射角>临界角 c 时全反射。sin c=1/n。 ｜ EN: Total internal reflection occurs when going from a denser to a less dense medium and the angle of incidence > the critical angle c. sin c=1/n.",exam:"必须由密到疏。 ｜ EN: It must be from dense to less dense."}
    ],
    examples:[
     {q:"A ray of light in air strikes a glass block (n=1.50) at an angle of incidence of 30°. Find the angle of refraction.",tier:2,
@@ -795,9 +795,9 @@ const MORE_TOPICS=[
    tips:{loves:"电磁波谱顺序与用途/危害、真空中都以光速传播、声需介质且为纵波、回声与超声测距(单程=½vt)。O-Level 爱考回声/超声距离与波谱用途。",
      pitfalls:"①以为声能在真空传播(真空不能传声)；②回声测距忘了÷2(来回距离)；③电磁波谱顺序记反(频率增大=波长减小)。"},
    concepts:[
-    {t:"电磁波谱 EM Spectrum",en:"Radio → Gamma.",tech:"顺序(频率增大)：radio, microwave, infra-red, visible, ultraviolet, X-ray, gamma。真空中都以 c=3×10⁸ m/s 传播。",exam:"记顺序与用途；频率高更危险。"},
-    {t:"声波 Sound",en:"Needs a medium.",tech:"声为纵波，需介质(真空不能传)。空气中约 340 m/s，可听 20 Hz–20 kHz。",exam:"真空不传声。"},
-    {t:"回声与超声 Echo & Ultrasound",en:"½ v t.",tech:"回声来回距离=vt，单程=½vt。超声(>20 kHz)测深、探伤、成像。",exam:"来回用 ½。"}
+    {t:"电磁波谱 EM Spectrum",en:"Radio → Gamma.",tech:"顺序(频率增大)：radio, microwave, infra-red, visible, ultraviolet, X-ray, gamma。真空中都以 c=3×10⁸ m/s 传播。 ｜ EN: Order (increasing frequency): radio, microwave, infra-red, visible, ultraviolet, X-ray, gamma. All travel in a vacuum at c=3×10⁸ m/s.",exam:"记顺序与用途；频率高更危险。 ｜ EN: Memorise the order and uses; higher frequency is more dangerous."},
+    {t:"声波 Sound",en:"Needs a medium.",tech:"声为纵波，需介质(真空不能传)。空气中约 340 m/s，可听 20 Hz–20 kHz。 ｜ EN: Sound is a longitudinal wave and needs a medium (it cannot travel in a vacuum). About 340 m/s in air, audible range 20 Hz–20 kHz.",exam:"真空不传声。 ｜ EN: Sound does not travel in a vacuum."},
+    {t:"回声与超声 Echo & Ultrasound",en:"½ v t.",tech:"回声来回距离=vt，单程=½vt。超声(>20 kHz)测深、探伤、成像。 ｜ EN: For an echo the round-trip distance = vt, so one way = ½vt. Ultrasound (>20 kHz) is used for depth sounding, flaw detection and imaging.",exam:"来回用 ½。 ｜ EN: Use ½ for the round trip."}
    ],
    examples:[
     {q:"State the order of the electromagnetic spectrum from lowest to highest frequency.",tier:2,
@@ -838,9 +838,9 @@ const MORE_TOPICS=[
    tips:{loves:"用'电子转移'解释摩擦起电、同异性电荷、感应起电解释吸引中性物、接地导走电荷与危险(加油/雷电)。O-Level 静电几乎都是解释题。",
      pitfalls:"①说成'质子转移'(其实是电子转移)；②'得电子=负、失电子=正'记反；③解释吸引中性物时漏掉'感应(induced charge)'这一步。"},
    concepts:[
-    {t:"摩擦起电 Charging by Friction",en:"Electron transfer.",tech:"摩擦转移电子：得电子→负，失电子→正。电荷守恒，只是转移。",exam:"是电子(负)转移。"},
-    {t:"电荷作用 Forces on Charges",en:"Like repel, unlike attract.",tech:"同性相斥、异性相吸。导体传导电荷，绝缘体不。",exam:"看电荷种类判吸斥。"},
-    {t:"感应与危害 Induction & Hazards",en:"Fields, earthing.",tech:"带电体使导体表面电荷分离(感应)。电场线由正→负。接地可安全导走电荷。",exam:"感应解释吸引中性物；接地防火花。"}
+    {t:"摩擦起电 Charging by Friction",en:"Electron transfer.",tech:"摩擦转移电子：得电子→负，失电子→正。电荷守恒，只是转移。 ｜ EN: Friction transfers electrons: gaining electrons → negative, losing electrons → positive. Charge is conserved, only transferred.",exam:"是电子(负)转移。 ｜ EN: It is electrons (negative) that are transferred."},
+    {t:"电荷作用 Forces on Charges",en:"Like repel, unlike attract.",tech:"同性相斥、异性相吸。导体传导电荷，绝缘体不。 ｜ EN: Like charges repel, unlike charges attract. Conductors conduct charge, insulators do not.",exam:"看电荷种类判吸斥。 ｜ EN: Look at the types of charge to decide attraction or repulsion."},
+    {t:"感应与危害 Induction & Hazards",en:"Fields, earthing.",tech:"带电体使导体表面电荷分离(感应)。电场线由正→负。接地可安全导走电荷。 ｜ EN: A charged body separates the charges on the surface of a conductor (induction). Field lines go from positive → negative. Earthing safely conducts charge away.",exam:"感应解释吸引中性物；接地防火花。 ｜ EN: Use induction to explain attraction of a neutral object; earthing prevents sparks."}
    ],
    examples:[
     {q:"Explain, in terms of electrons, how a polythene rod becomes negatively charged when rubbed with a dry cloth.",tier:2,
@@ -881,9 +881,9 @@ const MORE_TOPICS=[
    tips:{loves:"I=Q/t、Q=It、R=V/I、V=IR、I–V 图(欧姆导体直线、灯丝曲线)。O-Level 爱考电荷计算、灯丝电阻随温度变化，以及读 I-V 图(欧姆导体过原点直线、灯丝上凸曲线)。",
      pitfalls:"①Q=It 时间要用秒(分钟×60)；②欧姆定律 R=V/I 三量代错；③把灯丝(非欧姆)的电阻当常数(其实随温度升高而增大)。"},
    concepts:[
-    {t:"电流与电荷 Current & Charge",en:"I = Q/t.",tech:"I=Q/t(A)，Q=It(C)。常规电流由正极到负极。",exam:"Q=It，时间用秒。"},
-    {t:"欧姆定律 Ohm's Law",en:"R = V/I.",tech:"V(p.d.)是每单位电荷能量。R=V/I(Ω)。欧姆导体 I∝V。",exam:"R=V/I。"},
-    {t:"I–V 特性图 I–V Graphs",en:"Resistor vs lamp.",tech:"定值电阻直线；灯丝上凸(温度↑→R↑)；二极管单向。",exam:"灯丝随温度电阻增大。"}
+    {t:"电流与电荷 Current & Charge",en:"I = Q/t.",tech:"I=Q/t(A)，Q=It(C)。常规电流由正极到负极。 ｜ EN: I=Q/t (A), Q=It (C). Conventional current flows from the positive terminal to the negative terminal.",exam:"Q=It，时间用秒。 ｜ EN: Q=It, with time in seconds."},
+    {t:"欧姆定律 Ohm's Law",en:"R = V/I.",tech:"V(p.d.)是每单位电荷能量。R=V/I(Ω)。欧姆导体 I∝V。 ｜ EN: V (p.d.) is the energy per unit charge. R=V/I (Ω). For an ohmic conductor I∝V.",exam:"R=V/I。 ｜ EN: R=V/I."},
+    {t:"I–V 特性图 I–V Graphs",en:"Resistor vs lamp.",tech:"定值电阻直线；灯丝上凸(温度↑→R↑)；二极管单向。 ｜ EN: A fixed resistor gives a straight line; a filament lamp curves upward (temperature↑ → R↑); a diode conducts one way only.",exam:"灯丝随温度电阻增大。 ｜ EN: A filament's resistance increases with temperature."}
    ],
    examples:[
     {q:"A charge of 10 C flows past a point in 5.0 s. Find the current.",tier:2,
@@ -928,9 +928,9 @@ const MORE_TOPICS=[
    tips:{loves:"串联(电流同、电阻相加、电压按比例分)、并联(电压同、总电阻用倒数和)、组合电路求电流/电压、热敏(温度↑R↓)与光敏(光↑R↓)。O-Level 爱考串并联组合、传感电路，以及读电路图与电流表/电压表读数。",
      pitfalls:"①并联电阻要用倒数和(1/R=…)，不能直接相加；②串联各电阻电压不同(按阻值比例)；③以为并联总电阻大(其实小于任一支路)。"},
    concepts:[
-    {t:"串联 Series",en:"Same current, add R.",tech:"电流处处相同；电压相加；R=R₁+R₂+…。",exam:"串联电阻相加。"},
-    {t:"并联 Parallel",en:"Same V, add currents.",tech:"电压相同；电流相加；1/R=1/R₁+1/R₂+…(总电阻更小)。",exam:"倒数和。"},
-    {t:"传感器 Sensors",en:"Thermistor & LDR.",tech:"热敏电阻温度升高电阻减小；光敏电阻光强增大电阻减小；配分压器做温控/光控。",exam:"传感电路输出变化电压。"}
+    {t:"串联 Series",en:"Same current, add R.",tech:"电流处处相同；电压相加；R=R₁+R₂+…。 ｜ EN: The current is the same everywhere; voltages add; R=R₁+R₂+….",exam:"串联电阻相加。 ｜ EN: Resistances add in series."},
+    {t:"并联 Parallel",en:"Same V, add currents.",tech:"电压相同；电流相加；1/R=1/R₁+1/R₂+…(总电阻更小)。 ｜ EN: The voltage is the same; currents add; 1/R=1/R₁+1/R₂+… (the total resistance is smaller).",exam:"倒数和。 ｜ EN: Sum of reciprocals."},
+    {t:"传感器 Sensors",en:"Thermistor & LDR.",tech:"热敏电阻温度升高电阻减小；光敏电阻光强增大电阻减小；配分压器做温控/光控。 ｜ EN: A thermistor's resistance falls as temperature rises; an LDR's resistance falls as light intensity rises; combine with a potential divider for temperature/light control.",exam:"传感电路输出变化电压。 ｜ EN: A sensor circuit outputs a changing voltage."}
    ],
    examples:[
     {q:"A 3.0 Ω and a 6.0 Ω resistor are connected in series to an 18 V battery. Find the current.",tier:2,
@@ -975,9 +975,9 @@ const MORE_TOPICS=[
    tips:{loves:"P=VI 求功率或电流、E=Pt 与 kWh 电费、由 I=P/V 选保险丝、火线接保险丝与接地安全。O-Level 爱考电费计算与选保险丝。",
      pitfalls:"①算 kWh 时时间要用小时(分钟÷60)、功率用 kW；②保险丝选'略高于'工作电流的标准值(3/5/13 A)；③P=VI 与 E=Pt 混用。"},
    concepts:[
-    {t:"电功率 Power",en:"P = VI.",tech:"P=VI=I²R=V²/R(W)。E=Pt(J)。",exam:"选公式看已知量。"},
-    {t:"电能与电费 Energy & Cost",en:"kWh × price.",tech:"能量(kWh)=功率(kW)×时间(h)；电费=kWh×单价。",exam:"时间换小时。"},
-    {t:"用电安全 Safety",en:"Fuse, earth.",tech:"保险丝接火线，额定略高于正常电流。接地线保护金属外壳。双重绝缘。",exam:"由 I=P/V 选保险丝。"}
+    {t:"电功率 Power",en:"P = VI.",tech:"P=VI=I²R=V²/R(W)。E=Pt(J)。 ｜ EN: P=VI=I²R=V²/R (W). E=Pt (J).",exam:"选公式看已知量。 ｜ EN: Choose the formula based on the quantities given."},
+    {t:"电能与电费 Energy & Cost",en:"kWh × price.",tech:"能量(kWh)=功率(kW)×时间(h)；电费=kWh×单价。 ｜ EN: Energy (kWh) = power (kW) × time (h); cost = kWh × unit price.",exam:"时间换小时。 ｜ EN: Convert the time to hours."},
+    {t:"用电安全 Safety",en:"Fuse, earth.",tech:"保险丝接火线，额定略高于正常电流。接地线保护金属外壳。双重绝缘。 ｜ EN: The fuse is fitted in the live wire, rated slightly above the normal current. The earth wire protects a metal casing. Double insulation.",exam:"由 I=P/V 选保险丝。 ｜ EN: Use I=P/V to choose the fuse."}
    ],
    examples:[
     {q:"An appliance operates at 230 V and draws 2.0 A. Find its power.",tier:2,
@@ -1022,9 +1022,9 @@ const MORE_TOPICS=[
    tips:{loves:"同异名磁极、磁场线 N→S、增强电磁铁的方法、软铁做电磁铁芯/钢做永磁体、变压器电压比=匝数比、理想变压器功率守恒。O-Level 爱考电磁铁增强与变压器计算。",
      pitfalls:"①电磁铁芯要用'软铁'(易退磁)，不是钢；②磁场线方向体外由 N→S；③变压器公式 Vs/Vp=Ns/Np 上下配错。"},
    concepts:[
-    {t:"磁体与磁场 Magnets & Fields",en:"N to S; like repel.",tech:"磁场线由 N 出、进 S；同名相斥、异名相吸。软铁易磁化/退磁(电磁铁芯)；钢保持磁性(永磁体)。",exam:"磁场线体外 N→S。"},
-    {t:"电流的磁效应 Magnetic Effect",en:"Solenoid = magnet.",tech:"通电导线有磁场；螺线管似条形磁体。电磁铁随电流↑、匝数↑、加软铁芯而增强。",exam:"增强电磁铁方法必考。"},
-    {t:"电动机与电磁感应 Motor & Induction",en:"Force & induced e.m.f.",tech:"载流导线在磁场受力(电动机，左手定则)。磁通变化产生感应电动势(发电机、变压器)。理想变压器 Vs/Vp=Ns/Np。",exam:"变压器电压比=匝数比。"}
+    {t:"磁体与磁场 Magnets & Fields",en:"N to S; like repel.",tech:"磁场线由 N 出、进 S；同名相斥、异名相吸。软铁易磁化/退磁(电磁铁芯)；钢保持磁性(永磁体)。 ｜ EN: Magnetic field lines leave N and enter S; like poles repel, unlike poles attract. Soft iron is easily magnetised/demagnetised (electromagnet core); steel keeps its magnetism (permanent magnet).",exam:"磁场线体外 N→S。 ｜ EN: Outside the magnet the field lines go N→S."},
+    {t:"电流的磁效应 Magnetic Effect",en:"Solenoid = magnet.",tech:"通电导线有磁场；螺线管似条形磁体。电磁铁随电流↑、匝数↑、加软铁芯而增强。 ｜ EN: A current-carrying wire has a magnetic field; a solenoid behaves like a bar magnet. An electromagnet is strengthened by increasing the current, increasing the number of turns, and adding a soft-iron core.",exam:"增强电磁铁方法必考。 ｜ EN: Ways to strengthen an electromagnet are a must-know exam point."},
+    {t:"电动机与电磁感应 Motor & Induction",en:"Force & induced e.m.f.",tech:"载流导线在磁场受力(电动机，左手定则)。磁通变化产生感应电动势(发电机、变压器)。理想变压器 Vs/Vp=Ns/Np。 ｜ EN: A current-carrying wire in a magnetic field experiences a force (motor, left-hand rule). A changing magnetic flux induces an e.m.f. (generator, transformer). For an ideal transformer Vs/Vp=Ns/Np.",exam:"变压器电压比=匝数比。 ｜ EN: A transformer's voltage ratio = its turns ratio."}
    ],
    examples:[
     {q:"State two ways to increase the strength of an electromagnet.",tier:2,
