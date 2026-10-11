@@ -1327,10 +1327,23 @@ function tierBadge(t){
   const x=m[t]||m[2];
   return '<span class="tag" style="background:color-mix(in oklab,'+x[1]+' 14%,var(--panel));color:'+x[1]+';border:1px solid color-mix(in oklab,'+x[1]+' 30%,var(--line));margin-right:6px">'+x[0]+'</span>';
 }
+/* Deterministically shuffle each MCQ's options by id so the correct answer is NOT always A.
+   Pure & stable; render + grading both call this; notebook stores the original. */
+function mcqView(q){
+  const opts=q.options||[], n=opts.length;
+  if(n<2||typeof q.answer!=='number') return {options:opts, answer:q.answer};
+  const key=String(q.id||q.stem||''); let s=0x9E3779B9>>>0;
+  for(let i=0;i<key.length;i++){ s=Math.imul(s^key.charCodeAt(i),0x85EBCA6B)>>>0; }
+  const rand=()=>{ s=s+0x6D2B79F5|0; let t=Math.imul(s^s>>>15,1|s); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; };
+  const idx=[...Array(n).keys()];
+  for(let i=n-1;i>0;i--){ const j=Math.floor(rand()*(i+1)); const t=idx[i]; idx[i]=idx[j]; idx[j]=t; }
+  return {options:idx.map(k=>opts[k]), answer:idx.indexOf(q.answer)};
+}
 function mcqHTML(q,i,ns){
+  const v=mcqView(q);
   return '<div class="q" id="'+ns+'-'+q.id+'"><div class="stem"><span class="no">Q'+(i+1)+'</span>'+tierBadge(q.tier)+q.stem+'</div>'+
-   q.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
-   '<div class="expl" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>';
+   v.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+   '<div class="expl" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+v.answer)+'.</b> '+q.expl+'</div></div>';
 }
 function renderStructured(d){
   const box=document.getElementById('pr-structured');
@@ -1381,8 +1394,8 @@ function renderReview(){
       '最终答案：<input class="fin" id="revf-'+q.id+'" placeholder="填最终答案"><span class="mark" id="revm-'+q.id+'"></span>'+
       '<div class="expl" id="expl-rev-'+q.id+'"><b>标准答案：'+q.ans+'</b><div class="work" style="margin-top:6px">'+escapeHTML(q.model||'')+'</div></div></div>'
     : '<div class="q nb-item" id="rev-'+q.id+'"><div class="stem"><span class="no">复习</span>'+q.stem+' <span class="tag">已答对 '+(q.correctStreak||0)+'/2</span></div>'+
-      q.options.map((o,j)=>'<label class="opt"><input type="radio" name="rev-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
-      '<div class="expl" id="expl-rev-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+q.answer)+'.</b> '+q.expl+'</div></div>'
+      mcqView(q).options.map((o,j)=>'<label class="opt"><input type="radio" name="rev-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+      '<div class="expl" id="expl-rev-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+mcqView(q).answer)+'.</b> '+q.expl+'</div></div>'
   ).join('')+'<div class="btnrow"><button class="btn primary" id="gradeReview">批改复习题</button></div>';
   const b=document.getElementById('gradeReview'); if(b) b.onclick=gradeReview;
 }
@@ -1392,7 +1405,7 @@ function renderNotebook(){
   box.innerHTML=notebook.map(n=> '<div class="card nb-item '+(n.mastered?'mastered':'')+'"><div class="stem" style="font-weight:600">'+n.stem+'</div>'+
     (n.kind==='structured'
       ? '<div style="margin-top:6px;color:var(--good)"><b>标准答案：'+n.ans+'</b></div><div class="expl show"><div class="work">'+escapeHTML(n.model||'')+'</div></div>'
-      : '<div style="margin-top:6px;color:var(--good)"><b>正确答案 '+String.fromCharCode(65+n.answer)+'.</b> '+n.options[n.answer]+'</div><div class="expl show" style="margin-top:8px">'+n.expl+'</div>')+
+      : '<div style="margin-top:6px;color:var(--good)"><b>正确答案 '+String.fromCharCode(65+mcqView(n).answer)+'.</b> '+n.options[n.answer]+'</div><div class="expl show" style="margin-top:8px">'+n.expl+'</div>')+
     '<div class="nb-meta">专题：'+(n.topic||'—')+' · 第'+n.dayAdded+'天收录 · '+(n.mastered?'✅ 已掌握':'进度 '+(n.correctStreak||0)+'/2')+'</div></div>').join('');
 }
 function updateNbBadge(){ const n=notebook.filter(x=>!x.mastered).length, b=document.getElementById('nbBadge'); if(n>0){b.style.display='inline-block';b.textContent=n;}else{b.style.display='none';} }
@@ -1402,7 +1415,7 @@ function gradeMCQ(){
   const d=currentData(); let correct=0,total=(d.mcqs||[]).length;
   (d.mcqs||[]).forEach(q=>{ const chosen=document.querySelector('input[name="mcq-'+q.id+'"]:checked'); const wrap=document.getElementById('mcq-'+q.id);
     wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-mcq-'+q.id).classList.add('show');
-    const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct'); const val=chosen?+chosen.value:null; const ok=(val===q.answer);
+    const vA=mcqView(q).answer; const opts=wrap.querySelectorAll('.opt'); opts[vA].classList.add('correct'); const val=chosen?+chosen.value:null; const ok=(val===vA);
     if(ok)correct++; else{ if(val!=null)opts[val].classList.add('wrong'); addToNotebook(q);} logAttempt(state.current,q.id,q.topic,ok,'mcq'); });
   const sb=document.getElementById('mcqScore'); sb.classList.add('show'); sb.innerHTML='得分：'+correct+' / '+total+'　'+(correct===total?'🏆 满分！':'❗ 错题已加入错题本。');
   persistNotebook(); updateNbBadge(); renderNotebook();
@@ -1413,7 +1426,7 @@ function gradeReview(){
   due.forEach(q=>{ let ok=false;
     if(q.kind==='structured'){ const f=document.getElementById('revf-'+q.id); if(!f)return; const accepted=String(q.ans).split(';').map(normAns); const got=normAns(f.value); ok=accepted.some(a=>ansMatch(a,got));
       const m=document.getElementById('revm-'+q.id); m.textContent=ok?'✓':'✗'; m.className='mark '+(ok?'good':'bad'); document.getElementById('expl-rev-'+q.id).classList.add('show'); }
-    else{ const chosen=document.querySelector('input[name="rev-'+q.id+'"]:checked'); const wrap=document.getElementById('rev-'+q.id); if(!wrap)return; wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-rev-'+q.id).classList.add('show'); const opts=wrap.querySelectorAll('.opt'); opts[q.answer].classList.add('correct'); if(chosen){const v=+chosen.value; ok=(v===q.answer); if(!ok)opts[v].classList.add('wrong');} }
+    else{ const chosen=document.querySelector('input[name="rev-'+q.id+'"]:checked'); const wrap=document.getElementById('rev-'+q.id); if(!wrap)return; const va=mcqView(q).answer; wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-rev-'+q.id).classList.add('show'); const opts=wrap.querySelectorAll('.opt'); opts[va].classList.add('correct'); if(chosen){const v=+chosen.value; ok=(v===va); if(!ok)opts[v].classList.add('wrong');} }
     if(ok){ q.correctStreak=(q.correctStreak||0)+1; if(q.correctStreak>=2)q.mastered=true; } else { q.correctStreak=0; }
     logAttempt(state.current,q.id,q.topic,ok,'review');
   });
@@ -1558,7 +1571,7 @@ function openDiag(){
   document.getElementById('diagBody').innerHTML=MATH_DIAG.map((q,i)=>
     '<div class="q" data-mdg="'+i+'"><div class="stem"><span class="no">'+(i+1)+'</span>'+q.stem+
     ' <span class="tag" style="opacity:.7">'+q.topic+' · T'+q.tier+'</span></div>'+
-    q.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+'</div>').join('');
+    mcqView(q).options.map((o,j)=>'<label class="opt"><input type="radio" name="'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+'</div>').join('');
   document.getElementById('diagResult').innerHTML='';
   document.getElementById('submitDiag').style.display='';
   diagLeft=40*60; const c=document.getElementById('diagClock'); c.textContent='40:00'; c.style.color='var(--good)';
@@ -1572,7 +1585,7 @@ function doSubmitDiag(auto){
   if(diagTimer){clearInterval(diagTimer);diagTimer=null;}
   let score=0; const wrongTopics={}; const tierTot={1:0,2:0,3:0}, tierOk={1:0,2:0,3:0};
   MATH_DIAG.forEach(q=>{
-    const c=document.querySelector('input[name="'+q.id+'"]:checked'); const val=c?+c.value:null; const ok=(val===q.answer);
+    const c=document.querySelector('input[name="'+q.id+'"]:checked'); const val=c?+c.value:null; const ok=(val===mcqView(q).answer);
     tierTot[q.tier]++; if(ok){score++;tierOk[q.tier]++;}
     else{ wrongTopics[q.topic]=(wrongTopics[q.topic]||0)+1;
       if(!notebook.find(n=>n.id===q.id)) notebook.push({id:q.id,kind:'mcq',stem:q.stem,options:q.options,answer:q.answer,
