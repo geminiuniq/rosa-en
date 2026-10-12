@@ -1,0 +1,16 @@
+# Never let the browser serve a stale copy of the app HTML.
+# (A cached old page was uploading nothing to the cloud.)
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/math
+  Cache-Control: no-cache, no-store, must-revalidate
+/physics
+  Cache-Control: no-cache, no-store, must-revalidate
+/english
+  Cache-Control: no-cache, no-store, must-revalidate
+/index
+  Cache-Control: no-cache, no-store, must-revalidate
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate

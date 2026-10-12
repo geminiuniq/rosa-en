@@ -1602,8 +1602,14 @@ function doSubmitDiag(auto){
     tierAcc:{t1:tierPct(tierOk[1],tierTot[1]),t2:tierPct(tierOk[2],tierTot[2]),t3:tierPct(tierOk[3],tierTot[3])},date:todayStr()};
   LS.set('profile',profile); DB.post('diag',{student:STUDENT,subject:SUBJECT,profile}); persistNotebook(); updateNbBadge(); renderNotebook();
   document.getElementById('submitDiag').style.display='none';
+  if(SERVED) DB.flush();
+  const warnHTML = !SERVED
+    ? '<div class="mock-banner" style="margin-top:12px;font-size:14px">⚠️ <b>离线/本地文件模式:本次成绩没有上传到云端</b>,只存在这台设备。请用网址 https://rosa-olevel.pages.dev/physics 打开后重做。</div>'
+    : (outbox().length>0
+        ? '<div class="mock-banner" style="margin-top:12px;font-size:14px">⏳ <b>成绩正在上传</b>（还有 '+outbox().length+' 条待同步）。请确认顶部出现「✓ 已同步」后再关闭。</div>'
+        : '<div class="kpt" style="margin-top:12px;font-size:13px;color:var(--good)">✅ 本次摸底结果已上传云端,家长在任意设备用同一网址即可查看。</div>');
   const tagWeak = weak.length? weak.slice(0,6).map(w=>'<span class="tag tech" style="display:inline-block;margin:3px">'+w+'</span>').join('') : '<span style="color:var(--good)">无明显薄弱，基础扎实！</span>';
-  document.getElementById('diagResult').innerHTML=
+  document.getElementById('diagResult').innerHTML= warnHTML+
     '<div class="card kpt" style="margin-top:12px">'+
     '<div style="font-size:18px;font-weight:800">📋 你的摸底结果'+(auto?'（时间到自动交卷）':'')+'</div>'+
     '<div style="margin:8px 0">得分 <b>'+score+'/'+total+'</b>（'+pct+'%）· 当前水平约当 <b style="color:var(--brand)">'+lv.zh+'</b></div>'+
@@ -1650,9 +1656,10 @@ function renderDiagBanner(){
   if(!state.startDate) state.startDate=todayStr();
   persistState(); LS.set('notebook',notebook);
   const hint=document.getElementById('genHint');
-  if(DB.on) hint.innerHTML='🗄️ 已连接本地数据库 <b>SQLite</b>（subject=physics）· 内容与记录自动保存。';
-  else if(SERVED) hint.innerHTML='⚠️ 暂时连不上数据库，作答会先存本地，恢复后自动补写。';
-  else hint.innerHTML='💾 离线文件模式（数据存浏览器本地）。运行 <code>node server.js</code> 启用数据库。';
+  const HOST=location.host||'本地文件', BUILD='build 10-12b';
+  if(DB.on) hint.innerHTML='🗄️ <b style="color:var(--good)">已连接云数据库 · 作答自动上传</b>（'+HOST+' · '+BUILD+'）。';
+  else if(SERVED) hint.innerHTML='⚠️ 已打开网址,但<b style="color:var(--bad)">暂时连不上云数据库</b>——成绩会先排队、联网后自动补传（'+HOST+' · '+BUILD+'）。';
+  else hint.innerHTML='💾 <b style="color:var(--bad)">离线/本地文件模式:成绩不会上传!</b> 请改用网址 https://rosa-olevel.pages.dev/physics 打开（当前：'+HOST+'）。';
   render();
   if(SERVED){ DB.flush(); updateSyncBadge(); setInterval(()=>DB.flush(),15000); window.addEventListener('online',()=>DB.flush()); }
 })();
