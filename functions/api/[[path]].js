@@ -149,6 +149,25 @@ export async function onRequest(context) {
       return json({ ok: true });
     }
 
+    /* GET /api/answers?student=&subject=  -> submitted answers + verdicts (or {}) */
+    if (seg[0] === 'answers' && method === 'GET') {
+      const subject = q.get('subject') || '';
+      const r = await DB.prepare(
+        `SELECT data FROM answers_store WHERE student=? AND subject=?`
+      ).bind(student, subject).first();
+      return json(r && r.data ? JSON.parse(r.data) : {});
+    }
+
+    /* POST /api/answers {student, subject, data:{...}} — upsert the whole frozen answer set */
+    if (seg[0] === 'answers' && method === 'POST') {
+      const b = await request.json().catch(() => ({}));
+      await DB.prepare(
+        `INSERT INTO answers_store(student,subject,data,updated_at) VALUES(?,?,?,datetime('now'))
+         ON CONFLICT(student,subject) DO UPDATE SET data=excluded.data, updated_at=datetime('now')`
+      ).bind(b.student || 'default', b.subject || '', JSON.stringify(b.data || {})).run();
+      return json({ ok: true });
+    }
+
     /* POST /api/essay {student,day,text,words} */
     if (seg[0] === 'essay' && method === 'POST') {
       const b = await request.json().catch(() => ({}));

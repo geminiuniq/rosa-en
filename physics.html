@@ -1255,6 +1255,8 @@ const DB={
       if(Array.isArray(nb)) notebook=nb;
       const dg=await (await fetch('/api/diag?student='+STUDENT+'&subject='+SUBJECT)).json();
       if(dg&&typeof dg==='object') LS.set('profile',dg);
+      const an=await (await fetch('/api/answers?student='+STUDENT+'&subject='+SUBJECT)).json();
+      if(an&&typeof an==='object'&&Object.keys(an).length){ answers=an; LS.set('answers',answers); }
     }catch(e){ console.warn('pull failed',e); } },
   _req(p,body){ return fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>{ if(!r||!r.ok) throw new Error('HTTP '+(r&&r.status)); return r; }); },
   post(p,body){ if(!SERVED) return; queueWrite(p,body); this.flush(); },
@@ -1263,7 +1265,7 @@ const DB={
     finally{ this.flushing=false; updateSyncBadge(); } }
 };
 function outbox(){ return LS.get('outbox',[]); }
-function collapseKey(p,body){ if(p==='state')return'state'; if(p==='notebook')return'notebook'; if(p==='diag')return'diag'; if(p==='day')return'day:'+(body&&body.day); return null; }
+function collapseKey(p,body){ if(p==='state')return'state'; if(p==='notebook')return'notebook'; if(p==='diag')return'diag'; if(p==='answers')return'answers'; if(p==='day')return'day:'+(body&&body.day); return null; }
 function queueWrite(p,body){ let q=outbox(); const k=collapseKey(p,body); if(k) q=q.filter(it=>collapseKey(it.p,it.body)!==k); q.push({p,body}); if(q.length>800)q=q.slice(q.length-800); LS.set('outbox',q); updateSyncBadge(); }
 function updateSyncBadge(){ const el=document.getElementById('syncStatus'); if(!el)return; const n=outbox().length;
   if(!SERVED){el.textContent='';return;}
@@ -1272,6 +1274,14 @@ function updateSyncBadge(){ const el=document.getElementById('syncStatus'); if(!
 function persistState(){ LS.set('state',state); DB.post('state',{student:STUDENT,current:state.current,unlocked:state.unlocked,startDate:state.startDate}); }
 function persistDay(n){ LS.set('days',days); if(days[n]) DB.post('day',{subject:SUBJECT,day:+n,content:days[n]}); }
 function persistNotebook(){ LS.set('notebook',notebook); DB.post('notebook',{student:STUDENT,items:notebook}); }
+/* ---------- SUBMITTED ANSWERS (frozen once graded; only 「重置本天」 clears them) ---------- */
+let answers = LS.get('answers',{});
+function dayAns(n){ if(!answers[n]) answers[n]={mcq:{},str:{}}; if(!answers[n].mcq)answers[n].mcq={}; if(!answers[n].str)answers[n].str={}; return answers[n]; }
+function mcqAns(n){ return (answers[n]&&answers[n].mcq)||{}; }
+function strAns(n){ return (answers[n]&&answers[n].str)||{}; }
+function hasAnswers(n){ const a=answers[n]; return !!(a&&((a.mcq&&Object.keys(a.mcq).length)||(a.str&&Object.keys(a.str).length))); }
+function persistAnswers(){ LS.set('answers',answers); DB.post('answers',{student:STUDENT,subject:SUBJECT,data:answers}); }
+function clearDayAnswers(n){ delete answers[n]; persistAnswers(); }
 function logAttempt(day,id,topic,correct,kind){ DB.post('attempt',{student:STUDENT,day:day,qid:id,topic:topic||'',chosen:correct?1:0,correct:correct?1:0,kind:kind||'mcq'}); }
 
 /* ---------- STATE ---------- */
@@ -1322,7 +1332,12 @@ function renderExamples(d){
     (e.note?'<div style="margin-top:8px"><span class="tag tech">点拨</span>'+e.note+'</div>':'')+'</div></div>').join('');
   box.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>document.getElementById('exm-'+b.dataset.ex).classList.add('show'));
 }
-function renderMCQ(d){ document.getElementById('pr-mcq').innerHTML=(d.mcqs||[]).map((q,i)=>mcqHTML(q,i,'mcq')).join(''); }
+function renderMCQ(d){ document.getElementById('pr-mcq').innerHTML=(d.mcqs||[]).map((q,i)=>mcqHTML(q,i,'mcq')).join('');
+  const a=answers[state.current], sb=document.getElementById('mcqScore');
+  if(sb){ if(a&&a.score!=null){ sb.classList.add('show');
+      sb.innerHTML='得分：'+a.score+' / '+a.total+'　'+(a.score===a.total?'🏆 满分！':'❗ 错题已加入错题本。')+
+        ' <span style="color:var(--ink3);font-size:12px">（'+(a.ts||'')+' 已提交，内容已保存；要重做请点「♻️ 重置本天」）</span>'; }
+    else { sb.classList.remove('show'); sb.innerHTML=''; } } }
 function tierBadge(t){
   if(!t) return '';
   const m={1:['基础','#3d8a5f'],2:['O-Level','#584a86'],3:['拔高','#8a6317']};
@@ -1346,24 +1361,30 @@ function mcqView(q){
   for(let i=others.length-1;i>0;i--){ const j=Math.floor(rand()*(i+1)); const t=others[i]; others[i]=others[j]; others[j]=t; }
   const out=new Array(n); out[target]=q.answer; let k=0;
   for(let i=0;i<n;i++){ if(i!==target) out[i]=others[k++]; }
-  return {options:out.map(i=>opts[i]), answer:target};
+  return {options:out.map(i=>opts[i]), answer:target, map:out};
 }
 function mcqHTML(q,i,ns){
   const v=mcqView(q);
-  return '<div class="q" id="'+ns+'-'+q.id+'"><div class="stem"><span class="no">Q'+(i+1)+'</span>'+tierBadge(q.tier)+q.stem+'</div>'+
-   v.options.map((o,j)=>'<label class="opt"><input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"> '+String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
-   '<div class="expl" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+v.answer)+'.</b> '+q.expl+'</div></div>';
+  const sa=mcqAns(state.current)[q.id];
+  const picked = sa ? v.map.indexOf(sa.o) : -1;
+  const done = !!sa;
+  return '<div class="q" id="'+ns+'-'+q.id+'"><div class="stem"><span class="no">Q'+(i+1)+'</span>'+tierBadge(q.tier)+q.stem+
+   (done?' <span class="mark '+(sa.ok?'good':'bad')+'">'+(sa.ok?'✓ 已答对':'✗ 已答错')+'</span>':'')+'</div>'+
+   v.options.map((o,j)=>'<label class="opt'+(done?(j===v.answer?' correct':(j===picked?' wrong':'')):'')+'">'+
+     '<input type="radio" name="'+ns+'-'+q.id+'" value="'+j+'"'+(j===picked?' checked':'')+'> '+
+     String.fromCharCode(65+j)+'. '+o+'</label>').join('')+
+   '<div class="expl'+(done?' show':'')+'" id="expl-'+ns+'-'+q.id+'"><b>正确答案 '+String.fromCharCode(65+v.answer)+'.</b> '+q.expl+'</div></div>';
 }
 function renderStructured(d){
   const box=document.getElementById('pr-structured');
   box.innerHTML=(d.structured||[]).map((q,i)=>
     '<div class="q" id="st-'+q.id+'"><div class="stem"><span class="no">结 '+(i+1)+'</span>'+(q.challenge?'<span class="tag" style="background:color-mix(in oklab,var(--gold) 22%,var(--panel));color:#8a6317;border:1px solid color-mix(in oklab,var(--gold) 40%,var(--line));margin-right:6px">🎯 冲A拔高</span>':tierBadge(q.tier))+q.q+'</div>'+
-    '<textarea class="ans" id="stw-'+q.id+'" placeholder="写出你的解题步骤(working)…"></textarea>'+
-    (q.ans!==undefined?'<div style="margin-top:8px">最终答案：<input class="fin" id="stf-'+q.id+'" placeholder="如 x=3,y=2 / 6x-10"><span class="mark" id="stm-'+q.id+'"></span></div>':'')+
+    '<textarea class="ans" id="stw-'+q.id+'" placeholder="写出你的解题步骤(working)…">'+escapeHTML((strAns(state.current)[q.id]||{}).w||'')+'</textarea>'+
+    (q.ans!==undefined?'<div style="margin-top:8px">最终答案：<input class="fin" id="stf-'+q.id+'" placeholder="如 x=3,y=2 / 6x-10" value="'+escapeHTML((strAns(state.current)[q.id]||{}).v||'')+'"><span class="mark'+((strAns(state.current)[q.id])?(strAns(state.current)[q.id].ok?' good':' bad'):'')+'" id="stm-'+q.id+'">'+((strAns(state.current)[q.id])?(strAns(state.current)[q.id].ok?'✓ 正确':'✗ 待订正'):'')+'</span></div>':'')+
     '<div class="btnrow">'+(q.ans!==undefined?'<button class="btn primary mini" data-chk="'+q.id+'">自动判分</button>':'')+
      '<button class="btn ghost mini" data-sch="'+q.id+'">查看评分标准与解答</button>'+
      '<button class="btn gold mini" data-mk="'+q.id+'">🖊️ 请Claude批改</button></div>'+
-    '<div class="model" id="stmodel-'+q.id+'"><div class="mk">评分标准（满分 '+q.marks+'）</div><ul class="clean">'+
+    '<div class="model'+((strAns(state.current)[q.id])?' show':'')+'" id="stmodel-'+q.id+'"><div class="mk">评分标准（满分 '+q.marks+'）</div><ul class="clean">'+
       (q.scheme||[]).map(s=>'<li>'+s+'</li>').join('')+'</ul><div class="mk" style="margin-top:8px">标准解答</div><div class="work">'+escapeHTML(q.model||'')+'</div>'+
       (q.ans!==undefined?'<div style="margin-top:6px">最终答案：<span class="math">'+q.ans+'</span></div>':'')+'</div></div>').join('');
   box.querySelectorAll('[data-sch]').forEach(b=>b.onclick=()=>document.getElementById('stmodel-'+b.dataset.sch).classList.add('show'));
@@ -1394,6 +1415,8 @@ function checkStructured(d,id){
     persistNotebook(); updateNbBadge(); renderNotebook();
   }
   logAttempt(state.current,q.id,q.topic,ok,'structured');
+  const w=document.getElementById('stw-'+id);
+  dayAns(state.current).str[id]={v:val,w:(w?w.value:''),ok:ok?1:0}; persistAnswers();
 }
 function renderReview(){
   const due=notebook.filter(n=>!n.mastered).slice(0,4), box=document.getElementById('pr-review');
@@ -1425,8 +1448,11 @@ function gradeMCQ(){
   (d.mcqs||[]).forEach(q=>{ const chosen=document.querySelector('input[name="mcq-'+q.id+'"]:checked'); const wrap=document.getElementById('mcq-'+q.id);
     wrap.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','wrong')); document.getElementById('expl-mcq-'+q.id).classList.add('show');
     const vA=mcqView(q).answer; const opts=wrap.querySelectorAll('.opt'); opts[vA].classList.add('correct'); const val=chosen?+chosen.value:null; const ok=(val===vA);
-    if(ok)correct++; else{ if(val!=null)opts[val].classList.add('wrong'); addToNotebook(q);} logAttempt(state.current,q.id,q.topic,ok,'mcq'); });
+    if(ok)correct++; else{ if(val!=null)opts[val].classList.add('wrong'); addToNotebook(q);} logAttempt(state.current,q.id,q.topic,ok,'mcq');
+    const view=mcqView(q); dayAns(state.current).mcq[q.id]={o:(val==null?-1:view.map[val]), ok:ok?1:0};
+    wrap.querySelector('.stem').insertAdjacentHTML('beforeend',' <span class="mark '+(ok?'good':'bad')+'">'+(ok?'✓ 已答对':'✗ 已答错')+'</span>'); });
   const sb=document.getElementById('mcqScore'); sb.classList.add('show'); sb.innerHTML='得分：'+correct+' / '+total+'　'+(correct===total?'🏆 满分！':'❗ 错题已加入错题本。');
+  dayAns(state.current).score=correct; dayAns(state.current).total=total; dayAns(state.current).ts=todayStr(); persistAnswers();
   persistNotebook(); updateNbBadge(); renderNotebook();
 }
 function addToNotebook(q){ if(notebook.find(n=>n.id===q.id))return; notebook.push({id:q.id,kind:'mcq',stem:q.stem,options:q.options,answer:q.answer,expl:q.expl,topic:q.topic,correctStreak:0,mastered:false,dayAdded:state.current}); }
@@ -1532,7 +1558,7 @@ document.getElementById('importBtn').onclick=()=>{
   if(!raw.trim()){err.innerHTML='👆 请先把提示词发给 Claude，再把返回的 JSON 粘贴到上面。';err.style.display='block';return;}
   let obj; try{obj=JSON.parse(raw.trim().replace(/^```(json)?/i,'').replace(/```$/,'').trim());}catch(e){err.textContent='❌ JSON 解析失败：'+e.message;err.style.display='block';return;}
   if(!('day'in obj)||!obj.mcqs){err.textContent='❌ 缺少必要字段(day/mcqs)。';err.style.display='block';return;}
-  const dn=+obj.day||state.current+1; days[dn]=obj; persistDay(dn); state.current=dn; state.unlocked=Math.max(state.unlocked,dn); persistState();
+  const dn=+obj.day||state.current+1; days[dn]=obj; clearDayAnswers(dn); persistDay(dn); state.current=dn; state.unlocked=Math.max(state.unlocked,dn); persistState();
   ok.textContent='✅ 第 '+dn+' 天导入成功！'; ok.style.display='block'; setTimeout(()=>{modal.classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});},700);
 };
 
@@ -1658,8 +1684,9 @@ function renderDiagBanner(){
   // Day 1 is the fixed intro chapter (never student-generated), so always refresh its
   // content from the latest DAY1 — picks up new examples / practice / tips added by updates.
   // (Days 2+ stay frozen; student records live in notebook/attempts, not in the day object.)
-  days[1]=DAY1;
-  persistDay(1);                            // overwrite any stale day-1 copy saved in the DB
+  // …but once the student has submitted answers for day 1, it is FROZEN: updates must never
+  // change submitted content or verdicts (only 「重置本天」 does).
+  if(!hasAnswers(1)){ days[1]=DAY1; persistDay(1); }
   if(!state.startDate) state.startDate=todayStr();
   persistState(); LS.set('notebook',notebook);
   const hint=document.getElementById('genHint');

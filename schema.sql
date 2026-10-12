@@ -82,4 +82,13 @@ CREATE TABLE IF NOT EXISTS diag_result (
   PRIMARY KEY (student, subject)
 );
 
+-- Submitted answers + verdicts, frozen once graded (cleared only by 「重置本天」).
+CREATE TABLE IF NOT EXISTS answers_store (
+  student    TEXT NOT NULL,
+  subject    TEXT NOT NULL,
+  data       TEXT,                 -- JSON: {day:{mcq:{qid:{o,ok}},str:{qid:{v,w,ok}},score,total,ts}}
+  updated_at TEXT DEFAULT (datetime('now')),
+  PRIMARY KEY (student, subject)
+);
+
 INSERT OR IGNORE INTO student(id,name,start_date) VALUES('default','Student',date('now'));
