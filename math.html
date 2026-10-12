@@ -520,6 +520,8 @@ const DB={
       if(d&&typeof d==='object'){ for(const k in d) days[k]=d[k]; }
       const nb=await (await fetch('/api/notebook?student='+STUDENT)).json();
       if(Array.isArray(nb)) notebook=nb;
+      const dg=await (await fetch('/api/diag?student='+STUDENT+'&subject='+SUBJECT)).json();
+      if(dg&&typeof dg==='object') LS.set('profile',dg);
     }catch(e){ console.warn('pull failed',e); } },
   _req(p,body){ return fetch('/api/'+p,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}).then(r=>{ if(!r||!r.ok) throw new Error('HTTP '+(r&&r.status)); return r; }); },
   post(p,body){ if(!SERVED) return; queueWrite(p,body); this.flush(); },
@@ -528,7 +530,7 @@ const DB={
     finally{ this.flushing=false; updateSyncBadge(); } }
 };
 function outbox(){ return LS.get('outbox',[]); }
-function collapseKey(p,body){ if(p==='state')return'state'; if(p==='notebook')return'notebook'; if(p==='day')return'day:'+(body&&body.day); return null; }
+function collapseKey(p,body){ if(p==='state')return'state'; if(p==='notebook')return'notebook'; if(p==='diag')return'diag'; if(p==='day')return'day:'+(body&&body.day); return null; }
 function queueWrite(p,body){ let q=outbox(); const k=collapseKey(p,body); if(k) q=q.filter(it=>collapseKey(it.p,it.body)!==k); q.push({p,body}); if(q.length>800)q=q.slice(q.length-800); LS.set('outbox',q); updateSyncBadge(); }
 function updateSyncBadge(){ const el=document.getElementById('syncStatus'); if(!el)return; const n=outbox().length;
   if(!SERVED){el.textContent='';return;}
@@ -894,7 +896,7 @@ function doSubmitDiag(auto){
   const lv=diagLevel(pct);
   const profile={score,total,pct,level:lv.key,levelZh:lv.zh,weak,challengeFromDay:lv.from,
     tierAcc:{t1:tierPct(tierOk[1],tierTot[1]),t2:tierPct(tierOk[2],tierTot[2]),t3:tierPct(tierOk[3],tierTot[3])},date:todayStr()};
-  LS.set('profile',profile); persistNotebook(); updateNbBadge(); renderNotebook();
+  LS.set('profile',profile); DB.post('diag',{student:STUDENT,subject:SUBJECT,profile}); persistNotebook(); updateNbBadge(); renderNotebook();
   document.getElementById('submitDiag').style.display='none';
   const tagWeak = weak.length? weak.slice(0,6).map(w=>'<span class="tag tech" style="display:inline-block;margin:3px">'+w+'</span>').join('') : '<span style="color:var(--good)">无明显薄弱，基础扎实！</span>';
   document.getElementById('diagResult').innerHTML=

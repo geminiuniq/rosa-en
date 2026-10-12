@@ -118,6 +118,37 @@ export async function onRequest(context) {
       return json({ ok: true });
     }
 
+    /* GET /api/diag?student=&subject=  -> full placement-test profile JSON (or null) */
+    if (seg[0] === 'diag' && method === 'GET') {
+      const subject = q.get('subject') || '';
+      const r = await DB.prepare(
+        `SELECT profile FROM diag_result WHERE student=? AND subject=?`
+      ).bind(student, subject).first();
+      return json(r && r.profile ? JSON.parse(r.profile) : null);
+    }
+
+    /* POST /api/diag  {student, subject, profile:{...}}  — upsert the computed assessment */
+    if (seg[0] === 'diag' && method === 'POST') {
+      const b = await request.json().catch(() => ({}));
+      const p = b.profile || {};
+      await DB.prepare(
+        `INSERT INTO diag_result(student,subject,score,total,pct,level,level_zh,weak,tier_acc,challenge_from,taken_date,profile,updated_at)
+         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,datetime('now'))
+         ON CONFLICT(student,subject) DO UPDATE SET
+           score=excluded.score, total=excluded.total, pct=excluded.pct,
+           level=excluded.level, level_zh=excluded.level_zh, weak=excluded.weak,
+           tier_acc=excluded.tier_acc, challenge_from=excluded.challenge_from,
+           taken_date=excluded.taken_date, profile=excluded.profile, updated_at=datetime('now')`
+      ).bind(
+        b.student || 'default', b.subject || '',
+        p.score | 0, p.total | 0, p.pct | 0,
+        p.level || '', p.levelZh || '',
+        JSON.stringify(p.weak || []), JSON.stringify(p.tierAcc || {}),
+        p.challengeFromDay | 0, p.date || '', JSON.stringify(p)
+      ).run();
+      return json({ ok: true });
+    }
+
     /* POST /api/essay {student,day,text,words} */
     if (seg[0] === 'essay' && method === 'POST') {
       const b = await request.json().catch(() => ({}));

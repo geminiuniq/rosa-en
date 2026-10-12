@@ -64,4 +64,22 @@ CREATE TABLE IF NOT EXISTS vocab_mastered (
   PRIMARY KEY (student, word)
 );
 
+-- Placement-test (摸底考) computed assessment — one per student+subject, re-takeable (upsert).
+CREATE TABLE IF NOT EXISTS diag_result (
+  student        TEXT NOT NULL,
+  subject        TEXT NOT NULL,
+  score          INTEGER,
+  total          INTEGER,
+  pct            INTEGER,
+  level          TEXT,                 -- A1 / A2 / ...
+  level_zh       TEXT,
+  weak           TEXT,                 -- JSON array of weak topics
+  tier_acc       TEXT,                 -- JSON {t1,t2,t3} accuracy %
+  challenge_from INTEGER,              -- day from which 拔高题 kick in
+  taken_date     TEXT,
+  profile        TEXT,                 -- full profile JSON blob
+  updated_at     TEXT DEFAULT (datetime('now')),
+  PRIMARY KEY (student, subject)
+);
+
 INSERT OR IGNORE INTO student(id,name,start_date) VALUES('default','Student',date('now'));
